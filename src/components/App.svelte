@@ -7,7 +7,8 @@
 	// Import pages components
   import { onMount } from 'svelte';
   import cordovaApp from '../js/cordova-app';
-	import CollectionListView from '../views/CollectionListView.svelte';
+  import CollectionListView from '../views/CollectionListView.svelte';
+  import CategoryListView from '../views/CategoryListView.svelte';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
 
@@ -38,6 +39,14 @@
     routes: [
       {
         path: '/',
+        component: CollectionListView
+      },
+      {
+        path: '/collections/list',
+        component: CollectionListView
+      },
+      {
+        path: '/categories/list',
         component: CollectionListView
       }
     ]

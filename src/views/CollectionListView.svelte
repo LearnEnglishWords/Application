@@ -1,24 +1,23 @@
-<Page name="home">
+<Page name="CollectionList">
   <Navbar title="LearnEnglishWords">
-  <Subnavbar>
-    Vyberte kolekci slovicek:
-  </Subnavbar>
   </Navbar>
 
-
-  <List accordionList mediaList inset>
-    {#each collectionItems as {label, text, description, disabled}, id}
-      <ListItem accordionItem title="{label}" text="{text}">
-        <AccordionContent>
-          <Block>
-            <p>
-              {description}
-            </p>
-          </Block>
-        </AccordionContent>
-      </ListItem>
-    {/each}
-  </List>
+  <Block strong inset>
+    <BlockTitle medium>Vyberte kolekci slovicek:</BlockTitle>
+    <List accordionList mediaList inset>
+      {#each collectionItems as {label, text, description, disabled}, id}
+        <ListItem accordionItem title="{label}" text="{text}">
+          <AccordionContent>
+            <Block>
+              <p>
+                {description}
+              </p>
+            </Block>
+          </AccordionContent>
+        </ListItem>
+      {/each}
+    </List>
+  </Block>
 </Page>
 
 <script>
@@ -27,7 +26,6 @@
     AccordionContent, 
     Navbar,
     Subnavbar,
-    Link,
     List,
     ListItem,
     Block 
@@ -40,6 +38,3 @@
     {label: "Native", text: "(Learn 15000 words)", description: "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)", disabled: true}
   ];
 </script>
-
-<style>
-</style>
