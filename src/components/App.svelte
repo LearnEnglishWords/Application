@@ -42,12 +42,12 @@
         component: CollectionListView
       },
       {
-        path: '/collections/list',
+        path: '/CollectionList',
         component: CollectionListView
       },
       {
-        path: '/categories/list',
-        component: CollectionListView
+        path: '/CategoryList',
+        component: CategoryListView
       }
     ]
   };
