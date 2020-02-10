@@ -5,16 +5,18 @@
   <Block strong inset>
     <BlockTitle medium>Vyberte si kategorii:</BlockTitle>
     <List>
-      {#each categoryItems as {name, wordsNum}, id}
-        <ListItem text="" link="#">
-          <h3>{name}</h3>
-          <p>
-            <Chip text="{wordsNum}" color="red" />
-            <Chip text="0" color="orange" />      
-            <Chip text="0" color="green" />
-          </p>
-        </ListItem>
-      {/each}
+      {#if $collectionData !== 0}
+        {#each $collectionData as category, id}
+          <ListItem text="" link="#" on:click="{() => goToDetailView(category)}">
+            <h3>{category.name.slice(6,-5)}</h3>
+              <div class="number red">          
+                {category.readAsJSON().length}
+              </div>
+              <div class="number orange"> 0 </div>
+              <div class="number green"> 0 </div>
+          </ListItem>
+        {/each}
+      {/if}
     </List>
   </Block>
 </Page>
@@ -31,18 +33,19 @@
     List,
     ListItem
   } from 'framework7-svelte';
+  import { collectionData, categoryData } from '../js/store.js';
 
-  let categoryItems = [
-    {name: "Family", wordsNum: 30},
-    {name: "Colors", wordsNum: 20},
-    {name: "Numbers", wordsNum: 35},
-    {name: "Furniture", wordsNum: 70},
-    {name: "Food", wordsNum: 150},
-    {name: "Animals", wordsNum: 60},
-    {name: "Traveling", wordsNum: 300},
-    {name: "Health", wordsNum: 163},
-    {name: "Body", wordsNum: 30}
-  ];
+  function goToDetailView(category) {
+    alert(`Going to ${category}`);
+    categoryData.set(category)
+  }
 
 </script>
 
+<style>
+  .number {
+    font-size: 12pt;
+    background-color: coral;
+    padding: 3pt;
+  }
+</style>

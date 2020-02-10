@@ -13,7 +13,7 @@
                 {description}
               </p>
               {#if downloaded}
-                <Button fill href="/CategoryList" color="green">Continue</Button>
+                <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
               {:else}
                 <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
               {/if}
@@ -27,7 +27,7 @@
 
 <script>
   import { 
-    Page, 
+    f7, Page, 
     AccordionContent, 
     Navbar,
     List,
@@ -37,23 +37,39 @@
     Block 
   } from 'framework7-svelte';
 
+  import WordService from "../js/word-service.js";
+  import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
+  import { Device, Request, Utils } from 'framework7';
+  import { onMount } from 'svelte';
+
+  export let f7router;
+
   function downloadButton(id){
-    alert("Downloading..");
+    //alert("Downloading..");
+    Request.get('http://example.com/', {}, function (data) {
+      //alert(data);
+    });
     collectionItems[id].downloaded = true;
+  }
+
+  function continueButton(id){
+    var wordService = new WordService()
+    wordService.downloadBasicCollection();
+    f7router.navigate('/CategoryList')
   }
 
   const collectionItems = [
     {
       label: "Basic", 
       text: "(Learn 1000 words)", 
-      downloaded: true,
+      downloaded: false,
       description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni. ", 
       disabled: false
     },
     {
       label: "Standard",
       text: "(Learn 3000 words)", 
-      downloaded: true,
+      downloaded: false,
       description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět 90 % každodenní anglické konverzace, anglicky psaným novinám a časopisům.", 
       disabled: true
     },
