@@ -27,12 +27,20 @@ function readFile(fileEntry, callback) {
 }
 
 
+
+
+
 export default class Database {
   constructor() { 
     //this.write("my.csv", "name;surname;age\nmartin;jablecnik;26\ntomas;vopolka;23", () => {
     //});
   }
 
+  directory(path, success, error) {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+      fileSystem.root.getDirectory(path, { create: true });
+    }, () => console.log(evt.target.error.code)); 
+  }
 
   exists(path, success, error) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
@@ -55,6 +63,25 @@ export default class Database {
         function (fileEntry) {
           writeFile(fileEntry, data, callback);
       });
+    });
+  }
+
+  list_dir(directory_path) {
+    window.resolveLocalFileSystemURL(directory_path , function(dirEntry) {
+        var directoryReader = dirEntry.createReader();
+        //console.log(dirEntry);
+
+        // Get a list of all the entries in the directory
+        directoryReader.readEntries(
+          (entries) => {
+            var i;
+            for (i=0; i<entries.length; i++) {
+              alert(JSON.stringify(entries[i], null, 2));
+              //alert('En - ' + entries[i]);
+            }
+          },
+          () => alert("Failed to list directory contents: " + error)
+        );
     });
   }
 }
