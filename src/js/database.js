@@ -34,6 +34,11 @@ export default class Database {
   constructor() { 
     //this.write("my.csv", "name;surname;age\nmartin;jablecnik;26\ntomas;vopolka;23", () => {
     //});
+    //
+    //database.directory('newDir')
+    //database.write("newPersistentFile.txt", "ahoj ;)", () => console.log("zapsano"))
+    //database.exists(cordova.file.cacheDirectory+"/test/help", () => alert("existuje."), () => alert("neexistuje"))
+    //database.read(cordova.file.cacheDirectory+"/test/", (result) => alert("Result is: " + result))
   }
 
   directory(path, success, error) {
@@ -66,22 +71,20 @@ export default class Database {
     });
   }
 
-  list_dir(directory_path) {
+  list_dir(directory_path, callback) {
     window.resolveLocalFileSystemURL(directory_path , function(dirEntry) {
         var directoryReader = dirEntry.createReader();
-        //console.log(dirEntry);
 
         // Get a list of all the entries in the directory
-        directoryReader.readEntries(
-          (entries) => {
+        if (callback === undefined) {
+          callback = (entries) => {
             var i;
             for (i=0; i<entries.length; i++) {
               alert(JSON.stringify(entries[i], null, 2));
-              //alert('En - ' + entries[i]);
             }
-          },
-          () => alert("Failed to list directory contents: " + error)
-        );
+          }
+        }
+        directoryReader.readEntries(callback, () => alert("Failed to list directory contents: " + error));
     });
   }
 }

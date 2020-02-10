@@ -37,24 +37,35 @@
     Block 
   } from 'framework7-svelte';
 
-  import WordService from "../js/word-service.js";
   import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
+  import Database from '../js/database.js';
+  import { categoryData } from '../js/store.js';
 
   export let f7router;
+  let database = new Database();
 
   function downloadButton(id){
-    //alert("Downloading..");
-    Request.get('http://example.com/', {}, function (data) {
-      //alert(data);
+    downloader.init({folder: "basic", fileSystem: cordova.file.cacheDirectory, unzip: true});
+    downloader.get('https://drakeman.cz/english-words/collections/basic.zip');
+
+    document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
+      database.list_dir(
+        cordova.file.cacheDirectory+"/basic/words", 
+        (entries) => {
+          let categories = [];
+          for (var i=0; i<entries.length; i++) {
+            categories[i] = entries[i].name.slice(0,-5);
+          }
+          categoryData.set(categories.sort());
+        });
+
+      collectionItems[id].downloaded = true;
     });
-    collectionItems[id].downloaded = true;
   }
 
   function continueButton(id){
-    var wordService = new WordService()
-    wordService.downloadBasicCollection();
     f7router.navigate('/CategoryList')
   }
 

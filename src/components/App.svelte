@@ -12,13 +12,12 @@
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
 
-  console.log("Mounted ;)");
-
   onMount(() => {
     f7ready(() => {
       // Init cordova APIs (see cordova-app.js)
       if (Device.cordova) {
         cordovaApp.init(f7);
+
       }
       // Call F7 APIs here
     });
