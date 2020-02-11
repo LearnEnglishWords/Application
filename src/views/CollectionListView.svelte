@@ -67,6 +67,9 @@
 
   function continueButton(id){
     f7router.navigate('/CategoryList')
+    appStorage.getItem('message').then(function(message){
+        alert(message);
+    });
   }
 
   const collectionItems = [
