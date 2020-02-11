@@ -40,18 +40,18 @@
   import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
-  import Database from '../js/database.js';
+  import Storage from '../js/storage.js';
   import { categoryData } from '../js/store.js';
 
   export let f7router;
-  let database = new Database();
+  let storage = new Storage();
 
   function downloadButton(id){
     downloader.init({folder: "basic", fileSystem: cordova.file.cacheDirectory, unzip: true});
     downloader.get('https://drakeman.cz/english-words/collections/basic.zip');
 
     document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
-      database.list_dir(
+      storage.list_dir(
         cordova.file.cacheDirectory+"/basic/words", 
         (entries) => {
           let categories = [];

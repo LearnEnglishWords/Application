@@ -30,7 +30,7 @@ function readFile(fileEntry, callback) {
 
 
 
-export default class Database {
+export default class Storage {
   constructor() { 
     //this.write("my.csv", "name;surname;age\nmartin;jablecnik;26\ntomas;vopolka;23", () => {
     //});
