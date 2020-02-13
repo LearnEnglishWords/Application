@@ -14,22 +14,26 @@
   import localforage from "localforage";
   import cordovaSQLiteDriver from "localforage-cordovasqlitedriver";
 
-  import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
+  import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
 
 
-  addMessages('en', en);
+  export async function preload() {
+    addMessages('en', en);
+    // internationalization init:
+    init({
+      fallbackLocale: 'en',
+      initialLocale: getLocaleFromNavigator(),
+    })
+    return waitLocale()
+  }
+  preload();
 
   onMount(() => {
     f7ready(() => {
       // cordova app init:
       cordovaApp.init(f7);
 
-      // internationalization init:
-      init({
-        fallbackLocale: 'en',
-        initialLocale: getLocaleFromNavigator(),
-      })
 
       // localforage init:
       localforage.defineDriver(cordovaSQLiteDriver).then(function() {
@@ -51,9 +55,9 @@
       .then(function() {
         return appStorage.getItem('message');
       })
-      .then(function(message){
-        alert(message);
-      });
+      //.then(function(message){
+      //  alert(message);
+      //});
     });
   })
 
