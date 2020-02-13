@@ -29,6 +29,7 @@
     ListItem
   } from 'framework7-svelte';
   import { collectionData, categoryData } from '../js/store.js';
+  import { _ } from 'svelte-i18n';
 
   function goToDetailView(category) {
     alert(`Going to ${category}`);

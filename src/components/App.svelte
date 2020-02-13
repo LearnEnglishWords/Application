@@ -14,39 +14,50 @@
   import localforage from "localforage";
   import cordovaSQLiteDriver from "localforage-cordovasqlitedriver";
 
+  import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
+  import en from '../localization/en.json';
+
+
+  addMessages('en', en);
+
   onMount(() => {
     f7ready(() => {
-      // Init cordova APIs (see cordova-app.js)
-      if (Device.cordova) {
-        cordovaApp.init(f7);
+      // cordova app init:
+      cordovaApp.init(f7);
 
-        localforage.defineDriver(cordovaSQLiteDriver).then(function() {
-            window.appStorage = localforage.createInstance({
-                version: 1.0,
-                size: 8*1024*1024*50,
-                name: 'my-app-name',
-                storeName: 'setup',
-                driver: [
-                    cordovaSQLiteDriver._driver, // <-- prefer cordovaSQLiteDriver
-                    localforage.INDEXEDDB,
-                    localforage.WEBSQL,
-                    localforage.LOCALSTORAGE
-                ]
-            });
+      // internationalization init:
+      init({
+        fallbackLocale: 'en',
+        initialLocale: getLocaleFromNavigator(),
+      })
 
-            return appStorage.setItem('message', 'It worked!');
-        })
-        .then(function() {
-            return appStorage.getItem('message');
-        })
-        .then(function(message){
-            alert(message);
+      // localforage init:
+      localforage.defineDriver(cordovaSQLiteDriver).then(function() {
+        window.appStorage = localforage.createInstance({
+          version: 1.0,
+          size: 8*1024*1024*50,
+          name: 'my-app-name',
+          storeName: 'setup',
+          driver: [
+            cordovaSQLiteDriver._driver, // <-- prefer cordovaSQLiteDriver
+            localforage.INDEXEDDB,
+            localforage.WEBSQL,
+            localforage.LOCALSTORAGE
+          ]
         });
-      }
-      // Call F7 APIs here
+
+        return appStorage.setItem('message', 'It worked!');
+      })
+      .then(function() {
+        return appStorage.getItem('message');
+      })
+      .then(function(message){
+        alert(message);
+      });
     });
   })
 
+  // framework7 init:
   const f7params = {
     id: 'eu.learn.english.words',
     name: 'LearnEnglishWords',

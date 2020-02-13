@@ -74,6 +74,7 @@
     "localforage": "^1.7.3",
     "localforage-cordovasqlitedriver": "^1.8.0",
     "svelte": "^3.18.1",
+    "svelte-i18n": "^3.0.1",
     "template7": "^1.4.2"
   },
   "devDependencies": {

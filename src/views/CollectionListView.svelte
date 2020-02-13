@@ -2,6 +2,7 @@
   <Navbar title="LearnEnglishWords">
   </Navbar>
 
+                {$_('page_title')}
   <Block strong inset>
     <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
     <List accordionList mediaList inset>
@@ -42,6 +43,7 @@
   import { onMount } from 'svelte';
   import Storage from '../js/storage.js';
   import { categoryData } from '../js/store.js';
+  import { _ } from 'svelte-i18n';
 
   export let f7router;
   let storage = new Storage();
