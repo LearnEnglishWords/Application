@@ -1,6 +1,4 @@
 <Page name="CategoryDetail">
-  <Navbar title="LearnEnglishWords">
-  </Navbar>              
   <BlockTitle medium>Kategorie: {$categoryDetailData}</BlockTitle>
 
   <BlockTitle>Statistika:</BlockTitle>
@@ -58,7 +56,15 @@
       <Stepper round large fill value={30} min={10} max={100} step={10}></Stepper>
     </center>
   </Block>
-  <Button large fill>START</Button>
+  <Row>
+    <Col width="25">
+    </Col>
+    <Col width="50">
+      <Button large fill>START TRENINK</Button>
+    </Col>
+    <Col width="25">
+    </Col>
+  </Row>
 
 </Page>
 
