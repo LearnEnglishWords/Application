@@ -44,23 +44,26 @@
   <BlockTitle>Druh treninku:</BlockTitle>
   <Block>
     <List>
-      <ListItem radio title="Cteni" value="read" name="mode" checked></ListItem>
-      <ListItem radio title="Psani" value="write" name="mode"></ListItem>
-      <ListItem radio title="Poslech" value="listen" name="mode"></ListItem>
+      <ListItem radio title="Cteni" name="mode" on:change={() => trainingMode = "read"} checked></ListItem>
+      <ListItem radio title="Psani" name="mode" on:change={() => trainingMode = "write"}></ListItem>
+      <ListItem radio title="Poslech" name="mode" on:change={() => trainingMode = "listen"}></ListItem>
     </List>
   </Block>
 
   <BlockTitle>Pocet slov:</BlockTitle>
   <Block>
     <center>
-      <Stepper round large fill value={30} min={10} max={100} step={10}></Stepper>
+      <Stepper round large fill value={30} min={10} max={100} step={10}
+          on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+          on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+      ></Stepper>
     </center>
   </Block>
   <Row>
     <Col width="25">
     </Col>
     <Col width="50">
-      <Button large fill>START TRENINK</Button>
+      <Button large fill on:click={goToTrainingView}>START TRENINK</Button>
     </Col>
     <Col width="25">
     </Col>
@@ -78,12 +81,16 @@
     Row, Col,
     Button
   } from 'framework7-svelte';
-  import { categoryDetailData } from '../js/store.js';
+  import { categoryDetailData, trainingData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
-   
-  let wordsCount = 0;
-  function setWords(value) {
-    wordsCount = value;
+
+  export let f7router;
+  let wordsLimit = 30;
+  let trainingMode = "read";
+
+  function goToTrainingView(category) {
+    trainingData.set({ mode: trainingMode, limit: wordsLimit, words: null });
+    f7router.navigate('/Training');
   }
 
 </script>

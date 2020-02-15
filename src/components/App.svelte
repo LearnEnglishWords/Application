@@ -10,6 +10,7 @@
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
+  import TrainingView from '../views/TrainingView.svelte';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import localforage from "localforage";
@@ -91,6 +92,10 @@
       {
         path: '/CategoryDetail',
         component: CategoryDetailView
+      },
+      {
+        path: '/Training',
+        component: TrainingView
       }
     ]
   };
