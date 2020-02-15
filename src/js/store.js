@@ -14,5 +14,6 @@ function createTrainingData() {
 export const trainingData = createTrainingData();
 export const collectionData = writable(0);
 export const categoryData = writable(0);
+export const categoryDetailData = writable(0);
 export const settingsData = writable(0);
 export const statisticsData = writable(0);

@@ -28,12 +28,14 @@
     List,
     ListItem
   } from 'framework7-svelte';
-  import { collectionData, categoryData } from '../js/store.js';
+  import { categoryData, categoryDetailData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
+  export let f7router;
+
   function goToDetailView(category) {
-    alert(`Going to ${category}`);
-    categoryData.set(category)
+    categoryDetailData.set(category);
+    f7router.navigate('/CategoryDetail');
   }
 
 </script>

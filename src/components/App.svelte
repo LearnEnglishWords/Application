@@ -1,7 +1,7 @@
 <!-- App.svelte -->
 <App params={f7params}>
     <!-- Current View/Router, initial page will be loaded from home.svelte component -->
-      <View main url="/" />
+    <View main url="/" />
 </App>
 <script>
 	// Import pages components
@@ -9,6 +9,7 @@
   import cordovaApp from '../js/cordova-app';
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
+  import CategoryDetailView from '../views/CategoryDetailView.svelte';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import localforage from "localforage";
@@ -86,6 +87,10 @@
       {
         path: '/CategoryList',
         component: CategoryListView
+      },
+      {
+        path: '/CategoryDetail',
+        component: CategoryDetailView
       }
     ]
   };

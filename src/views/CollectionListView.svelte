@@ -28,7 +28,7 @@
 
 <script>
   import { 
-    f7, Page, 
+    Page, 
     AccordionContent, 
     Navbar,
     List,
@@ -68,10 +68,10 @@
   }
 
   function continueButton(id){
-    f7router.navigate('/CategoryList')
-    appStorage.getItem('message').then(function(message){
-        alert(message);
-    });
+    f7router.navigate('/CategoryList');
+    //appStorage.getItem('message').then(function(message){
+    //    alert(message);
+    //});
   }
 
   const collectionItems = [
