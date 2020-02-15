@@ -64,6 +64,7 @@
         });
 
       collectionItems[id].downloaded = true;
+      f7router.navigate('/CategoryList');
     });
   }
 
