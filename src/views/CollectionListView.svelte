@@ -16,7 +16,10 @@
               {#if downloaded}
                 <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
               {:else}
-                <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
+                <p id="demo-determinate-container-{id}"></p>
+                <p>
+                  <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
+                </p>
               {/if}
             </Block>
           </AccordionContent>
@@ -28,14 +31,11 @@
 
 <script>
   import { 
-    Page, 
+    f7, Page, 
     AccordionContent, 
-    Navbar,
-    List,
-    ListItem,
-    BlockTitle,
-    Button,
-    Block 
+    Navbar, Button,
+    List, ListItem,
+    BlockTitle, Block, 
   } from 'framework7-svelte';
 
   import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
@@ -47,21 +47,25 @@
 
   export let f7router;
   let collection = new Collection();
+  let downLoading = false;
 
   function downloadButton(id){
-    var counter = 0; 
+    if (downLoading) return;
+    downLoading = true;
+    let progressBarEl = f7.progressbar.show(`#demo-determinate-container-${id}`, 0, 'orange');
+    let counter = 0; 
     collectionData.set({name: "basic"});
     collection.download($collectionData.name, () => {
       collection.getCategories($collectionData.name, (categories) => {
         categoryData.set(categories);
-        if(counter === $categoryData.length) {
-          collectionItems[id].downloaded = true;
-        }
       });
     }, () => {
       counter += 1;
+      f7.progressbar.set(progressBarEl, $categoryData.length*counter);
       if(counter === $categoryData.length) {
+        f7.progressbar.hide(progressBarEl); 
         collectionItems[id].downloaded = true;
+        downLoading = false;
       }
     });
   }
@@ -74,9 +78,6 @@
 
   function continueButton(id){
     f7router.navigate('/CategoryList');
-    //appStorage.getItem('collection:basic:category:list').then(function(message){
-    //    alert(message);
-    //});
   }
 
   const collectionItems = [
