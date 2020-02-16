@@ -1,10 +1,11 @@
 <Page name="CategoryDetail">
   <Navbar title="LearnEnglishWords">
+    <Subnavbar title="Kategorie: {$categoryDetailData}">       
+    </Subnavbar>
   </Navbar>              
-  <BlockTitle medium>Kategorie: {$categoryDetailData}</BlockTitle>
 
+  <Block inset>
   <BlockTitle>Statistika:</BlockTitle>
-  <Block strong>
     <Row>
       <Col class="text-align-center">
         <Gauge
@@ -43,29 +44,36 @@
   </Block>
 
 
-  <BlockTitle>Druh treninku:</BlockTitle>
   <List accordionList inset>
-    <ListItem accordionItem title="Vyberte druh cviceni:">
+    <ListItem accordionItem header="Druh cviceni:" title="{trainingModes[trainingModeIndex].title}">
       <AccordionContent>
         <List>
-          <ListItem radio title="Cteni" name="mode" on:change={() => trainingMode = "read"} checked></ListItem>
-          <ListItem radio title="Psani" name="mode" on:change={() => trainingMode = "write"}></ListItem>
-          <ListItem radio title="Poslech" name="mode" on:change={() => trainingMode = "listen"}></ListItem>
+          {#each trainingModes as {title, value, checked}, id}
+            <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}></ListItem>
+          {/each}
         </List>
       </AccordionContent>
     </ListItem>
   </List>
 
-
-  <BlockTitle>Pocet slov:</BlockTitle>
-  <Block>
-    <center>
-      <Stepper round large fill value={30} min={10} max={100} step={10}
-          on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-          on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-      ></Stepper>
-    </center>
+  <Block inset>
+  <List>
+    <ListItemRow>
+      <ListItemCell>
+        <block inset>
+          Pocet slov:
+        </block>
+      </ListItemCell>
+      <ListItemCell>
+        <Stepper round fill value={30} min={10} max={100} step={10}
+            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+        ></Stepper>
+      </ListItemCell>
+    </ListItemRow>
+  </List>
   </Block>
+
 
   <Block inset>
     <Row tag="p">
@@ -87,7 +95,7 @@
     Page, 
     Navbar, Subnavbar,
     BlockTitle, Block,
-    List, ListItem, 
+    List, ListItem, ListItemRow, ListItemCell,
     AccordionContent,
     Stepper, Gauge,
     Row, Col, Button
@@ -97,10 +105,15 @@
 
   export let f7router;
   let wordsLimit = 30;
-  let trainingMode = "read";
+  let trainingModeIndex = 0;
+  let trainingModes = [
+    { title: "Cteni", value: "read", checked: true},
+    { title: "Psani", value: "write", checked: false},
+    { title: "Poslech", value: "listen", checked: false}
+  ]; 
 
   function goToTrainingView(category) {
-    trainingData.set({ mode: trainingMode, limit: wordsLimit, words: null });
+    trainingData.set({ mode: trainingModes[trainingModeIndex].value, limit: wordsLimit, words: null });
     f7router.navigate('/Training');
   }
 
