@@ -6,22 +6,22 @@ export default class Collection {
     this.storage = new Storage();
   }
 
-  download(collectionName, success, error) {
-    downloader.init({folder: collectionName, fileSystem: cordova.file.cacheDirectory, unzip: true});
-    downloader.get(`https://drakeman.cz/english-words/collections/${collectionName}.zip`);
+  download(collectionId, success, error) {
+    downloader.init({folder: collectionId, fileSystem: cordova.file.cacheDirectory, unzip: true});
+    downloader.get(`https://drakeman.cz/english-words/collections/${collectionId}.zip`);
 
     document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
-      this.loadCategories(collectionName, (categories) => {
-        this.saveCategories(collectionName, categories).then(() => {
+      this.loadCategories(collectionId, (categories) => {
+        this.saveCategories(collectionId, categories).then(() => {
           success();
         });
       });
     });
   }
 
-  loadCategories(collectionName, success, error) {
+  loadCategories(collectionId, success, error) {
     this.storage.list_dir(
-      `${cordova.file.cacheDirectory}/${collectionName}/words`, 
+      `${cordova.file.cacheDirectory}/${collectionId}/words`, 
       (entries) => {
         let categories = [];
         for (var i=0; i<entries.length; i++) {
@@ -32,15 +32,13 @@ export default class Collection {
     );
   }
 
-  saveCategories(collectionName, categories) {
-    return appStorage.setItem(`collection:${collectionName}:category:list`, categories);
+  saveCategories(collectionId, categories) {
+    return appStorage.setItem(`collection:${collectionId}:category:list`, categories);
   }
 
-  getCategories(collectionName, callback){
-    return appStorage.getItem(`collection:${collectionName}:category:list`).then((data) => {
+  getCategories(collectionId, callback){
+    return appStorage.getItem(`collection:${collectionId}:category:list`).then((data) => {
       callback(data);
     });
   }
-
-
 }
