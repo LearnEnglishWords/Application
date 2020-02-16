@@ -31,7 +31,8 @@ function readFile(fileEntry, callback) {
 
 
 export default class Storage {
-  constructor() { 
+  constructor(fileSystem) { 
+    this.localFileSystem = fileSystem;
     //this.write("my.csv", "name;surname;age\nmartin;jablecnik;26\ntomas;vopolka;23", () => {
     //});
     //
@@ -42,19 +43,19 @@ export default class Storage {
   }
 
   directory(path, success, error) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+    window.requestFileSystem(this.localFileSystem, 0, function(fileSystem){
       fileSystem.root.getDirectory(path, { create: true });
     }, () => console.log(evt.target.error.code)); 
   }
 
   exists(path, success, error) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+    window.requestFileSystem(this.localFileSystem, 0, function(fileSystem){
       fileSystem.root.getFile(path, { create: false }, success, error);
     }, () => console.log(evt.target.error.code)); 
   }
 
   read(file, callback) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+    window.requestFileSystem(this.localFileSystem, 0, function (fs) {
       fs.root.getFile(file, { create: true, exclusive: false }, 
         function (fileEntry) {
           readFile(fileEntry, callback);
@@ -63,7 +64,7 @@ export default class Storage {
   }
 
   write(file, data, callback) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+    window.requestFileSystem(this.LocalFileSystem, 0, function (fs) {
       fs.root.getFile(file, { create: true, exclusive: false }, 
         function (fileEntry) {
           writeFile(fileEntry, data, callback);

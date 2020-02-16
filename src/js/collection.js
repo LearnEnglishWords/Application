@@ -3,11 +3,12 @@ import Storage from './storage.js';
 
 export default class Collection {
   constructor() { 
-    this.storage = new Storage();
+    this.storage = new Storage(LocalFileSystem.TEMPORARY);
+    this.rootDirectory = cordova.file.cacheDirectory;
   }
 
-  download(collectionId, success, error) {
-    downloader.init({folder: collectionId, fileSystem: cordova.file.cacheDirectory, unzip: true});
+  download(collectionId, success, progress) {
+    downloader.init({folder: collectionId, fileSystem: this.rootDirectory, unzip: true});
     downloader.get(`https://drakeman.cz/english-words/collections/${collectionId}.zip`);
 
     document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
@@ -15,13 +16,20 @@ export default class Collection {
         this.saveCategories(collectionId, categories).then(() => {
           success();
         });
+        for (let categoryId of categories) {
+          this.loadWords(collectionId, categoryId, (words) => {
+            this.saveWords(collectionId, categoryId, words).then(() => {
+              progress();
+            });
+          });
+        }
       });
     });
   }
 
   loadCategories(collectionId, success, error) {
     this.storage.list_dir(
-      `${cordova.file.cacheDirectory}/${collectionId}/words`, 
+      `${this.rootDirectory}/${collectionId}/words`, 
       (entries) => {
         let categories = [];
         for (var i=0; i<entries.length; i++) {
@@ -37,7 +45,24 @@ export default class Collection {
   }
 
   getCategories(collectionId, callback){
-    return appStorage.getItem(`collection:${collectionId}:category:list`).then((data) => {
+    appStorage.getItem(`collection:${collectionId}:category:list`).then((data) => {
+      callback(data);
+    });
+  }
+
+
+  loadWords(collectionId, categoryId, success, error) {
+    this.storage.read(`/${collectionId}/words/${categoryId}.json`, (result) => {
+      success(result);
+    });
+  }
+
+  saveWords(collectionId, categoryId, words) {
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:list`, words);
+  }
+
+  getWords(collectionId, categoryId, callback){
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:list`).then((data) => {
       callback(data);
     });
   }

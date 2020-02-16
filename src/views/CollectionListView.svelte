@@ -49,13 +49,27 @@
   let collection = new Collection();
 
   function downloadButton(id){
+    var counter = 0; 
     collectionData.set({name: "basic"});
     collection.download($collectionData.name, () => {
       collection.getCategories($collectionData.name, (categories) => {
         categoryData.set(categories);
-        collectionItems[id].downloaded = true;
+        if(counter === $categoryData.length) {
+          collectionItems[id].downloaded = true;
+        }
       });
+    }, () => {
+      counter += 1;
+      if(counter === $categoryData.length) {
+        collectionItems[id].downloaded = true;
+      }
     });
+  }
+
+  function setAsDownloaded(counter) {
+      if(counter === $categoryData.length) {
+        collectionItems[id].downloaded = true;
+      }
   }
 
   function continueButton(id){
