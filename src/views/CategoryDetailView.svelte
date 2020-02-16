@@ -76,10 +76,17 @@
   <Block inset>
     <Row>
       <Col>
-        <Button large outline>START TRENINK</Button>
+        <Button large raised>Zobrazit seznam vsech slov</Button>
+      </Col>
+    </Row>
+  </Block>
+  <Block inset>
+    <Row>
+      <Col>
+        <Button large outline on:click={goToTrainingView}>START TRENINK</Button>
       </Col>
       <Col>
-        <Button large fill>START TESTING</Button>
+        <Button large fill on:click={goToTrainingView}>START TESTING</Button>
       </Col>
     </Row>
   </Block>
