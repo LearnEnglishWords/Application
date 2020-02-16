@@ -41,36 +41,26 @@
   import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
-  import Storage from '../js/storage.js';
-  import { categoryData } from '../js/store.js';
+  import Collection from '../js/collection.js';
+  import { collectionData, categoryData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  let storage = new Storage();
+  let collection = new Collection();
 
   function downloadButton(id){
-    downloader.init({folder: "basic", fileSystem: cordova.file.cacheDirectory, unzip: true});
-    downloader.get('https://drakeman.cz/english-words/collections/basic.zip');
-
-    document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
-      storage.list_dir(
-        cordova.file.cacheDirectory+"/basic/words", 
-        (entries) => {
-          let categories = [];
-          for (var i=0; i<entries.length; i++) {
-            categories[i] = entries[i].name.slice(0,-5);
-          }
-          categoryData.set(categories.sort());
-        });
-
-      collectionItems[id].downloaded = true;
-      f7router.navigate('/CategoryList');
+    collectionData.set({name: "basic"});
+    collection.download($collectionData.name, () => {
+      collection.getCategories($collectionData.name, (categories) => {
+        categoryData.set(categories);
+        collectionItems[id].downloaded = true;
+      });
     });
   }
 
   function continueButton(id){
     f7router.navigate('/CategoryList');
-    //appStorage.getItem('message').then(function(message){
+    //appStorage.getItem('collection:basic:category:list').then(function(message){
     //    alert(message);
     //});
   }
