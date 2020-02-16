@@ -57,32 +57,28 @@
   </List>
 
   <Block inset>
-  <List>
-    <ListItemRow>
-      <ListItemCell>
-        <block inset>
+    <Row>
+      <Col>
+        <block>
           Pocet slov:
         </block>
-      </ListItemCell>
-      <ListItemCell>
+      </Col>
+      <Col>
         <Stepper round fill value={30} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
         ></Stepper>
-      </ListItemCell>
-    </ListItemRow>
-  </List>
+      </Col>
+    </Row>
   </Block>
 
 
   <Block inset>
-    <Row tag="p">
-      <Col tag="span">
+    <Row>
+      <Col>
         <Button large outline>START TRENINK</Button>
       </Col>
-    </Row>
-    <Row tag="p">
-      <Col tag="span">
+      <Col>
         <Button large fill>START TESTING</Button>
       </Col>
     </Row>
@@ -95,7 +91,7 @@
     Page, 
     Navbar, Subnavbar,
     BlockTitle, Block,
-    List, ListItem, ListItemRow, ListItemCell,
+    List, ListItem,
     AccordionContent,
     Stepper, Gauge,
     Row, Col, Button
