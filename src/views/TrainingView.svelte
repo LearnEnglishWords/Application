@@ -9,26 +9,32 @@
     <Link on:click={nextWord}>Next word</Link>
   </Toolbar>
 
-  <Swiper init params={{speed: 0, allowTouchMove: false, loop: true, followFinger: false}}>
-    {#each words as {text, pronunciation, sense}, id}
+  <Swiper init navigation params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
+    {#each $trainingData.words as word, id}
       <SwiperSlide>
         <Block>
           <center>
 
-            <BlockTitle large >{text}</BlockTitle>
+            <BlockTitle large>{word.text}</BlockTitle>
             <Block>
-              <BlockHeader>[ {pronunciation} ]  &#x1F509;</BlockHeader>
+              <BlockHeader>[ {word.pronunciation} ]  &#x1F509;</BlockHeader>
             </Block>
 
-            <BlockTitle >Vyznamy:</BlockTitle>
-            <Block inset>
-              <List>
-                {#each sense as sense}
-                  <ListItem link="#" sheetOpen=".example-sheet"> {sense} </ListItem>
-                {/each}
-              </List>
+            <Block>
+              <Row>
+                <Col width="20">
+                </Col>
+                <Col width="60">
+                  <List>
+                    {#each word.sense as sense}
+                      <ListItem link="#" sheetOpen=".example-sheet"> {sense} </ListItem>
+                    {/each}
+                  </List>
+                </Col>
+                <Col width="20">
+                </Col>
+              </Row>
             </Block>
-
 
             <Sheet class="example-sheet" opened={sheetOpened} onSheetClosed={() => sheetOpened = false}>
               <Toolbar>
@@ -80,17 +86,11 @@
     List, ListItem, AccordionContent,
     Row, Col, Button, Link,
     Sheet, Toolbar
-    } from 'framework7-svelte';
+  } from 'framework7-svelte';
   import { trainingData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   let sheetOpened = false;
-
-  export const words = [
-    {text: "test1", pronunciation: "rudl", sense: ["test1", "test2"]},
-    {text: "test2", pronunciation: "rudl", sense: ["test4", "test5", "test6"]},
-    {text: "test3", pronunciation: "rudl", sense: ["test7", "test8"]}
-  ]
 
   function nextWord() {
     let swiper = f7.swiper.get('.swiper-container')

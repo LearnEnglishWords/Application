@@ -54,7 +54,7 @@
     downLoading = true;
     let progressBarEl = f7.progressbar.show(`#demo-determinate-container-${id}`, 0, 'orange');
     let counter = 0; 
-    collectionData.set({name: "basic"});
+    collectionData.set({name: "basic", id: "basic"});
     collection.download($collectionData.name, () => {
       collection.getCategories($collectionData.name, (categories) => {
         categoryData.set(categories);

@@ -1,6 +1,6 @@
 <Page name="CategoryDetail">
   <Navbar title="LearnEnglishWords">
-    <Subnavbar title="Kategorie: {$categoryDetailData}">       
+    <Subnavbar title="Kategorie: {$categoryDetailData.name}">       
     </Subnavbar>
   </Navbar>              
 
@@ -103,8 +103,11 @@
     Stepper, Gauge,
     Row, Col, Button
   } from 'framework7-svelte';
-  import { categoryDetailData, trainingData } from '../js/store.js';
+  import { collectionData, categoryDetailData, trainingData } from '../js/store.js';
+  import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
+
+  let collection = new Collection();
 
   export let f7router;
   let wordsLimit = 30;
@@ -115,9 +118,14 @@
     { title: "Poslech", value: "listen", checked: false}
   ]; 
 
-  function goToTrainingView(category) {
-    trainingData.set({ mode: trainingModes[trainingModeIndex].value, limit: wordsLimit, words: null });
-    f7router.navigate('/Training');
+  function goToTrainingView() {
+    collection.getWords($collectionData.id, $categoryDetailData.id, (words) => {
+      trainingData.set({ 
+        mode: trainingModes[trainingModeIndex].value, 
+        words: words.slice(0, wordsLimit-1)
+      });
+      f7router.navigate('/Training');
+    });
   }
 
 </script>

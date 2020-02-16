@@ -18,7 +18,7 @@ export default class Collection {
         });
         for (let categoryId of categories) {
           this.loadWords(collectionId, categoryId, (words) => {
-            this.saveWords(collectionId, categoryId, words).then(() => {
+            this.saveWords(collectionId, categoryId, JSON.parse(words)).then(() => {
               progress();
             });
           });
@@ -44,7 +44,7 @@ export default class Collection {
     return appStorage.setItem(`collection:${collectionId}:category:list`, categories);
   }
 
-  getCategories(collectionId, callback){
+  getCategories(collectionId, callback) {
     appStorage.getItem(`collection:${collectionId}:category:list`).then((data) => {
       callback(data);
     });
@@ -61,7 +61,7 @@ export default class Collection {
     return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:list`, words);
   }
 
-  getWords(collectionId, categoryId, callback){
+  getWords(collectionId, categoryId, callback) {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:list`).then((data) => {
       callback(data);
     });

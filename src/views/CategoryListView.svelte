@@ -18,15 +18,11 @@
 
 <script>
   import { 
-    Page, 
+    Page, Link,
     Chip, 
-    Block, 
-    BlockTitle, 
-    Navbar,
-    Subnavbar,
-    Link,
-    List,
-    ListItem
+    Block, BlockTitle, 
+    Navbar, Subnavbar,
+    List, ListItem
   } from 'framework7-svelte';
   import { categoryData, categoryDetailData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
@@ -34,7 +30,7 @@
   export let f7router;
 
   function goToDetailView(category) {
-    categoryDetailData.set(category);
+    categoryDetailData.set({name: category, id: category});
     f7router.navigate('/CategoryDetail');
   }
 
