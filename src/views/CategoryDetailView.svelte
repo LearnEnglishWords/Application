@@ -1,4 +1,6 @@
 <Page name="CategoryDetail">
+  <Navbar title="LearnEnglishWords">
+  </Navbar>              
   <BlockTitle medium>Kategorie: {$categoryDetailData}</BlockTitle>
 
   <BlockTitle>Statistika:</BlockTitle>
@@ -42,13 +44,18 @@
 
 
   <BlockTitle>Druh treninku:</BlockTitle>
-  <Block>
-    <List>
-      <ListItem radio title="Cteni" name="mode" on:change={() => trainingMode = "read"} checked></ListItem>
-      <ListItem radio title="Psani" name="mode" on:change={() => trainingMode = "write"}></ListItem>
-      <ListItem radio title="Poslech" name="mode" on:change={() => trainingMode = "listen"}></ListItem>
-    </List>
-  </Block>
+  <List accordionList inset>
+    <ListItem accordionItem title="Vyberte druh cviceni:">
+      <AccordionContent>
+        <List>
+          <ListItem radio title="Cteni" name="mode" on:change={() => trainingMode = "read"} checked></ListItem>
+          <ListItem radio title="Psani" name="mode" on:change={() => trainingMode = "write"}></ListItem>
+          <ListItem radio title="Poslech" name="mode" on:change={() => trainingMode = "listen"}></ListItem>
+        </List>
+      </AccordionContent>
+    </ListItem>
+  </List>
+
 
   <BlockTitle>Pocet slov:</BlockTitle>
   <Block>
@@ -59,15 +66,19 @@
       ></Stepper>
     </center>
   </Block>
-  <Row>
-    <Col width="25">
-    </Col>
-    <Col width="50">
-      <Button large fill on:click={goToTrainingView}>START TRENINK</Button>
-    </Col>
-    <Col width="25">
-    </Col>
-  </Row>
+
+  <Block inset>
+    <Row tag="p">
+      <Col tag="span">
+        <Button large outline>START TRENINK</Button>
+      </Col>
+    </Row>
+    <Row tag="p">
+      <Col tag="span">
+        <Button large fill>START TESTING</Button>
+      </Col>
+    </Row>
+  </Block>
 
 </Page>
 
@@ -77,9 +88,9 @@
     Navbar, Subnavbar,
     BlockTitle, Block,
     List, ListItem, 
+    AccordionContent,
     Stepper, Gauge,
-    Row, Col,
-    Button
+    Row, Col, Button
   } from 'framework7-svelte';
   import { categoryDetailData, trainingData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
