@@ -43,7 +43,12 @@
   import { trainingData } from '../js/store.js';
   import WordDetailSlide from '../components/WordDetailSlide.svelte';
   import { _ } from 'svelte-i18n';
+  import { onMount } from 'svelte';
 
+  
+  onMount(() => {
+    f7.preloader.hide();
+  });
 
   function nextWord() {
     let swiper = f7.swiper.get('.swiper-container')

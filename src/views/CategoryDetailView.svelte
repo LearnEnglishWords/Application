@@ -120,11 +120,6 @@
 
   function goToTrainingView() {
     f7.preloader.show();
-    //f7.dialog.preloader();
-    setTimeout(() => {
-      f7.preloader.hide();
-      //f7.dialog.close();
-    }, 1000);
 
     collection.getWords($collectionData.id, $categoryDetailData.id, (words) => {
       trainingData.set({ 
