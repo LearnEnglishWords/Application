@@ -4,23 +4,17 @@
     Training Words
   </Subnavbar> 
   </Navbar>              
-  <Toolbar position='bottom'>
-    <Link on:click={prevWord}>Previous word</Link>
-    <Link on:click={nextWord}>Next word</Link>
-  </Toolbar>
 
   <Swiper init navigation params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide>
-        <Block>
-          <WordDetailSlide {word}/>
-        </Block>
+        <WordDetailSlide {word}/>
       </SwiperSlide>
     {/each}
   </Swiper>
 
 
-  <BlockTitle >Uz umis dane slovicko?</BlockTitle>
+  <BlockTitle><center>Uz umis dane slovicko?</center></BlockTitle>
   <Row>
     <Col width="25">
     </Col>

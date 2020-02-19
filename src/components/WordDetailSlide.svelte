@@ -11,12 +11,12 @@
           </Col>
           <Col width="60">
             <List>
-              {#each word.sense as sense}
+              {#each word.sense.slice(0,3) as sense}
                 <ListItem link="#" sheetOpen=".example-sheet"> {sense} </ListItem>
               {/each}
             </List>
           </Col>
-          <Col width="20">
+          <Col width="10">
           </Col>
         </Row>
       </Block>
