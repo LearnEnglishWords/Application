@@ -85,21 +85,21 @@
       label: "Basic", 
       text: "(Learn 1000 words)", 
       downloaded: false,
-      description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni. ", 
+      description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni.", 
       disabled: false
     },
     {
       label: "Standard",
       text: "(Learn 3000 words)", 
       downloaded: false,
-      description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět 90 % každodenní anglické konverzace, anglicky psaným novinám a časopisům.", 
+      description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80 % každodenní anglické konverzace.", 
       disabled: true
     },
     {
       label: "Student",
       text: "(Learn 5000 words)",
       downloaded: false,
-      description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle lekci nejznamejsich ucebnic.", 
+      description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
       disabled: true
     },
     {
@@ -107,6 +107,20 @@
       text: "(Learn 15000 words)",
       downloaded: false,
       description: "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)", 
+      disabled: true
+    },
+    {
+      label: "Media",
+      text: "(Learn with serial, movies and books)",
+      downloaded: false,
+      description: "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy.", 
+      disabled: true
+    },
+    {
+      label: "Personal",
+      text: "(Add your own words)",
+      downloaded: false,
+      description: "Zde si muzete pridavat vlastni slovicka pro procvicovani.", 
       disabled: true
     }
   ];
