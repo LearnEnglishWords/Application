@@ -74,7 +74,13 @@
     },
     // Cordova Statusbar settings
     statusbar: {
-      androidOverlaysWebView: true,
+      overlay: true,
+      iosOverlaysWebView: true,
+      androidOverlaysWebView: false,
+      iosTextColor: "white",
+      androidTextColor: "white",
+      androidBackgroundColor: "#0F51AB",
+      iosBackgroundColor: "#0F51AB",
     },
     routes: [
       {

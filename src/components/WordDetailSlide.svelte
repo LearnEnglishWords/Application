@@ -2,7 +2,7 @@
   <center>
       <BlockTitle large>{word.text}</BlockTitle>
       <Block>
-        <BlockHeader>[ {word.pronunciation} ]  &#x1F509;</BlockHeader>
+        <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
       </Block>
 
       <Block>
