@@ -1,11 +1,12 @@
 <Page name="CategoryDetail">
   <Navbar title="LearnEnglishWords">
-    <Subnavbar title="Kategorie: {$categoryDetailData.name}">       
-    </Subnavbar>
   </Navbar>              
 
+  <center>
+    <BlockTitle medium>{$categoryDetailData.name}</BlockTitle>
+  </center>
   <Block inset>
-  <BlockTitle>Statistika:</BlockTitle>
+    <BlockTitle>Statistika:</BlockTitle>
     <Row>
       <Col class="text-align-center">
         <Gauge
