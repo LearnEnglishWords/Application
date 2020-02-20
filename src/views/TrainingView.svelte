@@ -45,7 +45,6 @@
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
-  
   onMount(() => {
     f7.preloader.hide();
   });

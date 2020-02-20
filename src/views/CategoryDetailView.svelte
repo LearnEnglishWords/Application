@@ -76,7 +76,7 @@
   <Block inset>
     <Row>
       <Col>
-        <Button large raised>Zobrazit seznam vsech slov</Button>
+        <Button large raised on:click={() => listWordsOpened = true}>Zobrazit seznam vsech slov</Button>
       </Col>
     </Row>
   </Block>
@@ -91,25 +91,51 @@
     </Row>
   </Block>
 
+
+  <Popup opened={listWordsOpened} onPopupClosed={() => listWordsOpened = false}>
+    <Page>
+      <Navbar title="LearnEnglishWords">
+        <NavRight>
+          <Link popupClose>Close</Link>
+        </NavRight>
+      </Navbar>
+      <BlockTitle>Zde muzete oznacit slovicka, ktera jiz znate:</BlockTitle>
+      <Block>
+        <List>
+          {#each allWordsSorted as word, id}
+            <ListItem>
+              {word.text}  &#x1F509;
+              <Button raised>Jiz znam</Button>
+            </ListItem>
+          {/each}
+        </List>
+      </Block>
+    </Page>
+  </Popup>
+
 </Page>
 
 <script>
   import { 
-    f7, Page, 
-    Navbar, Subnavbar,
+    f7, Page, Popup, 
+    Navbar, Subnavbar, NavRight,
     BlockTitle, Block,
     List, ListItem,
     AccordionContent,
     Stepper, Gauge,
-    Row, Col, Button
+    Row, Col, 
+    Link, Button
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData, trainingData } from '../js/store.js';
   import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
 
-  let collection = new Collection();
-
   export let f7router;
+
+  let collection = new Collection();
+  let listWordsOpened = false;
+  let allWords = [];
+  let allWordsSorted = [];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
   let trainingModes = [
@@ -118,16 +144,20 @@
     { title: "Poslech", value: "listen", checked: false}
   ]; 
 
+  collection.getWords($collectionData.id, $categoryDetailData.id, (words) => {
+    allWords = [...words];
+    allWordsSorted = words.sort((a, b) => {
+      return a.text.charCodeAt(0) - b.text.charCodeAt(0)
+    });
+  });
+
   function goToTrainingView() {
     f7.preloader.show();
-
-    collection.getWords($collectionData.id, $categoryDetailData.id, (words) => {
-      trainingData.set({ 
-        mode: trainingModes[trainingModeIndex].value, 
-        words: words.slice(0, wordsLimit-1)
-      });
-      f7router.navigate('/Training');
+    trainingData.set({ 
+      mode: trainingModes[trainingModeIndex].value, 
+      words: allWords.slice(0, wordsLimit-1)
     });
+    f7router.navigate('/Training');
   }
 
 </script>
