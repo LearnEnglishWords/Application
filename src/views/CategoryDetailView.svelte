@@ -84,10 +84,10 @@
   <Block inset>
     <Row>
       <Col>
-        <Button large outline on:click={goToTrainingView}>START TRENINK</Button>
+        <Button large outline on:click={() => goToTrainingView(true)}>START TRENINK</Button>
       </Col>
       <Col>
-        <Button large fill on:click={goToTrainingView}>START TESTING</Button>
+        <Button large fill on:click={() => goToTrainingView(false)}>START TESTING</Button>
       </Col>
     </Row>
   </Block>
@@ -152,10 +152,12 @@
     });
   });
 
-  function goToTrainingView() {
+  function goToTrainingView(isTraining) {
     f7.preloader.show();
     trainingData.set({ 
       mode: trainingModes[trainingModeIndex].value, 
+      isTraining: isTraining,
+      wallEnabled: !isTraining,
       words: allWords.slice(0, wordsLimit-1)
     });
     f7router.navigate('/Training');
