@@ -11,15 +11,18 @@
           </Col>
           <Col width="60">
             <List>
-              {#each word.sense.slice(0,3) as sense}
-                <ListItem link="#" sheetOpen=".example-sheet"> {sense} </ListItem>
+              {#each word.sense.slice(0,3) as sense, id}
+                <ListItem> {numbers[id]} {sense} </ListItem>
               {/each}
             </List>
+            <Button fill sheetOpen=".example-sheet" color="lightblue">Vice info</Button>
           </Col>
           <Col width="10">
           </Col>
         </Row>
       </Block>
+
+
 
       <Sheet class="example-sheet" opened={sheetOpened} onSheetClosed={() => sheetOpened = false}>
         <Toolbar>
@@ -55,5 +58,6 @@
   import { _ } from 'svelte-i18n';
 
   export let word = [];
+  let numbers = ["①", "②", "③", "④", "⑤"];
   let sheetOpened = false;
 </script>
