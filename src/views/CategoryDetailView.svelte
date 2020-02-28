@@ -7,41 +7,7 @@
   </center>
   <Block inset>
     <BlockTitle>Statistika:</BlockTitle>
-    <Row>
-      <Col class="text-align-center">
-        <Gauge
-          type="semicircle"
-          value={0.4}
-          valueText="45 slov"
-          valueTextColor="green"
-          borderColor="green"
-          labelText="uz umim"
-          labelTextColor="#333"
-        />
-      </Col>
-      <Col class="text-align-center">
-        <Gauge
-          type="semicircle"
-          value={0.2}
-          valueText="24 slov"
-          valueTextColor="orange"
-          borderColor="orange"
-          labelText="ucim se"
-          labelTextColor="#333"
-        />
-      </Col>
-      <Col class="text-align-center">
-        <Gauge
-          type="semicircle"
-          value={0.6}
-          valueText="87 slov"
-          valueTextColor="red"
-          borderColor="red"
-          labelText="zbyva se naucit"
-          labelTextColor="#333"
-        />
-      </Col>
-    </Row>
+    <Statistics {statisticsData}/>
   </Block>
 
 
@@ -129,6 +95,7 @@
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData, trainingData } from '../js/store.js';
   import Collection from '../js/collection.js';
+  import Statistics from '../components/Statistics.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
@@ -145,14 +112,40 @@
     { title: "Poslech", value: "listen", checked: false}
   ]; 
 
+  let statisticsData = {
+    count: 100,
+    known: 0,
+    learning: 0,
+    unknown: 100
+  } 
+
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
+    statisticsData.count = wordIds.length
+    statisticsData.unknown = wordIds.length
+
     for (let wordId of wordIds) {
-      collection.getWord(wordId, (word) => allWords.push(word))
+      collection.getWord(wordId, (word) => {
+        allWords.push(word);
+        updateStatistics(word);
+      });
     }
     allWordsSorted = wordIds.sort((a, b) => {
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
   });
+
+  function updateStatistics(word) {
+      if (word.learning === undefined) {
+        return
+      }
+      if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
+        statisticsData.known += 1;
+        statisticsData.unknown -= 1;
+      } else {
+        statisticsData.learning += 1;
+        statisticsData.unknown -= 1;
+      }
+  }
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
