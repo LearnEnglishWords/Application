@@ -7,10 +7,12 @@
 	// Import pages components
   import { onMount } from 'svelte';
   import cordovaApp from '../js/cordova-app';
+  import Collection from '../js/collection.js';
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
+  import { downloadedCollections } from '../js/store.js';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import localforage from "localforage";
@@ -20,9 +22,9 @@
   import en from '../localization/en.json';
 
 
+  // internationalization init:
   export async function preload() {
     addMessages('en', en);
-    // internationalization init:
     init({
       fallbackLocale: 'en',
       initialLocale: getLocaleFromNavigator(),
@@ -36,14 +38,13 @@
       // cordova app init:
       cordovaApp.init(f7);
 
-
       // localforage init:
       localforage.defineDriver(cordovaSQLiteDriver).then(function() {
         window.appStorage = localforage.createInstance({
           version: 1.0,
           size: 8*1024*1024*50,
-          name: 'my-app-name',
-          storeName: 'setup',
+          name: 'lew',
+          storeName: 'words',
           driver: [
             cordovaSQLiteDriver._driver, // <-- prefer cordovaSQLiteDriver
             localforage.INDEXEDDB,
@@ -52,14 +53,17 @@
           ]
         });
 
-        return appStorage.setItem('message', 'It worked!');
+        // LearnEnglishWords basic setup
+        let collection = new Collection();
+        collection.getAppInfo("downloadedCollections", (data) => { 
+          if (data === null) {
+            downloadedCollections.set([ "personal" ]);
+            collection.saveAppInfo("downloadedCollections", $downloadedCollections);
+          } else {
+            downloadedCollections.set(data);
+          }
+        });
       })
-      .then(function() {
-        return appStorage.getItem('message');
-      })
-      //.then(function(message){
-      //  alert(message);
-      //});
     });
   })
 

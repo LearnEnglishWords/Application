@@ -72,13 +72,22 @@ export default class Collection {
     });
   }
 
-
   saveWord(wordId, word) {
     return appStorage.setItem(`word:${wordId}`, word);
   }
 
   getWord(wordId, callback) {
     return appStorage.getItem(`word:${wordId}`).then((data) => {
+      callback(data);
+    });
+  }
+
+  saveAppInfo(id, content) {
+    return appStorage.setItem(`info:${id}`, content);
+  }
+
+  getAppInfo(id, callback) {
+    return appStorage.getItem(`info:${id}`).then((data) => {
       callback(data);
     });
   }

@@ -6,14 +6,14 @@
   <Block strong inset>
     <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
     <List accordionList mediaList inset>
-      {#each collectionItems as {id, label, text, downloaded, description, disabled}}
+      {#each collectionItems as {id, label, text, description, disabled}}
         <ListItem accordionItem title="{label}" text="{text}">
           <AccordionContent>
             <Block>
               <p>
                 {description}
               </p>
-              {#if downloaded}
+              {#if $downloadedCollections.includes(id)}
                 <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
               {:else}
                 <p id="collection-loader-{id}"></p>
@@ -40,19 +40,20 @@
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
   import Collection from '../js/collection.js';
-  import { collectionData, categoryData } from '../js/store.js';
+  import { collectionData, downloadedCollections, categoryData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
   let collection = new Collection();
   let downLoading = false;
 
+
   function downloadButton(collectionId) {
     if (downLoading) return;
     downLoading = true;
-    let progressBarEl = f7.progressbar.show(`#collection-loader-${id}`, 0, 'orange');
+    let progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
     let counter = 0; 
-    collectionData.set({name: collectionId, id: collectionId});
+    collectionData.set({"name": collectionId, "id": collectionId});
     collection.download($collectionData.name, () => {
       collection.getCategoryList($collectionData.name, (categories) => {
         categoryData.set(categories);
@@ -61,17 +62,16 @@
       counter += 1;
       f7.progressbar.set(progressBarEl, $categoryData.length*counter);
       if(counter === $categoryData.length) {
+        updateCollectionIds($downloadedCollections.concat([collectionId]));
         f7.progressbar.hide(progressBarEl); 
-        collectionItems[id].downloaded = true;
         downLoading = false;
       }
     });
   }
 
-  function setAsDownloaded(counter) {
-      if(counter === $categoryData.length) {
-        collectionItems[id].downloaded = true;
-      }
+  function updateCollectionIds(collectionIds) {
+      downloadedCollections.set(collectionIds);
+      collection.saveAppInfo("downloadedCollections", collectionIds);
   }
 
   function continueButton(id){
@@ -83,7 +83,6 @@
       id: "basic",
       label: "Basic", 
       text: "(Learn 1000 words)", 
-      downloaded: false,
       description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni.", 
       disabled: false
     },
@@ -91,7 +90,6 @@
       id: "standard",
       label: "Standard",
       text: "(Learn 3000 words)", 
-      downloaded: false,
       description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80 % každodenní anglické konverzace.", 
       disabled: true
     },
@@ -99,7 +97,6 @@
       id: "student",
       label: "Student",
       text: "(Learn 10000 words)",
-      downloaded: false,
       description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
       disabled: true
     },
@@ -107,7 +104,6 @@
       id: "native",
       label: "Native", 
       text: "(Learn 15000 words)",
-      downloaded: false,
       description: "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)", 
       disabled: true
     },
@@ -115,7 +111,6 @@
       id: "media",
       label: "Media",
       text: "(Learn with serial, movies and books)",
-      downloaded: false,
       description: "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy.", 
       disabled: true
     },
@@ -123,7 +118,6 @@
       id: "personal",
       label: "Personal",
       text: "(Add your own words)",
-      downloaded: false,
       description: "Zde si muzete pridavat vlastni slovicka pro procvicovani.", 
       disabled: true
     }

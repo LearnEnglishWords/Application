@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import Collection from './collection.js';
 
 function createTrainingData() {
   const { subscribe, set, update } = writable({ mode: 0, limit: 30 });
@@ -11,9 +12,11 @@ function createTrainingData() {
   };
 }
 
+
 //export const trainingData = createTrainingData();
 export const trainingData = writable(0);
 export const collectionData = writable(0);
+export const downloadedCollections = writable([]);
 export const categoryData = writable(0);
 export const categoryDetailData = writable(0);
 export const settingsData = writable(0);
