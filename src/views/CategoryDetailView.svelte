@@ -105,7 +105,7 @@
         <List>
           {#each allWordsSorted as word, id}
             <ListItem>
-              {word.text}  &#x1F509;
+              {word}  &#x1F509;
               <Button raised>Jiz znam</Button>
             </ListItem>
           {/each}
@@ -145,10 +145,12 @@
     { title: "Poslech", value: "listen", checked: false}
   ]; 
 
-  collection.getWordList($collectionData.id, $categoryDetailData.id, (words) => {
-    allWords = [...words];
-    allWordsSorted = words.sort((a, b) => {
-      return a.text.charCodeAt(0) - b.text.charCodeAt(0)
+  collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
+    for (let wordId of wordIds) {
+      collection.getWord(wordId, (word) => allWords.push(word))
+    }
+    allWordsSorted = wordIds.sort((a, b) => {
+      return a.charCodeAt(0) - b.charCodeAt(0)
     });
   });
 

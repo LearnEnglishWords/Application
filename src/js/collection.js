@@ -18,8 +18,13 @@ export default class Collection {
         });
         for (let categoryId of categories) {
           this.loadWordList(collectionId, categoryId, (words) => {
-            this.saveWordList(collectionId, categoryId, JSON.parse(words)).then(() => {
-              progress();
+            let parsedWords = JSON.parse(words);
+            let wordIds = parsedWords.map((word) => { return word.text });
+            this.saveWordList(collectionId, categoryId, wordIds).then(() => {
+              for (let word of parsedWords) {
+                this.saveWord(word.text, word);
+              }
+              this.getWordList(collectionId, categoryId, (words) => progress())
             });
           });
         }
@@ -68,8 +73,8 @@ export default class Collection {
   }
 
 
-  saveWord(wordId) {
-    return appStorage.setItem(`word:${wordId}`, words);
+  saveWord(wordId, word) {
+    return appStorage.setItem(`word:${wordId}`, word);
   }
 
   getWord(wordId, callback) {

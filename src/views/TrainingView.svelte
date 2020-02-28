@@ -66,6 +66,7 @@
 
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
+  let currentWord = $trainingData.words[0];
 
   onMount(() => {
     f7.preloader.hide();
