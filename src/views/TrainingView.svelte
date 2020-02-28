@@ -8,7 +8,7 @@
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
     {#each $trainingData.words as word, id}
-      <SwiperSlide>
+      <SwiperSlide style="height: 60vh">
         <WordDetailSlide {word}/>
       </SwiperSlide>
     {/each}
@@ -33,29 +33,18 @@
   </div>
 
   <Sheet backdrop backdropEl="testEl" swipeToClose opened={sheetOpened} onSheetClosed={() => sheetOpened = false}>
-    <br> <br> <br> <br> <br>
       <Row>
         <Col width="25">
         </Col>
         <Col width="50">
           <center>
+            <div class="arrow">&#8964;</div> <br>
             Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.
-            <div class="arrow">&#8964;</div>
           </center>
         </Col>
         <Col width="25">
         </Col>
       </Row>
-      <Row>
-        <Col width="25">
-        </Col>
-        <Col width="50">
-          <center>
-          </center>
-        </Col>
-        <Col width="25">
-        </Col>
-      </Row> 
   </Sheet>
 
 </Page>
@@ -97,7 +86,7 @@
 
 <style>
   :root {
-    --f7-sheet-height: 70%;
+    --f7-sheet-height: 70vh;
     --f7-sheet-border-color: var(--f7-theme-color);
     --f7-sheet-transition-duration: 300ms;
     --f7-sheet-push-border-radius: 10px;
