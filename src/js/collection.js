@@ -12,13 +12,13 @@ export default class Collection {
     downloader.get(`https://drakeman.cz/english-words/collections/${collectionId}.zip`);
 
     document.addEventListener("DOWNLOADER_unzipSuccess", (event) => {
-      this.loadCategories(collectionId, (categories) => {
-        this.saveCategories(collectionId, categories).then(() => {
+      this.loadCategoryList(collectionId, (categories) => {
+        this.saveCategoryList(collectionId, categories).then(() => {
           success();
         });
         for (let categoryId of categories) {
-          this.loadWords(collectionId, categoryId, (words) => {
-            this.saveWords(collectionId, categoryId, JSON.parse(words)).then(() => {
+          this.loadWordList(collectionId, categoryId, (words) => {
+            this.saveWordList(collectionId, categoryId, JSON.parse(words)).then(() => {
               progress();
             });
           });
@@ -27,7 +27,7 @@ export default class Collection {
     });
   }
 
-  loadCategories(collectionId, success, error) {
+  loadCategoryList(collectionId, success, error) {
     this.storage.list_dir(
       `${this.rootDirectory}/${collectionId}/words`, 
       (entries) => {
@@ -40,29 +40,40 @@ export default class Collection {
     );
   }
 
-  saveCategories(collectionId, categories) {
-    return appStorage.setItem(`collection:${collectionId}:category:list`, categories);
+  saveCategoryList(collectionId, categories) {
+    return appStorage.setItem(`collection:${collectionId}:category:ids`, categories);
   }
 
-  getCategories(collectionId, callback) {
-    appStorage.getItem(`collection:${collectionId}:category:list`).then((data) => {
+  getCategoryList(collectionId, callback) {
+    appStorage.getItem(`collection:${collectionId}:category:ids`).then((data) => {
       callback(data);
     });
   }
 
 
-  loadWords(collectionId, categoryId, success, error) {
+  loadWordList(collectionId, categoryId, success, error) {
     this.storage.read(`/${collectionId}/words/${categoryId}.json`, (result) => {
       success(result);
     });
   }
 
-  saveWords(collectionId, categoryId, words) {
-    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:list`, words);
+  saveWordList(collectionId, categoryId, words) {
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:ids`, words);
   }
 
-  getWords(collectionId, categoryId, callback) {
-    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:list`).then((data) => {
+  getWordList(collectionId, categoryId, callback) {
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:ids`).then((data) => {
+      callback(data);
+    });
+  }
+
+
+  saveWord(wordId) {
+    return appStorage.setItem(`word:${wordId}`, words);
+  }
+
+  getWord(wordId, callback) {
+    return appStorage.getItem(`word:${wordId}`).then((data) => {
       callback(data);
     });
   }

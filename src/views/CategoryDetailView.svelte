@@ -145,7 +145,7 @@
     { title: "Poslech", value: "listen", checked: false}
   ]; 
 
-  collection.getWords($collectionData.id, $categoryDetailData.id, (words) => {
+  collection.getWordList($collectionData.id, $categoryDetailData.id, (words) => {
     allWords = [...words];
     allWordsSorted = words.sort((a, b) => {
       return a.text.charCodeAt(0) - b.text.charCodeAt(0)

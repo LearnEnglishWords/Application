@@ -16,7 +16,7 @@
               {#if downloaded}
                 <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
               {:else}
-                <p id="demo-determinate-container-{id}"></p>
+                <p id="collection-loader-{id}"></p>
                 <p>
                   <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
                 </p>
@@ -52,11 +52,11 @@
   function downloadButton(id){
     if (downLoading) return;
     downLoading = true;
-    let progressBarEl = f7.progressbar.show(`#demo-determinate-container-${id}`, 0, 'orange');
+    let progressBarEl = f7.progressbar.show(`#collection-loader-${id}`, 0, 'orange');
     let counter = 0; 
     collectionData.set({name: "basic", id: "basic"});
     collection.download($collectionData.name, () => {
-      collection.getCategories($collectionData.name, (categories) => {
+      collection.getCategoryList($collectionData.name, (categories) => {
         categoryData.set(categories);
       });
     }, () => {
