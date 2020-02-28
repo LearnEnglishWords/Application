@@ -8,7 +8,7 @@
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
     {#each $trainingData.words as word, id}
-      <SwiperSlide style="height: 60vh">
+      <SwiperSlide style="height: 62vh">
         <WordDetailSlide {word}/>
       </SwiperSlide>
     {/each}
