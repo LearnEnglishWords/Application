@@ -53,12 +53,7 @@
     downLoading = true;
     let progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
     let counter = 0; 
-    collectionData.set({"name": collectionId, "id": collectionId});
-    collection.download($collectionData.name, () => {
-      collection.getCategoryList($collectionData.name, (categories) => {
-        categoryData.set(categories);
-      });
-    }, () => {
+    collection.download(collectionId, () => {}, () => {
       counter += 1;
       f7.progressbar.set(progressBarEl, $categoryData.length*counter);
       if(counter === $categoryData.length) {
@@ -74,7 +69,11 @@
       collection.saveAppInfo("downloadedCollections", collectionIds);
   }
 
-  function continueButton(id){
+  function continueButton(collectionId){
+    collectionData.set({"name": collectionId, "id": collectionId});
+    collection.getCategoryList(collectionId, (categories) => {
+      categoryData.set(categories);
+    });
     f7router.navigate('/CategoryList');
   }
 
