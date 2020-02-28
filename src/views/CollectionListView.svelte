@@ -89,13 +89,20 @@
       id: "standard",
       label: "Standard",
       text: "(Learn 3000 words)", 
-      description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80 % každodenní anglické konverzace.", 
+      description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80% anglické konverzace.", 
+      disabled: true
+    },
+    {
+      id: "profi",
+      label: "Profi",
+      text: "(Learn 5000 words)", 
+      description: "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum.", 
       disabled: true
     },
     {
       id: "student",
       label: "Student",
-      text: "(Learn 10000 words)",
+      text: "(Learn by textbooks)",
       description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
       disabled: true
     },
