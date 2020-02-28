@@ -6,7 +6,7 @@
   <Block strong inset>
     <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
     <List accordionList mediaList inset>
-      {#each collectionItems as {label, text, downloaded, description, disabled}, id}
+      {#each collectionItems as {id, label, text, downloaded, description, disabled}}
         <ListItem accordionItem title="{label}" text="{text}">
           <AccordionContent>
             <Block>
@@ -17,9 +17,7 @@
                 <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
               {:else}
                 <p id="collection-loader-{id}"></p>
-                <p>
-                  <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
-                </p>
+                <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
               {/if}
             </Block>
           </AccordionContent>
@@ -49,12 +47,12 @@
   let collection = new Collection();
   let downLoading = false;
 
-  function downloadButton(id){
+  function downloadButton(collectionId) {
     if (downLoading) return;
     downLoading = true;
     let progressBarEl = f7.progressbar.show(`#collection-loader-${id}`, 0, 'orange');
     let counter = 0; 
-    collectionData.set({name: "basic", id: "basic"});
+    collectionData.set({name: collectionId, id: collectionId});
     collection.download($collectionData.name, () => {
       collection.getCategoryList($collectionData.name, (categories) => {
         categoryData.set(categories);
@@ -82,6 +80,7 @@
 
   const collectionItems = [
     {
+      id: "basic",
       label: "Basic", 
       text: "(Learn 1000 words)", 
       downloaded: false,
@@ -89,6 +88,7 @@
       disabled: false
     },
     {
+      id: "standard",
       label: "Standard",
       text: "(Learn 3000 words)", 
       downloaded: false,
@@ -96,13 +96,15 @@
       disabled: true
     },
     {
+      id: "student",
       label: "Student",
-      text: "(Learn 5000 words)",
+      text: "(Learn 10000 words)",
       downloaded: false,
       description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
       disabled: true
     },
     {
+      id: "native",
       label: "Native", 
       text: "(Learn 15000 words)",
       downloaded: false,
@@ -110,6 +112,7 @@
       disabled: true
     },
     {
+      id: "media",
       label: "Media",
       text: "(Learn with serial, movies and books)",
       downloaded: false,
@@ -117,6 +120,7 @@
       disabled: true
     },
     {
+      id: "personal",
       label: "Personal",
       text: "(Add your own words)",
       downloaded: false,
