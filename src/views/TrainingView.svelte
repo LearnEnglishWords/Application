@@ -32,7 +32,7 @@
   {/if}
   </div>
 
-  <Sheet backdrop backdropEl="testEl" swipeToClose opened={sheetOpened} onSheetClosed={() => sheetOpened = false}>
+  <Sheet backdrop backdropEl="testEl" swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
       <Row>
         <Col width="25">
         </Col>
@@ -65,20 +65,20 @@
   import { onMount } from 'svelte';
 
   let isTraining = $trainingData.isTraining;
-  let sheetOpened = !isTraining;
+  let wallEnable = !isTraining;
 
   onMount(() => {
     f7.preloader.hide();
   });
 
   function noButton() {
-    sheetOpened = true;
+    wallEnable = true;
     let swiper = f7.swiper.get('.swiper-container')
     swiper.slideNext();
   }
 
   function yesButton() {
-    sheetOpened = true;
+    wallEnable = true;
     let swiper = f7.swiper.get('.swiper-container')
     swiper.slideNext();
   }
