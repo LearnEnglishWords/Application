@@ -61,24 +61,40 @@
   } from 'framework7-svelte';
   import { trainingData } from '../js/store.js';
   import WordDetailSlide from '../components/WordDetailSlide.svelte';
+  import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
+  let collection = new Collection();
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
-  let currentWord = $trainingData.words[0];
+  let currentWordIndex = 0;
 
   onMount(() => {
     f7.preloader.hide();
   });
 
   function noButton() {
-    wallEnable = true;
-    let swiper = f7.swiper.get('.swiper-container')
-    swiper.slideNext();
+    updateCurrentWord(false);
+    nextWord();
   }
 
   function yesButton() {
+    updateCurrentWord(true);
+    nextWord();
+  }
+
+  function updateCurrentWord(state) {
+    let currentWord = $trainingData.words[currentWordIndex];
+    if (currentWord.learning === undefined) { 
+      currentWord.learning = {"read": false, "write": false, "listen": false}
+    }
+    currentWord.learning[$trainingData.mode] = state;
+    collection.saveWord(currentWord.text, currentWord);
+  }
+
+  function nextWord() {
+    currentWordIndex += 1;
     wallEnable = true;
     let swiper = f7.swiper.get('.swiper-container')
     swiper.slideNext();
