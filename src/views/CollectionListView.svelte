@@ -2,7 +2,9 @@
   <Navbar title="LearnEnglishWords">
   </Navbar>
 
-                {$_('page_title')}
+  <!--
+    {$_('page_title')}
+  -->
   <Block strong inset>
     <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
     <List accordionList mediaList inset>
@@ -101,8 +103,8 @@
       disabled: true
     },
     {
-      id: "profi",
-      label: "Profi",
+      id: "advanced",
+      label: "Advanced",
       text: "(Learn 5000 words)", 
       description: "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum.", 
       disabled: true
