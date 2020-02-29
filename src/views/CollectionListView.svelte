@@ -8,22 +8,24 @@
   <Block strong inset>
     <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
     <List accordionList mediaList inset>
-      {#each collectionItems as {id, label, text, description, disabled}}
-        <ListItem accordionItem title="{label}" text="{text}">
-          <AccordionContent>
-            <Block>
-              <p>
-                {description}
-              </p>
-              {#if $downloadedCollections.includes(id)}
-                <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
-              {:else}
-                <p id="collection-loader-{id}"></p>
-                <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
-              {/if}
-            </Block>
-          </AccordionContent>
-        </ListItem>
+      {#each collectionItems as {id, label, text, description, active}}
+        {#if active}
+          <ListItem accordionItem title="{label}" text="{text}">
+            <AccordionContent>
+              <Block>
+                <p>
+                  {description}
+                </p>
+                {#if $downloadedCollections.includes(id)}
+                  <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
+                {:else}
+                  <p id="collection-loader-{id}"></p>
+                  <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
+                {/if}
+              </Block>
+            </AccordionContent>
+          </ListItem>
+        {/if}
       {/each}
     </List>
   </Block>
@@ -93,49 +95,49 @@
       label: "Basic", 
       text: "(Learn 1000 words)", 
       description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni.", 
-      disabled: false
+      active: true
     },
     {
       id: "standard",
       label: "Standard",
       text: "(Learn 3000 words)", 
       description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80% anglické konverzace.", 
-      disabled: true
+      active: true
     },
     {
       id: "advanced",
       label: "Advanced",
       text: "(Learn 5000 words)", 
       description: "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum.", 
-      disabled: true
+      active: true
     },
     {
       id: "student",
       label: "Student",
       text: "(Learn by textbooks)",
       description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
-      disabled: true
+      active: false
     },
     {
       id: "native",
       label: "Native", 
       text: "(Learn 15000 words)",
       description: "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)", 
-      disabled: true
+      active: false
     },
     {
       id: "media",
       label: "Media",
       text: "(Learn with serial, movies and books)",
       description: "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy.", 
-      disabled: true
+      active: false
     },
     {
       id: "personal",
       label: "Personal",
       text: "(Add your own words)",
       description: "Zde si muzete pridavat vlastni slovicka pro procvicovani.", 
-      disabled: true
+      active: false
     }
   ];
 </script>
