@@ -59,7 +59,7 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { trainingData } from '../js/store.js';
+  import { trainingData, updateStatistics } from '../js/store.js';
   import WordDetailSlide from '../components/WordDetailSlide.svelte';
   import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
@@ -91,6 +91,7 @@
     }
     currentWord.learning[$trainingData.mode] = state;
     collection.saveWord(currentWord.text, currentWord);
+    updateStatistics(currentWord);
   }
 
   function nextWord() {

@@ -7,7 +7,7 @@
   </center>
   <Block inset>
     <BlockTitle>Statistika:</BlockTitle>
-    <Statistics {statisticsData}/>
+    <Statistics/>
   </Block>
 
 
@@ -93,7 +93,7 @@
     Row, Col, 
     Link, Button
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData, trainingData } from '../js/store.js';
+  import { collectionData, categoryDetailData, trainingData, statisticsData, updateStatistics, resetStatistics } from '../js/store.js';
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
   import { _ } from 'svelte-i18n';
@@ -111,17 +111,11 @@
     { title: "Psani", value: "write", checked: false},
     { title: "Poslech", value: "listen", checked: false}
   ]; 
-
-  let statisticsData = {
-    count: 100,
-    known: 0,
-    learning: 0,
-    unknown: 100
-  } 
+  resetStatistics();
 
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    statisticsData.count = wordIds.length
-    statisticsData.unknown = wordIds.length
+    $statisticsData.count = wordIds.length
+    $statisticsData.unknown = wordIds.length
 
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
@@ -133,19 +127,6 @@
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
   });
-
-  function updateStatistics(word) {
-      if (word.learning === undefined) {
-        return
-      }
-      if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
-        statisticsData.known += 1;
-        statisticsData.unknown -= 1;
-      } else {
-        statisticsData.learning += 1;
-        statisticsData.unknown -= 1;
-      }
-  }
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
