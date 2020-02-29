@@ -46,26 +46,32 @@
   export let f7router;
   let collection = new Collection();
   let downLoading = false;
+  let counter;
+  let progressBarEl;
 
 
   function downloadButton(collectionId) {
     if (downLoading) return;
     downLoading = true;
-    let progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
-    let counter = 0; 
-    collection.download(collectionId, () => {
-      collection.getCategoryList(collectionId, (categories) => {
-        categoryData.set(categories);
-      });
-    }, () => {
-      counter += 1;
-      f7.progressbar.set(progressBarEl, $categoryData.length*counter);
-      if(counter === $categoryData.length) {
-        updateCollectionIds($downloadedCollections.concat([collectionId]));
-        f7.progressbar.hide(progressBarEl); 
-        downLoading = false;
-      }
+    progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
+    counter = 0; 
+    collection.download(collectionId, () => setCategoryData(collectionId), () => downloadProgress(collectionId));
+  }
+
+  function setCategoryData(collectionId) {
+    collection.getCategoryList(collectionId, (categories) => {
+      categoryData.set(categories);
     });
+  }
+
+  function downloadProgress(collectionId) {
+    counter += 1;
+    f7.progressbar.set(progressBarEl, $categoryData.length*counter);
+    if(counter === $categoryData.length) {
+      updateCollectionIds($downloadedCollections.concat([collectionId]));
+      f7.progressbar.hide(progressBarEl); 
+      downLoading = false;
+    }
   }
 
   function updateCollectionIds(collectionIds) {
@@ -75,9 +81,7 @@
 
   function continueButton(collectionId){
     collectionData.set({"name": collectionId, "id": collectionId});
-    collection.getCategoryList(collectionId, (categories) => {
-      categoryData.set(categories);
-    });
+    setCategoryData(collectionId);
     f7router.navigate('/CategoryList');
   }
 
