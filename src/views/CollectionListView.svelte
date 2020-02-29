@@ -53,7 +53,11 @@
     downLoading = true;
     let progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
     let counter = 0; 
-    collection.download(collectionId, () => {}, () => {
+    collection.download(collectionId, () => {
+      collection.getCategoryList(collectionId, (categories) => {
+        categoryData.set(categories);
+      });
+    }, () => {
       counter += 1;
       f7.progressbar.set(progressBarEl, $categoryData.length*counter);
       if(counter === $categoryData.length) {
