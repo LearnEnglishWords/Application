@@ -5,7 +5,7 @@
     <Col width="60">
       <List>
         {#each word.sense.slice(0,3) as sense, id}
-          <ListItem> {numbers[id]} {sense} </ListItem>
+          <ListItem> {numbers[id]} {sense.toLowerCase()} </ListItem>
         {/each}
       </List>
       <Button fill sheetOpen=".description" color="lightblue">Vice info</Button>

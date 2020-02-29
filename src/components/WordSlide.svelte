@@ -15,7 +15,7 @@
       <BlockTitle medium> 
         {#if mode==="write"} 
           {#each word.sense as sense, id}
-            {sense}{#if id + 1 !== word.sense.length},{/if} <br/>
+            {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
           {/each}
         {:else if mode==="listen"} 
           <div on:click={playSound}>
