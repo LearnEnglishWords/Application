@@ -90,9 +90,13 @@
     if (word.learning === undefined) { 
       word.learning = {"read": false, "write": false, "listen": false}
     }
-    word.learning[$trainingData.mode] = state;
-    collection.saveWord(word.text, word);
-    statisticsData.updateData(word);
+
+    let previousState = statisticsData.getState(word);
+    if (word.learning[$trainingData.mode] !== state) {
+      word.learning[$trainingData.mode] = state;
+      collection.saveWord(word.text, word);
+      statisticsData.updateData(word, previousState);
+    }
   }
 
   function nextWord() {

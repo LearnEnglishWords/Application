@@ -119,7 +119,7 @@
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
-        statisticsData.updateData(word);
+        statisticsData.updateData(word, "unknown");
       });
     }
     allWordsSorted = wordIds.sort((a, b) => {

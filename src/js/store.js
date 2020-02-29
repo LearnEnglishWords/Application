@@ -1,6 +1,15 @@
 import { writable, get } from 'svelte/store';
 import Collection from './collection.js';
 
+function getState(word) {
+  if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {
+    return "unknown"
+  } else if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
+    return "known"
+  } else {
+    return "learning"
+  }
+}
 
 function createStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
@@ -11,15 +20,12 @@ function createStatisticsData(startStatisticsData) {
       data.unknown = count;
       return data
     }),
-    updateData: (word) => update((data) => {
-      if (word.learning === undefined) { return data }
-      if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
-        data.known += 1;
-        data.unknown -= 1;
-      } else {
-        data.learning += 1;
-        data.unknown -= 1;
-      }
+    getState: (word) => { return getState(word) },
+    updateData: (word, prevState) => update((data) => {
+      let currentState = getState(word);
+      if (word.learning === undefined || currentState === prevState) { return data }
+      data[currentState] += 1;
+      data[prevState] -= 1;
       return data
     }),
     reset: () => {
