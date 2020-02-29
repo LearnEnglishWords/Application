@@ -5,7 +5,7 @@
   </Subnavbar> 
   </Navbar>              
 
-  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
+  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: {swiperHeight}">
         <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
