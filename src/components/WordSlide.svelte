@@ -85,6 +85,7 @@
   }
 
   function check() {
+    if (translatedText === "") { return }
     if (translatedText.toLowerCase() === word.text.toLowerCase()) {
       result = "Spravne ;-)";
       resultColor = "green";
