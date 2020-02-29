@@ -7,8 +7,8 @@
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
     {#each $trainingData.words as word, id}
-      <SwiperSlide style="height: 62vh">
-        <WordSlide {word} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+      <SwiperSlide style="height: {swiperHeight}">
+        <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
       </SwiperSlide>
     {/each}
   </Swiper>
@@ -69,6 +69,11 @@
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
   let currentWordIndex = 0;
+  let swiperHeight = "80vh";
+
+  if ($trainingData.mode === "read" && !$trainingData.isTraining) {
+    swiperHeight = "62vh";
+  }
 
   onMount(() => {
     f7.preloader.hide();
@@ -87,6 +92,7 @@
   }
 
   function updateWord({word, state}) {
+    if ($trainingData.isTraining) { return }
     if (word.learning === undefined) { 
       word.learning = {"read": false, "write": false, "listen": false}
     }
@@ -120,4 +126,3 @@
     font-size: 100px;
   }
 </style>
-

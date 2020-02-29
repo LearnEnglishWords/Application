@@ -14,8 +14,8 @@
 
       <BlockTitle medium> 
         {#if mode==="write"} 
-          {#each word.sense as sense}
-            {sense} <br/>
+          {#each word.sense as sense, id}
+            {sense}{#if id + 1 !== word.sense.length},{/if} <br/>
           {/each}
         {:else if mode==="listen"} 
           <div on:click={playSound}>
@@ -43,7 +43,9 @@
             {#if result === ""}
               <Button large fill on:click={check}> Zkontrolovat </Button>
             {:else}
-              <h3> {result} </h3> 
+              <h3 style="color: {resultColor}"> {result} </h3> 
+              <br> <br>
+              <Button large fill color="green" on:click={() => dispatch('nextWord')}> Pokracovat </Button>
             {/if}
           </Col>
           <Col width=20>
@@ -74,6 +76,7 @@
   let translatedText = "";
   let result = "";
   let placeholder = "";
+  let resultColor = "black";
 
   if (mode === "write") {
     placeholder = "Prelozte do anglictiny";
@@ -82,18 +85,20 @@
   }
 
   function check() {
-    document.querySelector("#translate-input").disabled = true;
-    if (translatedText === word.text) {
-      result = "Spravne ;-)"
-      dispatch('updateWord', {word: word, state: true})
+    if (translatedText.toLowerCase() === word.text.toLowerCase()) {
+      result = "Spravne ;-)";
+      resultColor = "green";
+      dispatch('updateWord', {word: word, state: true});
     } else {
-      result = "Spatne. Spravna odpoved je: " + word.text
-      dispatch('updateWord', {word: word, state: false})
+      result = "Spatne. Spravna odpoved je: " + word.text;
+      resultColor = "red";
+      dispatch('updateWord', {word: word, state: false});
     }
   }
 
   function handleKeydown(event) {
     if (event.key === "Enter") {
+      document.activeElement.disabled = true;
       document.activeElement.blur()
       check();
     }
