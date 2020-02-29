@@ -93,7 +93,7 @@
     Row, Col, 
     Link, Button
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData, trainingData, statisticsData, updateStatistics, resetStatistics } from '../js/store.js';
+  import { collectionData, categoryDetailData, trainingData, statisticsData } from '../js/store.js';
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
   import { _ } from 'svelte-i18n';
@@ -111,16 +111,15 @@
     { title: "Psani", value: "write", checked: false},
     { title: "Poslech", value: "listen", checked: false}
   ]; 
-  resetStatistics();
+  statisticsData.reset();
 
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    $statisticsData.count = wordIds.length
-    $statisticsData.unknown = wordIds.length
+    statisticsData.setCount(wordIds.length);
 
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
-        updateStatistics(word);
+        statisticsData.updateData(word);
       });
     }
     allWordsSorted = wordIds.sort((a, b) => {
