@@ -4,18 +4,17 @@
     Training Words
   </Subnavbar> 
   </Navbar>              
-  <div class="testEl"> 
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: true, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: 62vh">
-        <WordDetailSlide {word}/>
+        <WordSlide {word} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
       </SwiperSlide>
     {/each}
   </Swiper>
 
 
-  {#if !isTraining}
+  {#if !isTraining && $trainingData.mode === "read"}
     <BlockTitle><center>Uz umis dane slovicko?</center></BlockTitle>
     <Row>
       <Col width="25">
@@ -30,9 +29,9 @@
       </Col>
     </Row> 
   {/if}
-  </div>
 
-  <Sheet backdrop backdropEl="testEl" swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+  {#if $trainingData.mode === "read"}
+    <Sheet backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
       <Row>
         <Col width="25">
         </Col>
@@ -45,7 +44,8 @@
         <Col width="25">
         </Col>
       </Row>
-  </Sheet>
+    </Sheet>
+  {/if}
 
 </Page>
 
@@ -60,7 +60,7 @@
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
   import { trainingData, statisticsData } from '../js/store.js';
-  import WordDetailSlide from '../components/WordDetailSlide.svelte';
+  import WordSlide from '../components/WordSlide.svelte';
   import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -75,23 +75,24 @@
   });
 
   function noButton() {
-    updateCurrentWord(false);
+    let currentWord = $trainingData.words[currentWordIndex];
+    updateWord({word: currentWord, state: false});
     nextWord();
   }
 
   function yesButton() {
-    updateCurrentWord(true);
+    let currentWord = $trainingData.words[currentWordIndex];
+    updateWord({word: currentWord, state: true});
     nextWord();
   }
 
-  function updateCurrentWord(state) {
-    let currentWord = $trainingData.words[currentWordIndex];
-    if (currentWord.learning === undefined) { 
-      currentWord.learning = {"read": false, "write": false, "listen": false}
+  function updateWord({word, state}) {
+    if (word.learning === undefined) { 
+      word.learning = {"read": false, "write": false, "listen": false}
     }
-    currentWord.learning[$trainingData.mode] = state;
-    collection.saveWord(currentWord.text, currentWord);
-    statisticsData.updateData(currentWord);
+    word.learning[$trainingData.mode] = state;
+    collection.saveWord(word.text, word);
+    statisticsData.updateData(word);
   }
 
   function nextWord() {
