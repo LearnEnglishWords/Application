@@ -1,24 +1,29 @@
 <Block>
   <center>
     {#if mode==="read"}
-      <BlockTitle large>{word.text}</BlockTitle>
-      <Block>
-        <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
-      </Block>
 
+      <div on:click={playSound}>
+        <BlockTitle large>{word.text}</BlockTitle>
+        <Block>
+          <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
+        </Block>
+      </div>
       <WordDetail {word}/>
+
     {:else} 
-        <BlockTitle medium> 
-          {#if mode==="write"} 
-            {#each word.sense as sense}
-              {sense} <br/>
-            {/each}
-          {:else if mode==="listen"} 
-            <div on:click={playSound}>
-              <h1><b>&#x1F509;</b></h1>
-            </div>
-          {/if}
-        </BlockTitle> 
+
+      <BlockTitle medium> 
+        {#if mode==="write"} 
+          {#each word.sense as sense}
+            {sense} <br/>
+          {/each}
+        {:else if mode==="listen"} 
+          <div on:click={playSound}>
+            <h1><b>&#x1F509;</b></h1>
+          </div>
+        {/if}
+      </BlockTitle> 
+
       <Block>
         <Row>
           <Col width=20>
@@ -45,6 +50,7 @@
           </Col>
         </Row>
       </Block>
+
     {/if}
   </center>
 </Block>
