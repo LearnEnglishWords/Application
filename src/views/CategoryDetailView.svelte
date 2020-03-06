@@ -102,8 +102,12 @@
 
   let collection = new Collection();
   let listWordsOpened = false;
-  let allWords = [];
-  let allWordsSorted = [];
+  let allWords = [
+    {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
+    {text: "car", pronunciation:"car", sense: ["auto", "vozidlo"], example: ""},
+    {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
+  ];
+  let allWordsSorted = ["hello", "car", "bedroom"];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
   let trainingModes = [
@@ -114,6 +118,8 @@
   statisticsData.reset();
 
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
+    allWords = [];
+    allWordsSorted = [];
     statisticsData.setCount(wordIds.length);
 
     for (let wordId of wordIds) {

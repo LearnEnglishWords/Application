@@ -1,10 +1,16 @@
 <!-- App.svelte -->
 <App params={f7params}>
     <!-- Current View/Router, initial page will be loaded from home.svelte component -->
+<!--
+    <View main url="/CategoryList" />
+    <View main url="/CollectionList" />
+-->
     <View main url="/" />
+
 </App>
 <script>
-	// Import pages components
+  //let testing = true;
+  // Import pages components
   import { onMount } from 'svelte';
   import cordovaApp from '../js/cordova-app';
   import Collection from '../js/collection.js';
@@ -21,6 +27,19 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
 
+  import { 
+    collectionData,
+    categoryData, 
+    categoryDetailData,
+    trainingData,
+    statisticsData,
+    settingsData
+  } from '../js/store.js';
+
+  // Only testing data:
+  collectionData.set({id: "basic", name: "basic"})
+  downloadedCollections.set([ "basic", "personal" ])
+  categoryData.set(["Furniture","Body","Food","Free time"])
 
   // internationalization init:
   export async function preload() {
@@ -56,11 +75,13 @@
         // LearnEnglishWords basic setup
         let collection = new Collection();
         collection.getAppInfo("downloadedCollections", (data) => { 
-          if (data === null) {
-            downloadedCollections.set([ "personal" ]);
-            collection.saveAppInfo("downloadedCollections", $downloadedCollections);
-          } else {
-            downloadedCollections.set(data);
+          if (!testing) {
+            if (data === null) {
+              downloadedCollections.set([ "personal" ]);
+              collection.saveAppInfo("downloadedCollections", $downloadedCollections);
+            } else {
+              downloadedCollections.set(data);
+            }
           }
         });
       })
