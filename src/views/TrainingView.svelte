@@ -34,7 +34,7 @@
   {/if}
 
   {#if $trainingData.mode === "read"}
-    <Sheet backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+    <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
       <Row>
         <Col width="25">
         </Col>
@@ -116,7 +116,7 @@
   }
 
   function nextWord() {
-    wallEnable = true;
+    f7.sheet.open(".wall", false);
     let swiper = f7.swiper.get('.swiper-container')
     swiper.slideNext();
   }
@@ -124,7 +124,7 @@
 
 <style>
   :root {
-    --f7-sheet-height: 70vh;
+    --f7-sheet-height: 67vh;
     --f7-sheet-border-color: var(--f7-theme-color);
     --f7-sheet-transition-duration: 300ms;
     --f7-sheet-push-border-radius: 10px;
