@@ -6,6 +6,7 @@
       </Subnavbar> 
     </div>
   </Header>
+  {currentWordIndex+1}/{$trainingData.words.length}
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
@@ -74,6 +75,12 @@
   let currentWordIndex = 0;
   let swiperHeight = "80vh";
 
+  onMount(() => {
+    let swiper = f7.swiper.get('.swiper-container')
+    swiper.on("slideNextTransitionStart", () => { currentWordIndex += 1 })
+    swiper.on("slidePrevTransitionStart", () => { currentWordIndex -= 1 })
+  });
+
   if ($trainingData.mode === "read" && !$trainingData.isTraining) {
     swiperHeight = "62vh";
   }
@@ -109,7 +116,6 @@
   }
 
   function nextWord() {
-    currentWordIndex += 1;
     wallEnable = true;
     let swiper = f7.swiper.get('.swiper-container')
     swiper.slideNext();

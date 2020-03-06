@@ -139,7 +139,7 @@
       mode: trainingModes[trainingModeIndex].value, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: allWords.slice(0, wordsLimit-1)
+      words: allWords.slice(0, wordsLimit)
     });
     f7router.navigate('/Training');
   }
