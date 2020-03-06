@@ -134,12 +134,15 @@
   });
 
   function goToTrainingView(isTraining) {
+    let currentMode = trainingModes[trainingModeIndex];
     f7.preloader.show();
     trainingData.set({ 
-      mode: trainingModes[trainingModeIndex].value, 
+      mode: currentMode.value, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: allWords.slice(0, wordsLimit)
+      words: allWords.filter((word) => {
+        return word.learning === undefined || word.learning[currentMode.value] === false
+      }).slice(0, wordsLimit)
     });
     f7router.navigate('/Training');
   }
