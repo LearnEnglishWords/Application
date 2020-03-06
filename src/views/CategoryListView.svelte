@@ -1,6 +1,5 @@
 <Page name="CategoryList">
-  <Navbar title="LearnEnglishWords">
-  </Navbar>              
+  <Header />
 
   <Block strong inset>
     <BlockTitle medium>Vyberte si kategorii:</BlockTitle>
@@ -25,6 +24,7 @@
     List, ListItem
   } from 'framework7-svelte';
   import { categoryData, categoryDetailData } from '../js/store.js';
+  import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;

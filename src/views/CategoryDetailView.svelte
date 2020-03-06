@@ -1,6 +1,5 @@
 <Page name="CategoryDetail">
-  <Navbar title="LearnEnglishWords">
-  </Navbar>              
+  <Header />
 
   <center>
     <BlockTitle medium>{$categoryDetailData.name}</BlockTitle>
@@ -96,6 +95,7 @@
   import { collectionData, categoryDetailData, trainingData, statisticsData } from '../js/store.js';
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
+  import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;

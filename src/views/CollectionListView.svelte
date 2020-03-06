@@ -1,7 +1,5 @@
 <Page name="CollectionList">
-  <Navbar title="LearnEnglishWords">
-  </Navbar>
-
+  <Header />
   <!--
     {$_('page_title')}
   -->
@@ -44,6 +42,7 @@
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
   import Collection from '../js/collection.js';
+  import Header from '../components/Header.svelte';
   import { collectionData, downloadedCollections, categoryData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 

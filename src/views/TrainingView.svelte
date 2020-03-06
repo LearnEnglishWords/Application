@@ -1,9 +1,11 @@
 <Page name="Training">
-  <Navbar title="LearnEnglishWords">
-  <Subnavbar> 
-    Training Words
-  </Subnavbar> 
-  </Navbar>              
+  <Header>
+    <div slot="subnavbar">
+      <Subnavbar> 
+        Training Words
+      </Subnavbar> 
+    </div>
+  </Header>
 
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
@@ -61,6 +63,7 @@
   } from 'framework7-svelte';
   import { trainingData, statisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
+  import Header from '../components/Header.svelte';
   import Collection from '../js/collection.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';

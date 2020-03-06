@@ -5,7 +5,7 @@
     <View main url="/CategoryList" />
     <View main url="/CollectionList" />
 -->
-    <View main url="/" />
+  <View main url="/"/>
 
 </App>
 <script>
