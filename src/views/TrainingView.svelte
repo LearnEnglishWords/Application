@@ -80,9 +80,10 @@
   let wallEnable = !isTraining;
   let currentWordIndex = 0;
   let swiperHeight = "80vh";
+  let swiper; 
 
   onMount(() => {
-    let swiper = f7.swiper.get('.swiper-container')
+    swiper = f7.swiper.get('.swiper-container')
     swiper.on("slideNextTransitionStart", () => { currentWordIndex += 1 })
     swiper.on("slidePrevTransitionStart", () => { currentWordIndex -= 1 })
   });
@@ -125,12 +126,12 @@
     if (!isTraining) { f7.sheet.open(".wall", false); }
     currentWordIndex = index-2;
     if(currentWordIndex < 0) { currentWordIndex = 1; }  
-    f7.swiper.get('.swiper-container').slideTo(index);
+    swiper.slideTo(index);
   }
 
   function nextWord() {
     f7.sheet.open(".wall", false);
-    f7.swiper.get('.swiper-container').slideNext();
+    swiper.slideNext();
   }
 </script>
 
