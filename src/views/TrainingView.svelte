@@ -48,8 +48,14 @@
         </Col>
       </Row>
     </Sheet>
-  {/if}
 
+    {#if isTraining}
+      <Toolbar position={'bottom'}>
+        <Link on:click={() => goToSlide(0)}>Na zacatek</Link>
+        <Link on:click={() => goToSlide($trainingData.words.length)}>Na konec</Link>
+      </Toolbar>
+    {/if}
+  {/if}
 </Page>
 
 <script>
@@ -57,7 +63,7 @@
     f7, Page, PageContent, 
     Block, BlockTitle, BlockHeader, 
     Navbar, Subnavbar,
-    Swiper, SwiperSlide,
+    Swiper, SwiperSlide, 
     List, ListItem, AccordionContent,
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
@@ -104,7 +110,7 @@
   function updateWord({word, state}) {
     if ($trainingData.isTraining) { return }
     if (word.learning === undefined) { 
-      word.learning = {"read": false, "write": false, "listen": false}
+      word.learning = {"read": false, "write": false, "listen": false};
     }
 
     let previousState = statisticsData.getState(word);
@@ -115,10 +121,16 @@
     }
   }
 
+  function goToSlide(index) {
+    if (!isTraining) { f7.sheet.open(".wall", false); }
+    currentWordIndex = index-2;
+    if(currentWordIndex < 0) { currentWordIndex = 1; }  
+    f7.swiper.get('.swiper-container').slideTo(index);
+  }
+
   function nextWord() {
     f7.sheet.open(".wall", false);
-    let swiper = f7.swiper.get('.swiper-container')
-    swiper.slideNext();
+    f7.swiper.get('.swiper-container').slideNext();
   }
 </script>
 
