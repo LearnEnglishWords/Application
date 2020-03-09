@@ -16,7 +16,7 @@
         <List>
           {#each trainingModes as {title, value, checked}, id}
             <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
-              <Statistics simple statistic={trainingModeStatistics[value]} />
+              <Statistics simple statistic={$trainingModeStatisticsData[value]} />
             </ListItem>
           {/each}
         </List>
@@ -94,7 +94,7 @@
     Row, Col, 
     Link, Button
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData, trainingData, statisticsData } from '../js/store.js';
+  import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
   import Header from '../components/Header.svelte';
@@ -108,7 +108,6 @@
   let allWordsSorted = [];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
-  let trainingModeStatistics = 0; 
   let trainingModes = [
     {title: "Cteni", value: "read", checked: true},
     {title: "Psani", value: "write", checked: false},
@@ -117,23 +116,20 @@
   let trainingModesValues = trainingModes.map((it) => it.value);
 
   statisticsData.reset();
+  trainingModeStatisticsData.reset();
   //setTestingData();
 
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
     // set count of words
     statisticsData.setCount(wordIds.length);
-    trainingModeStatistics = {
-      read: {known: 0, unknown: wordIds.length},
-      write: {known: 0, unknown: wordIds.length},
-      listen: {known: 0, unknown: wordIds.length},
-    }
+    trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
 
     // load all words
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
         statisticsData.updateData(word, "unknown");
-        updateTrainingModeStatistics(word);
+        trainingModeStatisticsData.updateData(word, trainingModesValues);
       });
     }
 
@@ -142,15 +138,6 @@
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
   });
-
-  function updateTrainingModeStatistics(word) {
-    for (let mode of trainingModesValues) {
-      if(statisticsData.isKnown(word, mode)) {
-        trainingModeStatistics[mode].known += 1; 
-        trainingModeStatistics[mode].unknown -= 1; 
-      } 
-    }
-  }
 
   function goToTrainingView(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];

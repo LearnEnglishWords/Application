@@ -68,7 +68,7 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { trainingData, statisticsData, collectionData, categoryDetailData } from '../js/store.js';
+  import { trainingData, statisticsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import Collection from '../js/collection.js';
@@ -119,6 +119,7 @@
       word.learning[$trainingData.mode] = state;
       collection.saveWord(word.text, word);
       statisticsData.updateData(word, previousState);
+      trainingModeStatisticsData.updateData(word, [$trainingData.mode]);
     }
     collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
   }
