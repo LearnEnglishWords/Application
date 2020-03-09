@@ -104,30 +104,23 @@
 
   let collection = new Collection();
   let listWordsOpened = false;
-  let allWords = [
-    {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
-    {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
-    {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
-  ];
-  let allWordsSorted = ["hello", "car", "bedroom"];
+  let allWords = [];
+  let allWordsSorted = [];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
-  let trainingModeStatistics = {
-      read: {known: 0, unknown: 100},
-      write: {known: 0, unknown: 100},
-      listen: {known: 0, unknown: 100},
-  } 
+  let trainingModeStatistics = 0; 
   let trainingModes = [
     {title: "Cteni", value: "read", checked: true},
     {title: "Psani", value: "write", checked: false},
     {title: "Poslech", value: "listen", checked: false}
   ]; 
-  statisticsData.reset();
   let trainingModesValues = trainingModes.map((it) => it.value);
 
+  statisticsData.reset();
+  //setTestingData();
+
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    allWords = [];
-    allWordsSorted = [];
+    // set count of words
     statisticsData.setCount(wordIds.length);
     trainingModeStatistics = {
       read: {known: 0, unknown: wordIds.length},
@@ -135,6 +128,7 @@
       listen: {known: 0, unknown: wordIds.length},
     }
 
+    // load all words
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
@@ -143,6 +137,7 @@
       });
     }
 
+    // sort words for list of words
     allWordsSorted = wordIds.sort((a, b) => {
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
@@ -169,6 +164,22 @@
       }).slice(0, wordsLimit)
     });
     f7router.navigate('/Training');
+  }
+  
+  function setTestingData() {
+    allWords = [
+      {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
+      {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
+      {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
+    ];
+
+    allWordsSorted = ["hello", "car", "bedroom"];
+
+    trainingModeStatistics = {
+        read: {known: 4, unknown: 96},
+        write: {known: 16, unknown: 84},
+        listen: {known: 9, unknown: 91},
+    } 
   }
 
 </script>
