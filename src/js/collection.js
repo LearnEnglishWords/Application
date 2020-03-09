@@ -46,6 +46,15 @@ export default class Collection {
   }
 
   saveCategoryList(collectionId, categories) {
+    let defaultStatistics = {
+      "count": 100,
+      "known": 0,
+      "learning": 0,
+      "unknown": 100
+    }
+    for (categoryId of categories) {
+      this.saveCategoryStatistics(collectionId, categoryId, defaultStatistics);
+    }
     return appStorage.setItem(`collection:${collectionId}:category:ids`, categories);
   }
 
@@ -80,6 +89,20 @@ export default class Collection {
     return appStorage.getItem(`word:${wordId}`).then((data) => {
       callback(data);
     });
+  }
+
+  saveCategoryStatistics(collectionId, categoryId, statistics) {
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:statistics`, statistics);
+  }
+
+  getCategoryStatistics(collectionId, categoryId, callback) {
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:statistics`).then((data) => {
+      callback(data);
+    });
+  }
+
+  getCategoryStatisticsPromise(collectionId, categoryId) {
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:statistics`)
   }
 
   saveAppInfo(id, content) {

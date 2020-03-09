@@ -15,7 +15,8 @@
       <AccordionContent>
         <List>
           {#each trainingModes as {title, value, checked}, id}
-            <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}></ListItem>
+            <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+            </ListItem>
           {/each}
         </List>
       </AccordionContent>
@@ -104,7 +105,7 @@
   let listWordsOpened = false;
   let allWords = [
     {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
-    {text: "car", pronunciation:"car", sense: ["auto", "vozidlo"], example: ""},
+    {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
     {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
   ];
   let allWordsSorted = ["hello", "car", "bedroom"];

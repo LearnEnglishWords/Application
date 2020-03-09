@@ -8,6 +8,7 @@
         {#each $categoryData as category, id}
           <ListItem text="" link="#" on:click="{() => goToDetailView(category)}">
             <h3>{category}</h3>
+            <Statistics simple categoryId={category} />
           </ListItem>
         {/each}
       {/if}
@@ -25,6 +26,7 @@
   } from 'framework7-svelte';
   import { categoryData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
+  import Statistics from '../components/Statistics.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;

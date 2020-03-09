@@ -1,5 +1,4 @@
 import { writable, get } from 'svelte/store';
-import Collection from './collection.js';
 
 function getState(word) {
   if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {

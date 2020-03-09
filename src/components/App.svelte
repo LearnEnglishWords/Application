@@ -9,7 +9,7 @@
 
 </App>
 <script>
-  //let testing = true;
+  let testing = false;
   // Import pages components
   import { onMount } from 'svelte';
   import cordovaApp from '../js/cordova-app';
@@ -37,9 +37,9 @@
   } from '../js/store.js';
 
   // Only testing data:
-  collectionData.set({id: "basic", name: "basic"})
-  downloadedCollections.set([ "basic", "personal" ])
-  categoryData.set(["Furniture","Body","Food","Free time"])
+  //collectionData.set({id: "basic", name: "basic"})
+  //downloadedCollections.set([ "basic", "personal" ])
+  //categoryData.set(["Furniture","Body","Food","Free time"])
 
   // internationalization init:
   export async function preload() {
