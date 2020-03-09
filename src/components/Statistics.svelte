@@ -1,17 +1,24 @@
 {#if simple}
-  {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
-    <div> (                   
-      <span style="color: green"> 0 </span> /
-      <span style="color: orange"> 0 </span> /
-      <span style="color: red"> 100 </span> )
-    </div>
-  {:then statistic}
-    <div> (                   
-      <span style="color: green"> {statistic.known} </span> /
-      <span style="color: orange"> {statistic.learning} </span> /
-      <span style="color: red"> {statistic.unknown} </span> )
-    </div>
-  {/await}
+  {#if statistic !== undefined}
+      <div> (                   
+        <span style="color: green"> {statistic.known} </span> /
+        <span style="color: red"> {statistic.unknown} </span> )
+      </div>
+  {:else}
+    {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
+      <div> (                   
+        <span style="color: green"> 0 </span> /
+        <span style="color: orange"> 0 </span> /
+        <span style="color: red"> 100 </span> )
+      </div>
+    {:then statistic}
+      <div> (                   
+        <span style="color: green"> {statistic.known} </span> /
+        <span style="color: orange"> {statistic.learning} </span> /
+        <span style="color: red"> {statistic.unknown} </span> )
+      </div>
+    {/await}
+  {/if}
 {:else}
   <Row>
     <Col class="text-align-center">
@@ -58,6 +65,7 @@
 
   export let simple = false;
   export let categoryId;
+  export let statistic;
 
   let collection = new Collection();
   

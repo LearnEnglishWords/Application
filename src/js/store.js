@@ -20,6 +20,11 @@ function createStatisticsData(startStatisticsData) {
       return data
     }),
     getState: (word) => { return getState(word) },
+    isKnown: (word, mode) => { 
+      if (word.learning === undefined) { return false }
+      if (word.learning[mode] !== false) { return true } else { return false }
+      return false
+    },
     updateData: (word, prevState) => update((data) => {
       let currentState = getState(word);
       if (word.learning === undefined || currentState === prevState) { return data }

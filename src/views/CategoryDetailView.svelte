@@ -16,6 +16,7 @@
         <List>
           {#each trainingModes as {title, value, checked}, id}
             <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+              <Statistics simple statistic={trainingModeStatistics[value]} />
             </ListItem>
           {/each}
         </List>
@@ -111,28 +112,50 @@
   let allWordsSorted = ["hello", "car", "bedroom"];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
+  let trainingModeStatistics = {
+      read: {known: 0, unknown: 100},
+      write: {known: 0, unknown: 100},
+      listen: {known: 0, unknown: 100},
+  } 
   let trainingModes = [
-    { title: "Cteni", value: "read", checked: true},
-    { title: "Psani", value: "write", checked: false},
-    { title: "Poslech", value: "listen", checked: false}
+    {title: "Cteni", value: "read", checked: true},
+    {title: "Psani", value: "write", checked: false},
+    {title: "Poslech", value: "listen", checked: false}
   ]; 
   statisticsData.reset();
+  let trainingModesValues = trainingModes.map((it) => it.value);
 
   collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
     allWords = [];
     allWordsSorted = [];
     statisticsData.setCount(wordIds.length);
+    trainingModeStatistics = {
+      read: {known: 0, unknown: wordIds.length},
+      write: {known: 0, unknown: wordIds.length},
+      listen: {known: 0, unknown: wordIds.length},
+    }
 
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
         statisticsData.updateData(word, "unknown");
+        updateTrainingModeStatistics(word);
       });
     }
+
     allWordsSorted = wordIds.sort((a, b) => {
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
   });
+
+  function updateTrainingModeStatistics(word) {
+    for (let mode of trainingModesValues) {
+      if(statisticsData.isKnown(word, mode)) {
+        trainingModeStatistics[mode].known += 1; 
+        trainingModeStatistics[mode].unknown -= 1; 
+      } 
+    }
+  }
 
   function goToTrainingView(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
