@@ -11,7 +11,7 @@
   <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: {swiperHeight}">
-        <WordSlide {word} {isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+        <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
       </SwiperSlide>
     {/each}
   </Swiper>
@@ -56,6 +56,10 @@
       </Toolbar>
     {/if}
   {/if}
+
+  <Popup animate={false} opened={showRecapitulation} onPopupClosed={() => showRecapitulation = false}>
+    <Recapitulation info={recapitulationInfo} />
+  </Popup>
 </Page>
 
 <script>
@@ -71,17 +75,26 @@
   import { trainingData, statisticsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
+  import Recapitulation from '../components/Recapitulation.svelte';
   import Collection from '../js/collection.js';
   import { isKnownForMode, getState } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
+
+  export let f7router;
 
   let collection = new Collection();
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
   let currentWordIndex = 0;
   let swiperHeight = "80vh";
-  let swiper; 
+  let swiper;     
+  let showRecapitulation = false;
+  let recapitulationInfo = {
+    count: $trainingData.words.length,
+    known: 0,
+    unknown: 0
+  };
 
   onMount(() => {
     swiper = f7.swiper.get('.swiper-container')
@@ -109,7 +122,17 @@
     nextWord();
   }
 
+  function updateRecapitulation(state) {
+    if (state) {
+      recapitulationInfo.known += 1;
+    } else {
+      recapitulationInfo.unknown += 1;
+    }
+  }
+
   function updateWord({word, state}) {
+    updateRecapitulation(state);
+
     if ($trainingData.isTraining) { return }
     if (word.learning === undefined) { 
       word.learning = {"read": false, "write": false, "listen": false};
@@ -135,8 +158,13 @@
   }
 
   function nextWord() {
-    f7.sheet.open(".wall", false);
-    swiper.slideNext();
+    if ($trainingData.words.length === currentWordIndex+1) {
+      showRecapitulation = true;
+      f7router.back();
+    } else {
+      f7.sheet.open(".wall", false);
+      swiper.slideNext();
+    }
   }
 </script>
 

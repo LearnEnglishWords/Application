@@ -8,7 +8,7 @@
           <ListItem> {numbers[id]} {sense.toLowerCase()} </ListItem>
         {/each}
       </List>
-      {#if isTraining}
+      {#if $trainingData.isTraining}
         <Button fill sheetOpen=".description" color="lightblue">Vice info</Button>
       {/if}
     </Col>
@@ -17,7 +17,7 @@
   </Row>
 </Block>
 
-{#if isTraining}
+{#if $trainingData.isTraining}
   <Sheet class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
     <Toolbar>
       <div class="left"></div>
@@ -47,8 +47,10 @@
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
 
+  import { trainingData } from '../js/store.js';
+
   export let word;
-  export let isTraining;
+
   let numbers = ["①", "②", "③", "④", "⑤"];
   let descriptionOpened = false;
 </script>
