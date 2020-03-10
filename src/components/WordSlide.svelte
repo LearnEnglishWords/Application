@@ -2,7 +2,7 @@
   <center>
     {#if mode==="read"}
 
-      <div on:click={playSound}>
+      <div on:click={() => playSound(word)}>
         <BlockTitle large>{word.text}</BlockTitle>
         <Block>
           <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
@@ -18,7 +18,7 @@
             {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
           {/each}
         {:else if mode==="listen"} 
-          <div on:click={playSound}>
+          <div on:click={() => playSound(word)}>
             <h1><b>&#x1F509;</b></h1>
           </div>
         {/if}
@@ -67,6 +67,7 @@
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
   import { statisticsData } from '../js/store.js';
+  import { playSound } from '../js/utils.js';
 
   export let word;
   export let mode;
@@ -103,11 +104,5 @@
       document.activeElement.blur()
       check();
     }
-  }
-
-  function playSound() {
-    var audio = new Audio();
-    audio.src = `https://drakeman.cz/english-words/collections/basic/sounds/${word.text}.mp3`;
-    audio.play();
   }
 </script>

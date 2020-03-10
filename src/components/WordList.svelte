@@ -9,7 +9,9 @@
     <List>
       {#each allWordsSorted as word, id}
         <ListItem>
-          {word.text}  &#x1F509;
+          <div on:click={() => playSound(word)}>
+            {word.text}  &#x1F509;
+          </div>
           <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
             {#if wordState[word.text]} Neznam {:else} Znam {/if}
           </Button>
@@ -31,7 +33,7 @@
     Link, Button
   } from 'framework7-svelte';
   import Collection from '../js/collection.js';
-  import { isKnown, getState, trainingModes } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
 
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import { _ } from 'svelte-i18n';

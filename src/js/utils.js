@@ -41,3 +41,9 @@ export function getState(word) {
     return "learning"
   }
 }
+
+export function playSound(word) {
+  var audio = new Audio();
+  audio.src = `https://drakeman.cz/english-words/collections/basic/sounds/${word.text}.mp3`;
+  audio.play();
+}
