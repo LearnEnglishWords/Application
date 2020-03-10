@@ -1,19 +1,6 @@
 import { writable, get } from 'svelte/store';
+import { isKnownForMode, getState } from './utils.js'
 
-function getState(word) {
-  if (word.learning === undefined || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
-    return "unknown"
-  } else if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
-    return "known"
-  } else {
-    return "learning"
-  }
-}
-
-function isKnown(word, mode) { 
-  if (word.learning === undefined) { return false }
-  if (word.learning[mode] === false) { return false } else { return true }
-}
 
 function createStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
@@ -24,7 +11,6 @@ function createStatisticsData(startStatisticsData) {
       data.unknown = count;
       return data
     }),
-    getState: (word) => { return getState(word) },
     updateData: (word, prevState) => update((data) => {
       let currentState = getState(word);
       if (word.learning === undefined || currentState === prevState) { return data }
@@ -49,10 +35,9 @@ function createTrainingModeStatisticsData(startStatisticsData) {
       }
       return data
     }),
-    isKnown: (word, mode) => { return isKnown(word, mode) },
     updateData: (word, modes) => update((data) => {
       for (let {mode, prevState} of modes) {
-        let currentState = isKnown(word, mode);
+        let currentState = isKnownForMode(word, mode);
         if(currentState === prevState) { continue }
         if(currentState) {
           data[mode].known += 1; 

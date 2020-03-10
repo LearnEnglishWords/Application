@@ -98,6 +98,7 @@
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import Collection from '../js/collection.js';
+  import { isKnown, getState } from '../js/utils.js'
   import Statistics from '../components/Statistics.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
@@ -149,18 +150,10 @@
     }
   });
 
-  function isKnown(word) {
-    if (word.learning === undefined) { return false }
-    if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {
-      return false
-    } else {
-      return true
-    }
-  }                   
 
   function setState(word, known) {
     let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
-    let prevState = statisticsData.getState(word);
+    let prevState = getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
     statisticsData.updateData(word, prevState);
     trainingModeStatisticsData.updateData(word, trainingModesValues);
