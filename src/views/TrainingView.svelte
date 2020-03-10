@@ -115,11 +115,12 @@
     }
 
     let previousState = statisticsData.getState(word);
+    let isKnown = trainingModeStatisticsData.isKnown(word, $trainingData.mode);
     if (word.learning[$trainingData.mode] !== state) {
       word.learning[$trainingData.mode] = state;
       collection.saveWord(word.text, word);
       statisticsData.updateData(word, previousState);
-      trainingModeStatisticsData.updateData(word, [$trainingData.mode]);
+      trainingModeStatisticsData.updateData(word, [{mode: $trainingData.mode, prevState: isKnown}]);
     }
     collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
   }

@@ -116,7 +116,7 @@
     {title: "Psani", value: "write", checked: false},
     {title: "Poslech", value: "listen", checked: false}
   ]; 
-  let trainingModesValues = trainingModes.map((it) => it.value);
+  let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: false}});
 
   statisticsData.reset();
   trainingModeStatisticsData.reset();
@@ -151,14 +151,15 @@
 
   function isKnown(word) {
     if (word.learning === undefined) { return false }
-    if (word.learning.read === true && word.learning.write === true && word.learning.listen === true) {
-      return true
-    } else {
+    if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {
       return false
+    } else {
+      return true
     }
   }                   
 
   function setState(word, known) {
+    let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
     let prevState = statisticsData.getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
     statisticsData.updateData(word, prevState);

@@ -12,8 +12,7 @@ function getState(word) {
 
 function isKnown(word, mode) { 
   if (word.learning === undefined) { return false }
-  if (word.learning[mode] !== false) { return true } else { return false }
-  return false
+  if (word.learning[mode] === false) { return false } else { return true }
 }
 
 function createStatisticsData(startStatisticsData) {
@@ -44,18 +43,24 @@ function createTrainingModeStatisticsData(startStatisticsData) {
   return {
     subscribe,
     setCount: (count, modes) => update((data) => { 
-      for (let mode of modes) {
+      for (let {mode, prevState} of modes) {
         data[mode].known = 0;
         data[mode].unknown = count;
       }
       return data
     }),
+    isKnown: (word, mode) => { return isKnown(word, mode) },
     updateData: (word, modes) => update((data) => {
-      for (let mode of modes) {
-        if(isKnown(word, mode)) {
+      for (let {mode, prevState} of modes) {
+        let currentState = isKnown(word, mode);
+        if(currentState === prevState) { continue }
+        if(currentState) {
           data[mode].known += 1; 
           data[mode].unknown -= 1; 
-        } 
+        } else {
+          data[mode].known -= 1; 
+          data[mode].unknown += 1; 
+        }
       }
       return data
     }),
