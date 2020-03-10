@@ -1,36 +1,28 @@
 
 <Page>
+  <Header/>
   <center>
     <BlockTitle large >Konec</BlockTitle>
-  <BlockTitle medium >Celkove vyhodnoceni:</BlockTitle>
-  <Block>
-    <Row>
-      <Col>
-        Pocet slov:
-      </Col>
-      <Col>
-        {info.count}
-      </Col>
-    </Row>
-    <Row style="color: green">
-      <Col>
-        Pocet slov spravne:
-      </Col>
-      <Col>
-        {info.known}
-      </Col>
-    </Row>
-    <Row style="color: red">
-      <Col>
-        Pocet slov spatne:
-      </Col>
-      <Col>
-        {info.unknown}
-      </Col>
-    </Row>
-    <Button large fill popupClose color="green" > Pokracovat </Button>
-
-  </Block>
+    <BlockTitle medium >Celkove vyhodnoceni:</BlockTitle>
+    <Block>
+      <Row>
+        <Col> Pocet slov: </Col> <Col> {info.count} </Col>
+      </Row>
+      <Row style="color: green">
+        <Col> Pocet slov spravne: </Col> <Col> {info.known} </Col>
+      </Row>
+      <Row style="color: red">
+        <Col> Pocet slov spatne: </Col> <Col> {info.unknown} </Col>
+      </Row>
+      <br/> <br/>
+      <Row>
+        <Col width=25> </Col>
+        <Col width=50>
+          <Button large fill popupClose color="green" > Pokracovat </Button>
+        </Col>
+        <Col width=25> </Col>
+      </Row>
+    </Block>
   </center>
 </Page>
 
@@ -41,6 +33,7 @@
     Row, Col, 
     Button
   } from 'framework7-svelte';
+  import Header from './Header.svelte';
 
   export let info;
 </script>
