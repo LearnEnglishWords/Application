@@ -25,10 +25,10 @@ export function isKnownForMode(word, mode) {
 
 export function isKnown(word) {
   if (word.learning === undefined) { return false }
-  if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {
-    return false
-  } else {
+  if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return true
+  } else {
+    return false
   }
 }                   
 
