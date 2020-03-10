@@ -4,7 +4,13 @@ export const defaultStatisticsData = {
   "known": 0,
   "learning": 0,
   "unknown": 100
-};
+};            
+
+export const defaultTreiningModeStatisticsData = {
+  "read": {"known": 0, "unknown": 100},
+  "write": {"known": 0, "unknown": 100},
+  "listen": {"known": 0, "unknown": 100},
+}
 
 export const trainingModes = [
   {title: "Cteni", value: "read", checked: true},

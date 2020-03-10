@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { isKnownForMode, getState } from './utils.js'
+import { isKnownForMode, getState, defaultStatistics, defaultTreiningModeStatisticsData } from './utils.js'
 
 
 function createStatisticsData(startStatisticsData) {
@@ -8,6 +8,8 @@ function createStatisticsData(startStatisticsData) {
     subscribe,
     setCount: (count) => update((data) => { 
       data.count = count;
+      data.known = 0;
+      data.learning = 0;
       data.unknown = count;
       return data
     }),
@@ -61,16 +63,7 @@ export const downloadedCollections = writable([]);
 export const categoryData = writable(0);
 export const categoryDetailData = writable(0);
 export const settingsData = writable(0);
-export const trainingModeStatisticsData = createTrainingModeStatisticsData({
-  "read": {"known": 0, "unknown": 100},
-  "write": {"known": 0, "unknown": 100},
-  "listen": {"known": 0, "unknown": 100},
-});
-export const statisticsData = createStatisticsData({
-  "count": 100,
-  "known": 0,
-  "learning": 0,
-  "unknown": 100
-});
+export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTreiningModeStatisticsData});
+export const statisticsData = createStatisticsData({...defaultStatistics});
 
 
