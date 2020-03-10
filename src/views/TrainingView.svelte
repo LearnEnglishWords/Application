@@ -72,7 +72,7 @@
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import Collection from '../js/collection.js';
-  import { isKnown, getState } from '../js/utils.js'
+  import { isKnownForMode, getState } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -116,7 +116,7 @@
     }
 
     let previousState = getState(word);
-    let isKnown = isKnown(word, $trainingData.mode);
+    let isKnown = isKnownForMode(word, $trainingData.mode);
 
     if (word.learning[$trainingData.mode] !== state) {
       word.learning[$trainingData.mode] = state;

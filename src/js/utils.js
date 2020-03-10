@@ -6,6 +6,11 @@ export const defaultStatisticsData = {
   "unknown": 100
 };
 
+export const trainingModes = [
+  {title: "Cteni", value: "read", checked: true},
+  {title: "Psani", value: "write", checked: false},
+  {title: "Poslech", value: "listen", checked: false}
+]; 
 
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined) { return false }

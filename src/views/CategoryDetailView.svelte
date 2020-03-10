@@ -61,26 +61,9 @@
 
 
   <Popup opened={listWordsOpened} onPopupClosed={() => listWordsOpened = false}>
-    <Page>
-      <Navbar title="LearnEnglishWords">
-        <NavRight>
-          <Link popupClose>Close</Link>
-        </NavRight>
-      </Navbar>
-      <BlockTitle>Zde muzete oznacit slovicka, ktera jiz znate:</BlockTitle>
-      <Block>
-        <List>
-          {#each allWordsSorted as word, id}
-            <ListItem>
-              {word.text}  &#x1F509;
-              <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
-                {#if wordState[word.text]} Neznam {:else} Znam {/if}
-              </Button>
-            </ListItem>
-          {/each}
-        </List>
-      </Block>
-    </Page>
+    {#if allWordIds.length > 0}
+      <WordList allWordIds={allWordIds}/>
+    {/if}
   </Popup>
 
 </Page>
@@ -97,26 +80,21 @@
     Link, Button
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
+  import { trainingModes } from '../js/utils.js'
   import Collection from '../js/collection.js';
-  import { isKnown, getState } from '../js/utils.js'
   import Statistics from '../components/Statistics.svelte';
+  import WordList from '../components/WordList.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
 
-  let wordState = {}
   let collection = new Collection();
   let listWordsOpened = false;
   let allWords = [];
-  let allWordsSorted = [];
+  let allWordIds = [];
   let wordsLimit = 30;
   let trainingModeIndex = 0;
-  let trainingModes = [
-    {title: "Cteni", value: "read", checked: true},
-    {title: "Psani", value: "write", checked: false},
-    {title: "Poslech", value: "listen", checked: false}
-  ]; 
   let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: false}});
 
   statisticsData.reset();
@@ -127,40 +105,18 @@
     // set count of words
     statisticsData.setCount(wordIds.length);
     trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
+    allWordIds = [...wordIds];
 
     // load all words
     for (let wordId of wordIds) {
+
       collection.getWord(wordId, (word) => {
         allWords.push(word);
         statisticsData.updateData(word, "unknown");
         trainingModeStatisticsData.updateData(word, trainingModesValues);
-        wordState[wordId] = isKnown(word);
-      });
-    }
-
-    // sort words for list of words
-    let allWordsSortedIds = wordIds.sort((a, b) => {
-      return a.charCodeAt(0) - b.charCodeAt(0)
-    });
-    for (let wordId of allWordsSortedIds) {
-      collection.getWord(wordId, (word) => {
-        allWordsSorted.push(word);
-        allWordsSorted = [...allWordsSorted];
       });
     }
   });
-
-
-  function setState(word, known) {
-    let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
-    let prevState = getState(word);
-    word.learning = {"read": known, "write": known, "listen": known};
-    statisticsData.updateData(word, prevState);
-    trainingModeStatisticsData.updateData(word, trainingModesValues);
-    collection.saveWord(word.text, word);
-    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
-    wordState[word.text] = isKnown(word);
-  }
 
   function goToTrainingView(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
