@@ -8,7 +8,7 @@
           <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
         </Block>
       </div>
-      <WordDetail {word}/>
+      <WordDetail {isTraining}, {word}/>
 
     {:else} 
 
@@ -71,6 +71,7 @@
 
   export let word;
   export let mode;
+  export let isTraining;
 
   const dispatch = createEventDispatcher();
 
