@@ -1,7 +1,7 @@
 import { writable, get } from 'svelte/store';
 
 function getState(word) {
-  if (word.learning.read === false && word.learning.write === false && word.learning.listen === false) {
+  if (word.learning === undefined || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
     return "unknown"
   } else if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return "known"
@@ -45,6 +45,7 @@ function createTrainingModeStatisticsData(startStatisticsData) {
     subscribe,
     setCount: (count, modes) => update((data) => { 
       for (let mode of modes) {
+        data[mode].known = 0;
         data[mode].unknown = count;
       }
       return data

@@ -7,9 +7,9 @@
   {:else}
     {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
       <div> (                   
-        <span style="color: green"> 0 </span> /
-        <span style="color: orange"> 0 </span> /
-        <span style="color: red"> 100 </span> )
+        <span style="color: green"> ? </span> /
+        <span style="color: orange"> ?? </span> /
+        <span style="color: red"> ??? </span> )
       </div>
     {:then statistic}
       <div> (                   

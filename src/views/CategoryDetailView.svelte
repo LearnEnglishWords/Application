@@ -72,8 +72,10 @@
         <List>
           {#each allWordsSorted as word, id}
             <ListItem>
-              {word}  &#x1F509;
-              <Button raised>Jiz znam</Button>
+              {word.text}  &#x1F509;
+              <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
+                {#if wordState[word.text]} Neznam {:else} Znam {/if}
+              </Button>
             </ListItem>
           {/each}
         </List>
@@ -102,6 +104,7 @@
 
   export let f7router;
 
+  let wordState = {}
   let collection = new Collection();
   let listWordsOpened = false;
   let allWords = [];
@@ -130,14 +133,40 @@
         allWords.push(word);
         statisticsData.updateData(word, "unknown");
         trainingModeStatisticsData.updateData(word, trainingModesValues);
+        wordState[wordId] = isKnown(word);
       });
     }
 
     // sort words for list of words
-    allWordsSorted = wordIds.sort((a, b) => {
+    let allWordsSortedIds = wordIds.sort((a, b) => {
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
+    for (let wordId of allWordsSortedIds) {
+      collection.getWord(wordId, (word) => {
+        allWordsSorted.push(word);
+        allWordsSorted = [...allWordsSorted];
+      });
+    }
   });
+
+  function isKnown(word) {
+    if (word.learning === undefined) { return false }
+    if (word.learning.read === true && word.learning.write === true && word.learning.listen === true) {
+      return true
+    } else {
+      return false
+    }
+  }                   
+
+  function setState(word, known) {
+    let prevState = statisticsData.getState(word);
+    word.learning = {"read": known, "write": known, "listen": known};
+    statisticsData.updateData(word, prevState);
+    trainingModeStatisticsData.updateData(word, trainingModesValues);
+    collection.saveWord(word.text, word);
+    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
+    wordState[word.text] = isKnown(word);
+  }
 
   function goToTrainingView(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
