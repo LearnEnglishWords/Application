@@ -27,6 +27,7 @@
 
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
+  import cs from '../localization/cs.json';
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
 
@@ -46,8 +47,9 @@
   // internationalization init:
   export async function preload() {
     addMessages('en', en);
+    addMessages('cs', cs);
     init({
-      fallbackLocale: 'en',
+      fallbackLocale: 'cs',
       initialLocale: getLocaleFromNavigator(),
     })
     return waitLocale()

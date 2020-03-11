@@ -4,7 +4,7 @@
     {$_('page_title')}
   -->
   <Block strong inset>
-    <BlockTitle medium>Vyberte si kolekci slovicek:</BlockTitle>
+    <BlockTitle medium>{$_('collection_label')}</BlockTitle>
     <List accordionList mediaList inset>
       {#each collectionItems as {id, label, text, description, active}}
         {#if active}
