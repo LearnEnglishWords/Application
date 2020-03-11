@@ -1,10 +1,10 @@
 <Popup class={name} animate={true} >
-  <Header type="popup" popupName={name} title="Zpetna vazba"/>
+  <Header type="popup" popupName={name} {title}/>
   <Block inset>
     <p>
       <List noHairlinesMd>
         <ListInput
-          label="Email"
+          label="Email:"
           type="email"
           placeholder="Email"
           required
@@ -12,9 +12,9 @@
           errorMessage="Nespravny format emailove adresy."
         />
         <ListInput
-          label="Zpetna vazba"
+          label="{content}:"
           type="textarea"
-          placeholder="Zpetna vazba"
+          placeholder={content}
           maxlength={feedbackLength}
           validate
           errorMessage="Delka zpravy musi byt maximalne {feedbackLength} slov."
@@ -45,6 +45,15 @@
   import Header  from './Header.svelte';
   
   export let name;
-  let feedbackLength = 1000;
+  export let feedbackLength = 5000;
+  let title;
+  let content;
+  if (name === "feedback") {
+    title = "Zpetna vazba";
+    content = "Zpetna vazba";
+  } else {
+    title = "Hlaseni chyb";
+    content = "Informace o chybe";
+  }
 
 </script>

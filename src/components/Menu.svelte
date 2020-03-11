@@ -1,7 +1,7 @@
 <Popover class="{name}">
   <List>
     <ListButton popoverClose popupOpen=".feedback" title="Zpetna vazba" />
-    <ListButton popoverClose title="Hlaseni chyb" />
+    <ListButton popoverClose popupOpen=".error-feedback" title="Hlaseni chyb" />
     <ListButton popoverClose title="Nastaveni" />
     <ListButton popoverClose popupOpen=".about" title="O aplikaci" />
   </List>
@@ -9,6 +9,7 @@
 
 <About name="about" />
 <Feedback name="feedback" />
+<Feedback name="error-feedback" />
 
 <script>
   import {
