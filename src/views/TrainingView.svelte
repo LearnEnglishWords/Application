@@ -76,6 +76,7 @@
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import Collection from '../js/collection.js';
   import { isKnownForMode, getState } from '../js/utils.js'
+  import { playSound } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -95,18 +96,22 @@
   };
 
   onMount(() => {
+    f7.preloader.hide();
     swiper = f7.swiper.get('.swiper-container')
-    swiper.on("slideNextTransitionStart", () => { currentWordIndex += 1 })
-    swiper.on("slidePrevTransitionStart", () => { currentWordIndex -= 1 })
+    swiper.on("slideNextTransitionStart", () => { 
+      currentWordIndex += 1;
+      playAutoSound($trainingData.words[currentWordIndex])
+    })
+    swiper.on("slidePrevTransitionStart", () => { 
+      currentWordIndex -= 1 
+      playAutoSound($trainingData.words[currentWordIndex])
+    })
+    playAutoSound($trainingData.words[currentWordIndex])
   });
 
   if ($trainingData.mode === "read" && !$trainingData.isTraining) {
     swiperHeight = "52vh";
   }
-
-  onMount(() => {
-    f7.preloader.hide();
-  });
 
   function noButton() {
     let currentWord = $trainingData.words[currentWordIndex];
@@ -155,6 +160,12 @@
     swiper.slideTo(index);
   }
 
+  function playAutoSound(word) {
+    if($trainingData.mode !== "write") {
+      playSound($trainingData.words[currentWordIndex])
+    }
+  }
+
   function nextWord() {
     if ($trainingData.words.length === currentWordIndex+1) {
       showRecapitulation = true;
@@ -162,9 +173,7 @@
     } else {
       f7.sheet.open(".wall", false);
       swiper.slideNext();
-      if($trainingData.mode !== "write") {
-        alert("TODO: prehrani zvuku");
-      }
+      playAutoSound($trainingData.words[currentWordIndex])
     }
   }
 </script>
