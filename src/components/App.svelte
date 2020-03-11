@@ -18,6 +18,7 @@
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
+  import SettingsView from '../views/SettingsView.svelte';
   import { downloadedCollections } from '../js/store.js';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
@@ -26,14 +27,15 @@
 
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
+  import { defaultSettingsData } from '../js/utils.js';
+  import { settingsData } from '../js/store.js';
 
   import { 
     collectionData,
     categoryData, 
     categoryDetailData,
     trainingData,
-    statisticsData,
-    settingsData
+    statisticsData
   } from '../js/store.js';
 
   // Only testing data:
@@ -74,6 +76,14 @@
 
         // LearnEnglishWords basic setup
         let collection = new Collection();
+        collection.getSettings((data) => { 
+          if (data === null) {
+            collection.saveSettings(defaultSettingsData);
+            settingsData.set(defaultSettingsData);
+          } else { 
+            settingsData.set(data);
+          }
+        });
         collection.getAppInfo("downloadedCollections", (data) => { 
           if (!testing) {
             if (data === null) {
@@ -127,6 +137,10 @@
       {
         path: '/Training',
         component: TrainingView
+      },
+      {
+        path: '/Settings',
+        component: SettingsView
       }
     ]
   };

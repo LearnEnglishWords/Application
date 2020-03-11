@@ -1,3 +1,8 @@
+export const defaultSettingsData = {
+  "darkMode": false,
+  "wordsLimit": 30,
+  "autoSoundPlay": true
+};            
 
 export const defaultStatisticsData = {
   "count": 100,

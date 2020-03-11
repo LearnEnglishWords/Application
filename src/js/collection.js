@@ -109,4 +109,14 @@ export default class Collection {
       callback(data);
     });
   }
+
+  saveSettings(content) {
+    return appStorage.setItem(`settings`, content);
+  }
+
+  getSettings(callback) {
+    return appStorage.getItem(`settings`).then((data) => {
+      callback(data);
+    });
+  }
 }

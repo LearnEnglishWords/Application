@@ -32,7 +32,7 @@
         </block>
       </Col>
       <Col>
-        <Stepper round fill value={30} min={10} max={100} step={10}
+        <Stepper round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
         ></Stepper>
@@ -79,7 +79,15 @@
     Row, Col, 
     Link, Button
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
+  import { 
+    collectionData,
+    categoryDetailData,
+    trainingData,
+    settingsData,
+    statisticsData,
+    trainingModeStatisticsData
+  } from '../js/store.js';
+
   import { trainingModes } from '../js/utils.js'
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
@@ -93,7 +101,7 @@
   let listWordsOpened = false;
   let allWords = [];
   let allWordIds = [];
-  let wordsLimit = 30;
+  let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
   let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: false}});
 

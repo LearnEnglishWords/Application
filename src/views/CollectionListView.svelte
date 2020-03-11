@@ -31,7 +31,7 @@
 
 <script>
   import { 
-    f7, Page, 
+    f7, f7ready, Page, 
     AccordionContent, 
     Navbar, Button,
     List, ListItem,
@@ -51,7 +51,6 @@
   let downLoading = false;
   let counter;
   let progressBarEl;
-
 
   function downloadButton(collectionId) {
     if (downLoading) return;

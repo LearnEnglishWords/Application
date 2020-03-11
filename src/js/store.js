@@ -1,5 +1,11 @@
 import { writable, get } from 'svelte/store';
-import { isKnownForMode, getState, defaultStatistics, defaultTreiningModeStatisticsData } from './utils.js'
+import Collection from './collection.js';
+import { 
+  isKnownForMode, getState,
+  defaultSettingsData, 
+  defaultStatisticsData,
+  defaultTreiningModeStatisticsData 
+} from './utils.js'
 
 
 function createStatisticsData(startStatisticsData) {
@@ -57,13 +63,14 @@ function createTrainingModeStatisticsData(startStatisticsData) {
   };
 }
 
+
 export const trainingData = writable(0);
 export const collectionData = writable(0);
 export const downloadedCollections = writable([]);
 export const categoryData = writable(0);
 export const categoryDetailData = writable(0);
-export const settingsData = writable(0);
+export const settingsData = writable({...defaultSettingsData});
 export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTreiningModeStatisticsData});
-export const statisticsData = createStatisticsData({...defaultStatistics});
+export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 

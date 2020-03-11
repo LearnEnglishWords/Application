@@ -162,6 +162,9 @@
     } else {
       f7.sheet.open(".wall", false);
       swiper.slideNext();
+      if($trainingData.mode !== "write") {
+        alert("TODO: prehrani zvuku");
+      }
     }
   }
 </script>
