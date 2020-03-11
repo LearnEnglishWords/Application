@@ -1,5 +1,5 @@
 import Storage from './storage.js';
-import { defaultStatistics } from './utils.js'
+import { defaultStatisticsData } from './utils.js'
 
 
 export default class Collection {
@@ -48,7 +48,7 @@ export default class Collection {
 
   saveCategoryList(collectionId, categories) {
     for (let categoryId of categories) {
-      this.saveCategoryStatistics(collectionId, categoryId, defaultStatistics);
+      this.saveCategoryStatistics(collectionId, categoryId, defaultStatisticsData);
     }
     return appStorage.setItem(`collection:${collectionId}:category:ids`, categories);
   }

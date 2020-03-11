@@ -73,7 +73,7 @@
             localforage.LOCALSTORAGE
           ]
         });
-
+                                    
         // LearnEnglishWords basic setup
         let collection = new Collection();
         collection.getSettings((data) => { 
