@@ -70,13 +70,12 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { trainingData, statisticsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
+  import { trainingData, statisticsData, settingsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import Collection from '../js/collection.js';
-  import { isKnownForMode, getState } from '../js/utils.js'
-  import { playSound } from '../js/utils.js';
+  import { isKnownForMode, getState, playSound } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -161,7 +160,7 @@
   }
 
   function playAutoSound(word) {
-    if($trainingData.mode !== "write") {
+    if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
       playSound($trainingData.words[currentWordIndex])
     }
   }

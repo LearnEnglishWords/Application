@@ -9,14 +9,18 @@
         <Stepper small round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-            on:stepperChange={saveSettings}
+            on:stepperChange={saveWordLimit}
         ></Stepper>
       </ListItem>
       <ListItem>
         <div>
           Automaticke prehravani zvuku:
         </div>
-        <Toggle checked color="blue"></Toggle>
+        {#if enableAutoPlaySound}
+          <Toggle on:toggleChange={saveAutoPlaySound} checked color="blue"></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveAutoPlaySound} color="blue"></Toggle>
+        {/if}
       </ListItem>
       <ListItem>
         <div>
@@ -44,8 +48,14 @@
 
   let collection = new Collection();
   let wordsLimit = $settingsData.wordsLimit;
+  let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
 
-  function saveSettings() {
+  function saveAutoPlaySound() {
+    $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
+    collection.saveSettings($settingsData);
+  }
+
+  function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
     collection.saveSettings($settingsData);
   }

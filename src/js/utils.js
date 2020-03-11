@@ -1,7 +1,7 @@
 export const defaultSettingsData = {
-  "darkMode": false,
+  "enableDarkMode": false,
   "wordsLimit": 30,
-  "autoSoundPlay": true
+  "enableAutoPlaySound": true
 };            
 
 export const defaultStatisticsData = {
