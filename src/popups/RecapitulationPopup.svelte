@@ -1,6 +1,6 @@
 
-<Page>
-  <Header/>
+<Popup animate={false} opened={open}>
+  <Header type="popup" popupName="recapitulation"/>
   <center>
     <BlockTitle large >Konec</BlockTitle>
     <BlockTitle medium >Celkove vyhodnoceni:</BlockTitle>
@@ -24,16 +24,17 @@
       </Row>
     </Block>
   </center>
-</Page>
+</Popup>
 
 <script>
   import { 
-    Page, 
+    Popup, 
     BlockTitle, Block,
     Row, Col, 
     Button
   } from 'framework7-svelte';
-  import Header from './Header.svelte';
+  import Header from '../components/Header.svelte';
 
   export let info;
+  export let open;
 </script>

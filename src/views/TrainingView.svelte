@@ -57,9 +57,7 @@
     {/if}
   {/if}
 
-  <Popup animate={false} opened={showRecapitulation} onPopupClosed={() => showRecapitulation = false}>
-    <Recapitulation info={recapitulationInfo} />
-  </Popup>
+  <RecapitulationPopup info={recapitulationInfo} open={showRecapitulation} />
 </Page>
 
 <script>
@@ -75,7 +73,7 @@
   import { trainingData, statisticsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
-  import Recapitulation from '../components/Recapitulation.svelte';
+  import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import Collection from '../js/collection.js';
   import { isKnownForMode, getState } from '../js/utils.js'
   import { _ } from 'svelte-i18n';

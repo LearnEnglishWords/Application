@@ -42,7 +42,7 @@
     List, ListInput,
     Row, Col, Block
   } from 'framework7-svelte';
-  import Header  from './Header.svelte';
+  import Header  from '../components/Header.svelte';
   
   export let name;
   export let feedbackLength = 5000;

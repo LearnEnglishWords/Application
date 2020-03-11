@@ -35,7 +35,7 @@
     Navbar, NavRight, Link,
     Block, Popup, Icon
   } from 'framework7-svelte';
-  import Header  from './Header.svelte';
+  import Header  from '../components/Header.svelte';
   
   export let name;
 </script>
