@@ -76,6 +76,7 @@
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import Collection from '../js/collection.js';
   import { isKnownForMode, getState, playSound } from '../js/utils.js'
+  import { develMode } from '../js/config.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -114,13 +115,17 @@
 
   function noButton() {
     let currentWord = $trainingData.words[currentWordIndex];
-    updateWord({word: currentWord, state: false});
+    if(!develMode) {
+      updateWord({word: currentWord, state: false});
+    }
     nextWord();
   }
 
   function yesButton() {
     let currentWord = $trainingData.words[currentWordIndex];
-    updateWord({word: currentWord, state: true});
+    if(!develMode) {
+      updateWord({word: currentWord, state: true});
+    }
     nextWord();
   }
 

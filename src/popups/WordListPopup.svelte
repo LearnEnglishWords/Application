@@ -33,6 +33,7 @@
 
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import { appName }  from '../js/config.js';
+  import { develMode } from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
   export let allWordIds = [];
@@ -45,17 +46,21 @@
     return {mode: it.value, prevState: false}
   });
 
-  // sort words 
-  let allWordsSortedIds = allWordIds.sort((a, b) => {
-    return a.charCodeAt(0) - b.charCodeAt(0)
-  });
-
-  for (let wordId of allWordsSortedIds) {
-    collection.getWord(wordId, (word) => {
-      allWordsSorted.push(word);
-      allWordsSorted = [...allWordsSorted];
-      wordState[word.text] = isKnown(word);
+  if(develMode) {
+    setDevelData();
+  } else {
+    // sort words 
+    let allWordsSortedIds = allWordIds.sort((a, b) => {
+      return a.charCodeAt(0) - b.charCodeAt(0)
     });
+
+    for (let wordId of allWordsSortedIds) {
+      collection.getWord(wordId, (word) => {
+        allWordsSorted.push(word);
+        allWordsSorted = [...allWordsSorted];
+        wordState[word.text] = isKnown(word);
+      });
+    }
   }
 
   function setState(word, known) {
@@ -68,4 +73,19 @@
     collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
     wordState[word.text] = isKnown(word);
   }
+
+  function setDevelData() {
+    wordState = {
+      "bedroom": false,
+      "car": false,
+      "hello": true
+    };
+
+    allWordsSorted = [
+      {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""},
+      {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
+      {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""}
+    ];
+  }
+
 </script>

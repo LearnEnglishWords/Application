@@ -24,16 +24,27 @@
     Navbar, Subnavbar,
     List, ListItem
   } from 'framework7-svelte';
-  import { categoryData, categoryDetailData } from '../js/store.js';
+  import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
+  import { develMode } from '../js/config.js';
+  import { defaultStatisticsData } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
-
+                   
   export let f7router;
+
+  if(develMode) {
+    setDevelData();
+  }
 
   function goToDetailView(category) {
     categoryDetailData.set({name: category, id: category});
     f7router.navigate('/CategoryDetail');
+  }
+
+  function setDevelData() {
+    categoryData.set(["Furniture","Body","Food"]);
+    collectionData.set({id: "basic", name: "Basic"});
   }
 
 </script>

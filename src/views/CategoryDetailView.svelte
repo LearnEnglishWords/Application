@@ -59,7 +59,6 @@
     </Row>
   </Block>
 
-
 {#if allWordIds.length > 0}
   <WordListPopup name="word-list" allWordIds={allWordIds}/>
 {/if}
@@ -87,6 +86,7 @@
   } from '../js/store.js';
 
   import { trainingModes } from '../js/utils.js'
+  import { develMode } from '../js/config.js';
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
   import WordListPopup from '../popups/WordListPopup.svelte';
@@ -104,24 +104,26 @@
 
   statisticsData.reset();
   trainingModeStatisticsData.reset();
-  //setTestingData();
 
-  collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    // set count of words
-    statisticsData.setCount(wordIds.length);
-    trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
-    allWordIds = [...wordIds];
+  if(develMode) {
+    setDevelData();
+  } else {
+    collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
+      // set count of words
+      statisticsData.setCount(wordIds.length);
+      trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
+      allWordIds = [...wordIds];
 
-    // load all words
-    for (let wordId of wordIds) {
-
-      collection.getWord(wordId, (word) => {
-        allWords.push(word);
-        statisticsData.updateData(word, "unknown");
-        trainingModeStatisticsData.updateData(word, trainingModesValues);
-      });
-    }
-  });
+      // load all words
+      for (let wordId of wordIds) {
+        collection.getWord(wordId, (word) => {
+          allWords.push(word);
+          statisticsData.updateData(word, "unknown");
+          trainingModeStatisticsData.updateData(word, trainingModesValues);
+        });
+      }
+    });
+  }
 
   function goToTrainingView(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
@@ -137,20 +139,16 @@
     f7router.navigate('/Training');
   }
   
-  function setTestingData() {
+  function setDevelData() {
     allWords = [
       {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
       {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
       {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
     ];
 
-    allWordsSorted = ["hello", "car", "bedroom"];
+    allWordIds = ["hello", "car", "bedroom"];
 
-    trainingModeStatistics = {
-        read: {known: 4, unknown: 96},
-        write: {known: 16, unknown: 84},
-        listen: {known: 9, unknown: 91},
-    } 
+    categoryDetailData.set({name: "Test category", id: "Test category"});
   }
 
 </script>
