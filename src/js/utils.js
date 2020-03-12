@@ -11,7 +11,7 @@ export const defaultStatisticsData = {
   "unknown": 100
 };            
 
-export const defaultTreiningModeStatisticsData = {
+export const defaultTrainingModeStatisticsData = {
   "read": {"known": 0, "unknown": 100},
   "write": {"known": 0, "unknown": 100},
   "listen": {"known": 0, "unknown": 100},

@@ -9,7 +9,7 @@
         {/each}
       </List>
       {#if $trainingData.isTraining}
-        <Button fill sheetOpen=".description" color="lightblue">{$_('training.examples_button')}</Button>
+        <Button fill sheetOpen=".description" color="lightblue">{$_('training.buttons.examples')}</Button>
       {/if}
     </Col>
     <Col width="10">

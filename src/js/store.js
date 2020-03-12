@@ -4,7 +4,7 @@ import {
   isKnownForMode, getState,
   defaultSettingsData, 
   defaultStatisticsData,
-  defaultTreiningModeStatisticsData 
+  defaultTrainingModeStatisticsData 
 } from './utils.js'
 
 
@@ -70,7 +70,7 @@ export const downloadedCollections = writable([]);
 export const categoryData = writable(0);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
-export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTreiningModeStatisticsData});
+export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTrainingModeStatisticsData});
 export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 

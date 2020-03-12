@@ -50,7 +50,7 @@
   export let feedbackLength = 5000;
   let title;
   let content;
-  let feedback;
+  let email;
   if (name === "feedback") {
     title = $_('feedback.title');
     content = $_('feedback.content');
