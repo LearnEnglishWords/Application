@@ -30,7 +30,7 @@
     </p>
     <p>
     {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
-    <a href='mailto:feedback@learnenglishwords.com'>feedback@learnenglishwords.com</a>
+    <a href='mailto:{email}'>{email}</a>
     </p>
   </Block>
 </Popup>
@@ -43,18 +43,22 @@
     Row, Col, Block
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import { feedbackEmail, errorEmail }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
   
   export let name;
   export let feedbackLength = 5000;
   let title;
   let content;
+  let feedback;
   if (name === "feedback") {
     title = $_('feedback.title');
     content = $_('feedback.content');
+    email = feedbackEmail;
   } else {
     title = $_('feedback.error_title');
     content = $_('feedback.error_content');
+    email = errorEmail;
   }
 
 </script>

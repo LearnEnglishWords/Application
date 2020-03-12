@@ -29,6 +29,7 @@
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
   import { defaultSettingsData } from '../js/utils.js';
+  import { appName, appId } from '../js/config.js';
   import { settingsData } from '../js/store.js';
 
   import { 
@@ -76,7 +77,7 @@
           ]
         });
                                     
-        // LearnEnglishWords basic setup
+        // App basic setup
         let collection = new Collection();
         collection.getSettings((data) => { 
           if (data === null) {
@@ -102,8 +103,8 @@
 
   // framework7 init:
   const f7params = {
-    id: 'eu.learn.english.words',
-    name: 'LearnEnglishWords',
+    id: appId,
+    name: appName,
     theme: 'auto', // Automatic theme detection
     input: {
       scrollIntoViewOnFocus: Device.cordova && !Device.electron,

@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title="LearnEnglishWords">
+  <Navbar title={appName}>
     <NavRight>
       <Link popupClose>Close</Link>
     </NavRight>
@@ -36,6 +36,7 @@
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
 
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
+  import { appName }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
   export let allWordIds = [];

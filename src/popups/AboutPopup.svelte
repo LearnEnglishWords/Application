@@ -2,7 +2,7 @@
   <Header type="popup" popupName={name} title={$_('about.title')}/>
   <Block inset>
     <p>
-      {$_('about.text1')}
+      {appName} {$_('about.text1')}
     </p>
     <p>
       {$_('about.text2')}
@@ -16,14 +16,14 @@
 
     <p>
       {$_('about.email_feedback')}
-    <a href='mailto:feedback@learnenglishwords.com'>feedback@learnenglishwords.com</a>
+    <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
     </p>
     <p>
     <a href=#>{$_('about.share')}</a>
     </p>
 
     <center>
-      {$_('about.version')} v3.0.0 <br/>
+      {$_('about.version')} {version} <br/>
       Copyright &copy; Learn English Words 2020
     </center>
   </Block>
@@ -35,6 +35,7 @@
     Block, Popup, Icon
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import { feedbackEmail, version, appName }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
   
   export let name;

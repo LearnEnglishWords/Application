@@ -26,8 +26,9 @@
     List, ListButton, 
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';
+  import { appName }  from '../js/config.js';
 
-  export let type = "main"
-  export let title = "LearnEnglishWords"
+  export let type = "main";
+  export let title = appName;
   export let popupName;
 </script>
