@@ -1,26 +1,28 @@
 <Popup class={name} animate={true} >
-  <Header type="popup" popupName={name} title={appName}/>
+  <Page>
+    <Header type="popup" popupName={name} title={appName}/>
 
-  <BlockTitle>{$_('words_list.info')}</BlockTitle>
-  <Block>
-    <List>
-      {#each allWordsSorted as word, id}
-        <ListItem>
-          <div on:click={() => playSound(word)}>
-            {word.text}  &#x1F509;
-          </div>
-          <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
-            {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
-          </Button>
-        </ListItem>
-      {/each}
-    </List>
-  </Block>
+    <BlockTitle>{$_('words_list.info')}</BlockTitle>
+    <Block>
+      <List>
+        {#each allWordsSorted as word, id}
+          <ListItem>
+            <div on:click={() => playSound(word)}>
+              {word.text}  &#x1F509;
+            </div>
+            <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
+              {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
+            </Button>
+          </ListItem>
+        {/each}
+      </List>
+    </Block>
+  </Page>
 </Popup>
 
 <script>
   import { 
-    f7, Popup, 
+    f7, Page, Popup, 
     BlockTitle, Block,
     List, ListItem,
     Button
