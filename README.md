@@ -24,6 +24,8 @@
 
 13) jit do slozky cordova a spustit: `phonegap serve`
 14) mel by se spustit developersky nastroj pro vyvoj ve vebovem prohlizeci.
+15) jinak delal jsem to cele ve frameworku7 ktery je urceny prave primo na mobilni aplikace.
+    Zde muzes videt vsechna csska ktera se v projektu daji pouzivata nastavovat: https://framework7.io/docs/css-variables.html
 
 
 
