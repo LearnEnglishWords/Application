@@ -12,7 +12,7 @@ pustit: npm install
 otevri config (vim src/js/config.js) a zmen develMode na true
 
 stahnout a rozbalit java-jdk:  https://uloz.to/file/XkkyYjKl3HCI/java-jdk8-tgz
-stahnout a rozbalit Android SDK
+stahnout a rozbalit Android SDK:  https://uloz.to/file/LhVesd4j8jMJ/android-tgz
 mel by obsahovat tyto slozky:
     martin at probook-pc Programs >>> ls Android/
         build-tools  emulator  fonts  licenses  patcher  platforms  platform-tools  skins  sources  system-images  tools
