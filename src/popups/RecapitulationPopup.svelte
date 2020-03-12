@@ -2,23 +2,23 @@
 <Popup animate={false} opened={open}>
   <Header type="popup" popupName="recapitulation"/>
   <center>
-    <BlockTitle large >Konec</BlockTitle>
-    <BlockTitle medium >Celkove vyhodnoceni:</BlockTitle>
+    <BlockTitle large >{$_('recapitulation.large_title')}</BlockTitle>
+    <BlockTitle medium >{$_('recapitulation.medium_title')}</BlockTitle>
     <Block>
       <Row>
-        <Col> Pocet slov: </Col> <Col> {info.count} </Col>
+        <Col> {$_('recapitulation.number_words')} </Col> <Col> {info.count} </Col>
       </Row>
       <Row style="color: green">
-        <Col> Pocet slov spravne: </Col> <Col> {info.known} </Col>
+        <Col> {$_('recapitulation.number_right_words')} </Col> <Col> {info.known} </Col>
       </Row>
       <Row style="color: red">
-        <Col> Pocet slov spatne: </Col> <Col> {info.unknown} </Col>
+        <Col> {$_('recapitulation.number_wrong_words')} </Col> <Col> {info.unknown} </Col>
       </Row>
       <br/> <br/>
       <Row>
         <Col width=25> </Col>
         <Col width=50>
-          <Button large fill popupClose color="green" > Pokracovat </Button>
+          <Button large fill popupClose color="green" > {$_('recapitulation.continue')} </Button>
         </Col>
         <Col width=25> </Col>
       </Row>
@@ -34,6 +34,7 @@
     Button
   } from 'framework7-svelte';
   import Header from '../components/Header.svelte';
+  import { _ } from 'svelte-i18n';
 
   export let info;
   export let open;

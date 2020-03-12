@@ -25,10 +25,10 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.known}
-        valueText="{$statisticsData.known} slov"
+        valueText="{$statisticsData.known} {$_('statistics.words_part')}"
         valueTextColor="green"
         borderColor="green"
-        labelText="uz umim"
+        labelText="{$_('statistics.known')}"
         labelTextColor="#333"
       />
     </Col>
@@ -36,10 +36,10 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.learning}
-        valueText="{$statisticsData.learning} slov"
+        valueText="{$statisticsData.learning} {$_('statistics.words_part')}"
         valueTextColor="orange"
         borderColor="orange"
-        labelText="ucim se"
+        labelText="{$_('statistics.learning')}"
         labelTextColor="#333"
       />
     </Col>
@@ -47,10 +47,10 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.unknown}
-        valueText="{$statisticsData.unknown} slov"
+        valueText="{$statisticsData.unknown} {$_('statistics.words_part')}"
         valueTextColor="red"
         borderColor="red"
-        labelText="zbyva se naucit"
+        labelText="{$_('statistics.unknown')}"
         labelTextColor="#333"
       />
     </Col>

@@ -2,7 +2,7 @@
   <Header>
     <div slot="subnavbar">
       <Subnavbar> 
-        Training Words
+        {$_('training.subtitle')}
       </Subnavbar> 
     </div>
   </Header>
@@ -18,15 +18,15 @@
 
 
   {#if !isTraining && $trainingData.mode === "read"}
-    <BlockTitle><center>Uz umis dane slovicko?</center></BlockTitle>
+    <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
     <Row>
       <Col width="25">
       </Col>
       <Col width="25">
-        <Button large fill color="red" on:click={noButton}>Ne</Button>
+        <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
       </Col>
       <Col width="25">
-        <Button large fill color="green" on:click={yesButton}>Ano</Button>
+        <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
       </Col>
       <Col width="25">
       </Col>
@@ -41,7 +41,7 @@
         <Col width="50">
           <center>
             <div class="arrow">&#8964;</div> <br>
-            Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.
+            {$_('training.wall_text')}
           </center>
         </Col>
         <Col width="25">
@@ -51,8 +51,8 @@
 
     {#if isTraining}
       <Toolbar position={'bottom'}>
-        <Link on:click={() => goToSlide(0)}>Na zacatek</Link>
-        <Link on:click={() => goToSlide($trainingData.words.length)}>Na konec</Link>
+        <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
+        <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
       </Toolbar>
     {/if}
   {/if}

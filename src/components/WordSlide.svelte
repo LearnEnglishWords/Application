@@ -41,11 +41,11 @@
           <Col width=60>
             <br> <br>
             {#if result === ""}
-              <Button large fill on:click={check}> Zkontrolovat </Button>
+              <Button large fill on:click={check}> {$_('training.buttons.check')} </Button>
             {:else}
               <h3 style="color: {resultColor}"> {result} </h3> 
               <br> <br>
-              <Button large fill color="green" on:click={() => dispatch('nextWord')}> Pokracovat </Button>
+              <Button large fill color="green" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
             {/if}
           </Col>
           <Col width=20>
@@ -80,19 +80,19 @@
   let resultColor = "black";
 
   if (mode === "write") {
-    placeholder = "Prelozte do anglictiny";
+    placeholder = $_('training.placeholders.write');
   } else if (mode === "listen") {
-    placeholder = "Napiste co slysite";
+    placeholder = $_('training.placeholders.listen');
   }
 
   function check() {
     if (translatedText === "") { return }
     if (translatedText.toLowerCase() === word.text.toLowerCase()) {
-      result = "Spravne ;-)";
+      result = $_('training.results.right');
       resultColor = "green";
       dispatch('updateWord', {word: word, state: true});
     } else {
-      result = "Spatne. Spravna odpoved je: " + word.text;
+      result = $_('training.results.wrong') + word.text;
       resultColor = "red";
       dispatch('updateWord', {word: word, state: false});
     }

@@ -5,13 +5,13 @@
     <BlockTitle medium>{$categoryDetailData.name}</BlockTitle>
   </center>
   <Block inset>
-    <BlockTitle>Statistika:</BlockTitle>
+    <BlockTitle>{$_('category.statistics')}</BlockTitle>
     <Statistics/>
   </Block>
 
 
   <List accordionList inset>
-    <ListItem accordionItem header="Druh cviceni:" title="{trainingModes[trainingModeIndex].title}">
+    <ListItem accordionItem header={$_('category.training_mode')} title="{trainingModes[trainingModeIndex].title}">
       <AccordionContent>
         <List>
           {#each trainingModes as {title, value, checked}, id}
@@ -28,7 +28,7 @@
     <Row>
       <Col>
         <block>
-          Pocet slov:
+          {$_('category.words_limit')}
         </block>
       </Col>
       <Col>
@@ -44,17 +44,17 @@
   <Block inset>
     <Row>
       <Col>
-        <Button large raised on:click={() => listWordsOpened = true}>Zobrazit seznam vsech slov</Button>
+        <Button large raised on:click={() => listWordsOpened = true}>{$_('category.buttons.words_list')}</Button>
       </Col>
     </Row>
   </Block>
   <Block inset>
     <Row>
       <Col>
-        <Button large outline on:click={() => goToTrainingView(true)}>START TRENINK</Button>
+        <Button large outline on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
       </Col>
       <Col>
-        <Button large fill on:click={() => goToTrainingView(false)}>START TESTING</Button>
+        <Button large fill on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
       </Col>
     </Row>
   </Block>

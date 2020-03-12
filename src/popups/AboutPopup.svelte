@@ -1,30 +1,29 @@
 <Popup class={name} animate={true} >
-  <Header type="popup" popupName={name} title="O aplikaci"/>
+  <Header type="popup" popupName={name} title={$_('about.title')}/>
   <Block inset>
     <p>
-    LearnEnglishWords je aplikace slouzici k procvicovani a uceni anglickych slovicek.
+      {$_('about.text1')}
     </p>
     <p>
-    S touto aplikaci se budete ucit anglicka slovicka snadno, rychle a s radosti.
+      {$_('about.text2')}
     </p>
     <p>
-    Nikdy pred tim nebylo uceni anglickych slovicek tak jednoduche!!
+      {$_('about.text3')}
     </p>
     <p>
-    Muzete procvicovat cteni, psani anebo poslech, aby jste meli jistotu, ze dane slovicko uz
-    opravdu umite po vsech strankach ;)
+      {$_('about.text4')}
     </p>
 
     <p>
-    Svou zpetnou vazbu nebo navrhy na vylepseni muzete posilat na emailovou adresu:
+      {$_('about.email_feedback')}
     <a href='mailto:feedback@learnenglishwords.com'>feedback@learnenglishwords.com</a>
     </p>
     <p>
-    <a href=#>Sdilejte tuto aplikaci se svymi prateli</a>
+    <a href=#>{$_('about.share')}</a>
     </p>
 
     <center>
-      Verze: v3.0.0 <br/>
+      {$_('about.version')} v3.0.0 <br/>
       Copyright &copy; Learn English Words 2020
     </center>
   </Block>
@@ -36,6 +35,7 @@
     Block, Popup, Icon
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import { _ } from 'svelte-i18n';
   
   export let name;
 </script>

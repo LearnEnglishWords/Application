@@ -4,7 +4,7 @@
       <Link popupClose>Close</Link>
     </NavRight>
   </Navbar>
-  <BlockTitle>Zde muzete oznacit slovicka, ktera jiz znate:</BlockTitle>
+  <BlockTitle>{$_('words_list.info')}</BlockTitle>
   <Block>
     <List>
       {#each allWordsSorted as word, id}
@@ -13,7 +13,7 @@
             {word.text}  &#x1F509;
           </div>
           <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
-            {#if wordState[word.text]} Neznam {:else} Znam {/if}
+            {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
           </Button>
         </ListItem>
       {/each}

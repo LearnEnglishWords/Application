@@ -1,11 +1,11 @@
 <Page name="Settings">
-  <Navbar backLink title="Nastaveni">
+  <Navbar backLink title={$_('settings.title')}>
   </Navbar>
 
   <Block>
     <List>
       <ListItem>
-        <div>Defaultni pocet slov:</div>
+        <div>{$_('settings.words_limit')}</div>
         <Stepper small round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
@@ -14,7 +14,7 @@
       </ListItem>
       <ListItem>
         <div>
-          Automaticke prehravani zvuku:
+          {$_('settings.auto_sound')}
         </div>
         {#if enableAutoPlaySound}
           <Toggle on:toggleChange={saveAutoPlaySound} checked color="blue"></Toggle>
@@ -24,7 +24,7 @@
       </ListItem>
       <ListItem>
         <div>
-          Nocni rezim:
+          {$_('settings.night_theme')}
         </div>
         <Toggle checked color="blue"></Toggle>
       </ListItem>

@@ -2,7 +2,7 @@
   <Header />
 
   <Block strong inset>
-    <BlockTitle medium>Vyberte si kategorii:</BlockTitle>
+    <BlockTitle medium>{$_('category.title')}</BlockTitle>
     <List>
       {#if $categoryData !== 0}
         {#each $categoryData as category, id}

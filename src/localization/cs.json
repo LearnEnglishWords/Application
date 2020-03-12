@@ -1,6 +1,129 @@
 {
-  "page_title": "Page title",
-  "sign_in": "Sign in",
-  "sign_up": "Sign up",
-  "collection_label": "Vyberte si kolekci slovíček:"
+  "collection": {
+      "title": "Vyberte si kolekci slovíček:",
+      "button": {
+          "continue": "Pokracovat",
+          "download": "Stahnout"
+      },
+      "items": {
+          "basic": {
+              "text": "(Obsahuje 1000 slov)",
+              "description": "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni."
+          },
+          "standard": {
+              "text": "(Obsahuje 3000 slov)",
+              "description": "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80% anglické konverzace."
+          },
+          "advanced": {
+              "text": "(Obsahuje 5000 slov)",
+              "description": "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum."
+          },
+          "student": {
+              "text": "(Learn by textbooks)",
+              "description": "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic."
+          },
+          "native": {
+              "text": "(Obsahuje 15000 slov)",
+              "description": "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)"
+          },
+          "media": {
+              "text": "(Learn with serial, movies and books)",
+              "description": "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy."
+          },
+          "personal": {
+              "text": "(Add your own words)",
+              "description": "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy."
+          }
+      }
+  },
+  "category": {
+      "title": "Vyberte si kategorii:",
+      "statistics": "Statistika:",
+      "training_mode": "Druh cviceni:",
+      "words_limit": "Pocet slov:",
+      "buttons": {
+          "words_list": "Zobrazit seznam vsech slov",
+          "start_training": "START TRENINK",
+          "start_testing": "START TESTING"
+      }
+  },
+  "settings": {
+      "title": "Nastaveni",
+      "words_limit": "Defaultni pocet slov:",
+      "auto_sound": "Automaticke prehravani zvuku:",
+      "night_theme": "Nocni rezim:"
+  },
+  "training": {
+      "subtitle": "Training Words",
+      "wall_text": "Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.",
+      "question": {
+          "text": "Uz umis dane slovicko?",
+          "yes": "Ano",
+          "no": "No"
+      },
+      "toolbar": {
+          "start": "Na zacatek",
+          "end": "Na konec"
+      },
+      "buttons": {
+          "examples": "Vice info",
+          "check": "Zkontrolovat",
+          "continue": "Pokracovat"
+      },
+      "placeholders": {
+          "write": "Prelozte do anglictiny",
+          "listen": "Napiste co slysite"
+      },
+      "results": {
+          "right": "Spravne ;-)",
+          "wrong": "Spatne. Spravna odpoved je: "
+      }
+  },
+  "about": {
+      "title": "O aplikaci",
+      "text1": "LearnEnglishWords je aplikace slouzici k procvicovani a uceni anglickych slovicek.",
+      "text2": "S touto aplikaci se budete ucit anglicka slovicka snadno, rychle a s radosti.",
+      "text3": "Nikdy pred tim nebylo uceni anglickych slovicek tak jednoduche!!",
+      "text4": "Muzete procvicovat cteni, psani anebo poslech, aby jste meli jistotu, ze dane slovicko uz opravdu umite po vsech strankach ;)",
+      "email_feedback": "Svou zpetnou vazbu nebo navrhy na vylepseni muzete posilat na emailovou adresu:",
+      "share": "Sdilejte tuto aplikaci se svymi prateli",
+      "version": "Verze:"
+  },
+  "feedback": {
+      "wrong_email": "Nespravny format emailove adresy.",
+      "text_length1": "Delka zpravy musi byt maximalne",
+      "text_length2": "slov.",
+      "send": "Odeslat",
+      "info1": "Pokud je vase zpetna vazba delsi jak",
+      "info2": "slov, tak ji muzete poslat na email:",
+      "title": "Zpetna vazba",
+      "content": "Zpetna vazba",
+      "error_title": "Hlaseni chyb",
+      "error_content": "Informace o chybe"
+  },
+  "recapitulation": {
+      "large_title": "Konec",
+      "medium_title": "Celkove vyhodnoceni:",
+      "number_words": "Pocet slov:",
+      "number_right_words": "Pocet slov spravne:",
+      "number_wrong_words": "Pocet slov spatne:",
+      "continue": "Pokracovat"
+  },
+  "menu": {
+      "feedback": "Zpetna vazba",
+      "error_feedback": "Hlaseni chyb",
+      "settings": "Nastaveni",
+      "about": "O aplikaci"
+  },
+  "statistics": {
+      "words_part": "slov",
+      "known": "uz umim",
+      "learning": "ucim se",
+      "unknown": "zbyva se naucit"
+  },
+  "words_list": {
+      "info": "Zde muzete oznacit slovicka, ktera jiz znate:",
+      "known": "Znam",
+      "unknown": "Neznam"
+  }
 }

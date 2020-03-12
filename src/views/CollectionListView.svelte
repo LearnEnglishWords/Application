@@ -4,7 +4,7 @@
     {$_('page_title')}
   -->
   <Block strong inset>
-    <BlockTitle medium>{$_('collection_label')}</BlockTitle>
+    <BlockTitle medium>{$_('collection.title')}</BlockTitle>
     <List accordionList mediaList inset>
       {#each collectionItems as {id, label, text, description, active}}
         {#if active}
@@ -15,10 +15,10 @@
                   {description}
                 </p>
                 {#if $downloadedCollections.includes(id)}
-                  <Button fill on:click={ () => continueButton(id) } color="green">Continue</Button>
+                  <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
                 {:else}
                   <p id="collection-loader-{id}"></p>
-                  <Button fill on:click={ () => downloadButton(id) } color="red">Download</Button>
+                  <Button fill on:click={ () => downloadButton(id) } color="red">{$_('collection.button.download')}</Button>
                 {/if}
               </Block>
             </AccordionContent>
@@ -91,50 +91,50 @@
     {
       id: "basic",
       label: "Basic", 
-      text: "(Learn 1000 words)", 
-      description: "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni.", 
+      text: $_('collection.items.basic.text'), 
+      description: $_('collection.items.basic.description'), 
       active: true
     },
     {
       id: "standard",
       label: "Standard",
-      text: "(Learn 3000 words)", 
-      description: "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80% anglické konverzace.", 
+      text: $_('collection.items.standard.text'), 
+      description: $_('collection.items.standard.description'), 
       active: true
     },
     {
       id: "advanced",
       label: "Advanced",
-      text: "(Learn 5000 words)", 
-      description: "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum.", 
+      text: $_('collection.items.advanced.text'), 
+      description: $_('collection.items.advanced.description'), 
       active: true
     },
     {
       id: "student",
       label: "Student",
-      text: "(Learn by textbooks)",
-      description: "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic.", 
+      text: $_('collection.items.student.text'), 
+      description: $_('collection.items.student.description'), 
       active: false
     },
     {
       id: "native",
       label: "Native", 
-      text: "(Learn 15000 words)",
-      description: "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)", 
+      text: $_('collection.items.native.text'), 
+      description: $_('collection.items.native.description'), 
       active: false
     },
     {
       id: "media",
       label: "Media",
-      text: "(Learn with serial, movies and books)",
-      description: "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy.", 
+      text: $_('collection.items.media.text'), 
+      description: $_('collection.items.media.description'), 
       active: false
     },
     {
       id: "personal",
       label: "Personal",
-      text: "(Add your own words)",
-      description: "Zde si muzete pridavat vlastni slovicka pro procvicovani.", 
+      text: $_('collection.items.personal.text'), 
+      description: $_('collection.items.personal.description'), 
       active: false
     }
   ];
