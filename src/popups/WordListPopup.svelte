@@ -1,9 +1,6 @@
-<Page>
-  <Navbar title={appName}>
-    <NavRight>
-      <Link popupClose>Close</Link>
-    </NavRight>
-  </Navbar>
+<Popup class={name} animate={true} >
+  <Header type="popup" popupName={name} title={appName}/>
+
   <BlockTitle>{$_('words_list.info')}</BlockTitle>
   <Block>
     <List>
@@ -19,20 +16,17 @@
       {/each}
     </List>
   </Block>
-</Page>
+</Popup>
 
 <script>
   import { 
-    f7, Page, Popup, 
-    Navbar, Subnavbar, NavRight,
+    f7, Popup, 
     BlockTitle, Block,
     List, ListItem,
-    AccordionContent,
-    Stepper, Gauge,
-    Row, Col, 
-    Link, Button
+    Button
   } from 'framework7-svelte';
   import Collection from '../js/collection.js';
+  import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
 
   import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
@@ -40,6 +34,7 @@
   import { _ } from 'svelte-i18n';
 
   export let allWordIds = [];
+  export let name;
 
   let collection = new Collection();
   let wordState = {};

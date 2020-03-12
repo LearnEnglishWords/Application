@@ -44,7 +44,7 @@
   <Block inset>
     <Row>
       <Col>
-        <Button large raised on:click={() => listWordsOpened = true}>{$_('category.buttons.words_list')}</Button>
+        <Button large raised popupOpen=".word-list">{$_('category.buttons.words_list')}</Button>
       </Col>
     </Row>
   </Block>
@@ -60,11 +60,9 @@
   </Block>
 
 
-  <Popup opened={listWordsOpened} onPopupClosed={() => listWordsOpened = false}>
-    {#if allWordIds.length > 0}
-      <WordList allWordIds={allWordIds}/>
-    {/if}
-  </Popup>
+{#if allWordIds.length > 0}
+  <WordListPopup name="word-list" allWordIds={allWordIds}/>
+{/if}
 
 </Page>
 
@@ -91,14 +89,13 @@
   import { trainingModes } from '../js/utils.js'
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
-  import WordList from '../components/WordList.svelte';
+  import WordListPopup from '../popups/WordListPopup.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
 
   let collection = new Collection();
-  let listWordsOpened = false;
   let allWords = [];
   let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
