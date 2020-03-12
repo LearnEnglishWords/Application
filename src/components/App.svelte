@@ -1,5 +1,5 @@
 <!-- App.svelte -->
-<App params={f7params}>
+<App params={f7params} themeDark={$settingsData.enableDarkMode}>
     <!-- Current View/Router, initial page will be loaded from home.svelte component -->
 <!--
     <View main url="/CategoryList" />

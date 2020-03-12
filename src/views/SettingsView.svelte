@@ -26,7 +26,11 @@
         <div>
           {$_('settings.night_theme')}
         </div>
-        <Toggle checked color="blue"></Toggle>
+        {#if enableDarkMode}
+          <Toggle on:toggleChange={saveDarkMode} checked color="blue"></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveDarkMode} color="blue"></Toggle>
+        {/if}
       </ListItem>
     </List>
   </Block>
@@ -49,9 +53,15 @@
   let collection = new Collection();
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
+  let enableDarkMode = $settingsData.enableDarkMode;
 
   function saveAutoPlaySound() {
     $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
+    collection.saveSettings($settingsData);
+  }
+
+  function saveDarkMode() {
+    $settingsData.enableDarkMode = !$settingsData.enableDarkMode;
     collection.saveSettings($settingsData);
   }
 
