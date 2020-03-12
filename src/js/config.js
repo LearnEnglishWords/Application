@@ -5,7 +5,7 @@ export const feedbackEmail = "feedback@learnenglishwords.com";
 export const infoEmail = "info@learnenglishwords.com";
 export const errorEmail = "error@learnenglishwords.com";
 
-export const develMode = false;
+export const develMode = true;
 export const develPage = "CollectionList";
 //export const develPage = "CategoryList";
 //export const develPage = "CategoryDetail";
