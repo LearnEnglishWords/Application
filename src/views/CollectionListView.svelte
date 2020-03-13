@@ -84,7 +84,7 @@
   function continueButton(collectionId){
     collectionData.set({"name": collectionId, "id": collectionId});
     setCategoryData(collectionId);
-    f7router.navigate('/CategoryList');
+    f7router.navigate('/CategoryList')
   }
 
   const collectionItems = [

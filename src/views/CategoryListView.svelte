@@ -6,7 +6,7 @@
     <List>
       {#if $categoryData !== 0}
         {#each $categoryData as category, id}
-          <ListItem text="" link="#" on:click="{() => goToDetailView(category)}">
+          <ListItem on:click="{() => goToDetailView(category)}">
             <h3>{category}</h3>
             <Statistics simple categoryId={category} />
           </ListItem>

@@ -1,7 +1,7 @@
 {
   "name": "learnenglishwords",
   "private": true,
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "LearnEnglishWords",
   "repository": "",
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
       "cordova"
     ],
     "name": "LearnEnglishWords",
-    "pkg": "eu.learn.english.words",
+    "pkg": "com.learnenglishwords",
     "framework": "svelte",
     "template": "single-view",
     "cssPreProcessor": false,

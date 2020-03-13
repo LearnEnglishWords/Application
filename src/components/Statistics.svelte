@@ -12,7 +12,6 @@
         <span style="color: red"> 82 </span> )
       </div>
     {:else}
-      <!--
       {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
         <div> (                   
           <span style="color: green"> ? </span> /
@@ -26,7 +25,6 @@
           <span style="color: red"> {statistic.unknown} </span> )
         </div>
       {/await}
-      -->
     {/if}
   {/if}
 {:else}
@@ -70,7 +68,7 @@
 <script>
   import { Row, Col, Gauge } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
-  import { statisticsData } from '../js/store.js';
+  import { statisticsData, collectionData } from '../js/store.js';
   import { develMode } from '../js/config.js';
   import Collection from '../js/collection.js';
 
