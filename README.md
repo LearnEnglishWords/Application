@@ -4,7 +4,7 @@
 ## Navod na instalaci:
 
 1)  nainstalovat nodejs: https://nodejs.org/en/download/
-2) nainstalovat phonegap: npm install -g phonegap@latest
+2) nainstalovat cordovu a phonegap: npm install -g cordova phonegap@latest
 3) nainstalovat git
 
 4) git clone git@github.com:Applemann/LearnEnglishWordsV3.git
@@ -23,7 +23,7 @@
 12) spustit `build-cordova-app` script
 
 13) jit do slozky cordova a spustit: `phonegap serve`
-14) mel by se spustit developersky nastroj pro vyvoj ve vebovem prohlizeci.
+14) mel by se spustit developersky nastroj pro vyvoj ve webovem prohlizeci.
 15) jinak delal jsem to cele ve frameworku7 ktery je urceny prave primo na mobilni aplikace.
     Zde muzes videt vsechna csska ktera se v projektu daji pouzivata nastavovat: https://framework7.io/docs/css-variables.html
 
