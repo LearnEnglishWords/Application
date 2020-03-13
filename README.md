@@ -20,7 +20,7 @@
 
 
 11) upravit script: `build-cordova-app` tak aby smeroval na  spravne cesty
-12) spustit script pro build
+12) spustit `build-cordova-app` script
 
 13) jit do slozky cordova a spustit: `phonegap serve`
 14) mel by se spustit developersky nastroj pro vyvoj ve vebovem prohlizeci.
