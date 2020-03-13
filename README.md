@@ -19,7 +19,7 @@
         build-tools  emulator  fonts  licenses  patcher  platforms  platform-tools  skins  sources  system-images  tools
 
 
-11) upravit script: `scripts/build-cordova-app` tak aby smeroval na  spravne cesty
+11) upravit script: `build-cordova-app` tak aby smeroval na  spravne cesty
 12) spustit script pro build
 
 13) jit do slozky cordova a spustit: `phonegap serve`
