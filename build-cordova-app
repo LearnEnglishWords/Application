@@ -1,14 +1,14 @@
 #!/bin/bash
-export JAVA_HOME=/home/martin/Programs/jdk1.8.0_172
-export ANDROID_HOME=/home/martin/Programs/Android
-export ANDROID_SDK_ROOT=/home/martin/Programs/Android
+export JAVA_HOME=/home/linuxmint/GitHub/LearnEnglishWordsV3/jdk1.8.0_172
+export ANDROID_HOME=/home/linuxmint/GitHub/LearnEnglishWordsV3/Android
+export ANDROID_SDK_ROOT=/home/linuxmint/GitHub/LearnEnglishWordsV3/Android
 
 if [[ ${1} != "install" ]]; then
     echo 'Building:'
     npm run build-dev-cordova-android | tee /tmp/cordova-build-output.log
 fi
 
-if [[ $? == 0 ]]; then
-    echo 'Installing..'
-    ${ANDROID_HOME}/platform-tools/adb install $(cat /tmp/cordova-build-output.log | tail -n1)
-fi
+#if [[ $? == 0 ]]; then
+#    echo 'Installing..'
+#    ${ANDROID_HOME}/platform-tools/adb install $(cat /tmp/cordova-build-output.log | tail -n1)
+#fi
