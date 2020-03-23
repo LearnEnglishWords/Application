@@ -18,8 +18,8 @@ export const defaultTrainingModeStatisticsData = {
 }
 
 export const trainingModes = [
-  {title: "Cteni", value: "read", checked: true},
-  {title: "Psani", value: "write", checked: false},
+  {title: "Čtení", value: "read", checked: true},
+  {title: "Psaní", value: "write", checked: false},
   {title: "Poslech", value: "listen", checked: false}
 ]; 
 

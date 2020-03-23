@@ -1,4 +1,7 @@
 {
+  "app": {
+      "name": "LearnEnglishWords"
+  },
   "collection": {
       "title": "Vyberte si kolekci slovíček:",
       "button": {
@@ -37,9 +40,9 @@
       }
   },
   "category": {
-      "title": "Vyberte si kategorii:",
-      "statistics": "Statistika:",
-      "training_mode": "Druh cviceni:",
+      "title": "Kategorie",
+      "statistics": "Statistika",
+      "training_mode": "Procvičit",
       "words_limit": "Pocet slov:",
       "buttons": {
           "words_list": "Zobrazit seznam vsech slov",
@@ -116,10 +119,9 @@
       "about": "O aplikaci"
   },
   "statistics": {
-      "words_part": "slov",
-      "known": "uz umim",
-      "learning": "ucim se",
-      "unknown": "zbyva se naucit"
+      "known": "naučených",
+      "learning": "nenaučených",
+      "unknown": "zbývajících"
   },
   "words_list": {
       "info": "Zde muzete oznacit slovicka, ktera jiz znate:",

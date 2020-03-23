@@ -1,72 +1,73 @@
 {#if simple}
   {#if statistic !== undefined}
-      <div> (                   
-        <span style="color: green"> {statistic.known} </span> /
-        <span style="color: red"> {statistic.unknown} </span> )
+      <div class="category-counter">                  
+        <span class="category-count green">{statistic.known}</span> -
+        <span class="category-count red">{statistic.unknown}</span>
       </div>
   {:else}
     {#if develMode}
-      <div> (                   
-        <span style="color: green"> 43 </span> /
-        <span style="color: orange"> 57 </span> /
-        <span style="color: red"> 82 </span> )
+      <div class="category-counter">                  
+        <span class="category-count green">43</span> -
+        <span class="category-count orange">57</span> -
+        <span class="category-count red">82</span>
       </div>
     {:else}
       {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
-        <div> (                   
-          <span style="color: green"> ? </span> /
-          <span style="color: orange"> ?? </span> /
-          <span style="color: red"> ??? </span> )
+        <div class="category-counter">                  
+          <span class="category-count green">?</span> -
+          <span class="category-count orange">??</span> -
+          <span class="category-count red">???</span>
         </div>
       {:then statistic}
-        <div> (                   
-          <span style="color: green"> {statistic.known} </span> /
-          <span style="color: orange"> {statistic.learning} </span> /
-          <span style="color: red"> {statistic.unknown} </span> )
+        <div class="category-counter">                   
+          <span class="category-count green">{statistic.known}</span> -
+          <span class="category-count orange">{statistic.learning}</span> -
+          <span class="category-count red">{statistic.unknown}</span>
         </div>
       {/await}
     {/if}
   {/if}
 {:else}
   <Row>
-    <Col class="text-align-center">
+    <BlockTitle class="category-title">{$_('category.statistics')}</BlockTitle>
+    <Col class="category-col">
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.known}
-        valueText="{$statisticsData.known} {$_('statistics.words_part')}"
-        valueTextColor="green"
-        borderColor="green"
+        valueText="{$statisticsData.known}/100"
+        valueTextColor="var(--color-green)"
+        borderColor="var(--color-green)"
         labelText="{$_('statistics.known')}"
-        labelTextColor="#333"
+        labelTextColor="var(--color-green)"
       />
     </Col>
-    <Col class="text-align-center">
+    <Col class="category-col">
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.learning}
-        valueText="{$statisticsData.learning} {$_('statistics.words_part')}"
-        valueTextColor="orange"
-        borderColor="orange"
+        valueText="{$statisticsData.learning}/100"
+        valueTextColor="var(--color-orange)"
+        borderColor="var(--color-orange)"
         labelText="{$_('statistics.learning')}"
-        labelTextColor="#333"
+        labelTextColor="var(--color-orange)"
       />
     </Col>
-    <Col class="text-align-center">
+    <Col class="category-col">
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.unknown}
-        valueText="{$statisticsData.unknown} {$_('statistics.words_part')}"
-        valueTextColor="red"
-        borderColor="red"
+        valueText="{$statisticsData.unknown}/100"
+        valueTextColor="var(--color-red)"
+        borderColor="var(--color-red)"
         labelText="{$_('statistics.unknown')}"
-        labelTextColor="#333"
+        labelTextColor="var(--color-red)"
       />
     </Col>
   </Row>
 {/if}
 
 <script>
-  import { Row, Col, Gauge } from 'framework7-svelte';
+  import { BlockTitle, Row, Col, Gauge } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
   import { statisticsData, collectionData } from '../js/store.js';
   import { develMode } from '../js/config.js';

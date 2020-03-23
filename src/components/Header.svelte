@@ -1,9 +1,9 @@
 {#if type === "main"}
-  <Navbar backLink {title}>
-    <slot name="subnavbar"> </slot>
+  <Navbar backLink>
+    <slot name="title"></slot>
     <NavRight>
       <Link popoverOpen=".popover-menu">
-        <Icon material="reorder" />
+        <Icon material="view_headline" />
       </Link>
     </NavRight>
   </Navbar>

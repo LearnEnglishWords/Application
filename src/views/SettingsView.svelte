@@ -1,6 +1,4 @@
 <Page name="Settings">
-  <Navbar backLink title={$_('settings.title')}>
-  </Navbar>
 
   <Block>
     <List>

@@ -1,13 +1,31 @@
 <Page name="CategoryDetail">
-  <Header />
+  <Header>
+    <div slot="title">
+      <p>{$_('app.name')}</p>
+      <p>{$categoryDetailData.name}</p>
+    </div>
+  </Header>
 
-  <center>
-    <BlockTitle medium>{$categoryDetailData.name}</BlockTitle>
-  </center>
-  <Block inset>
-    <BlockTitle>{$_('category.statistics')}</BlockTitle>
-    <Statistics/>
+  <Block class="category-detail">
+    <Statistics/> 
   </Block>
+
+  <Block class="category-detail">
+    <Row>
+      <BlockTitle class="category-title">{$_('category.training_mode')}</BlockTitle>
+      {#each trainingModes as {title, value, checked}, id}
+        <div class="category-radio">
+          <input type="radio" name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+          <label for="mode">{title}</label>
+          <Statistics simple statistic={$trainingModeStatisticsData[value]} />
+        </div>
+      {/each}
+    </Row>
+  </Block>
+
+
+
+
 
 
   <List accordionList inset>

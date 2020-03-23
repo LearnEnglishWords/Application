@@ -1,22 +1,18 @@
 <Page name="CategoryList">
-  <Header>
-    <div slot="title">
-      <p>{$_('app.name')}</p>
-      <p>{$_('category.title')}</p>
-    </div>
-  </Header>
+  <Header />
 
-  <Block class="category-list">
-    <Row>
+  <Block strong inset>
+    <BlockTitle medium>{$_('category.title')}</BlockTitle>
+    <List>
       {#if $categoryData !== 0}
         {#each $categoryData as category, id}
-          <Col class="category-col" on:click="{() => goToDetailView(category)}" width="100" small="50" medium="33" large="25">
-            <p>{category}</p>
+          <ListItem on:click="{() => goToDetailView(category)}">
+            <h3>{category}</h3>
             <Statistics simple categoryId={category} />
-          </Col>
+          </ListItem>
         {/each}
       {/if}
-    </Row>
+    </List>
   </Block>
 </Page>
 
@@ -24,8 +20,9 @@
   import { 
     Page, Link,
     Chip, 
-    Block, Row, Col, 
-    Navbar, Subnavbar
+    Block, BlockTitle, 
+    Navbar, Subnavbar,
+    List, ListItem
   } from 'framework7-svelte';
   import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
@@ -46,7 +43,7 @@
   }
 
   function setDevelData() {
-    categoryData.set(["Furniture","Body","Food","Cars"]);
+    categoryData.set(["Furniture","Body","Food"]);
     collectionData.set({id: "basic", name: "Basic"});
   }
 

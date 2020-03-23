@@ -1,4 +1,8 @@
 scripts
+Android/
+.idea/
+jdk1.8.0_172/
+*.swp
 
 # Logs
 logs
