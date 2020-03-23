@@ -5,10 +5,10 @@ export ANDROID_SDK_ROOT=/home/martin/Programs/Android
 
 if [[ ${1} != "install" ]]; then
     echo 'Building:'
-    npm run build-dev-cordova-android | tee /tmp/test/cordova-build-output.log
+    npm run build-dev-cordova-android | tee /tmp/cordova-build-output.log
 fi
 
 if [[ $? == 0 ]]; then
     echo 'Installing..'
-    ${ANDROID_HOME}/platform-tools/adb install $(cat /tmp/test/cordova-build-output.log | tail -n1)
+    ${ANDROID_HOME}/platform-tools/adb install $(cat /tmp/cordova-build-output.log | tail -n1)
 fi
