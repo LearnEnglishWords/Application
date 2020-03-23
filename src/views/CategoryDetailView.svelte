@@ -159,9 +159,36 @@
   
   function setDevelData() {
     allWords = [
-      {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""},
-      {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
-      {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""}
+      {
+        text: "hello",
+        pronunciation:"hello",
+        sense: ["ahoj", "cau", "dobry den"],
+        examples: [
+          "Hello, Paul. I haven't seen you for ages.",
+          "I know her vaguely - we've exchanged hellos a few times.",
+          "I just thought I'd call by and say hello.",
+          "And a big hello (= welcome) to all the parents who've come to see the show.",
+          "\"Hello, I'd like some information about flights to the US, please.\""
+      ]}, {
+        text: "car",
+        pronunciation:"car",
+        sense: ["auto", "osobni automobil", "vozidlo"], 
+        examples: [
+          "They don't have a car.",
+          "Where did you park your car?",
+          "It's quicker by car.",
+          "Eight children were crammed into the back of the car."
+      ]},
+      {
+        text: "bedroom",
+        pronunciation:"bedroom", 
+        sense: ["loznice"],
+        examples: [
+          "Our home has three bedrooms.",
+          "You can stay in the spare bedroom.",
+          "We've just bought some new bedroom furniture.",
+          "The top of the tree is level with his bedroom window."
+      ]}
     ];
 
     allWordIds = ["hello", "car", "bedroom"];
