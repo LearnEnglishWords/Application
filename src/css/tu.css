@@ -1,0 +1,230 @@
+/*
+--------------------------------------------------
+===> CSS: Variables
+--------------------------------------------------
+*/
+
+/* Root: Base color */
+:root {
+    --color-app: #303F76;
+}
+/* Colors: Light theme */
+:root {
+    --color-base: #FFFFFF;
+    --color-grid: #EBEBEB;
+    --color-grid-category: #BBBBBB; /* 999999 */
+    --color-title: #555555;
+    --color-icon: #555;
+}
+/* Colors: Dark theme */
+:root .dark-theme {
+    --color-base: #252631;
+    --color-grid: #1F2129;
+    --color-grid-category: #4F4E56;
+    --color-title: #FFFFFF;
+    --color-icon: #FFF;
+}
+
+/*
+--------------------------------------------------
+===> CSS: Fonts
+--------------------------------------------------
+*/
+
+/* Exo Thin */
+@font-face {
+    font-family: 'Exo:1';
+    font-weight: 100;
+    src: local('Exo Thin'), local('Exo-Thin'), url(../fonts/Exo-Thin.ttf) format('truetype');
+}
+/* Exo ExtraLight */
+@font-face {
+    font-family: 'Exo:2';
+    font-weight: 200;
+    src: local('Exo ExtraLight'), local('Exo-ExtraLight'), url(../fonts/Exo-ExtraLight.ttf) format('truetype');
+}
+/* Exo Light */
+@font-face {
+    font-family: 'Exo:3';
+    font-weight: 300;
+    src: local('Exo Light'), local('Exo-Light'), url(../fonts/Exo-Light.ttf) format('truetype');
+}
+/* Exo Regular */
+@font-face {
+    font-family: 'Exo:4';
+    font-weight: 400;
+    src: local('Exo Regular'), local('Exo-Regular'), url(../fonts/Exo-Regular.ttf) format('truetype');
+}
+/* Exo Medium */
+@font-face {
+    font-family: 'Exo:5';
+    font-weight: 500;
+    src: local('Exo Medium'), local('Exo-Medium'), url(../fonts/Exo-Medium.ttf) format('truetype');
+}
+/* Exo SemiBold */
+@font-face {
+    font-family: 'Exo:6';
+    font-weight: 600;
+    src: local('Exo SemiBold'), local('Exo-SemiBold'), url(../fonts/Exo-SemiBold.ttf) format('truetype');
+}
+/* Exo Bold */
+@font-face {
+    font-family: 'Exo:7';
+    font-weight: 700;
+    src: local('Exo Bold'), local('Exo-Bold'), url(../fonts/Exo-Bold.ttf) format('truetype');
+}
+/* Exo ExtraBold */
+@font-face {
+    font-family: 'Exo:8';
+    font-weight: 800;
+    src: local('Exo ExtraBold'), local('Exo-ExtraBold'), url(../fonts/Exo-ExtraBold.ttf) format('truetype');
+}
+/* Exo Black */
+@font-face {
+    font-family: 'Exo:9';
+    font-weight: 900;
+    src: local('Exo Black'), local('Exo-Black'), url(../fonts/Exo-Black.ttf) format('truetype');
+}
+  
+/*
+--------------------------------------------------
+===> CSS: Styles
+--------------------------------------------------
+*/
+
+/* Reset */
+p, h1, h2, h3, h4, h5, h6, div, span {
+    margin: 0;
+    padding: 0;
+}
+.button.active-state {
+    background: var(--color-app);
+    color: #FFFFFF;
+}
+
+/* Page */
+.page-content {
+    margin: 0 -1px;
+    background: var(--color-base);
+}
+
+/* Navbar */
+.navbar .navbar-bg {
+    background: var(--color-base);
+}
+.navbar .navbar-title {
+    text-align: center;
+    width: 100%;
+    font-family: 'Exo:7';
+    color: var(--color-title);
+}
+.navbar .navbar-title h1 {
+    font-size: 14px;
+}
+.navbar a.link {
+    color: var(--color-icon);
+}
+
+/* CategoryList */
+.category-header {
+    width: 100%;
+    min-height: 112px;
+    background-color: var(--color-app);
+    background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/doodles.png");
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    position: relative;
+    background-repeat: repeat;
+    background-position: center center;
+}
+.category-header .category-counter {
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(105px, 1fr) );
+    min-height: 112px;
+}
+.category-header .category-counter .col {
+    padding: 30px 0;
+    width: 100%;
+}
+.category-header .category-counter .col span {
+    color: #FFFFFF;
+    font-family: 'Exo:9';
+    font-size: 15px;
+}
+.category-header .category-counter .col p {
+    font-family: 'Exo:7';
+    font-size: 10px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+.category-header .category-counter .col p:last-child {
+    font-family: 'Exo:9';
+}
+.category-list-title {
+    text-align: center;
+    margin-top: 30px;
+}
+.category-list-title h2 {
+    text-transform: uppercase;
+    font-family: 'Exo:7';
+    font-size: 12px;
+    color: var(--color-title);
+}
+.category-list-title .separator {
+    height: 3px;
+    width: 60px;
+    margin: 5px auto 30px;
+    background: var(--color-app);
+    border-radius: 50px;
+}
+.category-list {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(160px, 1fr) );
+    border-top: 1px solid var(--color-grid);
+    border-left: 1px solid var(--color-grid);
+    text-transform: uppercase;
+    font-family: 'Exo:5';
+    font-size: 10px;
+    margin-bottom: 92px;
+}
+.category-list .category-item {
+    background: var(--color-base);
+    border-bottom: 1px solid var(--color-grid);
+    border-right: 1px solid var(--color-grid);
+    color: var(--color-grid-category);
+    transition: all 0.3s ease;
+}
+.category-list .category-item.active {
+    color: var(--color-app);
+}
+
+.category-list .category-item i {
+    margin-top: 15px;
+}
+.category-list .category-item h3 {
+    margin: 15px 5px;
+}
+.category-footer {
+    height: 92px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: var(--color-base);
+}
+.category-footer a {
+    width: 137.5px;
+    margin: 28px auto;
+    letter-spacing: normal;
+    font-size: 10px;
+    font-family: 'Exo:7';
+    border: 2px solid var(--color-app);
+    background: var(--color-app);
+    color: #FFFFFF;
+    box-shadow: 0 0 5px var(--color-app);
+}

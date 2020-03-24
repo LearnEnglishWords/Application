@@ -1,5 +1,5 @@
 {#if type === "main"}
-  <Navbar backLink>
+  <Navbar backLink noShadow>
     <slot name="title"></slot>
     <NavRight>
       <Link popoverOpen=".popover-menu">

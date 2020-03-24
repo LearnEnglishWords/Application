@@ -40,7 +40,8 @@
       }
   },
   "category": {
-      "title": "Kategorie",
+      "title": "Vyberte si kategorie",
+      "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": "Procvičit",
       "words_limit": "Pocet slov:",

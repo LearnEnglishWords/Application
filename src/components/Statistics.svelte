@@ -34,7 +34,7 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.known}
-        valueText="{$statisticsData.known}/100"
+        valueText="{$statisticsData.known}/{$statisticsData.count}"
         valueTextColor="var(--color-green)"
         borderColor="var(--color-green)"
         labelText="{$_('statistics.known')}"
@@ -45,7 +45,7 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.learning}
-        valueText="{$statisticsData.learning}/100"
+        valueText="{$statisticsData.learning}/{$statisticsData.count}"
         valueTextColor="var(--color-orange)"
         borderColor="var(--color-orange)"
         labelText="{$_('statistics.learning')}"
@@ -56,7 +56,7 @@
       <Gauge
         type="semicircle"
         value={$statisticsData.count/10000*$statisticsData.unknown}
-        valueText="{$statisticsData.unknown}/100"
+        valueText="{$statisticsData.unknown}/{$statisticsData.count}"
         valueTextColor="var(--color-red)"
         borderColor="var(--color-red)"
         labelText="{$_('statistics.unknown')}"

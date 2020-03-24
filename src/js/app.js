@@ -9,7 +9,7 @@ import 'framework7/css/framework7.bundle.css';
 
 // Import Icons and App Custom Styles
 import '../css/icons.css';
-import '../css/app.css';
+import '../css/tu.css';
 
 // Import App Component
 import App from '../components/App.svelte';

@@ -18,9 +18,9 @@ export const defaultTrainingModeStatisticsData = {
 }
 
 export const trainingModes = [
-  {title: "Čtení", value: "read", checked: true},
-  {title: "Psaní", value: "write", checked: false},
-  {title: "Poslech", value: "listen", checked: false}
+  {radio: "radio-read", title: "Čtení", value: "read", checked: true},
+  {radio: "radio-write", title: "Psaní", value: "write", checked: false},
+  {radio: "radio-listen", title: "Poslech", value: "listen", checked: false}
 ]; 
 
 export function isKnownForMode(word, mode) { 
