@@ -148,7 +148,6 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     background-color: var(--color-app);
     background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/doodles.png");
     background-blend-mode: multiply;
-    background-attachment: fixed;
     position: relative;
     background-repeat: repeat;
     background-position: 0 0;
