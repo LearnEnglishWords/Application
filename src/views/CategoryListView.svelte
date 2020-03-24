@@ -8,17 +8,17 @@
   <div class="category-header">
     <Row class="category-counter">
       <Col>
-        <span>238</span>
+        <span>{globalStatisticsData.known}</span>
         <p>Naučených</p>
         <p>Slov</p>
       </Col>
       <Col>
-        <span>3673</span>
+        <span>{globalStatisticsData.learning}</span>
         <p>Nenaučených</p>
         <p>Slov</p>
       </Col>
       <Col>
-        <span>14639</span>
+        <span>{globalStatisticsData.unknown}</span>
         <p>Zbývajících</p>
         <p>Slov</p>
       </Col>
@@ -33,7 +33,7 @@
   <div class="category-list">
     {#if $categoryData !== 0}
       {#each $categoryData as category, id}
-        <div class="category-item" on:click="{() => toggleActiveCategory()}"> 
+        <div class="category-item" class:active={category.active} on:click="{() => toggleCategory(category)}"> 
           <Icon material={category.icon} />
           <h3>{category.name}</h3>
         </div>
@@ -42,7 +42,7 @@
   </div>
 
   <div class="category-footer">
-    <Button round>{$_('category.confirm')}</Button>
+    <Button round on:click={goToDetailView}> {$_('category.confirm')} </Button>
   </div>
 </Page>
 
@@ -57,39 +57,67 @@
   import Statistics from '../components/Statistics.svelte';
   import { develMode } from '../js/config.js';
   import { defaultStatisticsData } from '../js/utils.js';
+  import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
+  let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
 
   if(develMode) {
     setDevelData();
   }
 
-  function goToDetailView(category) {
-    categoryDetailData.set({name: category, id: category});
+  function goToDetailView() {
+    //categoryDetailData.set({name: category, id: category});
     f7router.navigate('/CategoryDetail');
   }
 
+  function getRandomStatistics() {
+    let known = Math.floor(Math.random() * 101);
+    let learning = Math.floor(Math.random() * 101);
+    let unknown = Math.floor(Math.random() * 101);
+    return {
+      "count": known + learning + unknown,
+      "known": known,
+      "learning": learning,
+      "unknown": unknown
+    }
+  }
+  
   function setDevelData() {
     categoryData.set([
-      {name: "Furniture", icon: "room"},
-      {name: "Body", icon: "copyright"},
-      {name: "Food", icon: "card_travel"},
-      {name: "Cars", icon: "dashboard"},
-      {name: "Pets", icon: "face"},
-      {name: "Colors", icon: "eject"},
-      {name: "Vehicles", icon: "feedback"},
-      {name: "Rooms", icon: "favorite"},
-      {name: "Bikes", icon: "home"},
-      {name: "Weather", icon: "room"},
-      {name: "Astronomy", icon: "shop"},
-      {name: "Parents", icon: "store"}
+      {name: "Furniture", icon: "room", stats: getRandomStatistics(), active: false},
+      {name: "Body", icon: "copyright", stats: getRandomStatistics(), active: false},
+      {name: "Food", icon: "card_travel", stats: getRandomStatistics(), active: false},
+      {name: "Cars", icon: "dashboard", stats: getRandomStatistics(), active: false},
+      {name: "Pets", icon: "face", stats: getRandomStatistics(), active: false},
+      {name: "Colors", icon: "eject", stats: getRandomStatistics(), active: false},
+      {name: "Vehicles", icon: "feedback", stats: getRandomStatistics(), active: false},
+      {name: "Rooms", icon: "favorite", stats: getRandomStatistics(), active: false},
+      {name: "Bikes", icon: "home", stats: getRandomStatistics(), active: false},
+      {name: "Weather", icon: "room", stats: getRandomStatistics(), active: false},
+      {name: "Astronomy", icon: "shop", stats: getRandomStatistics(), active: false},
+      {name: "Parents", icon: "store", stats: getRandomStatistics(), active: false}
     ]);
-    //categoryData.set(["Furniture","Body","Food"]);
+
     collectionData.set({id: "basic", name: "Basic"});
   }
 
-  function toggleActiveCategory() {
+  function toggleCategory(category) {
+    category.active = !category.active;
+
+    if (category.active) {
+      globalStatisticsData.known += category.stats.known;
+      globalStatisticsData.learning += category.stats.learning;
+      globalStatisticsData.unknown += category.stats.unknown;
+    } else {
+      globalStatisticsData.known -= category.stats.known;
+      globalStatisticsData.learning -= category.stats.learning;
+      globalStatisticsData.unknown -= category.stats.unknown;
+    }
+  }
+
+  onMount(() => {
     var container = document.getElementsByClassName("category-item");
   
     for (var i = 0; i < container.length; i++) {
@@ -97,7 +125,7 @@
         this.classList.toggle('active');
       }
     }
-  }
+  });
 
 </script>
 
