@@ -6,6 +6,7 @@
   </Header>
 
   <div class="category-header">
+    <p class="category-list-header">{$_('category.categoryTitle')}</p>
     <Row class="category-counter">
       <Col>
         <span>238</span>

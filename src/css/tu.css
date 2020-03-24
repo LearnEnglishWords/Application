@@ -94,11 +94,8 @@
 
 /* AnimatedBackground */
 @keyframes animatedBackground {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: -500px -500px;
+    100% {
+        background-position: 400px 400px;
     }
 }
 
@@ -150,8 +147,15 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     background-blend-mode: multiply;
     position: relative;
     background-repeat: repeat;
-    background-position: 0 0;
-    animation: animatedBackground 22.5s linear infinite;
+    animation: animatedBackground 30s linear infinite;
+}
+.category-header .category-list-header {
+    padding-top: 30px;
+    font-size: 12.5px;
+    font-family: 'Exo:9';
+    color: #FFFFFF;
+    text-align: center;
+    text-transform: uppercase;
 }
 .category-header .category-counter {
     align-items: center;

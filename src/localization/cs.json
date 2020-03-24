@@ -41,6 +41,7 @@
   },
   "category": {
       "title": "Vyberte si kategorie",
+      "categoryTitle": "Celková statistika",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": "Procvičit",
