@@ -13,10 +13,10 @@
   <Block class="category-detail">
     <Row>
       <BlockTitle class="category-title" id="{trainingModes[trainingModeIndex].id}">{$_('category.training_mode')}</BlockTitle>
-      {#each trainingModes as {radio, title, value, checked}, id}
+      {#each trainingModes as {title, value, checked}, id}
         <div class="category-radio">
-          <input type="radio" name="mode" id={radio} on:change={() => trainingModeIndex = id} checked={checked}>
-          <label for={radio}>{title}</label>
+          <input type="radio" name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+          <label>{title}</label>
           <Statistics simple statistic={$trainingModeStatisticsData[value]} />
         </div>
       {/each}

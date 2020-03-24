@@ -88,6 +88,22 @@
   
 /*
 --------------------------------------------------
+===> CSS: Keyframes
+--------------------------------------------------
+*/
+
+/* AnimatedBackground */
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -500px -500px;
+    }
+}
+
+/*
+--------------------------------------------------
 ===> CSS: Styles
 --------------------------------------------------
 */
@@ -135,7 +151,8 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     background-attachment: fixed;
     position: relative;
     background-repeat: repeat;
-    background-position: center center;
+    background-position: 0 0;
+    animation: animatedBackground 22.5s linear infinite;
 }
 .category-header .category-counter {
     align-items: center;
