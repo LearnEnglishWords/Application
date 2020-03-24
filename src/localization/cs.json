@@ -46,6 +46,7 @@
       "statistics": "Statistika",
       "training_mode": "Procvičit",
       "words_limit": "Pocet slov:",
+      "words": "Slov",
       "buttons": {
           "words_list": "Zobrazit seznam vsech slov",
           "start_training": "START TRENINK",

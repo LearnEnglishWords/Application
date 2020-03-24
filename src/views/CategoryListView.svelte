@@ -7,19 +7,19 @@
 
   <div class="category-header">
     <p class="category-list-header">{$_('category.categoryTitle')}</p>
-    <Row class="category-counter">
+    <Row class="category-counter list">
       <Col>
-        <span>{globalStatisticsData.known}</span>
+        <span class="counter green">{globalStatisticsData.known}</span>
         <p>Naučených</p>
         <p>Slov</p>
       </Col>
       <Col>
-        <span>{globalStatisticsData.learning}</span>
+        <span class="counter orange">{globalStatisticsData.learning}</span>
         <p>Nenaučených</p>
         <p>Slov</p>
       </Col>
       <Col>
-        <span>{globalStatisticsData.unknown}</span>
+        <span class="counter red">{globalStatisticsData.unknown}</span>
         <p>Zbývajících</p>
         <p>Slov</p>
       </Col>
@@ -34,9 +34,12 @@
   <div class="category-list">
     {#if $categoryData !== 0}
       {#each $categoryData as category, id}
-        <div class="category-item" class:active={category.active} on:click="{() => toggleCategory(category)}"> 
+        <div class="category-item" class:active={category.active} on:click="{() => toggleCategory(category)}">           
           <Icon material={category.icon} />
           <h3>{category.name}</h3>
+          <div class="separator"></div>
+          <p>{$_('category.words')}</p>
+          <Statistics simple categoryId={category} />
         </div>
       {/each}
     {/if}    
