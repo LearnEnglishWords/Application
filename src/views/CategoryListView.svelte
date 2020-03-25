@@ -5,33 +5,33 @@
     </div>
   </Header>
 
-  <div class="category-header">
-    <p class="category-list-header">{$_('category.categoryTitle')}</p>
-    <Row class="category-counter list">
-      <Col>
-        <span class="counter green">{globalStatisticsData.known}</span>
-        <p>Naučených</p>
-        <p>Slov</p>
+  <div class="category-list header">
+    <p class="category-title">{$_('category.categoryTitle')}</p>
+    <Row class="category-counter">
+      <Col class="known">
+        <span class="count">{globalStatisticsData.known}</span>
+        <p class="type">{$_('statistics.known')}</p>
+        <p class="text">{$_('statistics.words')}</p>
       </Col>
-      <Col>
-        <span class="counter orange">{globalStatisticsData.learning}</span>
-        <p>Nenaučených</p>
-        <p>Slov</p>
+      <Col class="learning">
+        <span class="count">{globalStatisticsData.learning}</span>
+        <p class="type">{$_('statistics.learning')}</p>
+        <p class="text">{$_('statistics.words')}</p>
       </Col>
-      <Col>
-        <span class="counter red">{globalStatisticsData.unknown}</span>
-        <p>Zbývajících</p>
-        <p>Slov</p>
+      <Col class="unknown">
+        <span class="count">{globalStatisticsData.unknown}</span>
+        <p class="type">{$_('statistics.unknown')}</p>
+        <p class="text">{$_('statistics.words')}</p>
       </Col>
     </Row>
   </div>
 
-  <div class="category-list-title">
+  <div class="category-list title">
     <h2>{$_('category.title')}</h2>
     <div class="separator"></div>
   </div>
 
-  <div class="category-list">
+  <div class="category-list grid">
     {#if $categoryData !== 0}
       {#each $categoryData as category, id}
         <div class="category-item" class:active={category.active} on:click="{() => toggleCategory(category)}">           
@@ -45,7 +45,7 @@
     {/if}    
   </div>
 
-  <div class="category-footer">
+  <div class="category-list footer">
     <Button round on:click={goToDetailView}> {$_('category.confirm')} </Button>
   </div>
 </Page>

@@ -1,28 +1,28 @@
 {#if simple}
   {#if statistic !== undefined}
       <div class="category-counter">                  
-        <span class="category-count green">{statistic.known}</span> -
-        <span class="category-count red">{statistic.unknown}</span>
+        <span class="count known">{statistic.known}</span> -
+        <span class="count unknown">{statistic.unknown}</span>
       </div>
   {:else}
     {#if develMode}
       <div class="category-counter">                  
-        <span class="category-count green">43</span> -
-        <span class="category-count orange">57</span> -
-        <span class="category-count red">82</span>
+        <span class="count known">43</span> -
+        <span class="count learning">57</span> -
+        <span class="count unknown">82</span>
       </div>
     {:else}
       {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
         <div class="category-counter">                  
-          <span class="category-count green">?</span> -
-          <span class="category-count orange">??</span> -
-          <span class="category-count red">???</span>
+          <span class="count known">?</span> -
+          <span class="count learning">??</span> -
+          <span class="count unknown">???</span>
         </div>
       {:then statistic}
         <div class="category-counter">                   
-          <span class="category-count green">{statistic.known}</span> -
-          <span class="category-count orange">{statistic.learning}</span> -
-          <span class="category-count red">{statistic.unknown}</span>
+          <span class="count known">{statistic.known}</span> -
+          <span class="count learning">{statistic.learning}</span> -
+          <span class="count unknown">{statistic.unknown}</span>
         </div>
       {/await}
     {/if}

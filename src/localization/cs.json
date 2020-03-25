@@ -124,7 +124,8 @@
   "statistics": {
       "known": "naučených",
       "learning": "nenaučených",
-      "unknown": "zbývajících"
+      "unknown": "zbývajících",
+      "words": "Slov"
   },
   "words_list": {
       "info": "Zde muzete oznacit slovicka, ktera jiz znate:",
