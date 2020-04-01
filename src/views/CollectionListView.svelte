@@ -61,8 +61,8 @@
   }
 
   function setCategoryData(collectionId) {
-    collection.getCategoryIdsList(collectionId, (categoryIds) => {
-      categoryData.set(categoryIds);
+    collection.getCategoryList(collectionId, (categories) => {
+      categoryData.set(categories);
     });
   }
 

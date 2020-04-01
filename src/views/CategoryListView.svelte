@@ -7,8 +7,8 @@
       {#if $categoryData !== 0}
         {#each $categoryData as category, id}
           <ListItem on:click="{() => goToDetailView(category)}">
-            <h3>{category}</h3>
-            <Statistics simple categoryId={category} />
+            <h3>{category.czechName}</h3>
+            <Statistics simple categoryId={category.id} />
           </ListItem>
         {/each}
       {/if}
@@ -38,7 +38,7 @@
   }
 
   function goToDetailView(category) {
-    categoryDetailData.set({name: category, id: category});
+    categoryDetailData.set(category);
     f7router.navigate('/CategoryDetail');
   }
 

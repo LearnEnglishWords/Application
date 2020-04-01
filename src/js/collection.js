@@ -42,21 +42,20 @@ export default class Collection {
 
   download(collectionId, success, progress) {
     this.downloadAllCategories().then((categories) => {
-      let categoryIds = categories.map((category) => category.id );
-      this.saveCategoryIdsList(collectionId, categoryIds).then(() => success());
+      this.saveCategoryList(collectionId, categories).then(() => success());
       this.downloadAndSaveCategoryWords(collectionId, categories, progress);
     });
   }
 
-  saveCategoryIdsList(collectionId, categoryIds) {
-    for (let categoryId of categoryIds) {
-      this.saveCategoryStatistics(collectionId, categoryId, defaultStatisticsData);
+  saveCategoryList(collectionId, categories) {
+    for (let category of categories) {
+      this.saveCategoryStatistics(collectionId, category.id, defaultStatisticsData);
     }
-    return appStorage.setItem(`collection:${collectionId}:category:ids`, categoryIds);
+    return appStorage.setItem(`collection:${collectionId}:categories`, categories);
   }
 
-  getCategoryIdsList(collectionId, callback) {
-    appStorage.getItem(`collection:${collectionId}:category:ids`).then((data) => {
+  getCategoryList(collectionId, callback) {
+    appStorage.getItem(`collection:${collectionId}:categories`).then((data) => {
       callback(data);
     });
   }

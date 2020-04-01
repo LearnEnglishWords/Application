@@ -2,7 +2,7 @@
   <Header />
 
   <center>
-    <BlockTitle medium>{$categoryDetailData.name}</BlockTitle>
+    <BlockTitle medium>{$categoryDetailData.czechName}</BlockTitle>
   </center>
   <Block inset>
     <BlockTitle>{$_('category.statistics')}</BlockTitle>
