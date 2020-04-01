@@ -24,6 +24,15 @@ export const trainingModes = [
   { title: "Poslech", value: "listen", checked: false }
 ]; 
 
+export function getDefaultStatisticsData(count) {
+  return {
+    "count": count,
+    "known": 0,
+    "learning": 0,
+    "unknown": count
+  }
+};            
+
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined) { return false }
   if (word.learning[mode] === false) { return false } else { return true }

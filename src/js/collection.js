@@ -1,5 +1,5 @@
 import Storage from './storage.js';
-import { defaultStatisticsData } from './utils.js'
+import { getDefaultStatisticsData } from './utils.js'
 
 
 export default class Collection {
@@ -24,6 +24,7 @@ export default class Collection {
     categories.forEach((category) => {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {
+          this.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
           this.saveCategoryWords(collectionId, category.id, words, progress);
         } else {
           progress();
@@ -48,9 +49,6 @@ export default class Collection {
   }
 
   saveCategoryList(collectionId, categories) {
-    for (let category of categories) {
-      this.saveCategoryStatistics(collectionId, category.id, defaultStatisticsData);
-    }
     return appStorage.setItem(`collection:${collectionId}:categories`, categories);
   }
 
