@@ -40,17 +40,18 @@
       }
   },
   "category": {
-      "title": "Vyberte si kategorie",
-      "categoryTitle": "Celková statistika",
+      "select_categories": "Vyberte si kategorie",
+      "training_title": "Zvolte si druh cvičení",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": "Procvičit",
-      "words_limit": "Pocet slov:",
+      "words_limit": "Zvolte si počet slov",
+      "words_title": "Počet slov",
       "words": "Slov",
       "buttons": {
           "words_list": "Zobrazit seznam vsech slov",
-          "start_training": "START TRENINK",
-          "start_testing": "START TESTING"
+          "start_training": "Trénovat",
+          "start_testing": "Procvičovat"
       }
   },
   "settings": {
@@ -122,14 +123,21 @@
       "about": "O aplikaci"
   },
   "statistics": {
+      "title": "Statistika",
       "known": "naučených",
       "learning": "nenaučených",
       "unknown": "zbývajících",
-      "words": "Slov"
+      "read": "načteno",
+      "write": "napsáno",
+      "listen": "poslechnuto",
+      "text": "Slov"
   },
   "words_list": {
       "info": "Zde muzete oznacit slovicka, ktera jiz znate:",
       "known": "Znam",
       "unknown": "Neznam"
+  },
+  "title": {
+      "category-detail": "Vyberte si druh cvičení"
   }
 }

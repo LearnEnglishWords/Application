@@ -3,7 +3,7 @@
     <slot name="title"></slot>
     <NavRight>
       <Link popoverOpen=".popover-menu">
-        <Icon material="view_headline" />
+        <Icon size="24" f7="rectangle_grid_2x2_fill" />
       </Link>
     </NavRight>
   </Navbar>

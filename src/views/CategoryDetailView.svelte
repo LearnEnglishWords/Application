@@ -1,26 +1,73 @@
 <Page name="CategoryDetail">
+  <!-- Navbar -->
   <Header>
     <div slot="title">
-      <p>{$_('app.name')}</p>
-      <p>{$categoryDetailData.name}</p>
+      <span>{$_('statistics.title')}</span>
     </div>
   </Header>
-
-  <Block class="category-detail">
-    <Statistics/> 
-  </Block>
-
-  <Block class="category-detail">
+  <!-- Header -->
+  <div style="display:none" class="CategoryDetail header">
     <Row>
-      <BlockTitle class="category-title" id="{trainingModes[trainingModeIndex].id}">{$_('category.training_mode')}</BlockTitle>
-      {#each trainingModes as {title, value, checked}, id}
-        <div class="category-radio">
-          <input type="radio" name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
-          <label>{title}</label>
-          <Statistics simple statistic={$trainingModeStatisticsData[value]} />
-        </div>
-      {/each}
+      <Col class="read">
+        <span>42</span>
+        <span>{$_('statistics.read')}</span>
+        <span>{$_('statistics.text')}</span>
+      </Col>
+      <Col class="write">
+        <span>241</span>
+        <span>{$_('statistics.write')}</span>
+        <span>{$_('statistics.text')}</span>
+      </Col>
+      <Col class="listen">
+        <span>604</span>
+        <span>{$_('statistics.listen')}</span>
+        <span>{$_('statistics.text')}</span>
+      </Col>
     </Row>
+  </div>
+
+
+
+  <!-- BlockTitle -->
+  <BlockTitle>{$_('category.training_title')}</BlockTitle>
+  <!-- AccordionList -->
+  <Block>
+    <List accordionList noHairlines>
+      <ListItem accordionItem title="{$_('category.training_mode')}" after={trainingModes[trainingModeIndex].title}>
+        <AccordionContent>
+          <List>
+            {#each trainingModes as {title, value, checked}, id}
+              <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+                <Statistics simple statistic={$trainingModeStatisticsData[value]} />
+              </ListItem>
+            {/each}
+          </List>
+        </AccordionContent>
+      </ListItem>
+    </List>
+  </Block>
+  <!-- BlockTitle -->
+  <BlockTitle>{$_('category.words_limit')}</BlockTitle>
+  <!-- Stepper -->
+  <Block>
+    <List>
+      <ListItem title= {$_('category.words_title')}>
+        <span slot="after">
+          <Stepper
+            min={10}
+            max={100}
+            step={10}
+            value={$settingsData.wordsLimit}
+            autorepeat={true} 
+            autorepeatDynamic={true}
+            small
+            fill
+            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+          ></Stepper>
+        </span>
+      </ListItem>
+    </List>
   </Block>
 
 
@@ -28,58 +75,54 @@
 
 
 
-  <List accordionList inset>
-    <ListItem accordionItem header={$_('category.training_mode')} title="{trainingModes[trainingModeIndex].title}">
-      <AccordionContent>
-        <List>
-          {#each trainingModes as {title, value, checked}, id}
-            <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
-              <Statistics simple statistic={$trainingModeStatisticsData[value]} />
-            </ListItem>
-          {/each}
-        </List>
-      </AccordionContent>
-    </ListItem>
-  </List>
+  <!-- Page -->
+  <div style="display:none;" class="CategoryDetail page">
 
-  <Block inset>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <div class="CategoryDetail footer">
+      <Button on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+      <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <Block style="display: none" inset>
     <Row>
       <Col>
         <block>
           {$_('category.words_limit')}
         </block>
       </Col>
-      <Col>
-        <Stepper round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
-            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-        ></Stepper>
-      </Col>
     </Row>
   </Block>
 
 
-  <Block inset>
+  <Block style="display: none" inset>
     <Row>
       <Col>
         <Button large raised popupOpen=".word-list">{$_('category.buttons.words_list')}</Button>
       </Col>
     </Row>
   </Block>
-  <Block inset>
-    <Row>
-      <Col>
-        <Button large outline on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-      </Col>
-      <Col>
-        <Button large fill on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
-      </Col>
-    </Row>
-  </Block>
 
 {#if allWordIds.length > 0}
-  <WordListPopup name="word-list" allWordIds={allWordIds}/>
+  <WordListPopup style="display: none" name="word-list" allWordIds={allWordIds}/>
 {/if}
+
+
 
 </Page>
 
@@ -87,7 +130,7 @@
   import { 
     f7, Page, Popup, 
     Navbar, Subnavbar, NavRight,
-    BlockTitle, Block,
+    BlockTitle, Block, BlockHeader,
     List, ListItem,
     AccordionContent,
     Stepper, Gauge,

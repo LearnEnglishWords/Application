@@ -1,52 +1,76 @@
 <Page name="CategoryList">
+  <!-- Navbar -->
   <Header>
-    <div slot="title" class="navbar-title">
-      <h1 class="navbar-title">{$_('app.name')}</h1>
+    <div slot="title" class="title">
+      <span>{$_('statistics.title')}</span>
     </div>
   </Header>
-
-  <div class="category-list header">
-    <p class="category-title">{$_('category.categoryTitle')}</p>
-    <Row class="category-counter">
-      <Col class="known">
-        <span class="count">{globalStatisticsData.known}</span>
-        <p class="type">{$_('statistics.known')}</p>
-        <p class="text">{$_('statistics.words')}</p>
+  <!-- Header -->
+  <div class="header-statistics">
+    <Row>
+      <Col class="statistics known">
+        <span>{globalStatisticsData.known}</span>
+        <span>{$_('statistics.known')}</span>
+        <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="learning">
-        <span class="count">{globalStatisticsData.learning}</span>
-        <p class="type">{$_('statistics.learning')}</p>
-        <p class="text">{$_('statistics.words')}</p>
+      <Col class="statistics learning">
+        <span>{globalStatisticsData.learning}</span>
+        <span>{$_('statistics.learning')}</span>
+        <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="unknown">
-        <span class="count">{globalStatisticsData.unknown}</span>
-        <p class="type">{$_('statistics.unknown')}</p>
-        <p class="text">{$_('statistics.words')}</p>
+      <Col class="statistics unknown">
+        <span>{globalStatisticsData.unknown}</span>
+        <span>{$_('statistics.unknown')}</span>
+        <span>{$_('statistics.text')}</span>
       </Col>
     </Row>
+    <div class="header-corners"></div>
+  </div>
+  <!-- Page -->
+  <div class="CategoryListView">
+    <!-- Title -->
+    <BlockTitle>{$_('category.select_categories')}</BlockTitle>
+    <List>
+      {#if $categoryData !== 0}
+        {#each $categoryData as category, id} 
+          <ListItem class="list-item animated {category.active}" title="{category.name}" on:click="{() => toggleCategory(category)}">
+            <i slot="media" class="material-icons">{category.icon}</i>
+            <div slot="after"><Statistics simple categoryId={category} /></div>
+          </ListItem> 
+        {/each}
+      {/if}
+    </List> 
   </div>
 
-  <div class="category-list title">
-    <h2>{$_('category.title')}</h2>
-    <div class="separator"></div>
+  <!-- Footer -->
+  <div class="footer one">
+    <Button on:click={goToDetailView}>{$_('category.confirm')}</Button>
   </div>
 
-  <div class="category-list grid">
-    {#if $categoryData !== 0}
-      {#each $categoryData as category, id}
-        <div class="category-item" class:active={category.active} on:click="{() => toggleCategory(category)}">           
-          <Icon material={category.icon} />
-          <h3>{category.name}</h3>
-          <div class="separator"></div>
-          <p>{$_('category.words')}</p>
-          <Statistics simple categoryId={category} />
-        </div>
-      {/each}
-    {/if}    
-  </div>
 
-  <div class="category-list footer">
-    <Button round on:click={goToDetailView}> {$_('category.confirm')} </Button>
+
+
+
+  <!-- Page -->
+  <div style="displaY: none;" class="page-coffntainer">
+    <!-- Title -->
+    <div class="CategoryList title">
+      <span>{$_('category.select_categories')}</span>
+    </div>
+    <!-- Grid -->
+    <div class="CategoryList grid">
+      <List>
+        {#if $categoryData !== 0}
+          {#each $categoryData as category, id} 
+            <ListItem class="list-item animated zoomOut {category.active}" title="{category.name}" on:click="{() => toggleCategory(category)}">
+              <i slot="media" class="material-icons">{category.icon}</i>
+              <div slot="after"><Statistics simple categoryId={category} /></div>
+            </ListItem> 
+          {/each}
+        {/if}
+      </List> 
+    </div>
+
   </div>
 </Page>
 
@@ -54,7 +78,7 @@
   import { 
     Page,
     Chip, 
-    Button, Row, Col, Icon
+    Button, Row, Col, Icon, List, ListItem, Block, BlockTitle
   } from 'framework7-svelte';
   import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
@@ -122,11 +146,12 @@
   }
 
   onMount(() => {
-    var container = document.getElementsByClassName("category-item");
+    var container = document.getElementsByClassName("list-item");
   
     for (var i = 0; i < container.length; i++) {
       container[i].onclick = function(event) {
         this.classList.toggle('active');
+        //this.classList.toggle('bounceOut');
       }
     }
   });
