@@ -13,15 +13,15 @@ export const defaultStatisticsData = {
 };            
 
 export const defaultTrainingModeStatisticsData = {
-  "read": {"known": 0, "unknown": 100},
-  "write": {"known": 0, "unknown": 100},
-  "listen": {"known": 0, "unknown": 100},
+  "read": { "known": 0, "unknown": 100 },
+  "write": { "known": 0, "unknown": 100 },
+  "listen": { "known": 0, "unknown": 100 },
 }
 
 export const trainingModes = [
-  {title: "Cteni", value: "read", checked: true},
-  {title: "Psani", value: "write", checked: false},
-  {title: "Poslech", value: "listen", checked: false}
+  { title: "Cteni", value: "read", checked: true },
+  { title: "Psani", value: "write", checked: false },
+  { title: "Poslech", value: "listen", checked: false }
 ]; 
 
 export function isKnownForMode(word, mode) { 
