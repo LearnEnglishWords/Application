@@ -24,6 +24,24 @@
       </ListItem>
       <ListItem>
         <div>
+          {$_('settings.pronunciation.text')}
+        </div>
+        <div>
+        <div class="pronunciation-menu">
+        <Menu>
+          <MenuItem text={pronunciations[$settingsData.pronunciation]} dropdown>
+            <MenuDropdown right>
+              <MenuDropdownItem on:click={() => savePronunciation("uk")} text={$_('settings.pronunciation.uk')} />
+              <MenuDropdownItem on:click={() => savePronunciation("us")} text={$_('settings.pronunciation.us')} />
+            </MenuDropdown>
+          </MenuItem>
+        </Menu>
+        </div>
+        </div>
+
+      </ListItem>
+      <ListItem>
+        <div>
           {$_('settings.night_theme')}
         </div>
         {#if enableDarkMode}
@@ -40,8 +58,10 @@
   import { 
     Page, Link, Navbar,
     Block, BlockTitle, 
-    List, ListItem,
-    Toggle, Stepper
+    List, ListItem, 
+    Toggle, Stepper,
+    Menu, MenuItem, 
+    MenuDropdown, MenuDropdownItem
   } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import Collection from '../js/collection.js';
@@ -54,6 +74,13 @@
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let enableDarkMode = $settingsData.enableDarkMode;
+  let pronunciation = $settingsData.pronunciation;
+
+  const pronunciations = {
+    "uk": $_('settings.pronunciation.uk'),
+    "us": $_('settings.pronunciation.us')
+  }
+
 
   function saveAutoPlaySound() {
     $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
@@ -65,6 +92,11 @@
     collection.saveSettings($settingsData);
   }
 
+  function savePronunciation(pronunciation) {
+    $settingsData.pronunciation = pronunciation;
+    collection.saveSettings($settingsData);
+  }
+
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
     collection.saveSettings($settingsData);
@@ -72,5 +104,8 @@
 </script>
 
 <style>
+  .pronunciation-menu {
+    --f7-menu-bg-color: #007aff;
+  }
 </style>
 

@@ -1,6 +1,7 @@
 export const defaultSettingsData = {
   "enableDarkMode": false,
   "wordsLimit": 30,
+  "pronunciation": "uk",
   "enableAutoPlaySound": true
 };            
 
