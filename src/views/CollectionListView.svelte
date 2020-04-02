@@ -68,7 +68,8 @@
 
   function downloadProgress(collectionId) {
     counter += 1;
-    f7.progressbar.set(progressBarEl, $categoryData.length*counter);
+    f7.progressbar.set(progressBarEl, 100/$categoryData.length*counter);
+
     if(counter === $categoryData.length) {
       updateCollectionIds($downloadedCollections.concat([collectionId]));
       f7.progressbar.hide(progressBarEl); 
@@ -89,21 +90,21 @@
 
   const collectionItems = [
     {
-      id: "basic",
+      id: "2",
       label: "Basic", 
       text: $_('collection.items.basic.text'), 
       description: $_('collection.items.basic.description'), 
       active: true
     },
     {
-      id: "standard",
+      id: "7",
       label: "Standard",
       text: $_('collection.items.standard.text'), 
       description: $_('collection.items.standard.description'), 
       active: true
     },
     {
-      id: "advanced",
+      id: "3",
       label: "Advanced",
       text: $_('collection.items.advanced.text'), 
       description: $_('collection.items.advanced.description'), 

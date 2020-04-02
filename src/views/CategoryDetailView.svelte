@@ -5,6 +5,7 @@
       <span>{$_('statistics.title')}</span>
     </div>
   </Header>
+
   <!-- Header -->
   <div style="display:none" class="CategoryDetail header">
     <Row>
@@ -25,7 +26,6 @@
       </Col>
     </Row>
   </div>
-
 
 
   <!-- BlockTitle -->
@@ -71,19 +71,8 @@
   </Block>
 
 
-
-
-
-
   <!-- Page -->
   <div style="display:none;" class="CategoryDetail page">
-
-
-
-
-
-
-
 
 
 
@@ -93,9 +82,6 @@
       <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
     </div>
   </div>
-
-
-
 
 
 
@@ -161,7 +147,7 @@
   let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
-  let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: false}});
+  let trainingModesValues = trainingModes.map((it) => { return { mode: it.value, prevState: false } });
 
   statisticsData.reset();
   trainingModeStatisticsData.reset();
@@ -169,8 +155,7 @@
   if(develMode) {
     setDevelData();
   } else {
-    collection.getWordList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-      // set count of words
+    collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
       statisticsData.setCount(wordIds.length);
       trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
       allWordIds = [...wordIds];

@@ -33,9 +33,9 @@
     <List>
       {#if $categoryData !== 0}
         {#each $categoryData as category, id} 
-          <ListItem class="list-item animated {category.active}" title="{category.name}" on:click="{() => toggleCategory(category)}">
+          <ListItem class="list-item animated {category.active}" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
             <i slot="media" class="material-icons">{category.icon}</i>
-            <div slot="after"><Statistics simple categoryId={category} /></div>
+            <div slot="after"><Statistics simple categoryId={category.id} /></div>
           </ListItem> 
         {/each}
       {/if}
@@ -46,8 +46,6 @@
   <div class="footer one">
     <Button on:click={goToDetailView}>{$_('category.confirm')}</Button>
   </div>
-
-
 
 
 
@@ -62,9 +60,9 @@
       <List>
         {#if $categoryData !== 0}
           {#each $categoryData as category, id} 
-            <ListItem class="list-item animated zoomOut {category.active}" title="{category.name}" on:click="{() => toggleCategory(category)}">
+            <ListItem class="list-item animated zoomOut {category.active}" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
               <i slot="media" class="material-icons">{category.icon}</i>
-              <div slot="after"><Statistics simple categoryId={category} /></div>
+              <div slot="after"><Statistics simple categoryId={category.id} /></div>
             </ListItem> 
           {/each}
         {/if}
@@ -96,7 +94,7 @@
   }
 
   function goToDetailView() {
-    //categoryDetailData.set({name: category, id: category});
+    //categoryDetailData.set(category);
     f7router.navigate('/CategoryDetail');
   }
 
@@ -114,18 +112,18 @@
   
   function setDevelData() {
     categoryData.set([
-      {name: "Furniture", icon: "room", stats: getRandomStatistics(), active: false},
-      {name: "Body", icon: "copyright", stats: getRandomStatistics(), active: false},
-      {name: "Food", icon: "card_travel", stats: getRandomStatistics(), active: false},
-      {name: "Cars", icon: "dashboard", stats: getRandomStatistics(), active: false},
-      {name: "Pets", icon: "face", stats: getRandomStatistics(), active: false},
-      {name: "Colors", icon: "eject", stats: getRandomStatistics(), active: false},
-      {name: "Vehicles", icon: "feedback", stats: getRandomStatistics(), active: false},
-      {name: "Rooms", icon: "favorite", stats: getRandomStatistics(), active: false},
-      {name: "Bikes", icon: "home", stats: getRandomStatistics(), active: false},
-      {name: "Weather", icon: "room", stats: getRandomStatistics(), active: false},
-      {name: "Astronomy", icon: "shop", stats: getRandomStatistics(), active: false},
-      {name: "Parents", icon: "store", stats: getRandomStatistics(), active: false}
+      {czechName: "Nábytek", name: "Furniture", icon: "room", stats: getRandomStatistics(), active: false},
+      {czechName: "Tělo", name: "Body", icon: "copyright", stats: getRandomStatistics(), active: false},
+      {czechName: "Jídlo", name: "Food", icon: "card_travel", stats: getRandomStatistics(), active: false},
+      {czechName: "Auta", name: "Cars", icon: "dashboard", stats: getRandomStatistics(), active: false},
+      {czechName: "Domácí mazlíčci", name: "Pets", icon: "face", stats: getRandomStatistics(), active: false},
+      {czechName: "Barvy", name: "Colors", icon: "eject", stats: getRandomStatistics(), active: false},
+      {czechName: "Dopravní prostředky", name: "Vehicles", icon: "feedback", stats: getRandomStatistics(), active: false},
+      {czechName: "Místnosti", name: "Rooms", icon: "favorite", stats: getRandomStatistics(), active: false},
+      {czechName: "Kola", name: "Bikes", icon: "home", stats: getRandomStatistics(), active: false},
+      {czechName: "Počasí", name: "Weather", icon: "room", stats: getRandomStatistics(), active: false},
+      {czechName: "Astronomie", name: "Astronomy", icon: "shop", stats: getRandomStatistics(), active: false},
+      {czechName: "Lidé", name: "People", icon: "store", stats: getRandomStatistics(), active: false}
     ]);
 
     collectionData.set({id: "basic", name: "Basic"});

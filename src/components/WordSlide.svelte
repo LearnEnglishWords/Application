@@ -5,7 +5,7 @@
       <div on:click={() => playSound(word)}>
         <BlockTitle large>{word.text}</BlockTitle>
         <Block>
-          <BlockTitle>[ {word.pronunciation} ]  &#x1F509;</BlockTitle>
+          <BlockTitle>[ {word.pronunciation[$settingsData.pronunciation]} ]  &#x1F509;</BlockTitle>
         </Block>
       </div>
       <WordDetail {word}/>
@@ -66,7 +66,7 @@
 	import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
-  import { statisticsData } from '../js/store.js';
+  import { statisticsData, settingsData } from '../js/store.js';
   import { playSound } from '../js/utils.js';
 
   export let word;

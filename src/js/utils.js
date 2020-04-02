@@ -1,6 +1,7 @@
 export const defaultSettingsData = {
   "enableDarkMode": false,
   "wordsLimit": 30,
+  "pronunciation": "uk",
   "enableAutoPlaySound": true
 };            
 
@@ -12,16 +13,25 @@ export const defaultStatisticsData = {
 };            
 
 export const defaultTrainingModeStatisticsData = {
-  "read": {"known": 0, "unknown": 100},
-  "write": {"known": 0, "unknown": 100},
-  "listen": {"known": 0, "unknown": 100},
+  "read": { "known": 0, "unknown": 100 },
+  "write": { "known": 0, "unknown": 100 },
+  "listen": { "known": 0, "unknown": 100 },
 }
 
 export const trainingModes = [
-  {title: "Čtení", value: "read", checked: true},
-  {title: "Psaní", value: "write", checked: false},
-  {title: "Poslech", value: "listen", checked: false}
+  { title: "Čtení", value: "read", checked: true },
+  { title: "Psaní", value: "write", checked: false },
+  { title: "Poslech", value: "listen", checked: false }
 ]; 
+
+export function getDefaultStatisticsData(count) {
+  return {
+    "count": count,
+    "known": 0,
+    "learning": 0,
+    "unknown": count
+  }
+};            
 
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined) { return false }

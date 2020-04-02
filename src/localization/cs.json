@@ -58,7 +58,12 @@
       "title": "Nastaveni",
       "words_limit": "Defaultni pocet slov:",
       "auto_sound": "Automaticke prehravani zvuku:",
-      "night_theme": "Nocni rezim:"
+      "night_theme": "Nocni rezim:",
+      "pronunciation": {
+          "text": "Vyber vyslovnosti:",
+          "us": "Americka",
+          "uk": "Britska"
+      }
   },
   "training": {
       "subtitle": "Training Words",
