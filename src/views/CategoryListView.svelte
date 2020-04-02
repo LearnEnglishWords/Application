@@ -4,11 +4,11 @@
   <Block strong inset>
     <BlockTitle medium>{$_('category.title')}</BlockTitle>
     <List>
-      {#if $categoryData !== 0}
-        {#each $categoryData as category, id}
+      {#if categories.length > 0}
+        {#each categories as category, id} 
           <ListItem on:click="{() => goToDetailView(category)}">
             <h3>{category.czechName}</h3>
-            <Statistics simple categoryId={category.id} />
+            <Statistics simple statistic={category.stats} />
           </ListItem>
         {/each}
       {/if}
@@ -27,14 +27,29 @@
   import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
+  import Collection from '../js/collection.js';
   import { develMode } from '../js/config.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
 
+  let collection = new Collection();
+  let categories = [];
+
   if(develMode) {
     setDevelData();
+  } else {
+    $categoryData.forEach((category) => {
+      collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
+        if (stats !== null) {
+          category.stats = stats;
+          //category.active = false;
+          categories.push(category);
+          categories = [...categories];
+        }
+      });
+    })
   }
 
   function goToDetailView(category) {

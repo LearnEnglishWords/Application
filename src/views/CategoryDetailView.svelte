@@ -6,7 +6,7 @@
   </center>
   <Block inset>
     <BlockTitle>{$_('category.statistics')}</BlockTitle>
-    <Statistics/>
+    <Statistics />
   </Block>
 
 

@@ -1,32 +1,10 @@
 {#if simple}
-  {#if statistic !== undefined}
-      <div> (                   
-        <span style="color: green"> {statistic.known} </span> /
-        <span style="color: red"> {statistic.unknown} </span> )
-      </div>
-  {:else}
-    {#if develMode}
-      <div> (                   
-        <span style="color: green"> 43 </span> /
-        <span style="color: orange"> 57 </span> /
-        <span style="color: red"> 82 </span> )
-      </div>
-    {:else}
-      {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
-        <div> (                   
-          <span style="color: green"> ? </span> /
-          <span style="color: orange"> ?? </span> /
-          <span style="color: red"> ??? </span> )
-        </div>
-      {:then statistic}
-        <div> (                   
-          <span style="color: green"> {statistic.known} </span> /
-          <span style="color: orange"> {statistic.learning} </span> /
-          <span style="color: red"> {statistic.unknown} </span> )
-        </div>
-      {/await}
-    {/if}
-  {/if}
+
+  <div>
+    (&nbsp;<span style="color: green">{statistic.known}</span> &nbsp;
+    {#if statistic.learning !== undefined} <span style="color: orange">{statistic.learning}</span> &nbsp; {/if}
+    <span style="color: red">{statistic.unknown}</span>&nbsp;)
+  </div>
 {:else}
   <Row>
     <Col class="text-align-center">
@@ -73,7 +51,6 @@
   import Collection from '../js/collection.js';
 
   export let simple = false;
-  export let categoryId;
   export let statistic;
 
   let collection = new Collection();
