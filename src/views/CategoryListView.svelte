@@ -33,7 +33,7 @@
     <List>
       {#if $categoryData !== 0}
         {#each $categoryData as category, id} 
-          <ListItem class="list-item animated {category.active}" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
+          <ListItem class="list-item animated" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
             <i slot="media" class="material-icons">{category.icon}</i>
             <div slot="after"><Statistics simple categoryId={category.id} /></div>
           </ListItem> 
@@ -47,29 +47,6 @@
     <Button on:click={goToDetailView}>{$_('category.confirm')}</Button>
   </div>
 
-
-
-  <!-- Page -->
-  <div style="displaY: none;" class="page-coffntainer">
-    <!-- Title -->
-    <div class="CategoryList title">
-      <span>{$_('category.select_categories')}</span>
-    </div>
-    <!-- Grid -->
-    <div class="CategoryList grid">
-      <List>
-        {#if $categoryData !== 0}
-          {#each $categoryData as category, id} 
-            <ListItem class="list-item animated zoomOut {category.active}" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
-              <i slot="media" class="material-icons">{category.icon}</i>
-              <div slot="after"><Statistics simple categoryId={category.id} /></div>
-            </ListItem> 
-          {/each}
-        {/if}
-      </List> 
-    </div>
-
-  </div>
 </Page>
 
 <script>
@@ -149,7 +126,19 @@
     for (var i = 0; i < container.length; i++) {
       container[i].onclick = function(event) {
         this.classList.toggle('active');
-        //this.classList.toggle('bounceOut');
+
+        let isActive = false;
+        for(let value of this.classList) {
+          if(value === 'active') { isActive = true; break }
+        } 
+
+        if(isActive) {
+          this.classList.add("bounceIn");
+          this.classList.remove("bounceOut");
+        } else {
+          this.classList.remove("bounceIn");
+          this.classList.add("bounceOut");
+        }
       }
     }
   });
