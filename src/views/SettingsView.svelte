@@ -40,6 +40,7 @@
         </div>
 
       </ListItem>
+      <!--
       <ListItem>
         <div>
           {$_('settings.night_theme')}
@@ -50,6 +51,7 @@
           <Toggle on:toggleChange={saveDarkMode} color="blue"></Toggle>
         {/if}
       </ListItem>
+      -->
     </List>
   </Block>
 </Page>
