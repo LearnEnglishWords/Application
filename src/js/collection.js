@@ -1,12 +1,8 @@
-import Storage from './storage.js';
 import { getDefaultStatisticsData } from './utils.js'
 
 
 export default class Collection {
-  constructor() { 
-    this.storage = new Storage(LocalFileSystem.TEMPORARY);
-    this.rootDirectory = cordova.file.cacheDirectory;
-  }
+  constructor() { }
 
   async downloadAllCategories() {
     const res = await fetch(`https://drakeman.cz/api/category/list/`);
