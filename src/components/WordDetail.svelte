@@ -18,11 +18,13 @@
 </Block>
 
 <!--{#if $trainingData.isTraining}-->
-  <Sheet class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
+  <Sheet style="--f7-sheet-bg-color: #ffffff" class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
     <Toolbar>
-      <div class="left"></div>
+      <div class="left">Examples</div>
       <div class="right">
-        <Link sheetClose>Close</Link>
+        <Link sheetClose>
+          <Icon material="clear" />
+        </Link>
       </div>
     </Toolbar>
     <!--  Scrollable sheet content -->
@@ -43,7 +45,7 @@
     PageContent, Block, 
     List, ListItem,
     Row, Col, Button, Link,
-    Sheet, Toolbar
+    Sheet, Toolbar, Icon
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
 

@@ -183,14 +183,6 @@
 </script>
 
 <style>
-  :root {
-    --f7-sheet-height: 67vh;
-    --f7-sheet-border-color: var(--f7-theme-color);
-    --f7-sheet-transition-duration: 300ms;
-    --f7-sheet-push-border-radius: 10px;
-    --f7-sheet-push-offset: var(--f7-safe-area-top);
-    --f7-sheet-bg-color: #1AA9D9;
-  }
   .arrow {
     font-size: 100px;
   }
