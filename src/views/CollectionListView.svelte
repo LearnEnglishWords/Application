@@ -60,9 +60,10 @@
     collection.download(collectionId, () => setCategoryData(collectionId), () => downloadProgress(collectionId));
   }
 
-  function setCategoryData(collectionId) {
+  function setCategoryData(collectionId, success) {
     collection.getCategoryList(collectionId, (categories) => {
       categoryData.set(categories);
+      if (success !== undefined) { success(); }
     });
   }
 
@@ -84,8 +85,7 @@
 
   function continueButton(collectionId){
     collectionData.set({"name": collectionId, "id": collectionId});
-    setCategoryData(collectionId);
-    f7router.navigate('/CategoryList')
+    setCategoryData(collectionId, () => f7router.navigate('/CategoryList'));
   }
 
   const collectionItems = [

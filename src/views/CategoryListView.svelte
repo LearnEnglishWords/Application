@@ -31,11 +31,11 @@
     <!-- Title -->
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
     <List>
-      {#if $categoryData !== 0}
-        {#each $categoryData as category, id} 
+      {#if categories.length > 0}
+        {#each categories as category, id} 
           <ListItem class="list-item animated" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
             <i slot="media" class="material-icons">{category.icon}</i>
-            <div slot="after"><Statistics simple categoryId={category.id} /></div>
+            <div slot="after"><Statistics simple statistic={category.stats} /></div>
           </ListItem> 
         {/each}
       {/if}
@@ -58,6 +58,7 @@
   import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
+  import Collection from '../js/collection.js';
   import { develMode } from '../js/config.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
@@ -65,13 +66,28 @@
                    
   export let f7router;
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
+  let collection = new Collection();
+  let categories = [];
+  let selectedCategories = [];
 
   if(develMode) {
     setDevelData();
+  } else {
+    $categoryData.forEach((category, index, array) => {
+      collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
+        if (stats !== null) {
+          category.stats = stats;
+          category.active = false;
+          categories.push(category);
+          categories = [...categories];
+          setupCategoryToggler();
+        }
+      });
+    })
   }
 
   function goToDetailView() {
-    //categoryDetailData.set(category);
+    categoryDetailData.set({categories: selectedCategories});
     f7router.navigate('/CategoryDetail');
   }
 
@@ -113,14 +129,27 @@
       globalStatisticsData.known += category.stats.known;
       globalStatisticsData.learning += category.stats.learning;
       globalStatisticsData.unknown += category.stats.unknown;
+      collection.getWordIdsList($collectionData.id, category.id, (words) => {
+        category.words = words;
+      })
+      selectedCategories.push(category);
     } else {
       globalStatisticsData.known -= category.stats.known;
       globalStatisticsData.learning -= category.stats.learning;
       globalStatisticsData.unknown -= category.stats.unknown;
+      removeSelectedCategory(category);
     }
   }
 
-  onMount(() => {
+  function removeSelectedCategory(category) {
+    let removingCategory = selectedCategories.find(c => category.id === c.id);
+    let index = selectedCategories.findIndex(c => removingCategory.id === c.id);
+    if (index > -1) {
+      selectedCategories.splice(index, 1);
+    }
+  }
+
+  function setupCategoryToggler() {
     var container = document.getElementsByClassName("list-item");
   
     for (var i = 0; i < container.length; i++) {
@@ -141,7 +170,7 @@
         }
       }
     }
-  });
+  }
 
 </script>
 

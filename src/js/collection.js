@@ -4,8 +4,8 @@ import { getDefaultStatisticsData } from './utils.js'
 
 export default class Collection {
   constructor() { 
-    //this.storage = new Storage(LocalFileSystem.TEMPORARY);
-    //this.rootDirectory = cordova.file.cacheDirectory;
+    this.storage = new Storage(LocalFileSystem.TEMPORARY);
+    this.rootDirectory = cordova.file.cacheDirectory;
   }
 
   async downloadAllCategories() {

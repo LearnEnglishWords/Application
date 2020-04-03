@@ -1,28 +1,9 @@
 {#if simple}
-  {#if statistic !== undefined}
-      <div class="statistics-numbers">                  
-        <span class="number known">{statistic.known}</span> -
-        <span class="number unknown">{statistic.unknown}</span>
-      </div>
-  {:else}
-    {#if develMode}              
-      <span class="known">43</span>
-      <span class="learning">57</span>
-      <span class="unknown">82</span>
-    {:else}
-      {#await collection.getCategoryStatisticsPromise($collectionData.id, categoryId)}
-        <div class="statistics-numbers">                  
-          <span class="number known">?</span> -
-          <span class="number learning">??</span> -
-          <span class="number unknown">???</span>
-        </div>
-      {:then statistic}                 
-          <span class="known">{statistic.known}</span> -
-          <span class="learning">{statistic.learning}</span> -
-          <span class="unknown">{statistic.unknown}</span>
-      {/await}
-    {/if}
-  {/if}
+
+  <span class="known">{statistic.known}</span>
+  {#if !withoutLearning} <span class="learning">{statistic.learning}</span> {/if}
+  <span class="unknown">{statistic.unknown}</span>
+
 {:else}
   <Row>
     <BlockTitle class="category-title">{$_('category.statistics')}</BlockTitle>
@@ -70,7 +51,7 @@
   import Collection from '../js/collection.js';
 
   export let simple = false;
-  export let categoryId;
+  export let withoutLearning = false;
   export let statistic;
 
   let collection = new Collection();
