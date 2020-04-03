@@ -10,7 +10,7 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.known}
+        value={1/$statisticsData.count*$statisticsData.known}
         valueText="{$statisticsData.known} {$_('statistics.words_part')}"
         valueTextColor="green"
         borderColor="green"
@@ -21,7 +21,7 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.learning}
+        value={1/$statisticsData.count*$statisticsData.learning}
         valueText="{$statisticsData.learning} {$_('statistics.words_part')}"
         valueTextColor="orange"
         borderColor="orange"
@@ -32,7 +32,7 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.unknown}
+        value={1/$statisticsData.count*$statisticsData.unknown}
         valueText="{$statisticsData.unknown} {$_('statistics.words_part')}"
         valueTextColor="red"
         borderColor="red"

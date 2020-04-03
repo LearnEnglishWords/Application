@@ -102,14 +102,14 @@
   let trainingModeIndex = 0;
   let trainingModesValues = trainingModes.map((it) => { return { mode: it.value, prevState: false } });
 
-  statisticsData.reset();
+  statisticsData.setCount($categoryDetailData.stats.count);
   trainingModeStatisticsData.reset();
 
   if(develMode) {
     setDevelData();
   } else {
     collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-      statisticsData.setCount(wordIds.length);
+      //statisticsData.setCount(wordIds.length);
       trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
       allWordIds = [...wordIds];
 
