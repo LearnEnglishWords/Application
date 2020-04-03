@@ -68,7 +68,7 @@
         localforage.defineDriver(cordovaSQLiteDriver).then(function() {
           window.appStorage = localforage.createInstance({
             version: 1.0,
-            size: 8*1024*1024*50,
+            size: 8*1024*1024*100,
             name: 'lew',
             storeName: 'words',
             driver: [

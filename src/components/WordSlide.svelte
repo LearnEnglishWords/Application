@@ -30,7 +30,7 @@
           </Col>
           <Col width=60>
             <br> <br>
-            <input bind:value={translatedText} on:keydown={handleKeydown} id="translate-input" placeholder="{placeholder}">
+            <input bind:value={translatedText} on:keydown={handleKeydown} class="translate-input" placeholder="{placeholder}">
           </Col>
           <Col width=20>
           </Col>
