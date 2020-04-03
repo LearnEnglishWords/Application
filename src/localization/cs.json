@@ -61,6 +61,7 @@
   "training": {
       "subtitle": "Training Words",
       "wall_text": "Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.",
+      "description_title": "Příklady použití",
       "question": {
           "text": "Uz umis dane slovicko?",
           "yes": "Ano",

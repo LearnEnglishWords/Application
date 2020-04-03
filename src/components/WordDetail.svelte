@@ -19,16 +19,8 @@
 
 <!--{#if $trainingData.isTraining}-->
   <Sheet style="--f7-sheet-bg-color: #ffffff" class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
-    <Toolbar>
-      <div class="left">Examples</div>
-      <div class="right">
-        <Link sheetClose>
-          <Icon material="clear" />
-        </Link>
-      </div>
-    </Toolbar>
-    <!--  Scrollable sheet content -->
     <PageContent>
+      <Header type="popup" popupName="description" title={$_('training.description_title')} />
       <Block>
         <List>
           {#each word.examples as example, id}
@@ -45,10 +37,11 @@
     PageContent, Block, 
     List, ListItem,
     Row, Col, Button, Link,
-    Sheet, Toolbar, Icon
+    Sheet, Icon
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
 
+  import Header  from './Header.svelte';
   import { trainingData } from '../js/store.js';
 
   export let word;
