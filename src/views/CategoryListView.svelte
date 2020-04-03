@@ -59,7 +59,6 @@
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import Collection from '../js/collection.js';
-  import { develMode } from '../js/config.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -70,21 +69,17 @@
   let categories = [];
   let selectedCategories = [];
 
-  if(develMode) {
-    setDevelData();
-  } else {
-    $categoryData.forEach((category, index, array) => {
-      collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
-        if (stats !== null) {
-          category.stats = stats;
-          category.active = false;
-          categories.push(category);
-          categories = [...categories];
-          setupCategoryToggler();
-        }
-      });
-    })
-  }
+  $categoryData.forEach((category, index, array) => {
+    collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
+      if (stats !== null) {
+        category.stats = stats;
+        category.active = false;
+        categories.push(category);
+        categories = [...categories];
+        setupCategoryToggler();
+      }
+    });
+  })
 
   function goToDetailView() {
     categoryDetailData.set({categories: selectedCategories});
@@ -101,25 +96,6 @@
       "learning": learning,
       "unknown": unknown
     }
-  }
-  
-  function setDevelData() {
-    categoryData.set([
-      {czechName: "Nábytek", name: "Furniture", icon: "room", stats: getRandomStatistics(), active: false},
-      {czechName: "Tělo", name: "Body", icon: "copyright", stats: getRandomStatistics(), active: false},
-      {czechName: "Jídlo", name: "Food", icon: "card_travel", stats: getRandomStatistics(), active: false},
-      {czechName: "Auta", name: "Cars", icon: "dashboard", stats: getRandomStatistics(), active: false},
-      {czechName: "Domácí mazlíčci", name: "Pets", icon: "face", stats: getRandomStatistics(), active: false},
-      {czechName: "Barvy", name: "Colors", icon: "eject", stats: getRandomStatistics(), active: false},
-      {czechName: "Dopravní prostředky", name: "Vehicles", icon: "feedback", stats: getRandomStatistics(), active: false},
-      {czechName: "Místnosti", name: "Rooms", icon: "favorite", stats: getRandomStatistics(), active: false},
-      {czechName: "Kola", name: "Bikes", icon: "home", stats: getRandomStatistics(), active: false},
-      {czechName: "Počasí", name: "Weather", icon: "room", stats: getRandomStatistics(), active: false},
-      {czechName: "Astronomie", name: "Astronomy", icon: "shop", stats: getRandomStatistics(), active: false},
-      {czechName: "Lidé", name: "People", icon: "store", stats: getRandomStatistics(), active: false}
-    ]);
-
-    collectionData.set({id: "basic", name: "Basic"});
   }
 
   function toggleCategory(category) {

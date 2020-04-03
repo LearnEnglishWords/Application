@@ -1,12 +1,7 @@
 <!-- App.svelte -->
 <App params={f7params} themeDark={$settingsData.enableDarkMode}>
 
-{#if develMode}
-  <View main url="/{develPage}"/>
-{:else}
   <View main url="/"/>
-{/if}
-
 </App>
 
 <script>
@@ -29,7 +24,7 @@
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
   import { defaultSettingsData } from '../js/utils.js';
-  import { appName, appId, develMode, develPage } from '../js/config.js';
+  import { appName, appId } from '../js/config.js';
   import { settingsData } from '../js/store.js';
 
   import { 
@@ -39,12 +34,6 @@
     trainingData,
     statisticsData
   } from '../js/store.js';
-
-  if(develMode) {
-    collectionData.set({id: "basic", name: "basic"})
-    downloadedCollections.set([ "basic", "personal" ])
-    categoryData.set(["Furniture","Body","Food","Free time"])
-  }
 
   // internationalization init:
   export async function preload() {
@@ -63,42 +52,40 @@
       // cordova app init:
       cordovaApp.init(f7);
 
-      if(!develMode) {
-        // localforage init:
-        localforage.defineDriver(cordovaSQLiteDriver).then(function() {
-          window.appStorage = localforage.createInstance({
-            version: 1.0,
-            size: 8*1024*1024*50,
-            name: 'lew',
-            storeName: 'words',
-            driver: [
-              cordovaSQLiteDriver._driver, // <-- prefer cordovaSQLiteDriver
-              localforage.INDEXEDDB,
-              localforage.WEBSQL,
-              localforage.LOCALSTORAGE
-            ]
-          });
-                                      
-          // App basic setup
-          let collection = new Collection();
-          collection.getSettings((data) => { 
-            if (data === null) {
-              collection.saveSettings(defaultSettingsData);
-              settingsData.set(defaultSettingsData);
-            } else { 
-              settingsData.set(data);
-            }
-          });
-          collection.getAppInfo("downloadedCollections", (data) => { 
-            if (data === null) {
-              downloadedCollections.set([ "personal" ]);
-              collection.saveAppInfo("downloadedCollections", $downloadedCollections);
-            } else {
-              downloadedCollections.set(data);
-            }
-          });
-        })
-      }
+      // localforage init:
+      localforage.defineDriver(cordovaSQLiteDriver).then(function() {
+        window.appStorage = localforage.createInstance({
+          version: 1.0,
+          size: 8*1024*1024*50,
+          name: 'lew',
+          storeName: 'words',
+          driver: [
+            cordovaSQLiteDriver._driver, // <-- prefer cordovaSQLiteDriver
+            localforage.INDEXEDDB,
+            localforage.WEBSQL,
+            localforage.LOCALSTORAGE
+          ]
+        });
+                                    
+        // App basic setup
+        let collection = new Collection();
+        collection.getSettings((data) => { 
+          if (data === null) {
+            collection.saveSettings(defaultSettingsData);
+            settingsData.set(defaultSettingsData);
+          } else { 
+            settingsData.set(data);
+          }
+        });
+        collection.getAppInfo("downloadedCollections", (data) => { 
+          if (data === null) {
+            downloadedCollections.set([ "personal" ]);
+            collection.saveAppInfo("downloadedCollections", $downloadedCollections);
+          } else {
+            downloadedCollections.set(data);
+          }
+        });
+      });
     });
   })
 
