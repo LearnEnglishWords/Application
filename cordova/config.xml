@@ -72,7 +72,13 @@
     </platform>
 
 
+    <platform name="browser">
+        <preference name="SplashScreen" value="static/images/splashscreen.png" />
+        <preference name="SplashScreenWidth" value="360" />
+        <preference name="SplashScreenHeight" value="518" /> 
+    </platform>
 
+    <preference name="SplashScreenBackgroundColor" value="#303f76" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
