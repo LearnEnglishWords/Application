@@ -106,13 +106,13 @@
     swiper = f7.swiper.get('.swiper-container')
     swiper.on("slideNextTransitionStart", () => { 
       currentWordIndex += 1;
-      playAutoSound($trainingData.words[currentWordIndex])
+      playAutoSound()
     })
     swiper.on("slidePrevTransitionStart", () => { 
       currentWordIndex -= 1 
-      playAutoSound($trainingData.words[currentWordIndex])
+      playAutoSound()
     })
-    playAutoSound($trainingData.words[currentWordIndex])
+    playAutoSound()
   });
 
   if ($trainingData.mode === "read" && !$trainingData.isTraining) {
@@ -166,7 +166,7 @@
     swiper.slideTo(index);
   }
 
-  function playAutoSound(word) {
+  function playAutoSound() {
     if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
       playSound($trainingData.words[currentWordIndex])
     }
@@ -179,7 +179,7 @@
     } else {
       f7.sheet.open(".wall", false);
       swiper.slideNext();
-      playAutoSound($trainingData.words[currentWordIndex]);
+      playAutoSound();
     }
   }
 </script>
