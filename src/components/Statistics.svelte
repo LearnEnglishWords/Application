@@ -47,7 +47,6 @@
   import { Row, Col, Gauge } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
   import { statisticsData, collectionData } from '../js/store.js';
-  import { develMode } from '../js/config.js';
   import Collection from '../js/collection.js';
 
   export let simple = false;

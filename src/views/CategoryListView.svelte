@@ -28,7 +28,6 @@
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import Collection from '../js/collection.js';
-  import { develMode } from '../js/config.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
                    
@@ -37,29 +36,20 @@
   let collection = new Collection();
   let categories = [];
 
-  if(develMode) {
-    setDevelData();
-  } else {
-    $categoryData.forEach((category) => {
-      collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
-        if (stats !== null) {
-          category.stats = stats;
-          //category.active = false;
-          categories.push(category);
-          categories = [...categories];
-        }
-      });
-    })
-  }
+  $categoryData.forEach((category) => {
+    collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
+      if (stats !== null) {
+        category.stats = stats;
+        //category.active = false;
+        categories.push(category);
+        categories = [...categories];
+      }
+    });
+  })
 
   function goToDetailView(category) {
     categoryDetailData.set(category);
     f7router.navigate('/CategoryDetail');
-  }
-
-  function setDevelData() {
-    categoryData.set(["Furniture","Body","Food"]);
-    collectionData.set({id: "basic", name: "Basic"});
   }
 
 </script>
