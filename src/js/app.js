@@ -11,6 +11,7 @@ import 'framework7/css/framework7.bundle.css';
 import '../css/app.css';
 import '../css/new.css';
 import '../css/animate.css';
+import '../css/test.sass';
 
 // Import App Component
 import App from '../components/App.svelte';

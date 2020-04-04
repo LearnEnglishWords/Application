@@ -2,6 +2,7 @@ scripts
 .idea/
 *.swp
 Android
+package-lock.json
 
 # Logs
 logs
