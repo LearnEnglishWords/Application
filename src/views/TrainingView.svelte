@@ -58,6 +58,19 @@
         <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
         <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
       </Toolbar>
+
+      <Sheet style="--f7-sheet-bg-color: #ffffff" class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
+        <PageContent>
+          <Header type="popup" popupName="description" title={$_('training.description_title')} />
+          <Block>
+            <List>
+              {#each $trainingData.words[currentWordIndex].examples as example, id}
+                <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
+              {/each}
+            </List>
+          </Block>
+        </PageContent>
+      </Sheet>
     {/if}
   {/if}
 
@@ -85,6 +98,7 @@
 
   export let f7router;
 
+  let descriptionOpened = false;
   let collection = new Collection();
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
@@ -176,7 +190,7 @@
     } else {
       f7.sheet.open(".wall", false);
       swiper.slideNext();
-      playAutoSound($trainingData.words[currentWordIndex])
+      playAutoSound($trainingData.words[currentWordIndex]);
     }
   }
 </script>

@@ -17,21 +17,6 @@
   </Row>
 </Block>
 
-<!--{#if $trainingData.isTraining}-->
-  <Sheet style="--f7-sheet-bg-color: #ffffff" class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
-    <PageContent>
-      <Header type="popup" popupName="description" title={$_('training.description_title')} />
-      <Block>
-        <List>
-          {#each word.examples as example, id}
-            <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
-          {/each}
-        </List>
-      </Block>
-    </PageContent>
-  </Sheet>
-<!--{/if}-->
-
 <script>
   import { 
     PageContent, Block, 
@@ -47,5 +32,4 @@
   export let word;
 
   let numbers = ["①", "②", "③", "④", "⑤"];
-  let descriptionOpened = false;
 </script>
