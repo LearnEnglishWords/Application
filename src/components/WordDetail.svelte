@@ -17,40 +17,15 @@
   </Row>
 </Block>
 
-<!--{#if $trainingData.isTraining}-->
-  <Sheet class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
-    <Toolbar>
-      <div class="left"></div>
-      <div class="right">
-        <Link sheetClose>Close</Link>
-      </div>
-    </Toolbar>
-    <!--  Scrollable sheet content -->
-    <PageContent>
-      <Block>
-        <List>
-          {#each word.examples as example, id}
-            <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
-          {/each}
-        </List>
-      </Block>
-    </PageContent>
-  </Sheet>
-<!--{/if}-->
-
 <script>
   import { 
-    PageContent, Block, 
-    List, ListItem,
-    Row, Col, Button, Link,
-    Sheet, Toolbar
+    Block, List, ListItem,
+    Row, Col, Button
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
-
   import { trainingData } from '../js/store.js';
 
   export let word;
 
   let numbers = ["①", "②", "③", "④", "⑤"];
-  let descriptionOpened = false;
 </script>

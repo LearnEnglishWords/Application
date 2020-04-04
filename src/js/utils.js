@@ -18,10 +18,11 @@ export const defaultTrainingModeStatisticsData = {
   "listen": { "known": 0, "unknown": 100 },
 }
 
+
 export const trainingModes = [
-  { title: "Čtení", value: "read", checked: true },
-  { title: "Psaní", value: "write", checked: false },
-  { title: "Poslech", value: "listen", checked: false }
+  { value: "read", checked: true },
+  { value: "write", checked: false },
+  { value: "listen", checked: false }
 ]; 
 
 export function getDefaultStatisticsData(count) {

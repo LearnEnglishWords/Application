@@ -1,41 +1,39 @@
 {
-  "app": {
-      "name": "LearnEnglishWords"
-  },
+  "app_name": "LearnEnglishWords", 
   "collection": {
       "title": "Vyberte si kolekci slovíček:",
       "button": {
-          "continue": "Pokracovat",
-          "download": "Stahnout"
+          "continue": "Pokračovat",
+          "download": "Stáhnout"
       },
       "items": {
           "basic": {
-              "text": "(Obsahuje 1000 slov)",
-              "description": "Obsahuje vsechna zakladni anglicka slovicka pro zakladni komunikaci a dorozumeni."
+              "text": "(Obsahuje 1000 nejčastějších slov)",
+              "description": "Obsahuje všechna základní anglická slovíčka pro základní komunikaci a dorozumění."
           },
           "standard": {
-              "text": "(Obsahuje 3000 slov)",
-              "description": "Se znalosti 2500 az 3000 anglickych slov dokážete porozumět az 80% anglické konverzace."
+              "text": "(Obsahuje 3000 nejčastějších slov)",
+              "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace."
           },
           "advanced": {
-              "text": "(Obsahuje 5000 slov)",
-              "description": "Se znalosti 5000 anglickych slov dokážete porozumět 90% každodenní anglické konverzace, psanym novinam a casopisum."
+              "text": "(Obsahuje 5000 nejčastějších slov)",
+              "description": "Se znalosti 5000 anglických slov dokážete porozumět 90% každodenní anglické konverzace, psaným novinám a časopisům."
           },
           "student": {
-              "text": "(Learn by textbooks)",
-              "description": "Specialni kolekce pro studenty. Obsahuje slovicka serazena do skupin podle nejznamejsich ucebnic."
+              "text": "(Učení podle učebnic)",
+              "description": "Speciální kolekce pro studenty. Obsahuje slovíčka seřazená do skupin podle nejznámějších učebnic."
           },
           "native": {
-              "text": "(Obsahuje 15000 slov)",
-              "description": "Rodily mluvci ma celkem 10000 az 20000 slov v aktivni slovni zasobe. V teto kolekci jsou ty nejznamejsi z nich. (Doporucujeme stahovat az po projiti vsech predchozich kolekci)"
+              "text": "(Obsahuje 15000 nejpoužívanějších slov)",
+              "description": "Rodilý mluvči má celkem 10000 az 20000 slov v aktivní slovní zásobě. V této kolekci jsou ty nejznámější z nich. (Doporučujeme stahovat až po projití všech předchozích kolekcí)"
           },
           "media": {
-              "text": "(Learn with serial, movies and books)",
-              "description": "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy."
+              "text": "(Učení pomocí filmů, seriálů a knih)",
+              "description": "Nejsnadnější a nejzábavnější formou učení se anglických slovíček je skrze seriály, filmy a knihy."
           },
           "personal": {
-              "text": "(Add your own words)",
-              "description": "Nejsnadnejsi a nejzabavnejsi formou uceni se anglickych slovicek je skrze serialy, filmy a knihy."
+              "text": "(Přidejte si vlastní slovíčka)",
+              "description": "Přidávejte si vlastní slovíčka a vytvářejte si své vlastní kategorie slovíček."
           }
       }
   },
@@ -49,82 +47,86 @@
       "words_title": "Počet slov",
       "words": "Slov",
       "buttons": {
-          "words_list": "Zobrazit seznam vsech slov",
+          "words_list": "Zobrazit seznam všech slov",
           "start_training": "Trénovat",
-          "start_testing": "Procvičovat"
+          "start_testing": "Otestovat"
       }
   },
   "settings": {
-      "title": "Nastaveni",
-      "words_limit": "Defaultni pocet slov:",
-      "auto_sound": "Automaticke prehravani zvuku:",
-      "night_theme": "Nocni rezim:",
+      "title": "Nastavení",
+      "words_limit": "Přednastavený počet slov:",
+      "auto_sound": "Automatické přehrávání zvuku:",
+      "night_theme": "Noční režim:",
       "pronunciation": {
-          "text": "Vyber vyslovnosti:",
-          "us": "Americka",
-          "uk": "Britska"
+          "text": "Výběr výslovnosti:",
+          "us": "Americká",
+          "uk": "Britská"
       }
   },
   "training": {
-      "subtitle": "Training Words",
-      "wall_text": "Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.",
+      "subtitle": {
+          "trenink": "Trénink slovíček",
+          "testing": "Ověření znalostí"
+      },
+      "wall_text": "Řekni co si myslíš, že dané slovíčko znamená a potom táhni dolů pro zkontrolování.",
+      "description_title": "Příklady použití",
       "question": {
-          "text": "Uz umis dane slovicko?",
+          "text": "Už umíš dané slovíčko?",
           "yes": "Ano",
-          "no": "No"
+          "no": "Ne"
       },
       "toolbar": {
-          "start": "Na zacatek",
+          "start": "Na začátek",
           "end": "Na konec"
       },
       "buttons": {
-          "examples": "Vice info",
+          "examples": "Příklady",
           "check": "Zkontrolovat",
-          "continue": "Pokracovat"
+          "continue": "Pokračovat"
       },
       "placeholders": {
-          "write": "Prelozte do anglictiny",
-          "listen": "Napiste co slysite"
+          "write": "Přeložte do angličtiny",
+          "listen": "Napište co slyšíte"
       },
       "results": {
-          "right": "Spravne ;-)",
-          "wrong": "Spatne. Spravna odpoved je: "
+          "right": "Správně ;-)",
+          "wrong": "Špatně. Správná odpověď je: "
       }
   },
   "about": {
       "title": "O aplikaci",
-      "text1": "je aplikace slouzici k procvicovani a uceni anglickych slovicek.",
-      "text2": "S touto aplikaci se budete ucit anglicka slovicka snadno, rychle a s radosti.",
-      "text3": "Nikdy pred tim nebylo uceni anglickych slovicek tak jednoduche!!",
-      "text4": "Muzete procvicovat cteni, psani anebo poslech, aby jste meli jistotu, ze dane slovicko uz opravdu umite po vsech strankach ;)",
-      "email_feedback": "Svou zpetnou vazbu nebo navrhy na vylepseni muzete posilat na emailovou adresu:",
-      "share": "Sdilejte tuto aplikaci se svymi prateli",
+      "text1": "je aplikace sloužící k procvičování a učení anglických slovíček.",
+      "text2": "S touto aplikací se budete učit anglická slovíčka snadno, rychle a s radostí.",
+      "text3": "Nikdy před tím nebylo ucení anglických slovíček tak jednoduché!!",
+      "text4": "Můzete procvičovat čtení, psaní anebo poslech, aby jste měli jistotu, že dané slovíčko už opravdu umíte po všech stránkách ;)",
+      "email_feedback": "Svou zpětnou vazbu nebo návrhy na vylepšení můžete posílat na emailovou adresu:",
+      "share": "Sdílejte tuto aplikaci se svými přáteli",
       "version": "Verze:"
   },
   "feedback": {
-      "wrong_email": "Nespravny format emailove adresy.",
-      "text_length1": "Delka zpravy musi byt maximalne",
+      "wrong_email": "Nespravný formát emailové adresy.",
+      "text_length1": "Délka zprávy musí být maximálně",
       "text_length2": "slov.",
       "send": "Odeslat",
-      "info1": "Pokud je vase zpetna vazba delsi jak",
-      "info2": "slov, tak ji muzete poslat na email:",
-      "title": "Zpetna vazba",
-      "content": "Zpetna vazba",
-      "error_title": "Hlaseni chyb",
-      "error_content": "Informace o chybe"
+      "info1": "Pokud je vaše zpětná vazba delší jak",
+      "info2": "slov, tak ji můžete poslat na email:",
+      "title": "Zpětná vazba",
+      "content": "Zpětná vazba",
+      "error_title": "Hlášení chyb",
+      "error_content": "Informace o chybě"
   },
   "recapitulation": {
       "large_title": "Konec",
-      "medium_title": "Celkove vyhodnoceni:",
-      "number_words": "Pocet slov:",
-      "number_right_words": "Pocet slov spravne:",
-      "number_wrong_words": "Pocet slov spatne:",
-      "continue": "Pokracovat"
+      "medium_title": "Celkové vyhodnoceni:",
+      "number_words": "Počet slov:",
+      "number_right_words": "Počet slov správně:",
+      "number_wrong_words": "Počet slov špatně:",
+      "continue": "Pokračovat"
   },
   "menu": {
-      "feedback": "Zpetna vazba",
-      "error_feedback": "Hlaseni chyb",
-      "settings": "Nastaveni",
+      "feedback": "Zpětná vazba",
+      "error_feedback": "Hlášení chyb",
+      "settings": "Nastavení",
       "about": "O aplikaci"
   },
   "statistics": {
@@ -138,11 +140,8 @@
       "text": "Slov"
   },
   "words_list": {
-      "info": "Zde muzete oznacit slovicka, ktera jiz znate:",
-      "known": "Znam",
-      "unknown": "Neznam"
-  },
-  "title": {
-      "category-detail": "Vyberte si druh cvičení"
+      "info": "Zde můžete označit slovíčka, která již znáte:",
+      "known": "Znám",
+      "unknown": "Neznám"
   }
 }
