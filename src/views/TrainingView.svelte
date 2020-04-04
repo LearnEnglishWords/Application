@@ -2,7 +2,11 @@
   <Header>
     <div slot="subnavbar">
       <Subnavbar> 
-        {$_('training.subtitle')}
+        {#if isTraining}
+          {$_('training.subtitle.trenink')}
+        {:else}
+          {$_('training.subtitle.testing')}
+        {/if}
       </Subnavbar> 
     </div>
   </Header>

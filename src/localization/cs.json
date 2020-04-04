@@ -59,7 +59,10 @@
       }
   },
   "training": {
-      "subtitle": "Training Words",
+      "subtitle": {
+          "trenink": "Trenink slovicek",
+          "testing": "Overeni znalosti"
+      },
       "wall_text": "Reknete co si myslite ze slovo znamena a tahnete dolu pro zkontrolovani.",
       "description_title": "Příklady použití",
       "question": {
