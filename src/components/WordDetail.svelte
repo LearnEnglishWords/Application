@@ -19,10 +19,8 @@
 
 <script>
   import { 
-    PageContent, Block, 
-    List, ListItem,
-    Row, Col, Button, Link,
-    Sheet, Icon
+    Block, List, ListItem,
+    Row, Col, Button
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
 

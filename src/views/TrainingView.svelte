@@ -58,19 +58,8 @@
         <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
         <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
       </Toolbar>
-
-      <Sheet style="--f7-sheet-bg-color: #ffffff" class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
-        <PageContent>
-          <Header type="popup" popupName="description" title={$_('training.description_title')} />
-          <Block>
-            <List>
-              {#each $trainingData.words[currentWordIndex].examples as example, id}
-                <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
-              {/each}
-            </List>
-          </Block>
-        </PageContent>
-      </Sheet>
+        
+      <WordDescriptionPopup word={$trainingData.words[currentWordIndex]} />
     {/if}
   {/if}
 
@@ -91,6 +80,7 @@
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
+  import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import Collection from '../js/collection.js';
   import { isKnownForMode, getState, playSound } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
@@ -98,7 +88,6 @@
 
   export let f7router;
 
-  let descriptionOpened = false;
   let collection = new Collection();
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
