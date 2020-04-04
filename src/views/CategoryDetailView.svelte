@@ -11,11 +11,11 @@
 
 
   <List accordionList inset>
-    <ListItem accordionItem header={$_('category.training_mode')} title="{trainingModes[trainingModeIndex].title}">
+    <ListItem accordionItem header={$_('category.training_mode.title')} title="{$_(`category.training_mode.${trainingModes[trainingModeIndex].value}`)}">
       <AccordionContent>
         <List>
-          {#each trainingModes as {title, value, checked}, id}
-            <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+          {#each trainingModes as {value, checked}, id}
+            <ListItem radio name="mode" checked={checked} on:change={() => trainingModeIndex = id} title={$_(`category.training_mode.${value}`)}>
               <Statistics simple statistic={$trainingModeStatisticsData[value]} />
             </ListItem>
           {/each}

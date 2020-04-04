@@ -40,7 +40,12 @@
   "category": {
       "title": "Vyberte si kategorii:",
       "statistics": "Statistika:",
-      "training_mode": "Druh cviceni:",
+      "training_mode": {
+          "title": "Druh cviceni:",
+          "read": "Cteni",
+          "write": "Psani",
+          "listen": "Poslech"
+      },
       "words_limit": "Pocet slov:",
       "buttons": {
           "words_list": "Zobrazit seznam vsech slov",
