@@ -114,23 +114,30 @@
     }
   });
 
-  function setupData(isTraining) {
+  function filterNotKnownWords() {
     let currentMode = trainingModes[trainingModeIndex];
+    return allWords.filter((word) => 
+      word.learning === undefined || word.learning[currentMode.value] === false
+    )
+  }
+
+  function setupData(isTraining, filtredWords) {
+    let currentMode = trainingModes[trainingModeIndex];
+
     trainingData.set({ 
       mode: currentMode.value, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: allWords.filter((word) => {
-        return word.learning === undefined || word.learning[currentMode.value] === false
-      }).slice(0, wordsLimit)
+      words: filtredWords.slice(0, wordsLimit)
     });
   }
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
+    let filtredWords = filterNotKnownWords()
 
-    if(allWords.length === allWordIds.length) {
-      setupData(isTraining);
+    if(allWords.length === allWordIds.length || filtredWords.length > wordsLimit) {
+      setupData(isTraining, filtredWords);
       f7.preloader.hide();
       f7router.navigate('/Training');
     } else {
