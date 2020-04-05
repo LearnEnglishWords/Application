@@ -62,7 +62,20 @@
 
   function setupData(collectionId, success) {
     collection.getCategoryList(collectionId, (categories) => {
-      collectionData.set({"name": collectionId, "id": collectionId, "categories": categories});
+      let categoriesWithWords = [];
+
+      for (let category of categories) {
+        collection.getWordIdsList(collectionId, category.id, (wordIds) => 
+          categoriesWithWords.push({"category": category, "words": wordIds}))
+      }
+
+      collectionData.set({
+        "id": collectionId, 
+        "name": collectionId, 
+        "categories": categories,
+        "categoriesWithWords": categoriesWithWords
+      });
+
       if (success !== undefined) { success(); }
     });
   }

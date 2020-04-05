@@ -7,6 +7,7 @@ import {
   defaultTrainingModeStatisticsData 
 } from './utils.js'
 
+let collection = new Collection();
 
 function createStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
@@ -73,3 +74,13 @@ export const trainingModeStatisticsData = createTrainingModeStatisticsData({...d
 export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
+export function updateAllStatistics(word, prevState) {
+  get(collectionData).categoriesWithWords.forEach(({category, words}) => {
+    if (words !== null && words.includes(word.text)) {
+      let stats = createStatisticsData(category.stats);
+      stats.updateData(word, prevState);
+      category.stats = get(stats);
+      collection.saveCategoryStatistics(get(collectionData).id, category.id, get(stats));
+    }
+  });
+}

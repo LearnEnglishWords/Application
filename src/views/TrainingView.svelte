@@ -76,7 +76,7 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { trainingData, statisticsData, settingsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
+  import { updateAllStatistics, trainingData, statisticsData, settingsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
@@ -160,7 +160,8 @@
       statisticsData.updateData(word, previousState);
       trainingModeStatisticsData.updateData(word, [{mode: $trainingData.mode, prevState: isKnown}]);
     }
-    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
+    //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
+    updateAllStatistics(word, prevState);
   }
 
   function goToSlide(index) {

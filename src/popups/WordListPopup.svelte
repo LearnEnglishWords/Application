@@ -31,8 +31,9 @@
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
 
-  import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
+  import { updateAllStatistics, collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import { appName }  from '../js/config.js';
+  import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
   export let allWordIds = [];
@@ -65,8 +66,9 @@
     statisticsData.updateData(word, prevState);
     trainingModeStatisticsData.updateData(word, trainingModesValues);
     collection.saveWord(word.text, word);
-    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
+    //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
     wordState[word.text] = isKnown(word);
+    updateAllStatistics(word, prevState);
   }
 
 </script>
