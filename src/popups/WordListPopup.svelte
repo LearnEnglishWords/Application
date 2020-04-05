@@ -50,13 +50,13 @@
     return a.charCodeAt(0) - b.charCodeAt(0)
   });
 
-  for (let wordId of allWordsSortedIds) {
+  allWordsSortedIds.forEach((wordId) => {
     collection.getWord(wordId, (word) => {
       allWordsSorted.push(word);
       allWordsSorted = [...allWordsSorted];
       wordState[word.text] = isKnown(word);
     });
-  }
+  });
 
   function setState(word, known) {
     let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
