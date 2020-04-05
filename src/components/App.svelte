@@ -27,13 +27,6 @@
   import { appName, appId} from '../js/config.js';
   import { settingsData } from '../js/store.js';
 
-  import { 
-    collectionData,
-    categoryData, 
-    categoryDetailData,
-    trainingData,
-    statisticsData
-  } from '../js/store.js';
 
   // internationalization init:
   export async function preload() {

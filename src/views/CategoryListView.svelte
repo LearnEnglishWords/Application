@@ -4,14 +4,12 @@
   <Block strong inset>
     <BlockTitle medium>{$_('category.title')}</BlockTitle>
     <List>
-      {#if categories.length > 0}
-        {#each categories as category, id} 
-          <ListItem on:click="{() => goToDetailView(category)}">
-            <h3>{category.czechName}</h3>
-            <Statistics simple statistic={category.stats} />
-          </ListItem>
-        {/each}
-      {/if}
+      {#each categories as category, id} 
+        <ListItem on:click="{() => goToDetailView(category)}">
+          <h3>{category.czechName}</h3>
+          <Statistics simple statistic={category.stats} />
+        </ListItem>
+      {/each}
     </List>
   </Block>
 </Page>
@@ -24,7 +22,7 @@
     Navbar, Subnavbar,
     List, ListItem
   } from 'framework7-svelte';
-  import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import Collection from '../js/collection.js';
@@ -36,7 +34,7 @@
   let collection = new Collection();
   let categories = [];
 
-  $categoryData.forEach((category) => {
+  $collectionData.categories.forEach((category) => {
     collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
       if (stats !== null) {
         category.stats = stats;

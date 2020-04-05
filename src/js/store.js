@@ -67,7 +67,6 @@ function createTrainingModeStatisticsData(startStatisticsData) {
 export const trainingData = writable(0);
 export const collectionData = writable(0);
 export const downloadedCollections = writable([]);
-export const categoryData = writable(0);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
 export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTrainingModeStatisticsData});

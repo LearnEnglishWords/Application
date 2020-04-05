@@ -43,7 +43,7 @@
   import { onMount } from 'svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
-  import { collectionData, downloadedCollections, categoryData } from '../js/store.js';
+  import { collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
@@ -57,21 +57,21 @@
     downLoading = true;
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
     counter = 0; 
-    collection.download(collectionId, () => setCategoryData(collectionId), () => downloadProgress(collectionId));
+    collection.download(collectionId, () => setupData(collectionId), () => downloadProgress(collectionId));
   }
 
-  function setCategoryData(collectionId, success) {
+  function setupData(collectionId, success) {
     collection.getCategoryList(collectionId, (categories) => {
-      categoryData.set(categories);
+      collectionData.set({"name": collectionId, "id": collectionId, "categories": categories});
       if (success !== undefined) { success(); }
     });
   }
 
   function downloadProgress(collectionId) {
     counter += 1;
-    f7.progressbar.set(progressBarEl, 100/$categoryData.length*counter);
+    f7.progressbar.set(progressBarEl, 100/$collectionData.categories.length*counter);
 
-    if(counter === $categoryData.length) {
+    if(counter === $collectionData.categories.length) {
       updateCollectionIds($downloadedCollections.concat([collectionId]));
       f7.progressbar.hide(progressBarEl); 
       downLoading = false;
@@ -84,8 +84,7 @@
   }
 
   function continueButton(collectionId){
-    collectionData.set({"name": collectionId, "id": collectionId});
-    setCategoryData(collectionId, () => f7router.navigate('/CategoryList'));
+    setupData(collectionId, () => f7router.navigate('/CategoryList'));
   }
 
   const collectionItems = [
