@@ -82,7 +82,7 @@
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import Collection from '../js/collection.js';
-  import { isKnownForMode, getState, playSound } from '../js/utils.js'
+  import { isKnownForMode, getState, playSound, shuffle } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -100,6 +100,10 @@
     known: 0,
     unknown: 0
   };
+
+  if (!isTraining) {
+    $trainingData.words = shuffle($trainingData.words);
+  }
 
   onMount(() => {
     f7.preloader.hide();

@@ -63,3 +63,11 @@ export function playSound(word) {
   audio.src = `https://drakeman.cz/english-words/collections/basic/sounds/${word.text}.mp3`;
   audio.play();
 }
+
+export function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
