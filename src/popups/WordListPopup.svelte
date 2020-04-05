@@ -46,6 +46,7 @@
   let collection = new Collection();
   let wordState = {};
   let allWordsSorted = [];
+  let batchSize = 20;
   let trainingModesValues = trainingModes.map((it) => {
     return {mode: it.value, prevState: false}
   });
@@ -55,13 +56,21 @@
     return a.charCodeAt(0) - b.charCodeAt(0)
   });
 
-  allWordsSortedIds.forEach((wordId) => {
-    collection.getWord(wordId, (word) => {
-      allWordsSorted.push(word);
-      allWordsSorted = [...allWordsSorted];
-      wordState[word.text] = isKnown(word);
+  loadWords(0, batchSize);
+
+  function loadWords(from, to) {
+    if (from > allWordsSortedIds.length-1) { return }
+
+    allWordsSortedIds.slice(from, to).forEach((wordId) => {
+      collection.getWord(wordId, (word) => {
+        allWordsSorted.push(word);
+        allWordsSorted = [...allWordsSorted];
+        wordState[word.text] = isKnown(word);
+      });
     });
-  });
+
+    setTimeout(() => { loadWords(to+1, to+batchSize) }, 1000);
+  }
 
   function setState(word, known) {
     let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
