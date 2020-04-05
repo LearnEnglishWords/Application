@@ -111,7 +111,6 @@
   }
 
   onMount(() => {
-    f7.preloader.hide();
     swiper = f7.swiper.get('.swiper-container')
     swiper.on("slideNextTransitionStart", () => { 
       currentWordIndex += 1;

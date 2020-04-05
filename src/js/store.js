@@ -12,7 +12,7 @@ let collection = new Collection();
 function createStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
   return {
-    subscribe,
+    subscribe, set,
     setCount: (count) => update((data) => { 
       data.count = count;
       data.known = 0;
@@ -74,7 +74,7 @@ export const trainingModeStatisticsData = createTrainingModeStatisticsData({...d
 export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
-export function updateAllStatistics(word, prevState) {
+export async function updateAllStatistics(word, prevState) {
   get(collectionData).categoriesWithWords.forEach(({category, words}) => {
     if (words !== null && words.includes(word.text)) {
       let stats = createStatisticsData(category.stats);

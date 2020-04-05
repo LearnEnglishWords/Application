@@ -72,15 +72,15 @@
     setTimeout(() => { loadWords(to+1, to+batchSize) }, 1000);
   }
 
-  function setState(word, known) {
+  async function setState(word, known) {
     let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
     let prevState = getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
+    wordState[word.text] = isKnown(word);
     statisticsData.updateData(word, prevState);
     trainingModeStatisticsData.updateData(word, trainingModesValues);
     collection.saveWord(word.text, word);
     //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
-    wordState[word.text] = isKnown(word);
     updateAllStatistics(word, prevState);
   }
 

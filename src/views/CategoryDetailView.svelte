@@ -60,7 +60,7 @@
   </Block>
 
 {#if allWordIds.length > 0}
-  <WordListPopup name="word-list" allWordIds={allWordIds}/>
+  <WordListPopup name="word-list" allWordIds={allWordIds} />
 {/if}
 
 </Page>
@@ -98,11 +98,10 @@
   let trainingModeIndex = 0;
   let trainingModesValues = trainingModes.map((it) => { return { mode: it.value, prevState: false } });
 
-  statisticsData.setCount($categoryDetailData.stats.count);
+  statisticsData.set($categoryDetailData.stats);
   trainingModeStatisticsData.reset();
 
   collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    //statisticsData.setCount(wordIds.length);
     trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
     allWordIds = [...wordIds];
 
@@ -110,15 +109,13 @@
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
-        statisticsData.updateData(word, "unknown");
         trainingModeStatisticsData.updateData(word, trainingModesValues);
       });
     }
   });
 
-  function goToTrainingView(isTraining) {
+  function setupData(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
-    f7.preloader.show();
     trainingData.set({ 
       mode: currentMode.value, 
       isTraining: isTraining,
@@ -127,7 +124,18 @@
         return word.learning === undefined || word.learning[currentMode.value] === false
       }).slice(0, wordsLimit)
     });
-    f7router.navigate('/Training');
+  }
+
+  function goToTrainingView(isTraining) {
+    f7.preloader.show();
+
+    if(allWords.length === allWordIds.length) {
+      setupData(isTraining);
+      f7.preloader.hide();
+      f7router.navigate('/Training');
+    } else {
+      setTimeout(() => { goToTrainingView(isTraining) }, 1000);
+    }
   }
 
 </script>
