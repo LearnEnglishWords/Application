@@ -69,18 +69,4 @@
     wordState[word.text] = isKnown(word);
   }
 
-  function setDevelData() {
-    wordState = {
-      "bedroom": false,
-      "car": false,
-      "hello": true
-    };
-
-    allWordsSorted = [
-      {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""},
-      {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
-      {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""}
-    ];
-  }
-
 </script>
