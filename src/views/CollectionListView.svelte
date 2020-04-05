@@ -1,8 +1,5 @@
 <Page name="CollectionList">
   <Header />
-  <!--
-    {$_('page_title')}
-  -->
   <Block strong inset>
     <BlockTitle medium>{$_('collection.title')}</BlockTitle>
     <List accordionList mediaList inset>
