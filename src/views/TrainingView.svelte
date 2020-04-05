@@ -12,7 +12,7 @@
   </Header>
   {currentWordIndex+1}/{$trainingData.words.length}
 
-  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
+  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: false, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: {swiperHeight}">
         <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
