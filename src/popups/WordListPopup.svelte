@@ -30,8 +30,12 @@
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
+  import { 
+    updateAllStatistics, collectionData,
+    categoryDetailData, trainingData,
+    statisticsData, trainingModeStatisticsData 
+  } from '../js/store.js';
 
-  import { updateAllStatistics, collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
   import { appName }  from '../js/config.js';
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';

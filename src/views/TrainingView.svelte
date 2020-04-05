@@ -76,7 +76,12 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { updateAllStatistics, trainingData, statisticsData, settingsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
+  import { 
+    updateAllStatistics, trainingData,
+    statisticsData, settingsData,
+    collectionData, categoryDetailData,
+    trainingModeStatisticsData 
+  } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';

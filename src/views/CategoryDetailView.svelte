@@ -77,12 +77,9 @@
     Link, Button
   } from 'framework7-svelte';
   import { 
-    collectionData,
-    categoryDetailData,
-    trainingData,
-    settingsData,
-    statisticsData,
-    trainingModeStatisticsData
+    collectionData, categoryDetailData,
+    trainingData, settingsData,
+    statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
   import { trainingModes } from '../js/utils.js'
