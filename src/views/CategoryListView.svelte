@@ -6,34 +6,35 @@
     </div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics">
+  <div class="header statistics">
     <Row>
-      <Col class="statistics known">
+      <Col class="known">
         <span>{globalStatisticsData.known}</span>
         <span>{$_('statistics.known')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="statistics learning">
+      <Col class="learning">
         <span>{globalStatisticsData.learning}</span>
         <span>{$_('statistics.learning')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="statistics unknown">
+      <Col class="unknown">
         <span>{globalStatisticsData.unknown}</span>
         <span>{$_('statistics.unknown')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
     </Row>
-    <div class="header-corners"></div>
+    <div class="decoration"></div>
   </div>
-  <!-- Page -->
-  <div class="CategoryListView">
+  <!-- View -->
+  <div class="view CategoryList">
     <!-- Title -->
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
+    <!-- List -->
     <List>
       {#if categories.length > 0}
         {#each categories as category, id} 
-          <ListItem class="list-item animated" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
+          <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
             <i slot="media" class="material-icons">{category.icon}</i>
             <div slot="after"><Statistics simple statistic={category.stats} /></div>
           </ListItem> 
@@ -137,13 +138,13 @@
           if(value === 'active') { isActive = true; break }
         } 
 
-        if(isActive) {
-          this.classList.add("bounceIn");
-          this.classList.remove("bounceOut");
-        } else {
-          this.classList.remove("bounceIn");
-          this.classList.add("bounceOut");
-        }
+        //if(isActive) {
+          //this.classList.add("flipInX");
+          //this.classList.remove("bounceOut");
+        //} else {
+          //this.classList.remove("flipInX");
+          //this.classList.add("bounceOut");
+        //}
       }
     }
   }
