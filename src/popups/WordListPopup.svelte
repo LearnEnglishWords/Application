@@ -57,10 +57,7 @@
   });
 
   loadWords(0, batchSize);
-
   function loadWords(from, to) {
-    if (from > allWordsSortedIds.length-1) { return }
-
     allWordsSortedIds.slice(from, to).forEach((wordId) => {
       collection.getWord(wordId, (word) => {
         allWordsSorted.push(word);
@@ -69,7 +66,9 @@
       });
     });
 
-    setTimeout(() => { loadWords(to+1, to+batchSize) }, 1000);
+    if (to < allWordsSortedIds.length) { 
+      setTimeout(() => { loadWords(to, to + batchSize) }, 1000);
+    }
   }
 
   async function setState(word, known) {
