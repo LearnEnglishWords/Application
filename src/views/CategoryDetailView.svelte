@@ -15,7 +15,7 @@
       <AccordionContent>
         <List>
           {#each trainingModes as {value, checked}, id}
-            <ListItem radio name="mode" checked={checked} on:change={() => trainingModeIndex = id} title={$_(`category.training_mode.${value}`)}>
+            <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
               <Statistics simple statistic={$trainingModeStatisticsData[value]} />
             </ListItem>
           {/each}
@@ -35,6 +35,7 @@
         <Stepper round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+            on:stepperChange={wordsLimitChanged}
         ></Stepper>
       </Col>
     </Row>
@@ -96,20 +97,35 @@
   let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
+  let wordsLoaded = 0;
+  let filtredWords = filterNotKnownWords();
+  let loadingInProgress = true;
 
   statisticsData.set($categoryDetailData.stats);
   trainingModeStatisticsData.set($categoryDetailData.modeStats);
 
   collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
     allWordIds = [...wordIds];
-
-    // load all words
-    for (let wordId of wordIds) {
-      collection.getWord(wordId, (word) => {
-        allWords.push(word);
-      });
-    }
+    loadWords(0, wordsLimit)
   });
+
+  function loadWords(from, to) {
+    filtredWords = filterNotKnownWords()
+
+    if(allWords.length !== allWordIds.length && filtredWords.length < wordsLimit) {
+      for (let wordId of allWordIds.slice(from, to)) {
+        collection.getWord(wordId, (word) => {
+          allWords.push(word);
+          wordsLoaded++;
+          if(wordsLoaded === to) {
+            loadWords(to, to + wordsLimit);
+          }
+        });
+      }
+    } else {
+      loadingInProgress = false;
+    }
+  }
 
   function filterNotKnownWords() {
     let currentMode = trainingModes[trainingModeIndex];
@@ -118,7 +134,20 @@
     )
   }
 
-  function setupData(isTraining, filtredWords) {
+  function changeTrainingMode(index) {
+    trainingModeIndex = index;
+    if(loadingInProgress === false) {
+      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+    }
+  }
+
+  function wordsLimitChanged() {
+    if(loadingInProgress === false) {
+      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+    }
+  }
+
+  function setupData(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
 
     trainingData.set({ 
@@ -131,7 +160,6 @@
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
-    let filtredWords = filterNotKnownWords()
 
     if(allWords.length === allWordIds.length || filtredWords.length > wordsLimit) {
       setupData(isTraining, filtredWords);
