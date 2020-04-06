@@ -47,7 +47,6 @@
     </List>
   </Block>
 
-  <Block>
   <!-- BlockTitle -->
   <BlockTitle>{$_('category.words_limit')}</BlockTitle>
   <!-- Stepper -->
@@ -78,16 +77,12 @@
   <div style="display:none;" class="CategoryDetail page">
 
 
-
     <!-- Footer -->
     <div class="CategoryDetail footer">
       <Button on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
       <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
     </div>
   </div>
-
-
-
 
 
   <Block style="display: none" inset>

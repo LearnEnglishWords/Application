@@ -50,9 +50,10 @@
 
 <script>
   import { 
-    Page,
-    Chip, 
-    Button, Row, Col, Icon, List, ListItem, Block, BlockTitle
+    Page, Button, 
+    Block, BlockTitle,
+    Row, Col, Icon,
+    List, ListItem 
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
@@ -68,17 +69,17 @@
   let categories = [];
   let selectedCategories = [];
 
-  $categoryData.forEach((category, index, array) => {
+  $collectionData.categories.forEach((category, index, array) => {
     collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
       if (stats !== null) {
         category.stats = stats;
         category.active = false;
-        setupCategoryToggler();
         collection.getCategoryModeStatisticsPromise($collectionData.id, category.id)
           .then((modeStats) => { 
             category.modeStats = modeStats; 
             categories.push(category);
             categories = [...categories];
+            setTimeout(() => { setupCategoryToggler() }, 200);
           });
       }
     });
@@ -139,14 +140,6 @@
         for(let value of this.classList) {
           if(value === 'active') { isActive = true; break }
         } 
-
-        //if(isActive) {
-          //this.classList.add("flipInX");
-          //this.classList.remove("bounceOut");
-        //} else {
-          //this.classList.remove("flipInX");
-          //this.classList.add("bounceOut");
-        //}
       }
     }
   }
