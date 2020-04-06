@@ -154,7 +154,7 @@
       mode: currentMode.value, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: filtredWords.slice(0, wordsLimit)
+      words: filterNotKnownWords().slice(0, wordsLimit)
     });
   }
 
