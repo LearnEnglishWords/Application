@@ -33,24 +33,17 @@
 
   let collection = new Collection();
   let categories = [];
-  let batchSize = 6;
 
-  loadCategories(0, batchSize);
-  function loadCategories(from, to) {
-    $collectionData.categories.slice(from, to).forEach((category) => {
-      collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
-        if (stats !== null) {
-          category.stats = stats;
-          category.active = false;
-          categories.push(category);
-          categories = [...categories];
-        }
-      });
+  $collectionData.categories.forEach((category) => {
+    collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
+      if (stats !== null) {
+        category.stats = stats;
+        //category.active = false;
+        categories.push(category);
+        categories = [...categories];
+      }
     });
-    if($collectionData.categories.length > to) {
-      setTimeout(function(){ loadCategories(to, to + batchSize); }, 2000);
-    }
-  }
+  })
 
   function goToDetailView(category) {
     categoryDetailData.set(category);
