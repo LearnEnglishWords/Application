@@ -165,7 +165,7 @@
       trainingModeStatisticsData.updateData(word, [{mode: $trainingData.mode, prevState: isKnown}]);
     }
     //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
-    updateAllStatistics(word, prevState);
+    updateAllStatistics(word, previousState);
   }
 
   function goToSlide(index) {
