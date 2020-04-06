@@ -39,6 +39,7 @@
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
   import Collection from '../js/collection.js';
+  import { WordsType } from '../js/utils.js'
   import Header from '../components/Header.svelte';
   import { collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
@@ -62,8 +63,8 @@
       let categoriesWithWords = [];
 
       for (let category of categories) {
-        collection.getWordIdsList(collectionId, category.id, (wordIds) => 
-          categoriesWithWords.push({"category": category, "words": wordIds}))
+        collection.getWordIdsList(collectionId, category.id, WordsType.ALL, (wordIds) => 
+          categoriesWithWords.push({"category": category, "wordIds": wordIds}))
       }
 
       collectionData.set({

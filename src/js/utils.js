@@ -79,3 +79,11 @@ export function shuffle(array) {
   }
   return array;
 }
+
+export const WordsType = {
+    ALL: 'all',
+    KNOWN: 'known',
+    LEARNING: 'learning',
+    UNKNOWN: 'unknown',
+    NOT_KNOWN: 'not_known'
+}

@@ -1,4 +1,4 @@
-import { getDefaultStatisticsData, getDefaultModeStatisticsData } from './utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType } from './utils.js'
 
 
 export default class Collection {
@@ -32,9 +32,10 @@ export default class Collection {
 
   saveCategoryWords(collectionId, categoryId, words, progress) {
     let wordIds = words.map((word) => word.text);
-    this.saveCategoryWordIdsList(collectionId, categoryId, wordIds).then(() => {
+    this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN);
+    this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL).then(() => {
       words.forEach((word) => this.saveWord(word.text, word));
-      this.getWordIdsList(collectionId, categoryId, progress)
+      this.getWordIdsList(collectionId, categoryId, WordsType.ALL, progress)
     });
   }
 
@@ -55,12 +56,16 @@ export default class Collection {
     });
   }
 
-  saveCategoryWordIdsList(collectionId, categoryId, words) {
-    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:ids`, words);
+  saveWordIdsList(collectionId, categoryId, words, type) {
+    if(type === undefined || type === null) { type = WordsType.ALL }
+    if(type !== WordsType.ALL && type !== WordsType.KNOWN && type !== WordsType.NOT_KNOWN) { return }
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:${type}:ids`, words);
   }
 
-  getWordIdsList(collectionId, categoryId, callback) {
-    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:ids`).then((data) => {
+  getWordIdsList(collectionId, categoryId, type, callback) {
+    if(type === undefined || type === null) { type = WordsType.ALL }
+    if(type !== WordsType.ALL && type !== WordsType.KNOWN && type !== WordsType.NOT_KNOWN) { return }
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:${type}:ids`).then((data) => {
       callback(data);
     });
   }
