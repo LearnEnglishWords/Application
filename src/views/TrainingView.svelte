@@ -77,7 +77,7 @@
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
   import { 
-    updateAllStatistics, trainingData,
+    updateAllStatisticsAndSaveWord, trainingData,
     statisticsData, settingsData,
     collectionData, categoryDetailData,
     trainingModeStatisticsData 
@@ -160,12 +160,8 @@
 
     if (word.learning[$trainingData.mode] !== state) {
       word.learning[$trainingData.mode] = state;
-      collection.saveWord(word.text, word);
-      statisticsData.updateData(word, previousState);
-      trainingModeStatisticsData.updateData(word, [{mode: $trainingData.mode, prevState: isKnown}]);
+      updateAllStatisticsAndSaveWord(word, previousState, [{mode: $trainingData.mode, prevState: isKnown}]);
     }
-    //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
-    updateAllStatistics(word, previousState);
   }
 
   function goToSlide(index) {

@@ -4,7 +4,7 @@ import {
   isKnownForMode, getState,
   defaultSettingsData, 
   defaultStatisticsData,
-  defaultTrainingModeStatisticsData 
+  defaultModeStatisticsData 
 } from './utils.js'
 
 let collection = new Collection();
@@ -33,10 +33,10 @@ function createStatisticsData(startStatisticsData) {
   };
 }
 
-function createTrainingModeStatisticsData(startStatisticsData) {
+function createModeStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
   return {
-    subscribe,
+    subscribe, set,
     setCount: (count, modes) => update((data) => { 
       for (let {mode, prevState} of modes) {
         data[mode].known = 0;
@@ -70,17 +70,33 @@ export const collectionData = writable(0);
 export const downloadedCollections = writable([]);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
-export const trainingModeStatisticsData = createTrainingModeStatisticsData({...defaultTrainingModeStatisticsData});
+export const trainingModeStatisticsData = createModeStatisticsData({...defaultModeStatisticsData});
 export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
-export async function updateAllStatistics(word, prevState) {
+export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
+  let currentCategory = get(categoryDetailData)
+  statisticsData.updateData(word, prevState);
+  trainingModeStatisticsData.updateData(word, modes);
+
   get(collectionData).categoriesWithWords.forEach(({category, words}) => {
-    if (words !== null && words.includes(word.text)) {
+    if (words !== null && category.id !== currentCategory.id && words.includes(word.text)) {
       let stats = createStatisticsData(category.stats);
+      let modeStats = createModeStatisticsData(category.modeStats);
+
       stats.updateData(word, prevState);
+      modeStats.updateData(word, modes);
+
       category.stats = get(stats);
+      category.modeStats = get(modeStats);
+
       collection.saveCategoryStatistics(get(collectionData).id, category.id, get(stats));
+      collection.saveCategoryModeStatistics(get(collectionData).id, category.id, get(modeStats));
     }
   });
+
+  collection.saveCategoryStatistics(get(collectionData).id, currentCategory.id, get(statisticsData));
+  collection.saveCategoryModeStatistics(get(collectionData).id, currentCategory.id, get(trainingModeStatisticsData));
+
+  collection.saveWord(word.text, word);
 }

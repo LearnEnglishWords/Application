@@ -38,9 +38,13 @@
     collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
       if (stats !== null) {
         category.stats = stats;
-        //category.active = false;
-        categories.push(category);
-        categories = [...categories];
+        category.active = false;
+        collection.getCategoryModeStatisticsPromise($collectionData.id, category.id)
+          .then((modeStats) => { 
+            category.modeStats = modeStats; 
+            categories.push(category);
+            categories = [...categories];
+          });
       }
     });
   })

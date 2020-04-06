@@ -96,20 +96,17 @@
   let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
-  let trainingModesValues = trainingModes.map((it) => { return { mode: it.value, prevState: false } });
 
   statisticsData.set($categoryDetailData.stats);
-  trainingModeStatisticsData.reset();
+  trainingModeStatisticsData.set($categoryDetailData.modeStats);
 
   collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-    trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
     allWordIds = [...wordIds];
 
     // load all words
     for (let wordId of wordIds) {
       collection.getWord(wordId, (word) => {
         allWords.push(word);
-        trainingModeStatisticsData.updateData(word, trainingModesValues);
       });
     }
   });

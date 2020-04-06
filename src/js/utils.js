@@ -12,7 +12,7 @@ export const defaultStatisticsData = {
   "unknown": 100
 };            
 
-export const defaultTrainingModeStatisticsData = {
+export const defaultModeStatisticsData = {
   "read": { "known": 0, "unknown": 100 },
   "write": { "known": 0, "unknown": 100 },
   "listen": { "known": 0, "unknown": 100 },
@@ -31,6 +31,14 @@ export function getDefaultStatisticsData(count) {
     "known": 0,
     "learning": 0,
     "unknown": count
+  }
+};            
+
+export function getDefaultModeStatisticsData(count) {
+  return {
+    "read": { "known": 0, "unknown": count },
+    "write": { "known": 0, "unknown": count },
+    "listen": { "known": 0, "unknown": count },
   }
 };            
 

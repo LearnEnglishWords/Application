@@ -31,7 +31,7 @@
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
   import { 
-    updateAllStatistics, collectionData,
+    updateAllStatisticsAndSaveWord, collectionData,
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
@@ -72,15 +72,16 @@
   }
 
   async function setState(word, known) {
-    let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
     let prevState = getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
     wordState[word.text] = isKnown(word);
-    statisticsData.updateData(word, prevState);
-    trainingModeStatisticsData.updateData(word, trainingModesValues);
-    collection.saveWord(word.text, word);
-    //collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
-    updateAllStatistics(word, prevState);
+
+    let allModes = [
+      {mode: 'read', prevState: isKnown},
+      {mode: 'write', prevState: isKnown},
+      {mode: 'listen', prevState: isKnown}
+    ];
+    updateAllStatisticsAndSaveWord(word, prevState, allModes);
   }
 
 </script>
