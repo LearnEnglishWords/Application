@@ -32,14 +32,12 @@
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
     <!-- List -->
     <List>
-      {#if categories.length > 0}
-        {#each categories as category, id} 
-          <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
-            <i slot="media" class="material-icons">{category.icon}</i>
-            <div slot="after"><Statistics simple statistic={category.stats} /></div>
-          </ListItem> 
-        {/each}
-      {/if}
+      {#each categories as category, id} 
+        <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
+          <i slot="media" class="material-icons">{category.icon}</i>
+          <div slot="after"><Statistics simple statistic={category.stats} /></div>
+        </ListItem> 
+      {/each}
     </List> 
   </div>
 
@@ -56,7 +54,7 @@
     Chip, 
     Button, Row, Col, Icon, List, ListItem, Block, BlockTitle
   } from 'framework7-svelte';
-  import { categoryData, collectionData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import Collection from '../js/collection.js';
@@ -75,9 +73,13 @@
       if (stats !== null) {
         category.stats = stats;
         category.active = false;
-        categories.push(category);
-        categories = [...categories];
         setupCategoryToggler();
+        collection.getCategoryModeStatisticsPromise($collectionData.id, category.id)
+          .then((modeStats) => { 
+            category.modeStats = modeStats; 
+            categories.push(category);
+            categories = [...categories];
+          });
       }
     });
   })

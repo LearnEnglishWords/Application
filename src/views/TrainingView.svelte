@@ -12,7 +12,7 @@
   </Header>
   {currentWordIndex+1}/{$trainingData.words.length}
 
-  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: true, loop: false, followFinger: false}}>
+  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: false, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: {swiperHeight}">
         <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
@@ -76,13 +76,18 @@
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
-  import { trainingData, statisticsData, settingsData, collectionData, categoryDetailData, trainingModeStatisticsData } from '../js/store.js';
+  import { 
+    updateAllStatisticsAndSaveWord, trainingData,
+    statisticsData, settingsData,
+    collectionData, categoryDetailData,
+    trainingModeStatisticsData 
+  } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import Collection from '../js/collection.js';
-  import { isKnownForMode, getState, playSound } from '../js/utils.js'
+  import { isKnownForMode, getState, playSound, shuffle } from '../js/utils.js'
   import { develMode } from '../js/config.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -102,8 +107,11 @@
     unknown: 0
   };
 
+  if (!isTraining) {
+    $trainingData.words = shuffle($trainingData.words);
+  }
+
   onMount(() => {
-    f7.preloader.hide();
     swiper = f7.swiper.get('.swiper-container')
     swiper.on("slideNextTransitionStart", () => { 
       currentWordIndex += 1;
@@ -157,11 +165,8 @@
 
     if (word.learning[$trainingData.mode] !== state) {
       word.learning[$trainingData.mode] = state;
-      collection.saveWord(word.text, word);
-      statisticsData.updateData(word, previousState);
-      trainingModeStatisticsData.updateData(word, [{mode: $trainingData.mode, prevState: isKnown}]);
+      updateAllStatisticsAndSaveWord(word, previousState, [{mode: $trainingData.mode, prevState: isKnown}]);
     }
-    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
   }
 
   function goToSlide(index) {

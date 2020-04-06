@@ -33,11 +33,11 @@
   <!-- AccordionList -->
   <Block>
     <List accordionList noHairlines>
-      <ListItem accordionItem title="{$_('category.training_mode')}" after={trainingModes[trainingModeIndex].title}>
+      <ListItem accordionItem header={$_('category.training_mode.title')} title="{$_(`category.training_mode.${trainingModes[trainingModeIndex].value}`)}">
         <AccordionContent>
           <List>
-            {#each trainingModes as {title, value, checked}, id}
-              <ListItem radio title={title} name="mode" on:change={() => trainingModeIndex = id} checked={checked}>
+            {#each trainingModes as {value, checked}, id}
+              <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
                 <Statistics simple statistic={$trainingModeStatisticsData[value]} />
               </ListItem>
             {/each}
@@ -46,6 +46,8 @@
       </ListItem>
     </List>
   </Block>
+
+  <Block>
   <!-- BlockTitle -->
   <BlockTitle>{$_('category.words_limit')}</BlockTitle>
   <!-- Stepper -->
@@ -64,6 +66,7 @@
             fill
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+            on:stepperChange={wordsLimitChanged}
           ></Stepper>
         </span>
       </ListItem>
@@ -85,15 +88,6 @@
 
 
 
-  <Block style="display: none" inset>
-    <Row>
-      <Col>
-        <block>
-          {$_('category.words_limit')}
-        </block>
-      </Col>
-    </Row>
-  </Block>
 
 
   <Block style="display: none" inset>
@@ -105,7 +99,7 @@
   </Block>
 
 {#if allWordIds.length > 0}
-  <WordListPopup style="display: none" name="word-list" allWordIds={allWordIds}/>
+  <WordListPopup style="display: none" name="word-list" allWordIds={allWordIds} />
 {/if}
 
 
@@ -124,12 +118,9 @@
     Link, Button
   } from 'framework7-svelte';
   import { 
-    collectionData,
-    categoryDetailData,
-    trainingData,
-    settingsData,
-    statisticsData,
-    trainingModeStatisticsData
+    collectionData, categoryDetailData,
+    trainingData, settingsData,
+    statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
   import { trainingModes } from '../js/utils.js'
@@ -147,42 +138,81 @@
   let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
-  let trainingModesValues = trainingModes.map((it) => { return { mode: it.value, prevState: false } });
+  let wordsLoaded = 0;
+  let filtredWords = filterNotKnownWords();
+  let loadingInProgress = true;
 
-  statisticsData.reset();
-  trainingModeStatisticsData.reset();
+  statisticsData.set($categoryDetailData.stats);
+  trainingModeStatisticsData.set($categoryDetailData.modeStats);
 
   if(develMode) {
     setDevelData();
   } else {
     collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
-      statisticsData.setCount(wordIds.length);
-      trainingModeStatisticsData.setCount(wordIds.length, trainingModesValues);
       allWordIds = [...wordIds];
-
-      // load all words
-      for (let wordId of wordIds) {
-        collection.getWord(wordId, (word) => {
-          allWords.push(word);
-          statisticsData.updateData(word, "unknown");
-          trainingModeStatisticsData.updateData(word, trainingModesValues);
-        });
-      }
+      loadWords(0, wordsLimit)
     });
   }
 
-  function goToTrainingView(isTraining) {
+  function loadWords(from, to) {
+    filtredWords = filterNotKnownWords()
+
+    if(allWords.length !== allWordIds.length && filtredWords.length < wordsLimit) {
+      for (let wordId of allWordIds.slice(from, to)) {
+        collection.getWord(wordId, (word) => {
+          allWords.push(word);
+          wordsLoaded++;
+          if(wordsLoaded === to) {
+            loadWords(to, to + wordsLimit);
+          }
+        });
+      }
+    } else {
+      loadingInProgress = false;
+    }
+  }
+
+  function filterNotKnownWords() {
     let currentMode = trainingModes[trainingModeIndex];
-    f7.preloader.show();
+    return allWords.filter((word) => 
+      word.learning === undefined || word.learning[currentMode.value] === false
+    )
+  }
+
+  function changeTrainingMode(index) {
+    trainingModeIndex = index;
+    if(loadingInProgress === false) {
+      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+    }
+  }
+
+  function wordsLimitChanged() {
+    if(loadingInProgress === false) {
+      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+    }
+  }
+
+  function setupData(isTraining) {
+    let currentMode = trainingModes[trainingModeIndex];
+
     trainingData.set({ 
       mode: currentMode.value, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: allWords.filter((word) => {
-        return word.learning === undefined || word.learning[currentMode.value] === false
-      }).slice(0, wordsLimit)
+      words: filterNotKnownWords().slice(0, wordsLimit)
     });
-    f7router.navigate('/Training');
+  }
+
+  function goToTrainingView(isTraining) {
+    f7.preloader.show();
+
+    if(allWords.length === allWordIds.length || filtredWords.length > wordsLimit) {
+      setupData(isTraining, filtredWords);
+      f7.preloader.hide();
+      f7router.navigate('/Training');
+    } else {
+      setTimeout(() => { goToTrainingView(isTraining) }, 1000);
+    }
   }
   
   function setDevelData() {

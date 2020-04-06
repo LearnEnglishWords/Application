@@ -30,10 +30,14 @@
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
+  import { 
+    updateAllStatisticsAndSaveWord, collectionData,
+    categoryDetailData, trainingData,
+    statisticsData, trainingModeStatisticsData 
+  } from '../js/store.js';
 
-  import { collectionData, categoryDetailData, trainingData, statisticsData, trainingModeStatisticsData } from '../js/store.js';
-  import { appName }  from '../js/config.js';
-  import { develMode } from '../js/config.js';
+  import { appName, develMode }  from '../js/config.js';
+  import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
   export let allWordIds = [];
@@ -42,50 +46,42 @@
   let collection = new Collection();
   let wordState = {};
   let allWordsSorted = [];
+  let batchSize = 20;
   let trainingModesValues = trainingModes.map((it) => {
     return {mode: it.value, prevState: false}
   });
 
-  if(develMode) {
-    setDevelData();
-  } else {
-    // sort words 
-    let allWordsSortedIds = allWordIds.sort((a, b) => {
-      return a.charCodeAt(0) - b.charCodeAt(0)
-    });
+  // sort words 
+  let allWordsSortedIds = allWordIds.sort((a, b) => {
+    return a.charCodeAt(0) - b.charCodeAt(0)
+  });
 
-    for (let wordId of allWordsSortedIds) {
+  loadWords(0, batchSize);
+  function loadWords(from, to) {
+    allWordsSortedIds.slice(from, to).forEach((wordId) => {
       collection.getWord(wordId, (word) => {
         allWordsSorted.push(word);
         allWordsSorted = [...allWordsSorted];
         wordState[word.text] = isKnown(word);
       });
+    });
+
+    if (to < allWordsSortedIds.length) { 
+      setTimeout(() => { loadWords(to, to + batchSize) }, 1000);
     }
   }
 
-  function setState(word, known) {
-    let trainingModesValues = trainingModes.map((it) => {return {mode: it.value, prevState: !known}});
+  async function setState(word, known) {
     let prevState = getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
-    statisticsData.updateData(word, prevState);
-    trainingModeStatisticsData.updateData(word, trainingModesValues);
-    collection.saveWord(word.text, word);
-    collection.saveCategoryStatistics($collectionData.id, $categoryDetailData.id, $statisticsData);
     wordState[word.text] = isKnown(word);
-  }
 
-  function setDevelData() {
-    wordState = {
-      "bedroom": false,
-      "car": false,
-      "hello": true
-    };
-
-    allWordsSorted = [
-      {text: "bedroom", pronunciation:"bedroom", sense: ["loznice"], example: ""},
-      {text: "car", pronunciation:"car", sense: ["auto", "osobni automobil", "vozidlo"], example: ""},
-      {text: "hello", pronunciation:"hello", sense: ["ahoj", "cau", "dobry den"], example: ""}
+    let allModes = [
+      {mode: 'read', prevState: isKnown},
+      {mode: 'write', prevState: isKnown},
+      {mode: 'listen', prevState: isKnown}
     ];
+    updateAllStatisticsAndSaveWord(word, prevState, allModes);
   }
 
 </script>

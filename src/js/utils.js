@@ -12,7 +12,7 @@ export const defaultStatisticsData = {
   "unknown": 100
 };            
 
-export const defaultTrainingModeStatisticsData = {
+export const defaultModeStatisticsData = {
   "read": { "known": 0, "unknown": 100 },
   "write": { "known": 0, "unknown": 100 },
   "listen": { "known": 0, "unknown": 100 },
@@ -31,6 +31,14 @@ export function getDefaultStatisticsData(count) {
     "known": 0,
     "learning": 0,
     "unknown": count
+  }
+};            
+
+export function getDefaultModeStatisticsData(count) {
+  return {
+    "read": { "known": 0, "unknown": count },
+    "write": { "known": 0, "unknown": count },
+    "listen": { "known": 0, "unknown": count },
   }
 };            
 
@@ -62,4 +70,12 @@ export function playSound(word) {
   var audio = new Audio();
   audio.src = `https://drakeman.cz/english-words/collections/basic/sounds/${word.text}.mp3`;
   audio.play();
+}
+
+export function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }

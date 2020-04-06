@@ -1,4 +1,4 @@
-import { getDefaultStatisticsData } from './utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData } from './utils.js'
 
 
 export default class Collection {
@@ -21,6 +21,7 @@ export default class Collection {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {
           this.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
+          this.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
           this.saveCategoryWords(collectionId, category.id, words, progress);
         } else {
           progress();
@@ -86,6 +87,20 @@ export default class Collection {
 
   getCategoryStatisticsPromise(collectionId, categoryId) {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:statistics`)
+  }
+
+  saveCategoryModeStatistics(collectionId, categoryId, statistics) {
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`, statistics);
+  }
+
+  getCategoryModeStatistics(collectionId, categoryId, callback) {
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`).then((data) => {
+      callback(data);
+    });
+  }
+
+  getCategoryModeStatisticsPromise(collectionId, categoryId) {
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`)
   }
 
   saveAppInfo(id, content) {

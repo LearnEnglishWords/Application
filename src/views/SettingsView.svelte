@@ -10,6 +10,7 @@
             on:stepperChange={saveWordLimit}
         ></Stepper>
       </ListItem>
+
       <ListItem>
         <div>
           {$_('settings.auto_sound')}
@@ -20,11 +21,11 @@
           <Toggle on:toggleChange={saveAutoPlaySound} color="blue"></Toggle>
         {/if}
       </ListItem>
+
       <ListItem>
         <div>
           {$_('settings.pronunciation.text')}
         </div>
-        <div>
         <div class="pronunciation-menu">
         <Menu>
           <MenuItem text={pronunciations[$settingsData.pronunciation]} dropdown>
@@ -35,8 +36,6 @@
           </MenuItem>
         </Menu>
         </div>
-        </div>
-
       </ListItem>
       <ListItem>
         <div>
