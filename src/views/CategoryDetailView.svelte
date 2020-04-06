@@ -98,12 +98,7 @@
     </Row>
   </Block>
 
-{#if allWordIds.length > 0}
-  <WordListPopup style="display: none" name="word-list" allWordIds={allWordIds} />
-{/if}
-
-
-
+  <WordListPopup style="display: none" name="word-list" on:addWord={addWord} on:removeWord={removeWord} />
 </Page>
 
 <script>
@@ -123,12 +118,12 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes } from '../js/utils.js'
-  import { develMode } from '../js/config.js';
+  import { trainingModes, WordsType } from '../js/utils.js'
   import Collection from '../js/collection.js';
   import Statistics from '../components/Statistics.svelte';
   import WordListPopup from '../popups/WordListPopup.svelte';
   import Header from '../components/Header.svelte';
+  import { develMode } from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
@@ -148,9 +143,10 @@
   if(develMode) {
     setDevelData();
   } else {
-    collection.getWordIdsList($collectionData.id, $categoryDetailData.id, (wordIds) => {
+    collection.getWordIdsList($collectionData.id, $categoryDetailData.id, WordsType.NOT_KNOWN, (wordIds) => {
       allWordIds = [...wordIds];
-      loadWords(0, wordsLimit)
+      $categoryDetailData.wordIds = allWordIds; 
+      loadWords(0, wordsLimit);
     });
   }
 
@@ -192,6 +188,20 @@
     }
   }
 
+  function addWord(event) {
+    let word = event.detail.word;
+    allWordIds.push(word.text);
+    allWords.push(word);
+  }
+
+  function removeWord(event) {
+    let word = event.detail.word;
+    var index = allWordIds.findIndex((wordText) => wordText === word.text);
+    allWordIds.splice(index, 1);
+    index = allWords.findIndex((w) => w.text === word.text);
+    allWords.splice(index, 1);
+  }
+
   function setupData(isTraining) {
     let currentMode = trainingModes[trainingModeIndex];
 
@@ -205,8 +215,9 @@
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
+    collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, allWordIds, WordsType.NOT_KNOWN);
 
-    if(allWords.length === allWordIds.length || filtredWords.length > wordsLimit) {
+    if(allWords.length === allWordIds.length || filtredWords.length >= wordsLimit) {
       setupData(isTraining, filtredWords);
       f7.preloader.hide();
       f7router.navigate('/Training');
@@ -255,7 +266,3 @@
   }
 
 </script>
-
-<style>
-</style>
-

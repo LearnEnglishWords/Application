@@ -87,10 +87,10 @@
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import Collection from '../js/collection.js';
-  import { isKnownForMode, getState, playSound, shuffle } from '../js/utils.js'
-  import { develMode } from '../js/config.js'
+  import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
+  import { develMode } from '../js/config.js'
 
   export let f7router;
 
@@ -163,9 +163,19 @@
     let previousState = getState(word);
     let isKnown = isKnownForMode(word, $trainingData.mode);
 
-    if (word.learning[$trainingData.mode] !== state) {
+    // if is not same
+    if (word.learning[$trainingData.mode] !== state) {  
       word.learning[$trainingData.mode] = state;
       updateAllStatisticsAndSaveWord(word, previousState, [{mode: $trainingData.mode, prevState: isKnown}]);
+      removeWhenIsKnown(word);
+    }
+  }
+
+  function removeWhenIsKnown(word) {
+    if (getState(word) === WordsType.KNOWN) {
+      var index = $categoryDetailData.wordIds.findIndex((wordText) => wordText === word.text);
+      $categoryDetailData.wordIds.splice(index, 1);
+      collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, $categoryDetailData.wordIds, WordsType.NOT_KNOWN);
     }
   }
 

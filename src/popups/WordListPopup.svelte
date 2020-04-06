@@ -27,6 +27,7 @@
     List, ListItem,
     Button
   } from 'framework7-svelte';
+  import { createEventDispatcher } from 'svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
@@ -40,16 +41,18 @@
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
-  export let allWordIds = [];
   export let name;
 
-  let collection = new Collection();
+  const dispatch = createEventDispatcher();
+  const collection = new Collection();
+
   let wordState = {};
   let allWordsSorted = [];
   let batchSize = 20;
-  let trainingModesValues = trainingModes.map((it) => {
-    return {mode: it.value, prevState: false}
-  });
+  let allWordIds = $collectionData.categoriesWithWords
+                    .find(({category, wordIds}) => 
+                      $categoryDetailData.id === category.id
+                    ).wordIds;
 
   // sort words 
   let allWordsSortedIds = allWordIds.sort((a, b) => {
@@ -71,10 +74,16 @@
     }
   }
 
-  async function setState(word, known) {
+  function setState(word, known) {
     let prevState = getState(word);
     word.learning = {"read": known, "write": known, "listen": known};
     wordState[word.text] = isKnown(word);
+
+    if(known) {
+      dispatch('removeWord', {word: word});
+    } else {
+      dispatch('addWord', {word: word});
+    }
 
     let allModes = [
       {mode: 'read', prevState: isKnown},

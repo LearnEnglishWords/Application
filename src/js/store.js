@@ -1,7 +1,7 @@
 import { writable, get } from 'svelte/store';
 import Collection from './collection.js';
 import { 
-  isKnownForMode, getState,
+  WordsType, isKnownForMode, getState,
   defaultSettingsData, 
   defaultStatisticsData,
   defaultModeStatisticsData 
@@ -74,29 +74,64 @@ export const trainingModeStatisticsData = createModeStatisticsData({...defaultMo
 export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
+
+function removeWordFromCategory(currentCollection, category, word) {
+  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, (wordIds) => {
+    const index = wordIds.indexOf(word.text);
+    if (index > -1) { wordIds.splice(index, 1) }
+    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN);
+  });                                       
+}
+
+function addWordIntoCategory(currentCollection, category, word) {
+  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, (wordIds) => {
+    wordIds.push(word.text);
+    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN);
+  });                                       
+}
+
+async function updateStatistics(category, word, prevState, modes) {
+  let currentCollection = get(collectionData);
+
+  let stats = createStatisticsData(category.stats);
+  let modeStats = createModeStatisticsData(category.modeStats);
+
+  stats.updateData(word, prevState);
+  modeStats.updateData(word, modes);
+
+  category.stats = get(stats);
+  category.modeStats = get(modeStats);
+
+  collection.saveCategoryStatistics(currentCollection.id, category.id, get(stats));
+  collection.saveCategoryModeStatistics(currentCollection.id, category.id, get(modeStats));
+}
+
+function updateInOtherCategories(word, prevState, modes) {
+  get(collectionData).categoriesWithWords.forEach(({category, wordIds}) => {
+    if (wordIds !== null && category.id !== get(categoryDetailData).id && wordIds.includes(word.text)) {
+      updateStatistics(category, word, prevState, modes);
+      if (getState(word) === WordsType.KNOWN) {
+        removeWordFromCategory(get(collectionData), category, word);
+      } else {
+        addWordIntoCategory(get(collectionData), category, word);
+      }
+    }
+  });
+}
+
 export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
-  let currentCategory = get(categoryDetailData)
+  let currentCategory = get(categoryDetailData);
+  let currentCollection = get(collectionData);
+
+  // Update statistics
   statisticsData.updateData(word, prevState);
   trainingModeStatisticsData.updateData(word, modes);
 
-  get(collectionData).categoriesWithWords.forEach(({category, words}) => {
-    if (words !== null && category.id !== currentCategory.id && words.includes(word.text)) {
-      let stats = createStatisticsData(category.stats);
-      let modeStats = createModeStatisticsData(category.modeStats);
+  updateInOtherCategories(word, prevState, modes);
 
-      stats.updateData(word, prevState);
-      modeStats.updateData(word, modes);
-
-      category.stats = get(stats);
-      category.modeStats = get(modeStats);
-
-      collection.saveCategoryStatistics(get(collectionData).id, category.id, get(stats));
-      collection.saveCategoryModeStatistics(get(collectionData).id, category.id, get(modeStats));
-    }
-  });
-
-  collection.saveCategoryStatistics(get(collectionData).id, currentCategory.id, get(statisticsData));
-  collection.saveCategoryModeStatistics(get(collectionData).id, currentCategory.id, get(trainingModeStatisticsData));
+  // Save current statistics
+  collection.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
+  collection.saveCategoryModeStatistics(currentCollection.id, currentCategory.id, get(trainingModeStatisticsData));
 
   collection.saveWord(word.text, word);
 }
