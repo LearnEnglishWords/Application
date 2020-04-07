@@ -66,7 +66,9 @@ function createModeStatisticsData(startStatisticsData) {
 
 
 export const trainingData = writable(0);
+export const allCollectionsData = writable([]);
 export const collectionData = writable(0);
+export const categoriesData = writable([]);
 export const downloadedCollections = writable([]);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
