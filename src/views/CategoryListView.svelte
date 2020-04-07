@@ -31,7 +31,7 @@
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
     <!-- List -->
     <List>
-      {#each categories as category, id} 
+      {#each $collectionData.categories as category, id} 
         <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
           <i slot="media" class="material-icons">{category.icon}</i>
           <div slot="after"><Statistics simple statistic={category.stats} /></div>
@@ -54,7 +54,7 @@
     Row, Col, Icon,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import Collection from '../js/collection.js';
@@ -65,24 +65,10 @@
   export let f7router;
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
   let collection = new Collection();
-  let categories = [];
   let selectedCategories = [];
 
-  $collectionData.categories.forEach((category, index, array) => {
-    collection.getCategoryStatisticsPromise($collectionData.id, category.id).then((stats) => {
-      if (stats !== null) {
-        category.stats = stats;
-        category.active = false;
-        collection.getCategoryModeStatisticsPromise($collectionData.id, category.id)
-          .then((modeStats) => { 
-            category.modeStats = modeStats; 
-            categories.push(category);
-            categories = [...categories];
-            setTimeout(() => { setupCategoryToggler() }, 200);
-          });
-      }
-    });
-  })
+  setTimeout(() => { setupCategoryToggler() }, 200);
+
 
   function goToDetailView() {
     categoryDetailData.set({categories: selectedCategories});
@@ -144,6 +130,3 @@
   }
 
 </script>
-
-<style>
-</style>

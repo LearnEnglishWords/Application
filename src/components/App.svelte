@@ -72,7 +72,8 @@
         });
         collection.getAppInfo("downloadedCollections", (data) => { 
           if (data === null) {
-            downloadedCollections.set([ "personal" ]);
+            //downloadedCollections.set([ "personal" ]);
+            downloadedCollections.set([]);
             collection.saveAppInfo("downloadedCollections", $downloadedCollections);
           } else {
             downloadedCollections.set(data);

@@ -41,49 +41,39 @@
   import Collection from '../js/collection.js';
   import { WordsType } from '../js/utils.js'
   import Header from '../components/Header.svelte';
-  import { collectionData, downloadedCollections} from '../js/store.js';
+  import { allCollectionsData, collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  let collection = new Collection();
+  let data = new Collection();
   let downLoading = false;
   let counter;
   let progressBarEl;
+  
+  
+  setTimeout(() => { preloadAllCollections() }, 1000);
+
+  function preloadAllCollections() {
+    if($allCollectionsData.length === 0) {
+      $downloadedCollections.forEach((id) => loadCollection(id)); 
+    }
+  }
 
   function downloadButton(collectionId) {
     if (downLoading) return;
     downLoading = true;
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
     counter = 0; 
-    collection.download(collectionId, () => setupData(collectionId), () => downloadProgress(collectionId));
-  }
-
-  function setupData(collectionId, success) {
-    collection.getCategoryList(collectionId, (categories) => {
-      let categoriesWithWords = [];
-
-      for (let category of categories) {
-        collection.getWordIdsList(collectionId, category.id, WordsType.ALL, (wordIds) => 
-          categoriesWithWords.push({"category": category, "wordIds": wordIds}))
-      }
-
-      collectionData.set({
-        "id": collectionId, 
-        "name": collectionId, 
-        "categories": categories,
-        "categoriesWithWords": categoriesWithWords
-      });
-
-      if (success !== undefined) { success(); }
-    });
+    data.download(collectionId, () => loadCollection(collectionId), () => downloadProgress(collectionId));
   }
 
   function downloadProgress(collectionId) {
-    counter += 1;
-    f7.progressbar.set(progressBarEl, 100/$collectionData.categories.length*counter);
+    let collection = $allCollectionsData.find((c) => c.id === collectionId);
+    f7.progressbar.set(progressBarEl, 100/collection.categoriesWithWords.length*(++counter));
 
-    if(counter === $collectionData.categories.length) {
+    if(counter === collection.categoriesWithWords.length) {
       updateCollectionIds($downloadedCollections.concat([collectionId]));
+      loadCollection(collectionId);
       f7.progressbar.hide(progressBarEl); 
       downLoading = false;
     }
@@ -91,11 +81,46 @@
 
   function updateCollectionIds(collectionIds) {
       downloadedCollections.set(collectionIds);
-      collection.saveAppInfo("downloadedCollections", collectionIds);
+      data.saveAppInfo("downloadedCollections", collectionIds);
   }
 
   function continueButton(collectionId){
-    setupData(collectionId, () => f7router.navigate('/CategoryList'));
+    let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
+    collectionData.set(selectedCollection);
+    f7router.navigate('/CategoryList');
+  }
+
+  function loadCollection(collectionId) {
+    let collection = {
+      "id": collectionId, 
+      "name": collectionItems.find((c) => c.id === collectionId).label, 
+      "categories": [],
+      "categoriesWithWords": []
+    }
+
+    data.getCategoryList(collectionId, (categories) => {
+      categories.forEach((category) => {
+        data.getWordIdsList(collectionId, category.id, WordsType.ALL, (wordIds) => {
+          collection.categoriesWithWords.push({"category": category, "wordIds": wordIds})
+        });
+
+        data.getCategoryStatisticsPromise(collectionId, category.id).then((stats) => {
+          if (stats !== null) {
+            category.stats = stats;
+            category.active = false;
+            data.getCategoryModeStatisticsPromise(collectionId, category.id)
+              .then((modeStats) => { 
+                category.modeStats = modeStats; 
+              });
+            collection.categories.push(category);
+          }
+        });
+      });
+    });
+    const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
+    if (index > -1) { $allCollectionsData.splice(index, 1) }
+
+    $allCollectionsData.push(collection);
   }
 
   const collectionItems = [
@@ -150,6 +175,3 @@
     }
   ];
 </script>
-
-<style>
-</style>
