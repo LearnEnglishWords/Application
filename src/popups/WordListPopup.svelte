@@ -30,7 +30,7 @@
   import { createEventDispatcher } from 'svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
-  import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playSound, allWordsDevelData } from '../js/utils.js'
   import { 
     updateAllStatisticsAndSaveWord, collectionData,
     categoryDetailData, trainingData,
@@ -49,17 +49,23 @@
   let wordState = {};
   let allWordsSorted = [];
   let batchSize = 20;
-  let allWordIds = $collectionData.categoriesWithWords
-                    .find(({category, wordIds}) => 
-                      $categoryDetailData.id === category.id
-                    ).wordIds;
 
-  // sort words 
-  let allWordsSortedIds = allWordIds.sort((a, b) => {
-    return a.charCodeAt(0) - b.charCodeAt(0)
-  });
+  if (develMode) {
+    allWordsSorted = allWordsDevelData;
+  } else {
+    allWordIds = $collectionData.categoriesWithWords
+                  .find(({category, wordIds}) => 
+                    $categoryDetailData.id === category.id
+                  ).wordIds;
 
-  loadWords(0, batchSize);
+    // sort words 
+    let allWordsSortedIds = allWordIds.sort((a, b) => {
+      return a.charCodeAt(0) - b.charCodeAt(0)
+    });
+
+    loadWords(0, batchSize);
+  }
+
   function loadWords(from, to) {
     allWordsSortedIds.slice(from, to).forEach((wordId) => {
       collection.getWord(wordId, (word) => {

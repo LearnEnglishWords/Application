@@ -42,7 +42,12 @@
       "training_title": "Zvolte si druh cvičení",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
-      "training_mode": "Procvičit",
+      "training_mode": {
+          "title": "Procvičit",
+          "read": "Čtení",
+          "write": "Psaní",
+          "listen": "Poslech"
+      },
       "words_limit": "Zvolte si počet slov",
       "words_title": "Počet slov",
       "words": "Slov",
