@@ -7,7 +7,7 @@
   </Header>
   <!-- Header -->
   <div class="header statistics">
-    <Row>
+    <Row class="CategoryList">
       <Col class="known">
         <span>{globalStatisticsData.known}</span>
         <span>{$_('statistics.known')}</span>
@@ -24,7 +24,6 @@
         <span>{$_('statistics.text')}</span>
       </Col>
     </Row>
-    <div class="decoration"></div>
   </div>
   <!-- View -->
   <div class="view CategoryList">
