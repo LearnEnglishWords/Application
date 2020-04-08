@@ -131,6 +131,7 @@
   let wordsLoaded = 0;
   let filtredWords = filterNotKnownWords();
   let loadingInProgress = true;
+  let batchSize = wordsLimit;
 
 
   if(develMode) {
@@ -142,25 +143,26 @@
     collection.getWordIdsList($collectionData.id, $categoryDetailData.id, WordsType.NOT_KNOWN, (wordIds) => {
       allWordIds = [...wordIds];
       $categoryDetailData.wordIds = allWordIds; 
-      loadWords(0, wordsLimit);
+      loadWords(0, batchSize);
     });
   }
 
   function loadWords(from, to) {
     filtredWords = filterNotKnownWords()
 
-    if(allWords.length !== allWordIds.length && filtredWords.length < wordsLimit) {
+    if(allWords.length !== allWordIds.length && filtredWords.length < batchSize) {
       for (let wordId of allWordIds.slice(from, to)) {
         collection.getWord(wordId, (word) => {
           allWords.push(word);
           wordsLoaded++;
           if(wordsLoaded === to) {
-            loadWords(to, to + wordsLimit);
+            loadWords(to, to + batchSize);
           }
         });
       }
     } else {
       loadingInProgress = false;
+      //alert("Stopped loading.");
     }
   }
 
@@ -174,13 +176,13 @@
   function changeTrainingMode(index) {
     trainingModeIndex = index;
     if(loadingInProgress === false) {
-      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+      loadWords(wordsLoaded, wordsLoaded + batchSize);
     }
   }
 
   function wordsLimitChanged() {
     if(loadingInProgress === false) {
-      loadWords(wordsLoaded, wordsLoaded + wordsLimit);
+      loadWords(wordsLoaded, wordsLoaded + batchSize);
     }
   }
 
@@ -211,9 +213,9 @@
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
-    collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, allWordIds, WordsType.NOT_KNOWN);
+    //collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, allWordIds, WordsType.NOT_KNOWN);
 
-    if(allWords.length === allWordIds.length || filtredWords.length >= wordsLimit) {
+    if(loadingInProgress === false) {
       setupData(isTraining, filtredWords);
       f7.preloader.hide();
       f7router.navigate('/Training');
