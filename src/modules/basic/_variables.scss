@@ -1,0 +1,65 @@
+// --------------------------------------------------
+// ==> SCSS: Variables
+// --------------------------------------------------
+// --> CategoryList
+$CategoryList: ("known", "learning", "unknown");
+
+// --> Light theme
+$light-theme: (
+  //-> App
+  "app": "#3A56A5",
+  "border": "#ECECEC",
+  "core": "#FFFFFF",
+  "theme": "#F1F1FA",
+  "title": "#555555",
+  //-> Colors
+  "known": "#0DC80D",
+  "learning": "#F1A924",
+  "unknown": "#FF6A4F",
+  "read": "#0DC80D",
+  "write": "#F1A924",
+  "listen": "#FF6A4F",
+  //-> Header
+  "header": "#FFFFFF",
+  //-> Navbar
+  "navbar-icon": "#FFFFFF",
+  "navbar-title": "#FFFFFF",
+  //-> Page
+  "page-title": "#888888"
+);
+
+:root {
+  @each $name, $color in $light-theme {
+    --#{$name}: #{$color}; 
+  }
+}
+
+// --> Dark theme
+$dark-theme: (
+  //-> App
+  "app": "#3A56A5", 
+  "border": "#131313",
+  "core": "#1F1F28",
+  "theme": "#272636",
+  "title": "#888888",
+  //-> Colors
+  "known": "#0DC80D",
+  "learning": "#F1A924",
+  "unknown": "#FF6A4F",
+  "read": "#0DC80D",
+  "write": "#F1A924",
+  "listen": "#FF6A4F",
+  //-> Header
+  "header": "#FFFFFF",
+  //-> Navbar
+  "navbar-icon": "#FFFFFF",
+  "navbar-title": "#FFFFFF",
+  //-> Page
+  "page-title": "#555555"
+);
+
+:root .dark-theme {
+  @each $name, $color in $dark-theme {
+    --#{$name}: #{$color};
+  }
+}

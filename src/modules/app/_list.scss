@@ -1,0 +1,89 @@
+// --------------------------------------------------
+// ==> SCSS: App
+// --------------------------------------------------
+// --> List
+.list {
+  margin: 0 15px;
+  ul {
+    background: transparent;
+    li {
+      margin-bottom: 1px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .list-item {
+        background: var(--core);
+        @include transition(all 300ms ease-in-out);
+        .item-media {
+          i {
+            color: var(--app);
+            @include transition(all 300ms ease-in-out);
+          }
+        }
+        .item-inner {
+          .item-title {
+            @include font(null, 13px, 600);
+            color: var(--title);
+            @include transition(all 300ms ease-in-out);
+          }
+          .item-after {
+            div {
+              span {
+                @include font(null, 11px, 700);
+                padding: 0;
+                color: var(--title);
+                text-align: right;
+                display: block;
+                height: calc(43px / 3);
+                line-height: calc(43px / 3);
+                @include transition(all 300ms ease-in-out);
+                @each $statistics in $CategoryList {
+                  &.#{$statistics} {
+                    color: var(--#{$statistics});
+                  }
+                }
+              }
+            }
+            &::after {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+      &.active {
+        &:first-child {
+          .list-item {
+            border-radius: 15px 15px 0 0;
+          }
+        }
+        &:last-child {
+          .list-item {
+            border-radius: 0 0 15px 15px;
+          }
+        }
+        .list-item {
+          padding: 0px 15px 0 calc((var(--f7-list-item-padding-horizontal) + var(--f7-safe-area-left) + 15px ));
+          margin: 0 -15px;
+          background: var(--app);
+          .item-media {
+            i {
+              color: #FFFFFF;
+            }
+          }
+          .item-inner {
+            .item-title {
+              color: #FFFFFF;
+            }
+            .item-after {
+              div {
+                span {
+                  color: #FFFFFF;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

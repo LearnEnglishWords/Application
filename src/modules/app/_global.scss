@@ -1,0 +1,37 @@
+// --------------------------------------------------
+// ==> SCSS: App
+// --------------------------------------------------
+// --> Global
+html, body {
+  @include font('Exo', null, 400);
+}
+.device-cordova.device-ios {
+  height: 100vh;
+}
+    
+// --> Page
+.page-content {
+    background: var(--theme);
+    padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
+}
+
+// --> View
+.view {
+  &.CategoryList {
+    @include position(absolute, calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + (85px + 45px)), 0, calc(var(--f7-button-height) * 2), 0);
+    width: auto;
+    overflow: auto;
+    padding: 15px 15px 0 15px;
+    background: var(--theme);
+    height: auto;
+    border-radius: 25px 25px 0 0;
+  }
+}
+
+// --> Title
+.block-title {
+  text-transform: uppercase;
+  @include font(null, 11px, 700);
+  color: var(--page-title);
+  margin-top: 0;
+}
