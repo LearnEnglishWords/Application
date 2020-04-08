@@ -129,7 +129,7 @@ export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   statisticsData.updateData(word, prevState);
   trainingModeStatisticsData.updateData(word, modes);
 
-  updateInOtherCategories(word, prevState, modes);
+  //updateInOtherCategories(word, prevState, modes);
 
   // Save current statistics
   collection.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
