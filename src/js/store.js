@@ -1,7 +1,8 @@
 import { writable, get } from 'svelte/store';
 import Collection from './collection.js';
 import { 
-  WordsType, isKnownForMode, getState,
+  WordsType, Modes,
+  isKnownForMode, getState,
   defaultSettingsData, 
   defaultStatisticsData,
   defaultModeStatisticsData 
@@ -78,17 +79,17 @@ export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
 function removeWordFromCategory(currentCollection, category, word) {
-  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, (wordIds) => {
+  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL, (wordIds) => {
     const index = wordIds.indexOf(word.text);
     if (index > -1) { wordIds.splice(index, 1) }
-    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN);
+    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
   });                                       
 }
 
 function addWordIntoCategory(currentCollection, category, word) {
-  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, (wordIds) => {
+  collection.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL, (wordIds) => {
     wordIds.push(word.text);
-    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN);
+    collection.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
   });                                       
 }
 

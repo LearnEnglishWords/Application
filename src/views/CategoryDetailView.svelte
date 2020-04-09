@@ -35,7 +35,6 @@
         <Stepper round fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-            on:stepperChange={wordsLimitChanged}
         ></Stepper>
       </Col>
     </Row>
@@ -82,6 +81,7 @@
 
   import { trainingModes, WordsType } from '../js/utils.js'
   import Collection from '../js/collection.js';
+  import WordsStorage from '../js/words.js';
   import Statistics from '../components/Statistics.svelte';
   import WordListPopup from '../popups/WordListPopup.svelte';
   import Header from '../components/Header.svelte';
@@ -90,85 +90,53 @@
   export let f7router;
 
   let collection = new Collection();
-  let allWords = [];
-  let allWordIds = [];
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
-  let wordsLoaded = 0;
-  let filtredWords = filterNotKnownWords();
-  let loadingInProgress = true;
-  let batchSize = wordsLimit;
+  let modeType = trainingModes[trainingModeIndex].value;
+
+  if ($categoryDetailData.wordStorages === undefined) { 
+    $categoryDetailData.wordStorages = {
+      'read': new WordsStorage('read', 100),
+      'write': new WordsStorage('write', 100),
+      'listen': new WordsStorage('listen', 100),
+    }
+  }
+
+  let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
+
 
   statisticsData.set($categoryDetailData.stats);
   trainingModeStatisticsData.set($categoryDetailData.modeStats);
 
-  collection.getWordIdsList($collectionData.id, $categoryDetailData.id, WordsType.NOT_KNOWN, (wordIds) => {
-    allWordIds = [...wordIds];
-    $categoryDetailData.wordIds = allWordIds; 
-    loadWords(0, batchSize);
-  });
+  currentWordStorage.load($collectionData.id, $categoryDetailData.id);
 
-  function loadWords(from, to) {
-    filtredWords = filterNotKnownWords()
-
-    if(allWords.length !== allWordIds.length && filtredWords.length < batchSize) {
-      for (let wordId of allWordIds.slice(from, to)) {
-        collection.getWord(wordId, (word) => {
-          allWords.push(word);
-          wordsLoaded++;
-          if(wordsLoaded === to) {
-            loadWords(to, to + batchSize);
-          }
-        });
-      }
-    } else {
-      loadingInProgress = false;
-      //alert("Stopped loading.");
-    }
-  }
-
-  function filterNotKnownWords() {
-    let currentMode = trainingModes[trainingModeIndex];
-    return allWords.filter((word) => 
-      word.learning === undefined || word.learning[currentMode.value] === false
-    )
-  }
 
   function changeTrainingMode(index) {
     trainingModeIndex = index;
-    if(loadingInProgress === false) {
-      loadWords(wordsLoaded, wordsLoaded + batchSize);
-    }
-  }
+    modeType = trainingModes[index].value;
+    currentWordStorage = $categoryDetailData.wordStorages[modeType];
 
-  function wordsLimitChanged() {
-    if(loadingInProgress === false) {
-      loadWords(wordsLoaded, wordsLoaded + batchSize);
+    if (currentWordStorage.getWords(wordsLimit).length === 0) {
+      currentWordStorage.load($collectionData.id, $categoryDetailData.id);
     }
   }
 
   function addWord(event) {
     let word = event.detail.word;
-    allWordIds.push(word.text);
-    allWords.push(word);
+    currentWordStorage.addWord(word);
   }
 
   function removeWord(event) {
     let word = event.detail.word;
-    var index = allWordIds.findIndex((wordText) => wordText === word.text);
-    allWordIds.splice(index, 1);
-    index = allWords.findIndex((w) => w.text === word.text);
-    allWords.splice(index, 1);
+    currentWordStorage.removeWord(word);
   }
 
   function setupData(isTraining) {
-    let currentMode = trainingModes[trainingModeIndex];
-
     trainingData.set({ 
-      mode: currentMode.value, 
+      mode: modeType, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: filterNotKnownWords().slice(0, wordsLimit)
+      words: currentWordStorage.getWords(wordsLimit)
     });
   }
 
@@ -176,8 +144,8 @@
     f7.preloader.show();
     //collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, allWordIds, WordsType.NOT_KNOWN);
 
-    if(loadingInProgress === false) {
-      setupData(isTraining, filtredWords);
+    if(currentWordStorage.isLoaded(wordsLimit)) {
+      setupData(isTraining);
       f7.preloader.hide();
       f7router.navigate('/Training');
     } else {

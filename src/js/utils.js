@@ -87,3 +87,10 @@ export const WordsType = {
     UNKNOWN: 'unknown',
     NOT_KNOWN: 'not_known'
 }
+
+export const Modes = {
+    ALL: 'all',
+    READ: 'read',
+    WRITE: 'write',
+    LISTEN: 'listen'
+}

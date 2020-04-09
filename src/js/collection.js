@@ -1,4 +1,4 @@
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType } from './utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from './utils.js'
 
 
 export default class Collection {
@@ -32,10 +32,12 @@ export default class Collection {
 
   saveCategoryWords(collectionId, categoryId, words, progress) {
     let wordIds = words.map((word) => word.text);
-    this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN);
-    this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL).then(() => {
+    Object.values(Modes).forEach((value) => {
+      this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN, value);
+    });
+    this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL, Modes.ALL).then(() => {
       words.forEach((word) => this.saveWord(word.text, word));
-      this.getWordIdsList(collectionId, categoryId, WordsType.ALL, progress)
+      this.getWordIdsList(collectionId, categoryId, WordsType.ALL, Modes.ALL, progress)
     });
   }
 
@@ -56,18 +58,33 @@ export default class Collection {
     });
   }
 
-  saveWordIdsList(collectionId, categoryId, words, type) {
-    if(type === undefined || type === null) { type = WordsType.ALL }
-    if(type !== WordsType.ALL && type !== WordsType.KNOWN && type !== WordsType.NOT_KNOWN) { return }
-    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:word:${type}:ids`, words);
+  validateMode(mode) {
+    if(Object.values(Modes).includes(mode)) { return true }
+    alert(`WordIdsList cannot be saved/loaded with Mode: '${mode}'`)
+    return false
   }
 
-  getWordIdsList(collectionId, categoryId, type, callback) {
-    if(type === undefined || type === null) { type = WordsType.ALL }
-    if(type !== WordsType.ALL && type !== WordsType.KNOWN && type !== WordsType.NOT_KNOWN) { return }
-    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:word:${type}:ids`).then((data) => {
+  validateWordsType(type) {
+    if([WordsType.ALL, WordsType.KNOWN, WordsType.NOT_KNOWN].includes(type)) { return true }
+    alert(`WordIdsList cannot be saved/loaded with WordType: '${type}'`)
+    return false
+  }
+
+  saveWordIdsList(collectionId, categoryId, words, type, mode) {
+    if (!this.validateMode(mode) || !this.validateWordsType(type)) { return }
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`, words);
+  }
+
+  getWordIdsList(collectionId, categoryId, type, mode, callback) {
+    if (!this.validateMode(mode) || !this.validateWordsType(type)) { return }
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`).then((data) => {
       callback(data);
     });
+  }
+
+  getWordIdsListPromise(collectionId, categoryId, type, mode) {
+    if (!this.validateMode(mode) || !this.validateWordsType(type)) { return null }
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`);
   }
 
   saveWord(wordId, word) {

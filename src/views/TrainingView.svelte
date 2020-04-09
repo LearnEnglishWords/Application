@@ -162,15 +162,7 @@
     if (word.learning[$trainingData.mode] !== state) {  
       word.learning[$trainingData.mode] = state;
       updateAllStatisticsAndSaveWord(word, previousState, [{mode: $trainingData.mode, prevState: isKnown}]);
-      removeWhenIsKnown(word);
-    }
-  }
-
-  function removeWhenIsKnown(word) {
-    if (getState(word) === WordsType.KNOWN) {
-      var index = $categoryDetailData.wordIds.findIndex((wordText) => wordText === word.text);
-      $categoryDetailData.wordIds.splice(index, 1);
-      collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, $categoryDetailData.wordIds, WordsType.NOT_KNOWN);
+      $categoryDetailData.wordStorages[$trainingData.mode].removeWord(word);
     }
   }
 
