@@ -23,19 +23,15 @@ export default class WordsStorage {
     this.storage.getWordIdsListPromise(collectionId, categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
       this.allWordIds = wordIds;
       if(withWords) {
-        this.loadWords(0, this.maxAmount, false);
+        this.loadWords(0, this.maxAmount);
       }
     });
   }
 
-  loadWords(from, to, checkExists) {
+  loadWords(from, to) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
       this.storage.getWord(wordId, (word) => {
-        if (checkExists) { 
-          if (this._getWordIndex(word) === null) {
-            this._pushWord(word);
-          }
-        } else {
+        if (this._getWordIndex(word) === null) {
           this._pushWord(word);
         }
       });
@@ -58,7 +54,7 @@ export default class WordsStorage {
   
   getWords(limit) {
     if(this.loadedWordsCounter < this.maxAmount) {
-      this.loadWords(this.loadedWordsCounter, this.maxAmount, true);
+      this.loadWords(this.loadedWordsCounter, this.maxAmount);
     }
     return this.allWords.slice(0, limit)
   }
