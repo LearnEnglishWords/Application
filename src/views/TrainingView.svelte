@@ -107,10 +107,12 @@
     unknown: 0
   };
 
+  $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
+
   if (!isTraining) {
     $trainingData.words = shuffle($trainingData.words);
   }
-
+  
   onMount(() => {
     swiper = f7.swiper.get('.swiper-container')
     swiper.on("slideNextTransitionStart", () => { 
