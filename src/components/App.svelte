@@ -14,6 +14,7 @@
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
+  import WordListView from '../views/WordListView.svelte';
   import { downloadedCollections } from '../js/store.js';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
@@ -126,6 +127,10 @@
       {
         path: '/Settings',
         component: SettingsView
+      },
+      {
+        path: '/WordList',
+        component: WordListView
       }
     ]
   };

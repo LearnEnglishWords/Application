@@ -87,12 +87,20 @@
   <Block style="display: none" inset>
     <Row>
       <Col>
-        <Button large raised popupOpen=".word-list">{$_('category.buttons.words_list')}</Button>
+        <Button large raised on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
       </Col>
     </Row>
   </Block>
-
-  <WordListPopup style="display: none" name="word-list" on:addWord={addWord} on:removeWord={removeWord} />
+  <Block inset>
+    <Row>
+      <Col>
+        <Button large outline on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+      </Col>
+      <Col>
+        <Button large fill on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+      </Col>
+    </Row>
+  </Block>
 </Page>
 
 <script>
@@ -116,7 +124,6 @@
   import Collection from '../js/collection.js';
   import WordsStorage from '../js/words.js';
   import Statistics from '../components/Statistics.svelte';
-  import WordListPopup from '../popups/WordListPopup.svelte';
   import Header from '../components/Header.svelte';
   import { develMode } from '../js/config.js';
   import { _ } from 'svelte-i18n';
@@ -138,7 +145,10 @@
 
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
 
-  currentWordStorage.load($collectionData.id, $categoryDetailData.id);
+  trainingModes.forEach((mode) => {
+    let wordStorage = $categoryDetailData.wordStorages[mode.value];
+    wordStorage.loadIds($collectionData.id, $categoryDetailData.id, mode.value === 'read');
+  });
 
   if(develMode) {
     //setDevelData();
@@ -154,18 +164,8 @@
     currentWordStorage = $categoryDetailData.wordStorages[modeType];
 
     if (currentWordStorage.getWords(wordsLimit).length === 0) {
-      currentWordStorage.load($collectionData.id, $categoryDetailData.id);
+      currentWordStorage.loadIds($collectionData.id, $categoryDetailData.id, true);
     }
-  }
-
-  function addWord(event) {
-    let word = event.detail.word;
-    currentWordStorage.addWord(word);
-  }
-
-  function removeWord(event) {
-    let word = event.detail.word;
-    currentWordStorage.removeWord(word);
   }
 
   function setupData(isTraining) {
@@ -175,6 +175,10 @@
       wallEnabled: !isTraining,
       words: currentWordStorage.getWords(wordsLimit)
     });
+  }
+
+  function goToWordListView(isTraining) {
+    f7router.navigate('/WordList');
   }
 
   function goToTrainingView(isTraining) {
