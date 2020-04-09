@@ -138,14 +138,13 @@
 
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
 
+  currentWordStorage.load($collectionData.id, $categoryDetailData.id);
 
   if(develMode) {
-    setDevelData();
+    //setDevelData();
   } else {
     statisticsData.set($categoryDetailData.stats);
     trainingModeStatisticsData.set($categoryDetailData.modeStats);
-
-    currentWordStorage.load($collectionData.id, $categoryDetailData.id);
   }
 
 
@@ -192,9 +191,9 @@
   }
   
   function setDevelData() {
-    allWords = allWordsDevelData;
+    //allWords = allWordsDevelData;
 
-    allWordIds = ["hello", "car", "bedroom"];
+    //allWordIds = ["hello", "car", "bedroom"];
 
     categoryDetailData.set({name: "Test category", id: "Test category"});
   }
