@@ -88,6 +88,12 @@ export const WordsType = {
     NOT_KNOWN: 'not_known'
 }
 
+export const Modes = {
+    ALL: 'all',
+    READ: 'read',
+    WRITE: 'write',
+    LISTEN: 'listen'
+}
 
 export const allWordsDevelData = [
   {
