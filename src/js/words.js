@@ -16,13 +16,15 @@ export default class WordsStorage {
     this.allWordIds = [];
   }
 
-  load(collectionId, categoryId) {
+  loadIds(collectionId, categoryId, withWords) {
     this.collectionId = collectionId;
     this.categoryId = categoryId;
 
-    return this.storage.getWordIdsListPromise(collectionId, categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
+    this.storage.getWordIdsListPromise(collectionId, categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
       this.allWordIds = wordIds;
-      this.loadWords(0, this.maxAmount, false);
+      if(withWords) {
+        this.loadWords(0, this.maxAmount, false);
+      }
     });
   }
 

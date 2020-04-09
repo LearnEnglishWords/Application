@@ -1,33 +1,30 @@
-<Popup class={name} animate={true} >
-  <Page>
-    <Header type="popup" popupName={name} title={appName}/>
+<Page name="WordList">
+  <Header title={$_('words_list.title')} />
 
-    <BlockTitle>{$_('words_list.info')}</BlockTitle>
-    <Block>
-      <List>
-        {#each allWordsSorted as word, id}
-          <ListItem>
-            <div on:click={() => playSound(word)}>
-              {word.text}  &#x1F509;
-            </div>
-            <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
-              {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
-            </Button>
-          </ListItem>
-        {/each}
-      </List>
-    </Block>
-  </Page>
-</Popup>
+  <BlockTitle>{$_('words_list.info')}</BlockTitle>
+  <Block>
+    <List>
+      {#each allWordsSorted as word, id}
+        <ListItem>
+          <div on:click={() => playSound(word)}>
+            {word.text}  &#x1F509;
+          </div>
+          <Button raised on:click={() => { setState(word, !isKnown(word)) }}>
+            {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
+          </Button>
+        </ListItem>
+      {/each}
+    </List>
+  </Block>
+</Page>
 
 <script>
   import { 
-    f7, Page, Popup, 
+    f7, Page, 
     BlockTitle, Block,
     List, ListItem,
     Button
   } from 'framework7-svelte';
-  import { createEventDispatcher } from 'svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
@@ -43,7 +40,6 @@
 
   export let name;
 
-  const dispatch = createEventDispatcher();
   const collection = new Collection();
 
   let wordState = {};
@@ -80,9 +76,9 @@
     wordState[word.text] = isKnown(word);
 
     if(known) {
-      dispatch('removeWord', {word: word});
+      trainingModes.forEach((mode) => $categoryDetailData.wordStorages[mode.value].removeWord(word));
     } else {
-      dispatch('addWord', {word: word});
+      trainingModes.forEach((mode) => $categoryDetailData.wordStorages[mode.value].addWord(word));
     }
 
     let allModes = [
