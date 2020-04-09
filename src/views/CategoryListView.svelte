@@ -94,9 +94,6 @@
       globalStatisticsData.known += category.stats.known;
       globalStatisticsData.learning += category.stats.learning;
       globalStatisticsData.unknown += category.stats.unknown;
-      collection.getWordIdsList($collectionData.id, category.id, (words) => {
-        category.words = words;
-      })
       selectedCategories.push(category);
     } else {
       globalStatisticsData.known -= category.stats.known;
