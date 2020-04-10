@@ -137,9 +137,9 @@
 
   if ($categoryDetailData.wordStorages === undefined) { 
     $categoryDetailData.wordStorages = {
-      'read': new WordsStorage('read', 100),
-      'write': new WordsStorage('write', 100),
-      'listen': new WordsStorage('listen', 100),
+      'read': new WordsStorage($collectionData.id, $categoryDetailData.id, 'read', 100),
+      'write': new WordsStorage($collectionData.id, $categoryDetailData.id, 'write', 100),
+      'listen': new WordsStorage($collectionData.id, $categoryDetailData.id, 'listen', 100),
     }
   }
 
@@ -147,7 +147,7 @@
 
   trainingModes.forEach((mode) => {
     let wordStorage = $categoryDetailData.wordStorages[mode.value];
-    wordStorage.loadIds($collectionData.id, $categoryDetailData.id, mode.value === 'read');
+    wordStorage.loadIds(mode.value === 'read');
   });
 
   if(develMode) {

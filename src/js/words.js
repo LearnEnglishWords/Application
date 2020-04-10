@@ -5,9 +5,12 @@ import { Modes, WordsType } from './utils.js';
 
 export default class WordsStorage {
 
-  constructor(currentMode, maxAmount) { 
+  constructor(collectionId, categoryId, currentMode, maxAmount) { 
     this.storage = new Collection();
     this.currentMode = currentMode;
+
+    this.collectionId = collectionId;
+    this.categoryId = categoryId;
 
     this.loadedWordsCounter = 0;
     this.maxAmount = maxAmount;
@@ -16,19 +19,20 @@ export default class WordsStorage {
     this.allWordIds = [];
   }
 
-  loadIds(collectionId, categoryId, withWords) {
-    this.collectionId = collectionId;
-    this.categoryId = categoryId;
+  saveWordIds() {
+    this.storage.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+  }
 
-    this.storage.getWordIdsListPromise(collectionId, categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
+  loadIds(withWords) {
+    this.storage.getWordIdsListPromise(this.collectionId, this.categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
       this.allWordIds = wordIds;
       if(withWords) {
-        this.loadWords(0, this.maxAmount);
+        this.loadWords();
       }
     });
   }
 
-  loadWords(from, to) {
+  loadWords(from = 0, to = this.maxAmount) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
       this.storage.getWord(wordId, (word) => {
         if (this._getWordIndex(word) === null) {
@@ -57,6 +61,13 @@ export default class WordsStorage {
       this.loadWords(this.loadedWordsCounter, this.maxAmount);
     }
     return this.allWords.slice(0, limit)
+  }
+
+  reset() {
+    this.loadedWordsCounter = 0;
+        
+    this.allWords = [];
+    this.allWordIds = [];
   }
 
 
