@@ -136,5 +136,5 @@ export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   collection.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
   collection.saveCategoryModeStatistics(currentCollection.id, currentCategory.id, get(trainingModeStatisticsData));
 
-  collection.saveWord(word.text, word);
+  return collection.saveWord(word.text, word);
 }

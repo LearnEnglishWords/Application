@@ -51,7 +51,7 @@
   const collection = new Collection();
   let addWords = [];
   let removeWords = [];
-  let saved = false;
+  let progress = 0;
 
   let wordState = {};
   let allWordsSorted = [];
@@ -94,7 +94,9 @@
       if (!isKnown(word)) {
         let prevState = getState(word);
         word.learning = {"read": true, "write": true, "listen": true};
-        updateAllStatisticsAndSaveWord(word, prevState, [...removeWordModes]);
+        updateAllStatisticsAndSaveWord(word, prevState, [...removeWordModes]).then(() =>
+          progress++
+        );
       }
     });
 
@@ -103,7 +105,9 @@
       if (isKnown(word)) {
         let prevState = getState(word);
         word.learning = {"read": false, "write": false, "listen": false};
-        updateAllStatisticsAndSaveWord(word, prevState, [...addWordModes]);
+        updateAllStatisticsAndSaveWord(word, prevState, [...addWordModes]).then(() =>
+          progress++
+        );
       }
     });
   }
@@ -125,9 +129,24 @@
   }
 
   function saveWords() {
+    progress = 0;
+    let dialog = f7.dialog.progress($_('words_list.progress'), 0);
     updateStatistics();
     updateCategoryWords();
-    f7router.back();
+    updateProgress(dialog);
+  }
+
+  function updateProgress(dialog) {
+    dialog.setProgress(100/(removeWords.length + addWords.length)*progress);
+    setTimeout(() => {
+      if (progress === removeWords.length + addWords.length) {
+        dialog.close();
+        addWords = [];
+        removeWords = [];
+      } else {
+        updateProgress(dialog);
+      }
+    }, 100);
   }
 
   function setState(word, known) {
