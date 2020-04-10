@@ -138,6 +138,7 @@
   },
   "words_list": {
       "title": "Seznam slov",
+      "progress": "Ukládání...",
       "info": "Zde můžete označit slovíčka, která již znáte:",
       "known": "Znám",
       "unknown": "Neznám"
