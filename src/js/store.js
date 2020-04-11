@@ -2,7 +2,7 @@ import { writable, get } from 'svelte/store';
 import Collection from './collection.js';
 import { 
   WordsType, Modes,
-  isKnownForMode, getState,
+  isKnownForMode, getState, isKnown,
   defaultSettingsData, 
   defaultStatisticsData,
   defaultModeStatisticsData 
@@ -122,6 +122,20 @@ function updateInOtherCategories(word, prevState, modes) {
   });
 }
 
+function addKnownCategory(word) {
+  if (word.knownCategories === undefined) {
+    word.knownCategories = [];
+  }
+  word.knownCategories.push(get(categoryDetailData).id);
+}
+
+function removeKnownCategory(word) {
+  if (word.knownCategories !== undefined) {
+    let index = word.knownCategories.indexOf(get(categoryDetailData).id);
+    if (index > -1) { word.knownCategories.splice(index, 1) }
+  }
+}
+
 export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   let currentCategory = get(categoryDetailData);
   let currentCollection = get(collectionData);
@@ -135,6 +149,12 @@ export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   // Save current statistics
   collection.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
   collection.saveCategoryModeStatistics(currentCollection.id, currentCategory.id, get(trainingModeStatisticsData));
+
+  if (isKnown(word)) {
+    addKnownCategory(word);
+  } else {
+    removeKnownCategory(word);
+  }
 
   return collection.saveWord(word.text, word);
 }

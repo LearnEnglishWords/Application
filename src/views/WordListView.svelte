@@ -68,7 +68,7 @@
   allWordsSortedIds.forEach((wordId) => {
     collection.getWord(wordId, (word) => {
       allWordsSorted.push(word);
-      wordState[word.text] = isKnown(word);
+      wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
     });
   });
 
