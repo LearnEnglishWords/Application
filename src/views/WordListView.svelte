@@ -67,17 +67,17 @@
   });
 
   loadWords(0, batchSize);
-  function loadWords(from, to) {
+  async function loadWords(from, to) {
     allWordsSortedIds.slice(from, to).forEach((wordId) => {
       collection.getWord(wordId, (word) => {
         allWordsSorted.push(word);
         allWordsSorted = [...allWordsSorted];
-        wordState[word.text] = isKnown(word);
+        wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
       });
     });
 
     if (to < allWordsSortedIds.length) { 
-      setTimeout(() => { loadWords(to, to + batchSize) }, 1000);
+      setTimeout(() => { loadWords(to, to + batchSize) }, 3000);
     }
   }
 
@@ -121,8 +121,8 @@
       let wordStorage = $categoryDetailData.wordStorages[mode.value];
 
       var updateWordIds = wordStorage.allWordIds
-        .filter(wordId => !removeWords.includes(wordId))
-        .concat(addWords);
+        .concat(addWords)
+        .filter(wordId => !removeWords.includes(wordId));
 
       wordStorage.reset();
       wordStorage.allWordIds = [...new Set(updateWordIds)];
@@ -147,6 +147,7 @@
         dialog.close();
         addWords = [];
         removeWords = [];
+        f7router.back();
       } else {
         updateProgress(dialog);
       }
@@ -156,7 +157,7 @@
   function setState(word, known) {
     wordState[word.text] = known;
 
-    if (isKnown(word) === known) {
+    if (isKnown(word) === known && (word.knownCategories === undefined || word.knownCategories.length === 0)) {
       var index = addWords.indexOf(word.text);
       if (index > -1) { addWords.splice(index, 1) }
 
