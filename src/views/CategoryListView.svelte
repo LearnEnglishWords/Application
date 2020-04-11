@@ -31,20 +31,18 @@
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
     <!-- List -->
     <List>
-      {#each $collectionData.categories as category, id} 
+      {#each $collectionData.categories as category, id}
         <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
           <i slot="media" class="material-icons">{category.icon}</i>
           <div slot="after"><Statistics simple statistic={category.stats} /></div>
-        </ListItem> 
+        </ListItem>
       {/each}
     </List> 
   </div>
-
   <!-- Footer -->
   <div class="footer one">
     <Button on:click={goToDetailView}>{$_('category.confirm')}</Button>
   </div>
-
 </Page>
 
 <script>
@@ -121,9 +119,8 @@
         let isActive = false;
         for(let value of this.classList) {
           if(value === 'active') { isActive = true; break }
-        } 
+        }
       }
     }
   }
-
 </script>

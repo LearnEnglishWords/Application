@@ -1,14 +1,13 @@
 <Page name="CategoryDetail">
   <!-- Navbar -->
   <Header>
-    <div slot="title">
+    <div slot="title" class="title">
       <span>{$_('statistics.title')}</span>
     </div>
   </Header>
-
   <!-- Header -->
-  <div style="display:none" class="CategoryDetail header">
-    <Row>
+  <div class="header statistics">
+    <Row class="CategoryDetail">
       <Col class="read">
         <span>42</span>
         <span>{$_('statistics.read')}</span>
@@ -26,29 +25,58 @@
       </Col>
     </Row>
   </div>
-
-
-  <!-- BlockTitle -->
-  <BlockTitle>{$_('category.training_title')}</BlockTitle>
-  <!-- AccordionList -->
-  <Block>
-    <List accordionList noHairlines>
+  <!-- View -->
+  <div class="view CategoryDetail">
+    <!-- Title -->
+    <BlockTitle>{$_('category.training_title')}</BlockTitle>
+    <!-- DD -->
+    <Block>
       <ListItem accordionItem header={$_('category.training_mode.title')} title="{$_(`category.training_mode.${trainingModes[trainingModeIndex].value}`)}">
-        <AccordionContent>
-          <List>
-            {#each trainingModes as {value, checked}, id}
-              <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
-                <Statistics simple statistic={$trainingModeStatisticsData[value]} />
-              </ListItem>
-            {/each}
-          </List>
-        </AccordionContent>
+        <List accordionList noHairlines>
+          <AccordionContent>
+            <List>
+              {#each trainingModes as {value, checked}, id}
+                <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
+                  <Statistics simple statistic={$trainingModeStatisticsData[value]} />
+                </ListItem>
+              {/each}
+            </List>
+          </AccordionContent>
+        </List>
       </ListItem>
+    </Block>
+
+
+
+
+    <div class="block block-strong">
+  <div class="range-slider range-slider-init"
+    data-min="0"
+    data-max="100"
+    data-label="true"
+    data-step="5"
+    data-value="25"
+    data-scale="true"
+    data-scale-steps="5"
+    data-scale-sub-steps="4"
+  ></div>
+</div>
+  </div>
+  <!-- Footer -->
+  <div class="footer two">
+    <Button on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+    <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+  </div>
+
+
+  <!-- AccordionList -->
+  <Block style="display: none">
+    <List accordionList noHairlines>
+
     </List>
   </Block>
 
-  <!-- BlockTitle -->
-  <BlockTitle>{$_('category.words_limit')}</BlockTitle>
+
   <!-- Stepper -->
   <Block>
     <List>
@@ -72,16 +100,6 @@
   </Block>
 
 
-  <!-- Page -->
-  <div style="display:none;" class="CategoryDetail page">
-
-
-    <!-- Footer -->
-    <div class="CategoryDetail footer">
-      <Button on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-      <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
-    </div>
-  </div>
 
 
   <Block style="display: none" inset>
@@ -91,7 +109,7 @@
       </Col>
     </Row>
   </Block>
-  <Block inset>
+  <Block inset style="display: none">
     <Row>
       <Col>
         <Button large outline on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>

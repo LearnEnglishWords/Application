@@ -5,20 +5,17 @@
 .header {
   &.statistics {
     width: 100%;
-    background: var(--app);
-    background-image: url("../../assets-src/pattern.png");
-    background-blend-mode: multiply;
-    animation: animatedBackground 60s linear infinite;
     @include position(fixed, 0, 0, null, 0);
+    background: var(--app);
     text-transform: uppercase;
     padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
-    padding-bottom: 45px;
     .row {
       @include grid(grid, repeat(auto-fit, minmax(calc(100% / 3), 1fr)), center, center, center);
       height: 85px;
-      margin: 0 15px 15px 15px;
-      background: var(--core);
-      border-radius: 15px;
+      margin: 0;
+      padding-bottom: 30px;
+      background: var(--theme);
+      border-radius: 25px 25px 0 0;
       box-shadow: 0 0 7.5px var(--core);
       .col {
         padding: 15px 0;
@@ -54,13 +51,26 @@
           }
         }
       }
+      &.CategoryDetail {
+        .col {
+          @each $statistics in $CategoryDetail {
+            &.#{$statistics} {
+              span {
+                &:nth-child(1), &:nth-child(3) {
+                  color: var(--#{$statistics});
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   &::before {
     content: "";
     @include position(absolute, null, 0, 0, 0);
-    background: var(--theme);
+    background: var(--core);
     height: 30px;
-    border-radius: 50px 50px 0 0;
+    border-radius: 25px 25px 0 0;
   }
 }

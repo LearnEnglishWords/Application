@@ -7,12 +7,12 @@
   ul {
     background: transparent;
     li {
-      margin-bottom: 1px;
+      margin-bottom: 7.5px;
       &:last-child {
         margin-bottom: 0;
       }
       .list-item {
-        background: var(--core);
+        background: var(--theme);
         @include transition(all 300ms ease-in-out);
         .item-media {
           i {
@@ -51,19 +51,10 @@
         }
       }
       &.active {
-        &:first-child {
-          .list-item {
-            border-radius: 15px 15px 0 0;
-          }
-        }
-        &:last-child {
-          .list-item {
-            border-radius: 0 0 15px 15px;
-          }
-        }
         .list-item {
           padding: 0px 15px 0 calc((var(--f7-list-item-padding-horizontal) + var(--f7-safe-area-left) + 15px ));
           margin: 0 -15px;
+          border-radius: 25px;
           background: var(--app);
           .item-media {
             i {
