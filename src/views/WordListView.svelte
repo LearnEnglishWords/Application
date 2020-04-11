@@ -55,6 +55,7 @@
 
   let wordState = {};
   let allWordsSorted = [];
+  let batchSize = 20;
   let allWordIds = $collectionData.categoriesWithWords
                     .find(({category, wordIds}) => 
                       $categoryDetailData.id === category.id
@@ -65,12 +66,20 @@
     return a.charCodeAt(0) - b.charCodeAt(0)
   });
 
-  allWordsSortedIds.forEach((wordId) => {
-    collection.getWord(wordId, (word) => {
-      allWordsSorted.push(word);
-      wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
+  loadWords(0, batchSize);
+  function loadWords(from, to) {
+    allWordsSortedIds.slice(from, to).forEach((wordId) => {
+      collection.getWord(wordId, (word) => {
+        allWordsSorted.push(word);
+        allWordsSorted = [...allWordsSorted];
+        wordState[word.text] = isKnown(word);
+      });
     });
-  });
+
+    if (to < allWordsSortedIds.length) { 
+      setTimeout(() => { loadWords(to, to + batchSize) }, 1000);
+    }
+  }
 
   function updateStatistics() {
     let removeWordModes = [
