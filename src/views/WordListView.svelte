@@ -45,7 +45,6 @@
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
-  export let name;
   export let f7router;
 
   const collection = new Collection();
@@ -127,8 +126,8 @@
       let wordStorage = $categoryDetailData.wordStorages[mode.value];
 
       var updateWordIds = wordStorage.allWordIds
-        .concat(addWords);
-        .filter(wordId => !removeWords.includes(wordId))
+        .concat(addWords)
+        .filter(wordId => !removeWords.includes(wordId));
 
       wordStorage.reset();
       wordStorage.allWordIds = [...new Set(updateWordIds)];

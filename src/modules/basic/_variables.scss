@@ -4,14 +4,17 @@
 // --> CategoryList
 $CategoryList: ("known", "learning", "unknown");
 
+// --> CategoryDetail
+$CategoryDetail: ("read", "write", "listen");
+
 // --> Light theme
 $light-theme: (
   //-> App
   "app": "#3A56A5",
   "border": "#ECECEC",
-  "core": "#FFFFFF",
-  "theme": "#F1F1FA",
-  "title": "#555555",
+  "core": "#F4F6F9",
+  "theme": "#FFFFFF",
+  "title": "#9B9EAB",
   //-> Colors
   "known": "#0DC80D",
   "learning": "#F1A924",
@@ -23,9 +26,7 @@ $light-theme: (
   "header": "#FFFFFF",
   //-> Navbar
   "navbar-icon": "#FFFFFF",
-  "navbar-title": "#FFFFFF",
-  //-> Page
-  "page-title": "#888888"
+  "navbar-title": "#FFFFFF"
 );
 
 :root {
@@ -53,9 +54,7 @@ $dark-theme: (
   "header": "#FFFFFF",
   //-> Navbar
   "navbar-icon": "#FFFFFF",
-  "navbar-title": "#FFFFFF",
-  //-> Page
-  "page-title": "#555555"
+  "navbar-title": "#FFFFFF"
 );
 
 :root .dark-theme {

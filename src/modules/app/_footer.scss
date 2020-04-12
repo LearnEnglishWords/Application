@@ -5,7 +5,7 @@
 .footer {
   @include position(absolute, null, 0, 0, 0);
   width: 100%;
-  background: var(--core);
+  background: var(--theme);
   border-top: 1px solid var(--border);
   .button {
     color: #FFFFFF;
@@ -17,9 +17,23 @@
     line-height: calc(var(--f7-button-height) + 4px);
     box-shadow: 0 0 7.5px var(--core);
     --f7-touch-ripple-color: var(--f7-touch-ripple-white);
-    border-radius: 15px;
+    border-radius: 25px;
     &.active-state {
       color: #FFFFFF;
+    }
+  }
+  &.two {
+    .button {
+      width: calc((100% / 2) - 30px);
+      display: inline-block;
+      &:nth-child(1) {
+        float: Left;
+        left: 15px;
+      }
+      &:nth-child(2) {
+        float: right;
+        right: 15px;
+      }
     }
   }
 }

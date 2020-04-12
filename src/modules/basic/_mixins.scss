@@ -59,3 +59,35 @@
   justify-content: $justify-items;
   text-align: $text-align;
 }
+
+// --> perspective
+@mixin perspective($value) {
+  -webkit-perspective: $value;
+  -moz-perspective: $value;
+  -o-perspective: $value;
+  perspective: $value;
+}
+
+// --> transform
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -o-transform: $value;
+  transform: $value;
+}
+
+// --> transform-style
+@mixin transform-style($value) {
+  -webkit-transform-style: $value;
+  -moz-transform-style: $value;
+  -o-transform-style: $value;
+  transform-style: $value;
+}
+
+// --> backface-visibility
+@mixin backface-visibility($value) {
+  -webkit-backface-visibility: $value;
+  -moz-backface-visibility: $value;
+  -moz-backface-visibility: $value;
+  backface-visibility: $value;
+}
