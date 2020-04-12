@@ -55,11 +55,12 @@
 
   let wordState = {};
   let allWordsSorted = [];
+  let batchSize = 20;
 
   if (develMode) {
     allWordsSorted = allWordsDevelData;
   } else {
-    let allWordIds = $collectionData.categoriesWithWords
+    allWordIds = $collectionData.categoriesWithWords
                   .find(({category, wordIds}) => 
                     $categoryDetailData.id === category.id
                   ).wordIds;
@@ -69,12 +70,20 @@
       return a.charCodeAt(0) - b.charCodeAt(0)
     });
 
-    allWordsSortedIds.forEach((wordId) => {
+    loadWords(0, batchSize);
+  }
+
+  function loadWords(from, to) {
+    allWordsSortedIds.slice(from, to).forEach((wordId) => {
       collection.getWord(wordId, (word) => {
         allWordsSorted.push(word);
+        allWordsSorted = [...allWordsSorted];
         wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
       });
     });
+    if (to < allWordsSortedIds.length) { 
+      setTimeout(() => { loadWords(to, to + batchSize) }, 1000);
+    }
   }
 
   function updateStatistics() {
