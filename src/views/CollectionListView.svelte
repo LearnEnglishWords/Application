@@ -3,9 +3,9 @@
   <Block strong inset>
     <BlockTitle medium>{$_('collection.title')}</BlockTitle>
     <List accordionList mediaList inset>
-      {#each collectionItems as {id, label, text, description, active}}
+      {#each collectionItems as {id, title, text, description, active}}
         {#if active}
-          <ListItem accordionItem title="{label}" text="{text}">
+          <ListItem accordionItem title="{title}" text="{text}">
             <AccordionContent>
               <Block>
                 <p>
@@ -15,7 +15,7 @@
                   <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
                 {:else}
                   <p id="collection-loader-{id}"></p>
-                  <Button fill on:click={ () => downloadButton(id) } color="red">{$_('collection.button.download')}</Button>
+                  <Button fill on:click={ () => download(id) } color="red">{$_('collection.button.download')}</Button>
                 {/if}
               </Block>
             </AccordionContent>
@@ -46,9 +46,11 @@
 
   export let f7router;
   let data = new Collection();
-  let downLoading = false;
   let counter;
   let progressBarEl;
+  let wordsAmount = 0;
+  let downloadingCollectionId = null;
+  
   
   
   setTimeout(() => { preloadAllCollections() }, 1000);
@@ -59,23 +61,46 @@
     }
   }
 
-  function downloadButton(collectionId) {
-    if (downLoading) return;
-    downLoading = true;
-    progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
-    counter = 0; 
-    data.download(collectionId, () => loadCollection(collectionId), () => downloadProgress(collectionId));
+  function getCollection(id) {
+    return collectionItems.find((c) => c.id === id);
   }
 
-  function downloadProgress(collectionId) {
-    let collection = $allCollectionsData.find((c) => c.id === collectionId);
-    f7.progressbar.set(progressBarEl, 100/collection.categoriesWithWords.length*(++counter));
+  function checkDependency(currentCollectionId, collectionId, requireCollectionId) {
+    if (currentCollectionId === collectionId && !$downloadedCollections.includes(requireCollectionId)) {
+      let collection = getCollection(requireCollectionId);
+      alert($_('collection.alert.dependency').replace("{0}", collection.title));
+      return false
+    }
+    return true
+  }
 
-    if(counter === collection.categoriesWithWords.length) {
-      updateCollectionIds($downloadedCollections.concat([collectionId]));
-      loadCollection(collectionId);
+  function download(collectionId, withoutProgress = false) {
+    if (downloadingCollectionId != null) {
+      alert($_('collection.alert.downloading'));
+      return
+    }
+    if (!checkDependency(collectionId, 3, 7)) { return }
+    if (!checkDependency(collectionId, 7, 2)) { return }
+
+    downloadingCollectionId = collectionId;
+    counter = 0;
+    progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
+
+    let collection = getCollection(collectionId);
+    if (collection.mainCategory === undefined) {
+      collection.mainCategory = $_('collection.items.main_category_default');
+    }
+    data.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
+  }
+
+  function downloadProgress() {
+    f7.progressbar.set(progressBarEl, 100/wordsAmount*(++counter));
+
+    if(counter === wordsAmount) {
+      updateCollectionIds($downloadedCollections.concat([downloadingCollectionId]));
+      loadCollection(downloadingCollectionId);
       f7.progressbar.hide(progressBarEl); 
-      downLoading = false;
+      downloadingCollectionId = null;
     }
   }
 
@@ -93,7 +118,7 @@
   function loadCollection(collectionId) {
     let collection = {
       "id": collectionId, 
-      "name": collectionItems.find((c) => c.id === collectionId).label, 
+      "name": getCollection(collectionId).title, 
       "categories": [],
       "categoriesWithWords": []
     }
@@ -125,50 +150,60 @@
 
   const collectionItems = [
     {
-      id: "2",
-      label: "Basic", 
+      id: 2,
+      title: $_('collection.items.basic.title'), 
       text: $_('collection.items.basic.text'), 
       description: $_('collection.items.basic.description'), 
+      mainCategory: $_('collection.items.basic.main_category'), 
       active: true
     },
     {
-      id: "7",
-      label: "Standard",
+      id: 7,
+      title: $_('collection.items.standard.title'), 
       text: $_('collection.items.standard.text'), 
       description: $_('collection.items.standard.description'), 
+      mainCategory: $_('collection.items.standard.main_category'), 
       active: true
     },
     {
-      id: "3",
-      label: "Advanced",
+      id: 3,
+      title: $_('collection.items.advanced.title'), 
       text: $_('collection.items.advanced.text'), 
       description: $_('collection.items.advanced.description'), 
+      mainCategory: $_('collection.items.advanced.main_category'), 
+      active: true
+    },
+    {
+      id: 9,
+      title: $_('collection.items.category.title'), 
+      text: $_('collection.items.category.text'), 
+      description: $_('collection.items.category.description'), 
       active: true
     },
     {
       id: "student",
-      label: "Student",
+      title: "Student",
       text: $_('collection.items.student.text'), 
       description: $_('collection.items.student.description'), 
       active: false
     },
     {
       id: "native",
-      label: "Native", 
+      title: "Native", 
       text: $_('collection.items.native.text'), 
       description: $_('collection.items.native.description'), 
       active: false
     },
     {
       id: "media",
-      label: "Media",
+      title: "Media",
       text: $_('collection.items.media.text'), 
       description: $_('collection.items.media.description'), 
       active: false
     },
     {
       id: "personal",
-      label: "Personal",
+      title: "Personal",
       text: $_('collection.items.personal.text'), 
       description: $_('collection.items.personal.description'), 
       active: false

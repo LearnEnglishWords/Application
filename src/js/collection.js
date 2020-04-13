@@ -4,30 +4,41 @@ import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Mode
 export default class Collection {
   constructor() { }
 
-  async downloadAllCategories() {
-    const res = await fetch(`https://drakeman.cz/api/category/list/`);
+  async downloadAllCategories(collectionId) {
+    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/categories`);
     var result = await res.json();
-    return result.payload
+    if (result.payload === undefined) {
+      return [];
+    } else {
+      return result.payload
+    }
   }
 
   async downloadCategoryWords(categoryId, collectionId) {
-    const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words?collectionId=${collectionId}`);
+    //const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words?collectionId=${collectionId}`);
+    const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words`);
     var result = await res.json();
-    return result.payload.words;
+    if (result.payload === undefined) {
+      return [];
+    } else {
+      return result.payload.words;
+    }
   }
 
-  downloadAndSaveCategoryWords(collectionId, categories, progress) {
-    categories.forEach((category) => {
-      this.downloadCategoryWords(category.id, collectionId).then((words) => {
-        if (words !== undefined) {
-          this.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
-          this.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
-          this.saveCategoryWords(collectionId, category.id, words, progress);
-        } else {
-          progress();
-        }
-      });
-    });
+  async downloadCollectionWords(collectionId) {
+    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/words`);
+    var result = await res.json();
+    if (result.payload === undefined) {
+      return [];
+    } else {
+      return result.payload
+    }
+  }
+
+  saveCategory(collectionId, category, words, progress) {
+    this.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
+    this.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
+    this.saveCategoryWords(collectionId, category.id, words, progress);
   }
 
   saveCategoryWords(collectionId, categoryId, words, progress) {
@@ -35,16 +46,51 @@ export default class Collection {
     Object.values(Modes).forEach((value) => {
       this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN, value);
     });
+
     this.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL, Modes.ALL).then(() => {
-      words.forEach((word) => this.saveWord(word.text, word));
-      this.getWordIdsList(collectionId, categoryId, WordsType.ALL, Modes.ALL, progress)
+      words.forEach((word) => {
+        this.getWord(word.text, (savedWord) => {
+          if (savedWord === null) {
+            this.saveWord(word.text, word).then(progress);
+          } else {
+            progress();
+          }
+        });
+      });
     });
   }
 
-  download(collectionId, success, progress) {
-    this.downloadAllCategories().then((categories) => {
-      this.saveCategoryList(collectionId, categories).then(() => success());
-      this.downloadAndSaveCategoryWords(collectionId, categories, progress);
+  downloadCollection(collection, setupProgress, progress) {
+    this.downloadCollectionWords(collection.id).then((words) => {
+      let category = null;
+      if (words.length > 0) {
+        setupProgress(words.length);
+        category = {
+            "icon": "",
+            "name": "All words",
+            "czechName": collection.mainCategory,
+            "wordsCount": words.length,
+            "id": `collection_${collection.id}`
+        }
+        this.saveCategory(collection.id, category, words, progress);
+      }
+
+      this.downloadAllCategories(collection.id).then((categories) => {
+        this.downloadCategories(collection.id, categories, setupProgress, progress);
+        if (category !== null) { categories.unshift(category) }
+        this.saveCategoryList(collection.id, categories);
+      });
+    });
+  }
+
+  downloadCategories(collectionId, categories, setupProgress, progress) {
+    categories.forEach((category) => {
+      this.downloadCategoryWords(category.id, collectionId).then((words) => {
+        if (words !== undefined) {
+          setupProgress(words.length);
+          this.saveCategory(collectionId, category, words, progress);
+        } 
+      });
     });
   }
 
