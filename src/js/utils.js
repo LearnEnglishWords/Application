@@ -19,10 +19,10 @@ export const defaultModeStatisticsData = {
 }
 
 
-export const trainingModes = [
-  { value: "read", checked: true },
-  { value: "write", checked: false },
-  { value: "listen", checked: false }
+export const defaultTrainingModes = [
+  { value: "read", checked: true, icon: "local_library" },
+  { value: "write", checked: false, icon: "edit" },
+  { value: "listen", checked: false, icon: "spellcheck" }
 ]; 
 
 export function getDefaultStatisticsData(count) {

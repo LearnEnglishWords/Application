@@ -34,7 +34,7 @@
   } from 'framework7-svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
-  import { isKnown, getState, trainingModes, playSound, allWordsDevelData } from '../js/utils.js'
+  import { isKnown, getState, defaultTrainingModes, playSound, allWordsDevelData } from '../js/utils.js'
   import { 
     updateAllStatisticsAndSaveWord, collectionData,
     categoryDetailData, trainingData,
@@ -122,7 +122,7 @@
   }
 
   function updateCategoryWords() {
-    trainingModes.forEach((mode) => {
+    defaultTrainingModes.forEach((mode) => {
       let wordStorage = $categoryDetailData.wordStorages[mode.value];
 
       var updateWordIds = wordStorage.allWordIds

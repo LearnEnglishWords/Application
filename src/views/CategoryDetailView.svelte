@@ -31,23 +31,13 @@
     <BlockTitle>{$_('category.training_title')}</BlockTitle>
     <!-- Mode -->
     <div class="training-mode">
-      <!-- Tento šedý text po přečtení smazat -->
-      <!-- radio-container má toggle class ACTIVE, oprav checked, stejně jako toggle class, aktuálně neaktivní -->
-      <div class="radio active">
-        <input type="radio" name="training-mode" value="read" id="read" checked/>
-        <i class="material-icons">local_library</i>
-        <label for="read">Čtení</label>
-      </div>
-      <div class="radio">
-        <input type="radio" name="training-mode" value="write" id="write" />
-        <i class="material-icons">edit</i>
-        <label for="write">Psaní</label>
-      </div>
-      <div class="radio">
-        <input type="radio" name="training-mode" value="listen" id="listen" />
-        <i class="material-icons">spellcheck</i>
-        <label for="listen">Poslech</label>
-      </div>
+      {#each trainingModes as {value, checked, icon}, id}
+        <div class="radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
+          <input type="radio" name="training-mode" value={value} id={value} checked/>
+          <i class="material-icons">{icon}</i>
+          <label for={value}>{$_(`category.training_mode.${value}`)}</label>
+        </div>
+      {/each}
     </div>
     <!-- Title -->
     <div class="block-title has-after" data-after="42">{$_('category.words_limit')}</div>
@@ -74,22 +64,6 @@
     
     
   <!-- můžeš smazat oba tyto BLOCK odstavce, nechal jsem jen, abys viděl své skripty -->
-  <Block style="display: none;">
-    <ListItem accordionItem header={$_('category.training_mode.title')} title="{$_(`category.training_mode.${trainingModes[trainingModeIndex].value}`)}">
-      <List accordionList noHairlines>
-        <AccordionContent>
-          <List>
-            {#each trainingModes as {value, checked}, id}
-              <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
-                <Statistics simple statistic={$trainingModeStatisticsData[value]} />
-              </ListItem>
-            {/each}
-          </List>
-        </AccordionContent>
-      </List>
-    </ListItem>
-  </Block>
-
   <Block style="display: none;">
     <List>
       <ListItem title= {$_('category.words_title')}>
@@ -130,7 +104,7 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes, WordsType, allWordsDevelData } from '../js/utils.js'
+  import { defaultTrainingModes, WordsType, allWordsDevelData } from '../js/utils.js'
   import Collection from '../js/collection.js';
   import WordsStorage from '../js/words.js';
   import Statistics from '../components/Statistics.svelte';
@@ -138,11 +112,12 @@
   import { develMode } from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
-  export let f7router;
+  export let f7router;            
 
   let collection = new Collection();
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
+  let trainingModes = defaultTrainingModes;
   let modeType = trainingModes[trainingModeIndex].value;
 
   if ($categoryDetailData.wordStorages === undefined) { 
@@ -172,6 +147,9 @@
     trainingModeIndex = index;
     modeType = trainingModes[index].value;
     currentWordStorage = $categoryDetailData.wordStorages[modeType];
+
+    trainingModes.forEach((mode) => mode.checked = false);
+    trainingModes[index].checked = true;
 
     if (currentWordStorage.getWords(wordsLimit).length === 0) {
       currentWordStorage.loadIds($collectionData.id, $categoryDetailData.id, true);
