@@ -8,19 +8,19 @@
   <!-- Header -->
   <div class="header statistics">
     <Row class="CategoryDetail">
-      <Col class="read">
+      <Col class="known">
         <span>42</span>
-        <span>{$_('statistics.read')}</span>
+        <span>{$_('statistics.known')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="write">
+      <Col class="learning">
         <span>241</span>
-        <span>{$_('statistics.write')}</span>
+        <span>{$_('statistics.learning')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="listen">
+      <Col class="unknown">
         <span>604</span>
-        <span>{$_('statistics.listen')}</span>
+        <span>{$_('statistics.unknown')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
     </Row>
@@ -36,55 +36,48 @@
           <input type="radio" name="training-mode" value={value} id={value} checked/>
           <i class="material-icons">{icon}</i>
           <label for={value}>{$_(`category.training_mode.${value}`)}</label>
+          <Statistics simple withoutLearning statistic={$trainingModeStatisticsData[value]} />
         </div>
       {/each}
     </div>
     <!-- Title -->
-    <div class="block-title has-after" data-after="42">{$_('category.words_limit')}</div>
-    <!-- Slider -->
-    <div class="slider block block-strong">
-      <div class="range-slider range-slider-init"
-        data-min="0"
-        data-max="100"
-        data-label="true"
-        data-step="5"
-        data-value="25"
-        data-scale="true"
-        data-scale-steps="5"
-        data-scale-sub-steps="4"
-      ></div>
+    <BlockTitle>{$_('category.words_limit')}</BlockTitle>
+    <!-- Stepper -->
+    <div class="list">
+      <ul>
+        <li class="accordion-item">
+          <a href="#" class="item-content item-link">
+            <div class="item-inner">
+              <div class="item-title">{$settingsData.wordsLimit} {$_('category.words')}</div>
+            </div>
+          </a>
+          <div class="accordion-item-content">
+            <div class="block">
+              <div class="title">{$_('category.words_title')}</div>
+              <Stepper
+                min={10}
+                max={100}
+                step={10}
+                value={$settingsData.wordsLimit}
+                autorepeat={true} 
+                autorepeatDynamic={true}
+                small
+                fill
+                on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+                on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+              ></Stepper>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
+    <Button large class="show-more" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
   </div>
   <!-- Footer -->
   <div class="footer two">
-    <Button on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-    <Button on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+    <Button large on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+    <Button large on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
   </div>  
-    
-    
-    
-  <!-- můžeš smazat oba tyto BLOCK odstavce, nechal jsem jen, abys viděl své skripty -->
-  <Block style="display: none;">
-    <List>
-      <ListItem title= {$_('category.words_title')}>
-        <span slot="after">
-          <Stepper
-            min={10}
-            max={100}
-            step={10}
-            value={$settingsData.wordsLimit}
-            autorepeat={true} 
-            autorepeatDynamic={true}
-            small
-            fill
-            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-          ></Stepper>
-        </span>
-      </ListItem>
-    </List>
-  </Block>
-
 </Page>
 
 <script>

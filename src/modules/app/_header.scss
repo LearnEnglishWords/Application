@@ -40,22 +40,9 @@
           }    
         }
       }
-      &.CategoryList {
+      &.CategoryList, &.CategoryDetail {
         .col {
           @each $statistics in $CategoryList {
-            &.#{$statistics} {
-              span {
-                &:nth-child(1), &:nth-child(3) {
-                  color: var(--#{$statistics});
-                }
-              }
-            }
-          }
-        }
-      }
-      &.CategoryDetail {
-        .col {
-          @each $statistics in $CategoryDetail {
             &.#{$statistics} {
               span {
                 &:nth-child(1), &:nth-child(3) {

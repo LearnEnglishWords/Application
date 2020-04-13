@@ -1,6 +1,6 @@
 {#if simple}
 
-  <span class="known">{statistic.known}</span>
+  <span class="known">{statistic.known}</span> 
   {#if !withoutLearning} <span class="learning">{statistic.learning}</span> {/if}
   <span class="unknown">{statistic.unknown}</span>
 

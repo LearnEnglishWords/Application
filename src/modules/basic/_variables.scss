@@ -4,9 +4,6 @@
 // --> CategoryList
 $CategoryList: ("known", "learning", "unknown");
 
-// --> CategoryDetail
-$CategoryDetail: ("read", "write", "listen");
-
 // --> Light theme
 $light-theme: (
   //-> App
@@ -19,9 +16,6 @@ $light-theme: (
   "known": "#0DC80D",
   "learning": "#F1A924",
   "unknown": "#FF6A4F",
-  "read": "#0DC80D",
-  "write": "#F1A924",
-  "listen": "#FF6A4F",
   //-> Header
   "header": "#FFFFFF",
   //-> Navbar

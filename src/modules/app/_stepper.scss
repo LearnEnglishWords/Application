@@ -1,0 +1,17 @@
+// --------------------------------------------------
+// ==> SCSS: App
+// --------------------------------------------------
+// --> Stepper
+.stepper {
+  .stepper-button-minus, .stepper-button-plus {
+    background: var(--app);
+    border-color: var(--app);
+  }
+  .stepper-input-wrap {
+    border-top-color: var(--app);
+    border-bottom-color: var(--app);
+    input {
+      color: var(--app);
+    }
+  }
+}

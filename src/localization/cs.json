@@ -157,9 +157,6 @@
       "known": "naučených",
       "learning": "nenaučených",
       "unknown": "zbývajících",
-      "read": "načtených",
-      "write": "napsaných",
-      "listen": "poslechnutých",
       "text": "Slov"
   },
   "words_list": {

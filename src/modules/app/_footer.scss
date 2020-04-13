@@ -7,12 +7,14 @@
   width: 100%;
   background: var(--theme);
   border-top: 1px solid var(--border);
+  height: 39px;
   .button {
     color: #FFFFFF;
     @include font(null, 11px, 800);
     margin: 0 auto;
     background: var(--app);
     width: calc(100vw - 30px);
+    max-width: 320px;
     bottom: calc(var(--f7-button-height) / 2);
     line-height: calc(var(--f7-button-height) + 4px);
     --f7-touch-ripple-color: var(--f7-touch-ripple-white);
@@ -28,6 +30,11 @@
       &:nth-child(1) {
         float: Left;
         left: 15px;
+        color: var(--app);
+        background: var(--theme);
+        line-height: calc(var(--f7-button-height));
+        border: 2px solid var(--app);
+        --f7-touch-ripple-color: var(--core);
       }
       &:nth-child(2) {
         float: right;

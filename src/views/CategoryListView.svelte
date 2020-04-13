@@ -41,7 +41,7 @@
   </div>
   <!-- Footer -->
   <div class="footer one">
-    <Button on:click={goToDetailView}>{$_('category.confirm')}</Button>
+    <Button large on:click={goToDetailView}>{$_('category.confirm')}</Button>
   </div>
 </Page>
 

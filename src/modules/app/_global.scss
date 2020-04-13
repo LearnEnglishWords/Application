@@ -18,7 +18,7 @@ html, body {
 // --> View
 .view {
   &.CategoryList, &.CategoryDetail {
-    @include position(absolute, calc((((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 85px) + 7.5px), 0, calc(var(--f7-button-height) * 2), 0);
+    @include position(absolute, calc((((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 85px) + 7.5px), 0, calc(39px * 2), 0);
     width: auto;
     overflow: auto;
     padding: 15px 15px 0 15px;
@@ -35,10 +35,22 @@ html, body {
   @include font(null, 11px, 700);
   color: var(--title);
   margin-top: 0;
-  &.has-after {
-    &::after {
-      content: attr(data-after);
-      @include position(absolute, null, 0, null, null);
-    }   
+}
+
+// --> show-more
+.show-more {
+  background: var(--app);
+  margin: 30px auto 0;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  @include font(null, 11px, 800);
+  width: calc(100vw - 60px);
+  max-width: 320px;
+  line-height: calc(var(--f7-button-height) + 4px);
+  --f7-touch-ripple-color: var(--f7-touch-ripple-white);
+  border-radius: 15px;
+  &.active-state {
+    color: #FFFFFF;
+    background: var(--app);
   }
 }

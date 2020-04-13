@@ -75,6 +75,30 @@
           }
         }
       }
+      &.accordion-item {
+        background: var(--theme);
+        .item-content {
+          .item-inner {
+            .item-title {
+              @include font(null, 13px, 700);
+              color: var(--title);
+            }
+          }
+        }
+        .accordion-item-content {
+          .block {
+            text-align: right;
+            margin: 7.5px auto;
+            .title {
+              color: var(--title);
+              width: auto;
+              float: left;
+              @include font(null, 13px, 500);
+              line-height: 34px;
+            }
+          }
+        }
+      }
     }
   }
 }
