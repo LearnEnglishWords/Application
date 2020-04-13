@@ -15,9 +15,8 @@
     width: calc(100vw - 30px);
     bottom: calc(var(--f7-button-height) / 2);
     line-height: calc(var(--f7-button-height) + 4px);
-    box-shadow: 0 0 7.5px var(--core);
     --f7-touch-ripple-color: var(--f7-touch-ripple-white);
-    border-radius: 25px;
+    border-radius: 15px;
     &.active-state {
       color: #FFFFFF;
     }

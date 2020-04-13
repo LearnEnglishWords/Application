@@ -18,13 +18,14 @@ html, body {
 // --> View
 .view {
   &.CategoryList, &.CategoryDetail {
-    @include position(absolute, calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + (85px + 15px)), 0, calc(var(--f7-button-height) * 2), 0);
+    @include position(absolute, calc((((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 85px) + 7.5px), 0, calc(var(--f7-button-height) * 2), 0);
     width: auto;
     overflow: auto;
     padding: 15px 15px 0 15px;
     height: auto;
-    border-radius: 25px 25px 0 0;
+    border-radius: 15px 15px 0 0;
     background: var(--core);
+    overflow-x: hidden;
   }
 }
 
@@ -34,4 +35,10 @@ html, body {
   @include font(null, 11px, 700);
   color: var(--title);
   margin-top: 0;
+  &.has-after {
+    &::after {
+      content: attr(data-after);
+      @include position(absolute, null, 0, null, null);
+    }   
+  }
 }

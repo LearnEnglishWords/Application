@@ -1,0 +1,43 @@
+// --------------------------------------------------
+// ==> SCSS: App
+// --------------------------------------------------
+// --> Radio
+.training-mode {
+  @include grid(grid, repeat(auto-fit, minmax(calc((100% / 3) - 15px), 1fr)), center, center, center);
+  grid-gap: 0 7.5px;
+  margin: 0 15px 30px;
+  .radio {
+    background: var(--theme);
+    border-radius: 15px;
+    padding: 15px;
+    --f7-touch-ripple-color: var(--app);
+    @include transition(all 300ms ease-in-out);
+    input {
+      position: absolute;
+    }
+    i {
+      display: block;
+      margin: 0 auto 15px;
+      color: var(--app);
+      @include transition(all 300ms ease-in-out);
+    }
+    label {
+      @include font(null, 11px, 700);
+      display: block;
+      color: var(--title);
+      @include transition(all 300ms ease-in-out);
+      text-transform: uppercase;
+    }
+    &.active {
+      background: var(--app);
+      --f7-touch-ripple-color: var(--f7-touch-ripple-white);
+      box-shadow: 0 0 7.5px var(--app);
+      i {
+        color: var(--theme);
+      }
+      label {
+        color: var(--theme);
+      }
+    }
+  }
+}

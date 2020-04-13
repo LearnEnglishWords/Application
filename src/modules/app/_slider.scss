@@ -1,0 +1,40 @@
+// --------------------------------------------------
+// ==> SCSS: App
+// --------------------------------------------------
+// --> Slider
+.slider {
+  margin: 0 -15px;
+  .range-slider {
+    .range-bar {
+      .range-bar-active {
+        background: var(--app);
+      }
+    }
+    .range-knob-wrap {
+      .range-knob {
+        background: var(--app);
+      }
+      .range-knob-label {
+        &::before {
+          background: var(--app);
+        }
+      }
+      &.range-knob-active-state {
+        .range-knob-label {
+          &::before {
+            background: var(--app);
+          }
+        }
+      }
+    }
+    .range-scale {
+      .range-scale-step {
+        font-weight: 600;
+        color: var(--app);
+        &::before {
+          background: var(--title);
+        }
+      }
+    }
+  }
+}
