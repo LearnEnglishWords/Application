@@ -34,14 +34,13 @@
   } from 'framework7-svelte';
   import Collection from '../js/collection.js';
   import Header from '../components/Header.svelte';
-  import { isKnown, getState, defaultTrainingModes, playSound, allWordsDevelData } from '../js/utils.js'
+  import { isKnown, getState, defaultTrainingModes, playSound } from '../js/utils.js'
   import { 
     updateAllStatisticsAndSaveWord, collectionData,
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
 
-  import { appName, develMode }  from '../js/config.js';
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
@@ -56,21 +55,16 @@
   let allWordsSorted = [];
   let batchSize = 20;
 
-  if (develMode) {
-    allWordsSorted = allWordsDevelData;
-  } else {
-    allWordIds = $collectionData.categoriesWithWords
-                  .find(({category, wordIds}) => 
-                    $categoryDetailData.id === category.id
-                  ).wordIds;
+  allWordIds = $collectionData.categoriesWithWords
+                .find(({category, wordIds}) => 
+                  $categoryDetailData.id === category.id
+                ).wordIds;
 
-    // sort words 
-    let allWordsSortedIds = allWordIds.sort((a, b) => {
-      return a.charCodeAt(0) - b.charCodeAt(0)
-    });
+  // sort words 
+  let allWordsSortedIds = allWordIds.sort((a, b) => {
+    return a.charCodeAt(0) - b.charCodeAt(0)
+  });
 
-    loadWords(0, batchSize);
-  }
 
   loadWords(0, batchSize);
   async function loadWords(from, to) {

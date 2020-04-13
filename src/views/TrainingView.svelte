@@ -90,7 +90,6 @@
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
-  import { develMode } from '../js/config.js'
 
   export let f7router;
 
@@ -132,17 +131,13 @@
 
   function noButton() {
     let currentWord = $trainingData.words[currentWordIndex];
-    if(!develMode) {
-      updateWord({word: currentWord, state: false});
-    }
+    updateWord({word: currentWord, state: false});
     nextWord();
   }
 
   function yesButton() {
     let currentWord = $trainingData.words[currentWordIndex];
-    if(!develMode) {
-      updateWord({word: currentWord, state: true});
-    }
+    updateWord({word: currentWord, state: true});
     nextWord();
   }
 

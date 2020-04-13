@@ -104,12 +104,11 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { defaultTrainingModes, WordsType, allWordsDevelData } from '../js/utils.js'
+  import { defaultTrainingModes, WordsType } from '../js/utils.js'
   import Collection from '../js/collection.js';
   import WordsStorage from '../js/words.js';
   import Statistics from '../components/Statistics.svelte';
   import Header from '../components/Header.svelte';
-  import { develMode } from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;            
@@ -135,12 +134,8 @@
     wordStorage.loadIds(mode.value === 'read');
   });
 
-  if(develMode) {
-    //setDevelData();
-  } else {
-    statisticsData.set($categoryDetailData.stats);
-    trainingModeStatisticsData.set($categoryDetailData.modeStats);
-  }
+  statisticsData.set($categoryDetailData.stats);
+  trainingModeStatisticsData.set($categoryDetailData.modeStats);
 
 
   function changeTrainingMode(index) {
@@ -182,14 +177,6 @@
     } else {
       setTimeout(() => { goToTrainingView(isTraining) }, 1000);
     }
-  }
-  
-  function setDevelData() {
-    //allWords = allWordsDevelData;
-
-    //allWordIds = ["hello", "car", "bedroom"];
-
-    categoryDetailData.set({name: "Test category", id: "Test category"});
   }
 
 </script>
