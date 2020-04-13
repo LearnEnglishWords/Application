@@ -69,8 +69,10 @@
 
 
   function goToDetailView() {
-    categoryDetailData.set({categories: selectedCategories});
-    f7router.navigate('/CategoryDetail');
+    if (selectedCategories.length > 0) {
+      categoryDetailData.set(selectedCategories[0]);
+      f7router.navigate('/CategoryDetail');
+    }
   }
 
   function getRandomStatistics() {
