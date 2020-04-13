@@ -166,9 +166,6 @@
 
   function goToTrainingView(isTraining) {
     f7.preloader.show();
-    //collection.saveWordIdsList($collectionData.id, $categoryDetailData.id, allWordIds, WordsType.NOT_KNOWN);
-
-    //alert(`counter: ${currentWordStorage.loadedWordsCounter}; idsLength: ${currentWordStorage.allWordIds.length}; wordsLength: ${currentWordStorage.allWords.length}`)
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
