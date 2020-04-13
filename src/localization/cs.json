@@ -2,22 +2,40 @@
   "app_name": "LearnEnglishWords", 
   "collection": {
       "title": "Vyberte si kolekci slovíček:",
+      "alert": {
+          "dependency": "Ještě nemáte staženu {0} kolekci. \nDoporučujeme si nejdříve stáhnout a projít slovíčka této kolekce, než budete pokračovat dále..",
+          "downloading": "Již se stahuje jiná kolekce slovíček. Počkejte než se stáhne a pak můžete začít stahovat tuto."
+      },
+
       "button": {
           "continue": "Pokračovat",
           "download": "Stáhnout"
       },
       "items": {
+          "main_category_default": "Všechna slovíčka",
           "basic": {
+              "title": "Basic",
               "text": "(Obsahuje 1000 nejčastějších slov)",
-              "description": "Obsahuje všechna základní anglická slovíčka pro základní komunikaci a dorozumění."
+              "description": "Obsahuje všechna základní anglická slovíčka pro základní komunikaci a dorozumění.",
+              "main_category": "1000 nejčastějších slov"
           },
           "standard": {
+              "title": "Intermediate",
               "text": "(Obsahuje 3000 nejčastějších slov)",
-              "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace."
+              "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace.",
+              "main_category": "Dalších 2000 nejčastějších slov"
           },
           "advanced": {
+              "title": "Advanced",
               "text": "(Obsahuje 5000 nejčastějších slov)",
-              "description": "Se znalosti 5000 anglických slov dokážete porozumět 90% každodenní anglické konverzace, psaným novinám a časopisům."
+              "description": "Se znalosti 5000 anglických slov dokážete porozumět 90% každodenní anglické konverzace, psaným novinám a časopisům.",
+              "main_category": "Posledních 2000 nejčastějších slov"
+          },
+          "category": {
+              "title": "Category",
+              "text": "(Slova v různých kategoriích)",
+              "description": "Zde jsou slova rozřazená podle nejrůznějších témat a kategorií.",
+              "main_category": "Všechna slova"
           },
           "student": {
               "text": "(Učení podle učebnic)",
