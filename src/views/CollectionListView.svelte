@@ -107,8 +107,20 @@
       DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
+  function setupSubCollections(collection) {
+    if (collection.subCollection.length > 0) { return }
+    let findCollection = (id) => $allCollectionsData.find((c) => c.id === id) 
+    if (collection.id === 3) {
+      collection.addSubCollection(findCollection(7)); // Add indermediate collection
+    }
+    if (collection.id === 3 || collection.id === 7) {
+      collection.addSubCollection(findCollection(2)); // Add basic collection
+    }
+  }
+
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
+    setupSubCollections(selectedCollection)
     collectionData.set(selectedCollection);
     f7router.navigate('/CategoryList');
   }
