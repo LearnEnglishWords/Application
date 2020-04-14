@@ -55,14 +55,13 @@
   import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
-  import Collection from '../js/collection.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
+
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
-  let collection = new Collection();
   let selectedCategories = [];
 
   setTimeout(() => { setupCategoryToggler() }, 200);

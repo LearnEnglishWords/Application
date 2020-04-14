@@ -1,12 +1,10 @@
-
-import Collection from './collection.js';
-import { Modes, WordsType } from './utils.js';
+import DS from './data.js';
+import { Modes, WordsType } from '../utils.js';
 
 
 export default class WordsStorage {
 
   constructor(collectionId, categoryId, currentMode, maxAmount) { 
-    this.storage = new Collection();
     this.currentMode = currentMode;
 
     this.collectionId = collectionId;
@@ -20,11 +18,11 @@ export default class WordsStorage {
   }
 
   saveWordIds() {
-    this.storage.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
   }
 
   loadIds(withWords) {
-    this.storage.getWordIdsListPromise(this.collectionId, this.categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
+    DS.getWordIdsList(this.collectionId, this.categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
       this.allWordIds = wordIds;
       if(withWords) {
         this.loadWords();
@@ -34,7 +32,7 @@ export default class WordsStorage {
 
   loadWords(from = 0, to = this.maxAmount) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
-      this.storage.getWord(wordId, (word) => {
+      DS.getWord(wordId).then((word) => {
         if (this._getWordIndex(word) === null) {
           this._pushWord(word);
         }
@@ -73,13 +71,13 @@ export default class WordsStorage {
 
   _pushWordId(wordId) {
     this.allWordIds.push(wordId);
-    this.storage.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
   }
 
   _pullWordId(wordId) {
     let index = this.allWordIds.findIndex((id) => id === wordId);
     if (index > -1) { this.allWordIds.splice(index, 1) }
-    this.storage.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
   }
 
   _pushWord(word) {
@@ -104,3 +102,4 @@ export default class WordsStorage {
     }
   }
 }
+

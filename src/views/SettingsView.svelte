@@ -68,13 +68,12 @@
     MenuDropdown, MenuDropdownItem
   } from 'framework7-svelte';
   import { onMount } from 'svelte';
-  import Collection from '../js/collection.js';
+  import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
 
-  let collection = new Collection();
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let enableDarkMode = $settingsData.enableDarkMode;
@@ -88,22 +87,22 @@
 
   function saveAutoPlaySound() {
     $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
-    collection.saveSettings($settingsData);
+    DS.saveSettings($settingsData);
   }
 
   function saveDarkMode() {
     $settingsData.enableDarkMode = !$settingsData.enableDarkMode;
-    collection.saveSettings($settingsData);
+    DS.saveSettings($settingsData);
   }
 
   function savePronunciation(pronunciation) {
     $settingsData.pronunciation = pronunciation;
-    collection.saveSettings($settingsData);
+    DS.saveSettings($settingsData);
   }
 
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
-    collection.saveSettings($settingsData);
+    DS.saveSettings($settingsData);
   }
 </script>
 

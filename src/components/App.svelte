@@ -8,7 +8,7 @@
   // Import pages components
   import { onMount } from 'svelte';
   import cordovaApp from '../js/cordova-app';
-  import Collection from '../js/collection.js';
+  import DS from '../js/storages/data.js';
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
@@ -62,20 +62,19 @@
         });
                                     
         // App basic setup
-        let collection = new Collection();
-        collection.getSettings((data) => { 
+        DS.getSettings().then((data) => { 
           if (data === null) {
-            collection.saveSettings(defaultSettingsData);
+            DS.saveSettings(defaultSettingsData);
             settingsData.set(defaultSettingsData);
           } else { 
             settingsData.set(data);
           }
         });
-        collection.getAppInfo("downloadedCollections", (data) => { 
+        DS.getAppInfo("downloadedCollections").then((data) => { 
           if (data === null) {
             //downloadedCollections.set([ "personal" ]);
             downloadedCollections.set([]);
-            collection.saveAppInfo("downloadedCollections", $downloadedCollections);
+            DS.saveAppInfo("downloadedCollections", $downloadedCollections);
           } else {
             downloadedCollections.set(data);
           }
