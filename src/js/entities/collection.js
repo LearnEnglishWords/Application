@@ -12,9 +12,11 @@ export default class Collection {
     this.words = [];
     this.active = active;
     this.mainCategoryTitle = null; 
+    this.subCollection = [];
 
     if (this.active) {
       let getTranslate = get(_);
+
       this.title = getTranslate(`collection.items.${name}.title`);
       this.shortDescription = getTranslate(`collection.items.${name}.text`);
       this.fullDescription = getTranslate(`collection.items.${name}.description`);
@@ -31,6 +33,12 @@ export default class Collection {
     if (mainCategoryKey === this.mainCategoryTitle) {
       this.mainCategoryTitle = getTranslate( `collection.items.main_category_default`)
     }
+  }
+
+  addSubCollection(collection) {
+    this.subCollection.push(collection);
+    this.categories = collection.categories.concat(this.categories);
+    this.categoriesWithWords = collection.categoriesWithWords.concat(this.categoriesWithWords);
   }
 
   loadCategories() {
