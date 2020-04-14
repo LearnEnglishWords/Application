@@ -32,7 +32,7 @@
     Button, Link,
     Toolbar
   } from 'framework7-svelte';
-  import Collection from '../js/collection.js';
+  import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
   import { 
@@ -48,7 +48,6 @@
   export let name;
   export let f7router;
 
-  const collection = new Collection();
   let addWords = [];
   let removeWords = [];
   let progress = 0;
@@ -69,7 +68,7 @@
   loadWords(0, batchSize);
   async function loadWords(from, to) {
     allWordsSortedIds.slice(from, to).forEach((wordId) => {
-      collection.getWord(wordId, (word) => {
+      DS.getWord(wordId).then((word) => {
         allWordsSorted.push(word);
         allWordsSorted = [...allWordsSorted];
         wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);

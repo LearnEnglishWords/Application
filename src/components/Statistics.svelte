@@ -47,11 +47,8 @@
   import { Row, Col, Gauge } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
   import { statisticsData, collectionData } from '../js/store.js';
-  import Collection from '../js/collection.js';
 
   export let simple = false;
   export let statistic;
 
-  let collection = new Collection();
-  
 </script>

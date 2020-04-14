@@ -25,13 +25,10 @@
   import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
-  import Collection from '../js/collection.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
-
-  let collection = new Collection();
 
   function goToDetailView(category) {
     categoryDetailData.set(category);

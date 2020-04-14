@@ -38,19 +38,19 @@
   import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
   import { Device, Request, Utils } from 'framework7';
   import { onMount } from 'svelte';
-  import Collection from '../js/collection.js';
+  import CollectionStorage from '../js/storages/collections.js';
+  import DS from '../js/storages/data.js';
   import { WordsType, Modes } from '../js/utils.js'
   import Header from '../components/Header.svelte';
   import { allCollectionsData, collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  let data = new Collection();
+  let collectionStorage = new CollectionStorage();
   let counter;
   let progressBarEl;
   let wordsAmount = 0;
   let downloadingCollectionId = null;
-  
   
   
   setTimeout(() => { preloadAllCollections() }, 1000);
@@ -90,7 +90,7 @@
     if (collection.mainCategory === undefined) {
       collection.mainCategory = $_('collection.items.main_category_default');
     }
-    data.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
+    collectionStorage.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
   }
 
   function downloadProgress() {
@@ -106,7 +106,7 @@
 
   function updateCollectionIds(collectionIds) {
       downloadedCollections.set(collectionIds);
-      data.saveAppInfo("downloadedCollections", collectionIds);
+      DS.saveAppInfo("downloadedCollections", collectionIds);
   }
 
   function continueButton(collectionId){
@@ -123,17 +123,17 @@
       "categoriesWithWords": []
     }
 
-    data.getCategoryList(collectionId, (categories) => {
+    DS.getCategoryList(collectionId).then((categories) => {
       categories.forEach((category) => {
-        data.getWordIdsList(collectionId, category.id, WordsType.ALL, Modes.ALL, (wordIds) => {
+        DS.getWordIdsList(collectionId, category.id, WordsType.ALL, Modes.ALL).then((wordIds) => {
           collection.categoriesWithWords.push({"category": category, "wordIds": wordIds})
         });
 
-        data.getCategoryStatisticsPromise(collectionId, category.id).then((stats) => {
+        DS.getCategoryStatistics(collectionId, category.id).then((stats) => {
           if (stats !== null) {
             category.stats = stats;
             category.active = false;
-            data.getCategoryModeStatisticsPromise(collectionId, category.id)
+            DS.getCategoryModeStatistics(collectionId, category.id)
               .then((modeStats) => { 
                 category.modeStats = modeStats; 
               });

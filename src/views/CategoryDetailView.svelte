@@ -78,15 +78,13 @@
   } from '../js/store.js';
 
   import { trainingModes, WordsType } from '../js/utils.js'
-  import Collection from '../js/collection.js';
-  import WordsStorage from '../js/words.js';
+  import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
 
-  let collection = new Collection();
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
   let modeType = trainingModes[trainingModeIndex].value;

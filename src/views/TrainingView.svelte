@@ -86,14 +86,12 @@
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import Collection from '../js/collection.js';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
   export let f7router;
 
-  let collection = new Collection();
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
   let currentWordIndex = 0;
