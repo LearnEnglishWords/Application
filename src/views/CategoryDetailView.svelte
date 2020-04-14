@@ -45,30 +45,21 @@
     <!-- Stepper -->
     <div class="list">
       <ul>
-        <li class="accordion-item">
-          <a href="#" class="item-content item-link">
-            <div class="item-inner">
-              <div class="item-title">{$settingsData.wordsLimit} {$_('category.words')}</div>
-            </div>
-          </a>
-          <div class="accordion-item-content">
-            <div class="block">
-              <div class="title">{$_('category.words_title')}</div>
-              <Stepper
-                min={10}
-                max={100}
-                step={10}
-                value={$settingsData.wordsLimit}
-                autorepeat={true} 
-                autorepeatDynamic={true}
-                small
-                fill
-                on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-                on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-              ></Stepper>
-            </div>
-          </div>
-        </li>
+        <ListItem>
+          <div class="title">{$_('category.words_title')}</div>
+          <Stepper
+            min={10}
+            max={100}
+            step={10}
+            value={$settingsData.wordsLimit}
+            autorepeat={true} 
+            autorepeatDynamic={true}
+            small
+            fill
+            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+          ></Stepper>
+        </ListItem>
       </ul>
     </div>
     <Button large class="show-more" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>

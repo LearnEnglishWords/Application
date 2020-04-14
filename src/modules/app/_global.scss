@@ -27,6 +27,16 @@ html, body {
     background: var(--core);
     overflow-x: hidden;
   }
+  &.settings {
+    @include position(absolute, calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) - 7.5px), 0, 0, 0);
+    width: auto;
+    overflow: auto;
+    padding: 15px 15px 0 15px;
+    height: auto;
+    border-radius: 15px 15px 0 0;
+    background: var(--core);
+    overflow-x: hidden;
+  }
 }
 
 // --> Title
@@ -53,4 +63,11 @@ html, body {
     color: #FFFFFF;
     background: var(--app);
   }
+}
+
+// --> settings_button
+.settings_button {
+  @include font(null, 12px, 600);
+  color: var(--title);
+  text-transform: inherit;
 }

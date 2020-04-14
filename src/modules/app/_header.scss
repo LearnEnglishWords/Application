@@ -55,6 +55,10 @@
       }
     }
   }
+  &.empty {
+    min-height: calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 7.5px);
+    padding-top: 0;
+  }
   &::before {
     content: "";
     @include position(absolute, null, 0, 0, 0);

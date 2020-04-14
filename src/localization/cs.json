@@ -77,11 +77,11 @@
   },
   "settings": {
       "title": "Nastavení",
-      "words_limit": "Přednastavený počet slov:",
-      "auto_sound": "Automatické přehrávání zvuku:",
-      "night_theme": "Noční režim:",
+      "words_limit": "Přednastavený počet slov",
+      "auto_sound": "Automatické přehrávání zvuku",
+      "night_theme": "Tmavý motiv",
       "pronunciation": {
-          "text": "Výběr výslovnosti:",
+          "text": "Výběr výslovnosti",
           "us": "Americká",
           "uk": "Britská"
       }
@@ -165,5 +165,9 @@
       "info": "Zde můžete označit slovíčka, která již znáte:",
       "known": "Znám",
       "unknown": "Neznám"
-  }
+  },
+
+
+  "settings_title": "Nastavení",
+  "settings_title_personal": "Personalizace"
 }
