@@ -13,13 +13,14 @@ export default class Collection {
     this.active = active;
     this.mainCategoryTitle = null; 
 
-    let getTranslate = get(_);
+    if (this.active) {
+      let getTranslate = get(_);
+      this.title = getTranslate(`collection.items.${name}.title`);
+      this.shortDescription = getTranslate(`collection.items.${name}.text`);
+      this.fullDescription = getTranslate(`collection.items.${name}.description`);
 
-    this.title = getTranslate(`collection.items.${name}.title`);
-    this.shortDescription = getTranslate(`collection.items.${name}.text`);
-    this.fullDescription = getTranslate(`collection.items.${name}.description`);
-
-    this._setupMainCategoryTitle()
+      this._setupMainCategoryTitle()
+    }
   }
   
   _setupMainCategoryTitle() {
