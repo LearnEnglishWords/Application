@@ -99,6 +99,7 @@
 
     if(counter === wordsAmount) {
       updateCollectionIds($downloadedCollections.concat([downloadingCollectionId]));
+      loadCollection(downloadingCollectionId)
       f7.progressbar.hide(progressBarEl); 
       downloadingCollectionId = null;
     }
