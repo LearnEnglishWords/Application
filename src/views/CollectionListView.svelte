@@ -40,7 +40,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo } from '../js/utils.js'
   import Header from '../components/Header.svelte';
   import { allCollectionsData, collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
@@ -106,7 +106,7 @@
 
   function updateCollectionIds(collectionIds) {
       downloadedCollections.set(collectionIds);
-      DS.saveAppInfo("downloadedCollections", collectionIds);
+      DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
   function continueButton(collectionId){
