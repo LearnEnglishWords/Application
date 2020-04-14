@@ -24,10 +24,12 @@ export default class Collection {
   }
   
   _setupMainCategoryTitle() {
+    let getTranslate = get(_);
     let mainCategoryKey = `collection.items.${this.name}.main_category`;
-    this.mainCategoryTitle = get(_)(mainCategoryKey);
+    this.mainCategoryTitle = getTranslate(mainCategoryKey);
+
     if (mainCategoryKey === this.mainCategoryTitle) {
-      this.mainCategoryTitle = get(_)( `collection.items.main_category_default`)
+      this.mainCategoryTitle = getTranslate( `collection.items.main_category_default`)
     }
   }
 
