@@ -69,7 +69,7 @@ export default class CollectionStorage {
         category = {
             "icon": "",
             "name": "All words",
-            "czechName": collection.mainCategory,
+            "czechName": collection.mainCategoryTitle,
             "wordsCount": words.length,
             "id": `collection_${collection.id}`
         }

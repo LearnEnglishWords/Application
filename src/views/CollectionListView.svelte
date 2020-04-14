@@ -88,9 +88,6 @@
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
 
     let collection = getCollection(collectionId);
-    if (collection.mainCategory === undefined) {
-      collection.mainCategory = $_('collection.items.main_category_default');
-    }
     collectionStorage.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
   }
 
