@@ -24,7 +24,7 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
   import { settingsData } from '../js/store.js';
 
@@ -70,11 +70,11 @@
             settingsData.set(data);
           }
         });
-        DS.getAppInfo("downloadedCollections").then((data) => { 
+        DS.getAppInfo(AppInfo.DOWNLOADED_COLLECTIONS).then((data) => { 
           if (data === null) {
             //downloadedCollections.set([ "personal" ]);
             downloadedCollections.set([]);
-            DS.saveAppInfo("downloadedCollections", $downloadedCollections);
+            DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, $downloadedCollections);
           } else {
             downloadedCollections.set(data);
           }

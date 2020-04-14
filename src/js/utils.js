@@ -94,3 +94,8 @@ export const Modes = {
     WRITE: 'write',
     LISTEN: 'listen'
 }
+
+export const AppInfo = {
+  DOWNLOADED_COLLECTIONS: "downloadedCollections"
+}
+
