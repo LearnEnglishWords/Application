@@ -2,7 +2,7 @@
   <Header />
 
   <center>
-    <BlockTitle medium>{$categoryDetailData.czechName}</BlockTitle>
+    <BlockTitle medium>{$categoryDetailData.title === null ? $collectionData.mainCategoryTitle : $categoryDetailData.title}</BlockTitle>
   </center>
   <Block inset>
     <BlockTitle>{$_('category.statistics')}</BlockTitle>
@@ -89,23 +89,11 @@
   let trainingModeIndex = 0;
   let modeType = trainingModes[trainingModeIndex].value;
 
-  if ($categoryDetailData.wordStorages === undefined) { 
-    $categoryDetailData.wordStorages = {
-      'read': new WordsStorage($collectionData.id, $categoryDetailData.id, 'read', 100),
-      'write': new WordsStorage($collectionData.id, $categoryDetailData.id, 'write', 100),
-      'listen': new WordsStorage($collectionData.id, $categoryDetailData.id, 'listen', 100),
-    }
-  }
-
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
+  currentWordStorage.loadWords();
 
-  statisticsData.set($categoryDetailData.stats);
-  trainingModeStatisticsData.set($categoryDetailData.modeStats);
-
-  trainingModes.forEach((mode) => {
-    let wordStorage = $categoryDetailData.wordStorages[mode.value];
-    wordStorage.loadIds(mode.value === 'read');
-  });
+  statisticsData.set($categoryDetailData.statistics);
+  trainingModeStatisticsData.set($categoryDetailData.modeStatistics);
 
 
   function changeTrainingMode(index) {

@@ -55,10 +55,7 @@
   let wordState = {};
   let allWordsSorted = [];
   let batchSize = 20;
-  let allWordIds = $collectionData.categoriesWithWords
-                    .find(({category, wordIds}) => 
-                      $categoryDetailData.id === category.id
-                    ).wordIds;
+  let allWordIds = $categoryDetailData.wordStorages['original'].getWordIds();
 
   // sort words 
   let allWordsSortedIds = allWordIds.sort((a, b) => {

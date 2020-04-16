@@ -23,18 +23,18 @@
               "title": "Intermediate",
               "text": "(Obsahuje 3000 nejčastějších slov)",
               "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace.",
-              "main_category": "Dalších 2000 nejčastějších slov"
+              "main_category": "Dalších 2000 slov"
           },
           "advanced": {
               "title": "Advanced",
               "text": "(Obsahuje 5000 nejčastějších slov)",
               "description": "Se znalosti 5000 anglických slov dokážete porozumět 90% každodenní anglické konverzace, psaným novinám a časopisům.",
-              "main_category": "Posledních 2000 nejčastějších slov"
+              "main_category": "Posledních 2000 slov"
           },
           "category": {
               "title": "Category",
               "text": "(Slova v různých kategoriích)",
-              "description": "Zde jsou slova rozřazená podle nejrůznějších témat a kategorií.",
+              "description": "Zde jsou slova rozřazená podle témat do různých kategorií.",
               "main_category": "Všechna slova"
           },
           "student": {

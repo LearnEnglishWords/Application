@@ -6,8 +6,8 @@
     <List>
       {#each $collectionData.categories as category, id} 
         <ListItem on:click="{() => goToDetailView(category)}">
-          <h3>{category.czechName}</h3>
-          <Statistics simple statistic={category.stats} />
+          <h3>{category.title}</h3>
+          <Statistics simple statistic={category.statistics} />
         </ListItem>
       {/each}
     </List>
@@ -17,7 +17,6 @@
 <script>
   import { 
     Page, Link,
-    Chip, 
     Block, BlockTitle, 
     Navbar, Subnavbar,
     List, ListItem

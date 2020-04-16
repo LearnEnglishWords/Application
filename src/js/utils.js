@@ -25,7 +25,7 @@ export const trainingModes = [
   { value: "listen", checked: false }
 ]; 
 
-export function getDefaultStatisticsData(count) {
+export function getDefaultStatisticsData(count = 0) {
   return {
     "count": count,
     "known": 0,
@@ -34,7 +34,7 @@ export function getDefaultStatisticsData(count) {
   }
 };            
 
-export function getDefaultModeStatisticsData(count) {
+export function getDefaultModeStatisticsData(count = 0) {
   return {
     "read": { "known": 0, "unknown": count },
     "write": { "known": 0, "unknown": count },

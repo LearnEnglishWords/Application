@@ -43,7 +43,7 @@
   import { WordsType, Modes, AppInfo } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
-  import { allCollectionsData, collectionData, downloadedCollections} from '../js/store.js';
+  import { allCollectionsData, collectionData, categoryDetailData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
@@ -107,27 +107,22 @@
       DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
-  function setupSubCollections(collection) {
-    if (collection.subCollection.length > 0) { return }
-    let findCollection = (id) => $allCollectionsData.find((c) => c.id === id) 
-    if (collection.id === 3) {
-      collection.addSubCollection(findCollection(7)); // Add indermediate collection
-    }
-    if (collection.id === 3 || collection.id === 7) {
-      collection.addSubCollection(findCollection(2)); // Add basic collection
-    }
-  }
-
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
-    setupSubCollections(selectedCollection)
     collectionData.set(selectedCollection);
-    f7router.navigate('/CategoryList');
+
+    if ([2,3,7].includes(selectedCollection.id)) {
+      categoryDetailData.set(selectedCollection.categories[0]);
+      f7router.navigate('/CategoryDetail');
+    } else {
+      f7router.navigate('/CategoryList');
+    }
   }
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
     collection.loadCategories();
+    setTimeout(() => { collection.setupMainCategory() }, 1000);
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }
@@ -135,10 +130,14 @@
     $allCollectionsData.push(collection);
   }
 
+  let basicCollection = new Collection(2, 'basic', true);
+  let standardCollection = new Collection(7, 'standard', true, basicCollection);
+  let advancedCollection = new Collection(3, 'advanced', true, standardCollection);
+
   let collectionItems = [
-    new Collection(2, 'basic', true),
-    new Collection(7, 'standard', true),
-    new Collection(3, 'advanced', true),
+    basicCollection,
+    standardCollection,
+    advancedCollection,
     new Collection(9, 'category', true),
     new Collection("student", 'student', false),
     new Collection("native", 'native', false),

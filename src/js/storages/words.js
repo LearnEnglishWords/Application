@@ -21,6 +21,14 @@ export default class WordsStorage {
     DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
   }
 
+  setWordIds(ids) {
+    this.allWordIds = ids;
+  }
+
+  getWordIds() {
+    return this.allWordIds
+  }
+
   loadIds(withWords) {
     DS.getWordIdsList(this.collectionId, this.categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
       this.allWordIds = wordIds;
@@ -67,7 +75,6 @@ export default class WordsStorage {
     this.allWords = [];
     this.allWordIds = [];
   }
-
 
   _pushWordId(wordId) {
     this.allWordIds.push(wordId);

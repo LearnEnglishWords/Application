@@ -1,18 +1,19 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
-import DS from '../storages/data.js';
 import { WordsType, Modes } from '../utils.js'
+import DS from '../storages/data.js';
+import Category from './category.js';
 
 export default class Collection {
-  constructor(id, name, active) {
+  constructor(id, name, active, parentCollection) {
     this.id = id;
     this.name = name;
     this.categories = [];
-    this.categoriesWithWords = [];
     this.words = [];
     this.active = active;
     this.mainCategoryTitle = null; 
-    this.subCollection = [];
+    this.parentCollection = parentCollection;
+    this.mainCategory = null;
 
     if (this.active) {
       let getTranslate = get(_);
@@ -35,30 +36,23 @@ export default class Collection {
     }
   }
 
-  addSubCollection(collection) {
-    this.subCollection.push(collection);
-    this.categories = collection.categories.concat(this.categories);
-    this.categoriesWithWords = collection.categoriesWithWords.concat(this.categoriesWithWords);
+  setupMainCategory() {
+    if (this.parentCollection === undefined) return
+    this.mainCategory = this.categories[0]; 
+
+    this.parentCollection.categories.forEach((c) => {
+      this.mainCategory = this.mainCategory.plus(c);
+    });
+    this.categories = [this.mainCategory];
   }
 
   loadCategories() {
     DS.getCategoryList(this.id).then((categories) => {
-      categories.forEach((category) => {
-        DS.getWordIdsList(this.id, category.id, WordsType.ALL, Modes.ALL).then((wordIds) => {
-          this.categoriesWithWords.push({"category": category, "wordIds": wordIds})
-        });
-
-        DS.getCategoryStatistics(this.id, category.id).then((stats) => {
-          if (stats !== null) {
-            category.stats = stats;
-            category.active = false;
-            DS.getCategoryModeStatistics(this.id, category.id)
-              .then((modeStats) => { 
-                category.modeStats = modeStats; 
-              });
-            this.categories.push(category);
-          }
-        });
+      categories.forEach((cat) => {
+        let category = new Category(cat.id, this.id, cat.name, cat.czechName);
+        category.loadWordIds();
+        category.loadStatistics();
+        this.categories.push(category);
       });
     });
   }
