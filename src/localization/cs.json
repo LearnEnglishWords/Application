@@ -9,7 +9,9 @@
 
       "button": {
           "continue": "Pokračovat",
-          "download": "Stáhnout"
+          "download": "Stáhnout",
+          "preparing": "Příprava...",
+          "downloading": "Stahování..."
       },
       "items": {
           "main_category_default": "Všechna slovíčka",

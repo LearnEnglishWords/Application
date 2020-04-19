@@ -11,10 +11,14 @@
                 <p>
                   {fullDescription}
                 </p>
+                <p id="collection-loader-{id}"></p>
                 {#if $downloadedCollections.includes(id)}
                   <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
+                {:else if downloadingCollectionId === id && counter === 0}
+                  <Button fill color="orange">{$_('collection.button.preparing')}</Button>
+                {:else if downloadingCollectionId === id && counter > 0}
+                  <Button fill color="orange">{$_('collection.button.downloading')}</Button>
                 {:else}
-                  <p id="collection-loader-{id}"></p>
                   <Button fill on:click={ () => download(id) } color="red">{$_('collection.button.download')}</Button>
                 {/if}
               </Block>
@@ -50,7 +54,7 @@
 
 
   let collectionStorage = new CollectionStorage();
-  let counter;
+  let counter = 0;
   let progressBarEl;
   let wordsAmount = 0;
   let downloadingCollectionId = null;
