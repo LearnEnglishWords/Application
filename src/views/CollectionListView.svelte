@@ -103,8 +103,8 @@
   }
 
   function updateCollectionIds(collectionIds) {
-      downloadedCollections.set(collectionIds);
-      DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
+    downloadedCollections.set(collectionIds);
+    DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
   function continueButton(collectionId){
@@ -121,8 +121,7 @@
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
-    collection.loadCategories();
-    setTimeout(() => { collection.setupMainCategory() }, 1000);
+    collection.loadCategories().then(() => collection.setupMainCategory());
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }

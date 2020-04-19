@@ -62,14 +62,17 @@ export default class Category {
   }
 
   loadStatistics() {
-    DS.getCategoryStatistics(this.collectionId, this.id).then((stats) => {
-      if (stats !== null) {
-        this.statistics = stats;
-        DS.getCategoryModeStatistics(this.collectionId, this.id)
-          .then((modeStats) => { 
-            this.modeStatistics = modeStats; 
-          });
-      }
+    return new Promise((resolve, reject) => {
+      DS.getCategoryStatistics(this.collectionId, this.id).then((stats) => {
+        if (stats !== null) {
+          this.statistics = stats;
+          DS.getCategoryModeStatistics(this.collectionId, this.id)
+            .then((modeStats) => { 
+              this.modeStatistics = modeStats; 
+              resolve();
+            });
+        }
+      });
     });
   }
 

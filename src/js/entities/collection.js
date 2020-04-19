@@ -47,12 +47,15 @@ export default class Collection {
   }
 
   loadCategories() {
-    DS.getCategoryList(this.id).then((categories) => {
-      categories.forEach((cat) => {
-        let category = new Category(cat.id, this.id, cat.name, cat.czechName);
-        category.loadWordIds();
-        category.loadStatistics();
-        this.categories.push(category);
+    let counter = 0;
+    return new Promise((resolve, reject) => {
+      DS.getCategoryList(this.id).then((categories) => {
+        categories.forEach((cat) => {
+          let category = new Category(cat.id, this.id, cat.name, cat.czechName);
+          category.loadWordIds();
+          category.loadStatistics().then(() => {if (++counter === categories.length) {resolve()}});
+          this.categories.push(category);
+        });
       });
     });
   }
