@@ -27,7 +27,7 @@ html, body {
     background: var(--core);
     overflow-x: hidden;
   }
-  &.settings {
+  &.Settings {
     @include position(absolute, calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) - 7.5px), 0, 0, 0);
     width: auto;
     overflow: auto;
@@ -35,6 +35,13 @@ html, body {
     height: auto;
     border-radius: 15px 15px 0 0;
     background: var(--core);
+    overflow-x: hidden;
+  }
+  &.Training {
+    background: var(--core);
+    @include position(absolute, 0, 0, 0, 0);
+    overflow: auto;
+    height: auto;
     overflow-x: hidden;
   }
 }
@@ -71,3 +78,78 @@ html, body {
   color: var(--title);
   text-transform: inherit;
 }
+
+// --> toggle
+.toggle {
+  .toggle-icon {
+    background: var(--theme);
+    &::after {
+      background: var(--app) !important;
+    }
+  }
+  input:checked {
+    + .toggle-icon {
+      background: lighten($color: #3A56A5, $amount: 25) !important;
+    }
+    &::after {
+      background: var(--app) !important;
+    }
+  }
+}
+
+.read-mode {
+  margin-bottom: 15px;
+  padding: 15px 0;
+  text-align: center;
+  background: var(--app);
+  color: var(--theme);
+  height: calc(50vh - 50px - 56px);
+  display: table;
+  width: 100%;
+  div {
+    .read-content {
+      margin-top: 7.5px;
+    }
+  }
+  .read-div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.space {
+  margin-bottom: 15px;
+}
+
+.list.detail {
+  margin-top: 15px;
+}
+
+.material-icons {
+  color: var(--app);
+  &.training {
+    color: var(--theme);
+    margin-top: 15px;
+  }
+}
+
+.word {
+  @include font(null, 18px, 700);
+}
+.word-speak {
+  @include font(null, 15px, 400);
+}
+
+.swiper-container {
+  height: 100%;
+}
+.swiper-button-prev, .swiper-button-next {
+  top: inherit;
+  bottom: 0;
+  color: var(--title);
+  &::after {
+    font-size: 24px;
+  }
+}
+

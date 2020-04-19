@@ -1,14 +1,15 @@
-<Block>
-  <center>
-    {#if mode==="read"}
+   {#if mode==="read"}
 
-      <div on:click={() => playSound(word)}>
-        <BlockTitle large>{word.text}</BlockTitle>
-        <Block>
-          <BlockTitle>[ {word.pronunciation[$settingsData.pronunciation]} ]  &#x1F509;</BlockTitle>
-        </Block>
-      </div>
-      <WordDetail {word}/>
+<div class="read-mode" on:click="{() => playSound(word)}">
+  <div class="read-div">
+    <div class="word">{word.text}</div>
+    <div class="word_speak">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
+<i class="material-icons training">headset</i>
+<span>34/42</span>
+</div>
+</div>
+    <div class="block-title">{$_('word_importance')}</div>
+    <WordDetail {word}/>
 
     {:else} 
 
@@ -54,14 +55,12 @@
       </Block>
 
     {/if}
-  </center>
-</Block>
 
 <script>
   import { 
     f7, Block, BlockTitle,
     Row, Col, Button, Link,
-    List, ListInput
+    List, ListItem, ListInput
   } from 'framework7-svelte';
 	import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

@@ -1,21 +1,11 @@
-<Block>
-  <Row>
-    <Col width="20">
-    </Col>
-    <Col width="60">
-      <List>
+
+      <List class="detail">
         {#each word.sense.slice(0,3) as sense, id}
-          <ListItem> {numbers[id]} {sense.toLowerCase()} </ListItem>
+          <ListItem>{sense.toLowerCase()}
+             <i slot="media" class="material-icons">translate</i>
+          </ListItem>
         {/each}
       </List>
-      {#if $trainingData.isTraining}
-        <Button fill sheetOpen=".description" color="lightblue">{$_('training.buttons.examples')}</Button>
-      {/if}
-    </Col>
-    <Col width="10">
-    </Col>
-  </Row>
-</Block>
 
 <script>
   import { 

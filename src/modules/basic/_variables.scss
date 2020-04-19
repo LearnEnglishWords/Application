@@ -4,6 +4,8 @@
 // --> CategoryList
 $CategoryList: ("known", "learning", "unknown");
 
+$app: #3A56A5;
+$gradient: radial-gradient( circle farthest-corner at 10% 20%,  rgba(132,81,161,1) 0%, rgba(132,81,161,0.83) 90% );
 // --> Light theme
 $light-theme: (
   //-> App

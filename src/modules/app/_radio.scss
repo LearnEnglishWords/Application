@@ -35,7 +35,7 @@
       &.known {
         color: var(--known);
         &::after {
-          content: " | ";
+          content: " / ";
           color: var(--title);
         }
       }

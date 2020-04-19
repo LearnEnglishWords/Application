@@ -7,15 +7,12 @@
     width: 100%;
     @include position(fixed, 0, 0, null, 0);
     background: var(--app);
-    background-image: url('../../assets-src/pattern.png');
-    background-blend-mode: multiply;
-    animation: animatedBackground 40s infinite;
     text-transform: uppercase;
     padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
     .row {
       @include grid(grid, repeat(auto-fit, minmax(calc(100% / 3), 1fr)), center, center, center);
       height: 85px;
-      margin: 0 15px calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 30px) 15px;
+      margin: 15px 15px calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 30px) 15px;
       background: var(--theme);
       border-radius: 15px;
       box-shadow: 0 0 7.5px var(--core);
