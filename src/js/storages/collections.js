@@ -77,14 +77,14 @@ export default class CollectionStorage {
       }
 
       this.downloadAllCategories(collection.id).then((categories) => {
-        this.downloadCategories(collection.id, categories, setupProgress, progress);
+        this.downloadAndSaveCategories(collection.id, categories, setupProgress, progress);
         if (category !== null) { categories.unshift(category) }
         DS.saveCategoryList(collection.id, categories);
       });
     });
   }
 
-  downloadCategories(collectionId, categories, setupProgress, progress) {
+  downloadAndSaveCategories(collectionId, categories, setupProgress, progress) {
     categories.forEach((category) => {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {

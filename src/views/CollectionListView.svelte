@@ -92,7 +92,7 @@
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
 
     let collection = getCollection(collectionId);
-    collectionStorage.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
+    collectionStorage.downloadCollection(collection, (amount) => wordsAmount += amount, downloadProgress);
   }
 
   function downloadProgress() {
