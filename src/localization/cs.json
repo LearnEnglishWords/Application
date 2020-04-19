@@ -9,6 +9,7 @@
 
       "button": {
           "continue": "Pokračovat",
+          "loading": "Načítání...",
           "download": "Stáhnout",
           "preparing": "Příprava...",
           "downloading": "Stahování..."
