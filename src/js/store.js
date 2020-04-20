@@ -76,49 +76,49 @@ export const statisticsData = createStatisticsData({...defaultStatisticsData});
 
 
 
-function removeWordFromCategory(currentCollection, category, word) {
-  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
-    const index = wordIds.indexOf(word.text);
-    if (index > -1) { wordIds.splice(index, 1) }
-    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
-  });                                       
-}
+//function removeWordFromCategory(currentCollection, category, word) {
+//  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
+//    const index = wordIds.indexOf(word.text);
+//    if (index > -1) { wordIds.splice(index, 1) }
+//    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
+//  });                                       
+//}
+//
+//function addWordIntoCategory(currentCollection, category, word) {
+//  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
+//    wordIds.push(word.text);
+//    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
+//  });                                       
+//}
 
-function addWordIntoCategory(currentCollection, category, word) {
-  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
-    wordIds.push(word.text);
-    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
-  });                                       
-}
+//async function updateStatistics(category, word, prevState, modes) {
+//  let currentCollection = get(collectionData);
+//
+//  let stats = createStatisticsData(category.stats);
+//  let modeStats = createModeStatisticsData(category.modeStats);
+//
+//  stats.updateData(word, prevState);
+//  modeStats.updateData(word, modes);
+//
+//  category.stats = get(stats);
+//  category.modeStats = get(modeStats);
+//
+//  DS.saveCategoryStatistics(currentCollection.id, category.id, get(stats));
+//  DS.saveCategoryModeStatistics(currentCollection.id, category.id, get(modeStats));
+//}
 
-async function updateStatistics(category, word, prevState, modes) {
-  let currentCollection = get(collectionData);
-
-  let stats = createStatisticsData(category.stats);
-  let modeStats = createModeStatisticsData(category.modeStats);
-
-  stats.updateData(word, prevState);
-  modeStats.updateData(word, modes);
-
-  category.stats = get(stats);
-  category.modeStats = get(modeStats);
-
-  DS.saveCategoryStatistics(currentCollection.id, category.id, get(stats));
-  DS.saveCategoryModeStatistics(currentCollection.id, category.id, get(modeStats));
-}
-
-function updateInOtherCategories(word, prevState, modes) {
-  get(collectionData).categoriesWithWords.forEach(({category, wordIds}) => {
-    if (wordIds !== null && category.id !== get(categoryDetailData).id && wordIds.includes(word.text)) {
-      updateStatistics(category, word, prevState, modes);
-      if (getState(word) === WordsType.KNOWN) {
-        removeWordFromCategory(get(collectionData), category, word);
-      } else {
-        addWordIntoCategory(get(collectionData), category, word);
-      }
-    }
-  });
-}
+//function updateInOtherCategories(word, prevState, modes) {
+//  get(collectionData).categoriesWithWords.forEach(({category, wordIds}) => {
+//    if (wordIds !== null && category.id !== get(categoryDetailData).id && wordIds.includes(word.text)) {
+//      updateStatistics(category, word, prevState, modes);
+//      if (getState(word) === WordsType.KNOWN) {
+//        removeWordFromCategory(get(collectionData), category, word);
+//      } else {
+//        addWordIntoCategory(get(collectionData), category, word);
+//      }
+//    }
+//  });
+//}
 
 function addKnownCategory(word) {
   if (word.knownCategories === undefined) {
@@ -134,19 +134,35 @@ function removeKnownCategory(word) {
   }
 }
 
+function updateStatistics(collectionId, word, prevState, modes) {
+  let advancedCollection = get(allCollectionsData).find((c) => c.id === collectionId);
+  advancedCollection ? advancedCollection.updateStatistics(word, prevState, modes) : null
+}
+
+function updateMainCollectionWordStatistics(word, prevState, modes) {
+  if (![2,7,3].includes(word.collectionId)) { return }
+  updateStatistics(3, word, prevState, modes);
+
+  if (word.collectionId === 2) {
+    updateStatistics(2, word, prevState, modes);
+    updateStatistics(7, word, prevState, modes);
+  } 
+  else if (word.collectionId === 7) {
+    updateStatistics(7, word, prevState, modes);
+  }
+}
+
 export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   let currentCategory = get(categoryDetailData);
   let currentCollection = get(collectionData);
 
-  // Update statistics
   statisticsData.updateData(word, prevState);
   trainingModeStatisticsData.updateData(word, modes);
 
-  //updateInOtherCategories(word, prevState, modes);
-
-  // Save current statistics
-  DS.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
-  DS.saveCategoryModeStatistics(currentCollection.id, currentCategory.id, get(trainingModeStatisticsData));
+  if (![2,7,3].includes(currentCollection.id)) { 
+    currentCategory.updateStatistics(word, prevState, modes);
+  }
+  updateMainCollectionWordStatistics(word, prevState, modes);
 
   if (isKnown(word)) {
     addKnownCategory(word);

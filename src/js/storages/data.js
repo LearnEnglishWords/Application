@@ -37,6 +37,7 @@ export default class DataStorage {
   }
 
   static saveCategoryStatistics(collectionId, categoryId, statistics) {
+    if (categoryId === undefined || categoryId === null) { return }
     return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:statistics`, statistics);
   }
 
@@ -45,6 +46,7 @@ export default class DataStorage {
   }
 
   static saveCategoryModeStatistics(collectionId, categoryId, statistics) {
+    if (categoryId === undefined || categoryId === null) { return }
     return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`, statistics);
   }
 

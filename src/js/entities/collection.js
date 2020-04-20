@@ -59,4 +59,29 @@ export default class Collection {
       });
     });
   }
+
+  updateStatistics(word, prevState, modes) {
+    if ([2,7,3].includes(this.id)) {
+      let categoryId = `collection_${this.id}`;
+      DS.getCategoryStatistics(this.id, categoryId).then((stats) => {
+        if (stats !== null) {
+          alert("test1")
+          stats.updateData(word, prevState);
+          alert("test2")
+          this.categories[0].statistics.updateData(word, prevState);
+          alert("test3")
+          DS.saveCategoryStatistics(this.id, categoryId, get(stats));
+        }
+      });
+      DS.getCategoryModeStatistics(this.id, categoryId).then((modeStats) => { 
+        if (modeStats !== null) {
+          modeStats.updateData(word, prevState); 
+          this.categories[0].modeStatistics.updateData(word, prevState); 
+          DS.saveCategoryModeStatistics(this.id, categoryId, get(modeStats));
+        }
+      });
+    } else {
+      this.categories.forEach((category) => { category.updateStatistics(word, prevState, modes) });
+    }
+  }
 }

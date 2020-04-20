@@ -83,5 +83,16 @@ export default class Category {
       return new Category(null, this.collectionId, null, null, [this, category])
     }
   }
+
+  updateStatistics(word, prevState, modes) {
+    if (!this.wordStorages['original'].getWordIds.includes(word.text)) { return }
+    this.statistics.updateData(word, prevState);
+    this.modeStatistics.updateData(word, modes);
+
+    if (this.id !== null) {
+      DS.saveCategoryStatistics(this.collectionId, this.id, get(this.statistics));
+      DS.saveCategoryModeStatistics(this.collectionId, this.id, get(this.modeStatistics));
+    }
+  }
 }
 
