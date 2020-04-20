@@ -2,7 +2,8 @@ export const defaultSettingsData = {
   "enableDarkMode": false,
   "wordsLimit": 30,
   "pronunciation": "uk",
-  "enableAutoPlaySound": true
+  "enableAutoPlaySound": true,
+  "swiperTransitionSpeed": 0
 };            
 
 export const trainingModes = [
