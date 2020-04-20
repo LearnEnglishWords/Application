@@ -18,95 +18,72 @@
   <!-- View -->
   <div class="view Training">
 
-<!--
-  <div data-speed="900" class="swiper-container swiper-init">
-  <div class="swiper-pagination">
-    <div class="swiper-prev">prev</div>
-    <div class="swiper-next">next</div>
-  </div>
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-    <div class="swiper-slide">Slide 4</div>
-    <div class="swiper-slide">Slide 5</div>
-  </div>
-</div>
--->
-
-<Swiper style="display:none" init navigation={isTraining} params={{speed: 0, allowTouchMove: false, loop: false, followFinger: false}}>
-    {#each $trainingData.words as word, id}
-      <SwiperSlide style="height: {swiperHeight}">
-        <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
-        <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div>
-      </SwiperSlide>
-    {/each}
-  </Swiper>
+    <div class="swiper-container swiper-init">
+      <div class="swiper-wrapper">
+        {#each $trainingData.words as word, id}
+          <div class="swiper-slide">
+            <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+          <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div>
+        </div>
+        {/each}
+      </div>
+      <div class="swiper-button-prev" on:click={swiper.slidePrev}></div>
+      <div class="swiper-button-next" on:click={swiper.slideNext}></div>
+    </div>
 
 
-
-
-  
-
-
-
-
-
-
-  {#if !isTraining && $trainingData.mode === "read"}
-    <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
-    <Row>
-      <Col width="25">
-      </Col>
-      <Col width="25">
-        <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
-      </Col>
-      <Col width="25">
-        <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
-      </Col>
-      <Col width="25">
-      </Col>
-    </Row> 
-  {/if}
-
-  {#if $trainingData.mode === "read"}
-    <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+    {#if !isTraining && $trainingData.mode === "read"}
+      <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
       <Row>
         <Col width="25">
         </Col>
-        <Col width="50">
-          <center>
-            <div class="arrow">&#8964;</div> <br>
-            {$_('training.wall_text')}
-          </center>
+        <Col width="25">
+          <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
+        </Col>
+        <Col width="25">
+          <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
         </Col>
         <Col width="25">
         </Col>
-      </Row>
-    </Sheet>
-
-    {#if isTraining}
-      <Toolbar style="display:none;" position={'bottom'}>
-        <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
-        <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
-      </Toolbar>
-        
-      <WordDescriptionPopup word={$trainingData.words[currentWordIndex]} />
+      </Row> 
     {/if}
-  {/if}
 
-  <RecapitulationPopup info={recapitulationInfo} open={showRecapitulation} />
+    {#if $trainingData.mode === "read"}
+      <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+        <Row>
+          <Col width="25">
+          </Col>
+          <Col width="50">
+            <center>
+              <div class="arrow">&#8964;</div> <br>
+              {$_('training.wall_text')}
+            </center>
+          </Col>
+          <Col width="25">
+          </Col>
+        </Row>
+      </Sheet>
+      {#if isTraining}
+        <Toolbar style="display:none;" position={'bottom'}>
+          <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
+          <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
+        </Toolbar>
 
+        <WordDescriptionPopup word={$trainingData.words[currentWordIndex]} />
+      {/if}
+    {/if}
+
+    <RecapitulationPopup info={recapitulationInfo} open={showRecapitulation} />
 
   </div>
   
   <div class="footer-training">
-      {#if $trainingData.mode === "read"}
-          {#if $trainingData.isTraining}
+    {#if $trainingData.mode === "read"}
+      {#if $trainingData.isTraining}
         <Button sheetOpen=".description">{$_('training.buttons.examples')}</Button>
       {/if}
-  {/if}
-    </div>
+    {/if}
+  </div>
 </Page>
 
 <script>
@@ -114,7 +91,6 @@
     f7, Page, PageContent, 
     Block, BlockTitle, BlockHeader, 
     Navbar, Subnavbar,
-    Swiper, SwiperSlide, 
     List, ListItem, AccordionContent,
     Row, Col, Button, Link,
     Sheet, Toolbar, Popup
@@ -125,6 +101,7 @@
     collectionData, categoryDetailData,
     trainingModeStatisticsData 
   } from '../js/store.js';
+  import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
@@ -154,7 +131,19 @@
   }
   
   onMount(() => {
-    swiper = f7.swiper.get('.swiper-container')
+    swiper = new Swiper ('.swiper-container', {
+      // Optional parameters
+      direction: 'horizontal',
+      speed: 0,
+      loop: false,
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+    });
+
     swiper.on("slideNextTransitionStart", () => { 
       currentWordIndex += 1;
       playAutoSound()

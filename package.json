@@ -77,6 +77,7 @@
     "sass-loader": "^8.0.2",
     "svelte": "^3.18.1",
     "svelte-i18n": "^3.0.2",
+    "swiper": "^5.3.7",
     "template7": "^1.4.2"
   },
   "devDependencies": {
