@@ -42,4 +42,15 @@
       }
     }
   }
+  &-training {
+    @include position(absolute, null, 0, 0, 0);
+    a {
+      background: var(--app);
+      color: #FFFFFF;
+      @include font(null, 11px, 800);
+      height: 50px;
+      line-height: 50px;   
+      border-radius: 15px 15px 0 0;  
+    }
+  }
 }

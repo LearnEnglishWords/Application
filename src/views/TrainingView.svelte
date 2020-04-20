@@ -1,24 +1,56 @@
 <Page name="Training">
+  <!-- Navbar -->
   <Header>
-    <div slot="subnavbar">
-      <Subnavbar> 
+    <div slot="title" class="title">
+      <span>
         {#if isTraining}
           {$_('training.subtitle.trenink')}
         {:else}
           {$_('training.subtitle.testing')}
         {/if}
-      </Subnavbar> 
+      </span>
     </div>
   </Header>
-  {currentWordIndex+1}/{$trainingData.words.length}
+  <!-- Header -->
+  <div class="header statistics empty">
+  
+  </div>
+  <!-- View -->
+  <div class="view Training">
 
-  <Swiper init navigation={isTraining} params={{speed: 0, allowTouchMove: false, loop: false, followFinger: false}}>
+<!--
+  <div data-speed="900" class="swiper-container swiper-init">
+  <div class="swiper-pagination">
+    <div class="swiper-prev">prev</div>
+    <div class="swiper-next">next</div>
+  </div>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+    <div class="swiper-slide">Slide 4</div>
+    <div class="swiper-slide">Slide 5</div>
+  </div>
+</div>
+-->
+
+<Swiper style="display:none" init navigation={isTraining} params={{speed: 0, allowTouchMove: false, loop: false, followFinger: false}}>
     {#each $trainingData.words as word, id}
       <SwiperSlide style="height: {swiperHeight}">
         <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+        <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div>
       </SwiperSlide>
     {/each}
   </Swiper>
+
+
+
+
+  
+
+
+
+
 
 
   {#if !isTraining && $trainingData.mode === "read"}
@@ -54,7 +86,7 @@
     </Sheet>
 
     {#if isTraining}
-      <Toolbar position={'bottom'}>
+      <Toolbar style="display:none;" position={'bottom'}>
         <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
         <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
       </Toolbar>
@@ -64,6 +96,17 @@
   {/if}
 
   <RecapitulationPopup info={recapitulationInfo} open={showRecapitulation} />
+
+
+  </div>
+  
+  <div class="footer-training">
+      {#if $trainingData.mode === "read"}
+          {#if $trainingData.isTraining}
+        <Button sheetOpen=".description">{$_('training.buttons.examples')}</Button>
+      {/if}
+  {/if}
+    </div>
 </Page>
 
 <script>

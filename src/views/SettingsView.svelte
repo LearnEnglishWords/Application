@@ -7,7 +7,7 @@
   </Header>
   <!-- Header -->
   <div class="header statistics empty"></div>
-  <div class="view settings">
+  <div class="view Settings">
     <!-- Title -->
     <BlockTitle>{$_('settings_title_personal')}</BlockTitle>
     <List>
