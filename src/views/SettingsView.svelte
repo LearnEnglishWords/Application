@@ -51,6 +51,16 @@
         {/if}
       </ListItem>
       -->
+      <ListItem>
+        <div>
+          {$_('settings.swiper_transition')}
+        </div>
+        {#if swiperTransitionSpeed}
+          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(0)} checked color="blue"></Toggle>
+        {:else}
+          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(300)} color="blue"></Toggle>
+        {/if}
+      </ListItem>
     </List>
   </Block>
 </Page>
@@ -75,6 +85,7 @@
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let enableDarkMode = $settingsData.enableDarkMode;
   let pronunciation = $settingsData.pronunciation;
+  let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
 
   const pronunciations = {
     "uk": $_('settings.pronunciation.uk'),
@@ -99,6 +110,11 @@
 
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveSwiperTransitionSpeed(speed) {
+    $settingsData.swiperTransitionSpeed = speed;
     DS.saveSettings($settingsData);
   }
 </script>

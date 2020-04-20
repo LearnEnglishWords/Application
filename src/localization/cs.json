@@ -76,6 +76,7 @@
       "words_limit": "Přednastavený počet slov:",
       "auto_sound": "Automatické přehrávání zvuku:",
       "night_theme": "Noční režim:",
+      "swiper_transition": "Animace zmeny slov:",
       "pronunciation": {
           "text": "Výběr výslovnosti:",
           "us": "Americká",
