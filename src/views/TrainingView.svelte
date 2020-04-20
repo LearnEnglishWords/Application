@@ -27,8 +27,8 @@
         </div>
         {/each}
       </div>
-      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVG icon="nav-left" size="24"></SVG></div>
-      <div class="swiper-button-next" on:click={swiper.slideNext}><SVG icon="nav-right" size="24"></SVG></div>
+      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="nav-left" size="24"/></div>
+      <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="nav-right" size="24"/></div>
     </div>
 
     {#if !isTraining && $trainingData.mode === "read"}
@@ -103,6 +103,7 @@
   import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
