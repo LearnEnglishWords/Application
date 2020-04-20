@@ -121,10 +121,3 @@
     DS.saveSettings($settingsData);
   }
 </script>
-
-<style>
-  .pronunciation-menu {
-    --f7-menu-bg-color: #007aff;
-  }
-</style>
-
