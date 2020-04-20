@@ -77,6 +77,7 @@
   },
   "settings": {
       "title": "Nastavení",
+      "subtitle": "Personalizace",
       "words_limit": "Přednastavený počet slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "night_theme": "Tmavý motiv",
@@ -93,6 +94,7 @@
           "testing": "Ověření znalostí"
       },
       "wall_text": "Řekni co si myslíš, že dané slovíčko znamená a potom táhni dolů pro zkontrolování.",
+      "sense_title": "Význam slova",
       "description_title": "Příklady použití",
       "question": {
           "text": "Už umíš dané slovíčko?",
@@ -166,10 +168,5 @@
       "info": "Zde můžete označit slovíčka, která již znáte:",
       "known": "Znám",
       "unknown": "Neznám"
-  },
-
-
-  "settings_title": "Nastavení",
-  "settings_title_personal": "Personalizace",
-  "word_importance": "Význam slova"
+  }
 }

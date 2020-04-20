@@ -8,7 +8,7 @@
 <span>34/42</span>
 </div>
 </div>
-    <div class="block-title">{$_('word_importance')}</div>
+    <div class="block-title">{$_('training.sense_title')}</div>
     <WordDetail {word}/>
 
     {:else} 

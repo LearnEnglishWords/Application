@@ -2,14 +2,14 @@
   <!-- Navbar -->
   <Header>
     <div slot="title" class="title">
-      <span>{$_('settings_title')}</span>
+      <span>{$_('settings.title')}</span>
     </div>
   </Header>
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
     <!-- Title -->
-    <BlockTitle>{$_('settings_title_personal')}</BlockTitle>
+    <BlockTitle>{$_('settings.subtitle')}</BlockTitle>
     <List>
       <ListItem>
         <div>{$_('settings.words_limit')}</div>
