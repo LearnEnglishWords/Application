@@ -134,7 +134,7 @@
     swiper = new Swiper ('.swiper-container', {
       // Optional parameters
       direction: 'horizontal',
-      speed: 0,
+      speed: $settingsData.swiperTransitionSpeed,
       loop: false,
 
       // Navigation arrows

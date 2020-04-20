@@ -80,6 +80,7 @@
       "words_limit": "Přednastavený počet slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "night_theme": "Tmavý motiv",
+      "swiper_transition": "Animace zmeny slov",
       "pronunciation": {
           "text": "Výběr výslovnosti",
           "us": "Americká",
