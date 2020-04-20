@@ -99,11 +99,12 @@ html, body {
 
 .read-mode {
   margin-bottom: 15px;
+  margin-top: 56px;
   padding: 15px 0;
   text-align: center;
-  background: var(--app);
+  background: var(--core);
   color: var(--theme);
-  height: calc(50vh - 50px - 56px);
+  height: 25vh;
   display: table;
   width: 100%;
   div {
@@ -118,12 +119,41 @@ html, body {
   }
 }
 
+.wall {
+  height: calc(75vh - 56px - 30px);
+  background: var(--app);
+  padding: 30px 15px;
+  border-radius: 15px 15px 0 0;
+  color: white;
+  &::before {
+    content: none !important;
+  }
+  .sheet-modal-inner {
+    display: table;
+    .wrapper-mode {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      .icon {
+        margin-bottom: 60px;
+      }
+      span {
+        @include font(null, 12px, 700);
+      }
+    }
+
+  }
+}
+
 .space {
   margin-bottom: 15px;
 }
 
 .list.detail {
   margin-top: 15px;
+  ul::before {
+    content: none;
+  }
 }
 
 .material-icons {
@@ -135,10 +165,25 @@ html, body {
 }
 
 .word {
-  @include font(null, 18px, 700);
+  @include font(null, 24px, 700);
+  color: var(--app);
 }
-.word-speak {
-  @include font(null, 15px, 400);
+.word_speak {
+  @include font(null, 14px, 400);
+  margin-bottom: 15px;
+  color: var(--title);
+}
+
+.length {
+  @include font(null, 12px, 700);
+  color: var(--title);
+}
+
+.text-footer {
+  text-align: center;
+  color: var(--title);
+  @include font(null, 12px, 700);
+  margin-bottom: 15px;
 }
 
 .swiper-container {
@@ -146,7 +191,7 @@ html, body {
 }
 .swiper-button-prev, .swiper-button-next {
   top: inherit;
-  bottom: 0;
+  bottom: calc(15px + ((38px - 24px) / 2));
   width: 24px;
   height: 24px;
   color: var(--title);
@@ -154,4 +199,33 @@ html, body {
     content: none;
   }
 }
+.swiper-button-prev {
+  left: 15px;
+}
+.swiper-button-next {
+  right: 15px;
+}
+.swiper-button-disabled {
+  opacity: 0.75;
+}
 
+.icon {
+  height: 24px;
+}
+
+.training-list {
+  .item-title {
+    font-weight: 600;
+  }
+  .item-after {
+    @include font(null, 12px, 400);
+  }
+}
+
+.block-title.training {
+  padding: 0 15px;
+  text-align: left;
+  span:nth-child(2) {
+    float: right;
+  }
+}

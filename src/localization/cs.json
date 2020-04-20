@@ -90,16 +90,16 @@
   },
   "training": {
       "subtitle": {
-          "trenink": "Trénink slovíček",
+          "trenink": "Trénink",
           "testing": "Ověření znalostí"
       },
-      "wall_text": "Řekni co si myslíš, že dané slovíčko znamená a potom táhni dolů pro zkontrolování.",
+      "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "sense_title": "Význam slova",
       "description_title": "Příklady použití",
       "question": {
           "text": "Už umíš dané slovíčko?",
-          "yes": "Ano",
-          "no": "Ne"
+          "yes": "Znám",
+          "no": "Neznám"
       },
       "toolbar": {
           "start": "Na začátek",

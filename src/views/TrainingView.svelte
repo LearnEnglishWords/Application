@@ -23,44 +23,30 @@
         {#each $trainingData.words as word, id}
           <div class="swiper-slide">
             <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
-          <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div>
+          <!-- <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div> -->
         </div>
         {/each}
       </div>
-      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="nav-left" size="24"/></div>
-      <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="nav-right" size="24"/></div>
+      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
+      <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
     </div>
 
     {#if !isTraining && $trainingData.mode === "read"}
-      <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
-      <Row>
-        <Col width="25">
-        </Col>
-        <Col width="25">
+      <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
+      <div class="footer-training two">
+          <div class="footer-buttons">
           <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
-        </Col>
-        <Col width="25">
           <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
-        </Col>
-        <Col width="25">
-        </Col>
-      </Row> 
+          </div>
+      </div>
     {/if}
 
     {#if $trainingData.mode === "read"}
       <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
-        <Row>
-          <Col width="25">
-          </Col>
-          <Col width="50">
-            <center>
-              <div class="arrow">&#8964;</div> <br>
-              {$_('training.wall_text')}
-            </center>
-          </Col>
-          <Col width="25">
-          </Col>
-        </Row>
+        <div class="wrapper-mode">
+          <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
+          <span>{$_('training.wall_text')}</span>
+        </div>
       </Sheet>
       {#if isTraining}
         <Toolbar style="display:none;" position={'bottom'}>

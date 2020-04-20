@@ -1,8 +1,14 @@
 
       <List class="detail">
+        <div class="block-title">
+        <span>{$_('training.sense_title')}</span>
+          <span style="float:right;">4/54</span>
+        </div>
         {#each word.sense.slice(0,3) as sense, id}
           <ListItem>{sense.toLowerCase()}
-             <i slot="media" class="material-icons">translate</i>
+            <div class="icon" slot="media">
+              <SVGIcon name="translation" size="24"/>
+            </div>
           </ListItem>
         {/each}
       </List>
@@ -14,6 +20,7 @@
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
   import { trainingData } from '../js/store.js';
+  import SVGIcon from '../components/SVGIcon.svelte';
 
   export let word;
 

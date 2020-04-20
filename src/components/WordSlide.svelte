@@ -4,11 +4,10 @@
   <div class="read-div">
     <div class="word">{word.text}</div>
     <div class="word_speak">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-<i class="material-icons training">headset</i>
-<span>34/42</span>
+    <SVGIcon name="sound" size="24"/>
 </div>
 </div>
-    <div class="block-title">{$_('training.sense_title')}</div>
+    <!-- <div class="block-title">{$_('training.sense_title')}</div> -->
     <WordDetail {word}/>
 
     {:else} 
@@ -65,6 +64,7 @@
 	import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
+  import SVGIcon from './SVGIcon.svelte';
   import { statisticsData, settingsData } from '../js/store.js';
   import { playSound } from '../js/utils.js';
 
