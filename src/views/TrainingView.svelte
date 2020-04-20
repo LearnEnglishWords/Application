@@ -27,10 +27,9 @@
         </div>
         {/each}
       </div>
-      <div class="swiper-button-prev" on:click={swiper.slidePrev}></div>
-      <div class="swiper-button-next" on:click={swiper.slideNext}></div>
+      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVG icon="nav-left" size="24"></SVG></div>
+      <div class="swiper-button-next" on:click={swiper.slideNext}><SVG icon="nav-right" size="24"></SVG></div>
     </div>
-
 
     {#if !isTraining && $trainingData.mode === "read"}
       <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
