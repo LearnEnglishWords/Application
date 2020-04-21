@@ -122,6 +122,7 @@
       direction: 'horizontal',
       speed: $settingsData.swiperTransitionSpeed,
       loop: false,
+      allowTouchMove: isTraining,
 
       // Navigation arrows
       navigation: {
