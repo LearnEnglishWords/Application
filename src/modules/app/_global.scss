@@ -246,12 +246,15 @@ html, body {
 .sheet-modal.description {
   height: calc(75vh - 56px - 30px);
   border-radius: 15px 15px 0 0;
+  background: #FFF;
 }
 
 .content-mode {
   @include position(absolute, null, null, 0, null);
-  height: calc(75vh - 38px - 56px);
+  height: calc(75vh - 30px - 56px);
   text-align: center;
+  background: var(--core);
+  width: 100%;
 }
 
 .translate {
@@ -283,4 +286,28 @@ html, body {
   &.right {
     color: var(--known);
   }
+}
+
+.read-title {
+  color: var(--app);
+  margin-bottom: 15px;
+  @include font(null, 12px, 400);
+}
+
+.sheet-title {
+  padding: 0 15px;
+  height: 50px;
+  line-height: 50px;
+  background: var(--app);
+  color: #FFF;
+  svg {
+    float: right;
+    margin-top: 13px;
+  }
+}
+
+.title-recapitulation {
+  @include font(null, 18px, 700);
+  text-transform: uppercase;
+  color: #FFF;
 }

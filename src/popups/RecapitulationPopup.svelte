@@ -1,6 +1,31 @@
 
 <Popup animate={false} opened={open}>
-  <Page>
+  <div class="read-mode">
+    <div class="read-div">
+      <div class="title-recapitulation">{$_('recapitulation.medium_title')}</div>
+    </div>
+  </div>
+  <div class="footer-training">
+  <Button large fill popupClose color="green">{$_('recapitulation.continue')}</Button>
+  </div>
+  <div class="content-mode">
+    <div class="rec-div words">
+      <span>{$_('recapitulation.number_words')}</span>
+      <span>{info.count}</span>
+      </div>
+          <div class="rec-div right">
+      <span>{$_('recapitulation.number_words')}</span>
+      <span>{info.known}</span>
+      </div>
+          <div class="rec-div wrong">
+      <span>{$_('recapitulation.number_words')}</span>
+      <span>{info.unknown}</span>
+      </div>
+  </div>
+
+
+
+  <Page style="display:none">
     <Header type="popup" popupName="recapitulation"/>
     <center>
       <BlockTitle large >{$_('recapitulation.large_title')}</BlockTitle>

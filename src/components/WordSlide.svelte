@@ -19,8 +19,9 @@
               {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
             {/each}
           {:else if mode==="listen"} 
-            <div on:click={() => playSound(word)}>
-              <h1><b>&#x1F509;</b></h1>
+            <div class="read-mode" on:click={() => playSound(word)}>
+            <div class="read-title">Klikněte pro poslechnutí slova</div>
+              <SVGIcon name="sound" size="24"/>
             </div>
           {/if}
       </div>

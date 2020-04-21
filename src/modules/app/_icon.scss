@@ -26,4 +26,9 @@ svg {
       stroke: var(--theme);
     }
   }
+  &[data-name="e-remove"] {
+    line {
+      stroke: #FFF;
+    }
+  }
 }

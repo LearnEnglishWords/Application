@@ -2,12 +2,12 @@
   <div class="sheet-title">
     <span>{$_('training.description_title')}</span>
     <SVGIcon name="e-remove" size="24"/>
-          <List>
+  </div>
+            <List>
         {#each word.examples as example, id}
-          <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
+          <ListItem>{example}<SVGIcon name="sound" size="24"/></ListItem>
         {/each}
       </List>
-  </div>
   
   
   
