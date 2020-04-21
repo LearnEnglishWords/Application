@@ -11,10 +11,7 @@
       </span>
     </div>
   </Header>
-  <!-- Header -->
-  <div class="header statistics empty">
-  
-  </div>
+
   <!-- View -->
   {#if !showRecapitulation}
     <div class="view Training">

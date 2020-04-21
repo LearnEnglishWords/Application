@@ -4,7 +4,7 @@
 // --> Navbar
 .navbar {
   .navbar-bg {
-    background: darken($color: $app, $amount: 7.50);
+    background: var(--app);
   }
   .navbar-inner {
     .link {

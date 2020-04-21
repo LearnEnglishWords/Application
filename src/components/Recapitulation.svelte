@@ -1,24 +1,46 @@
-<div class="read-mode">
+{#if recapitulation === 'above-average'}
+<div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation">{$_('recapitulation.medium_title')}</div>
+    <SVGIcon name="smile" size="64"/>
+    <div class="title-recapitulation">Nadprůměrné hodnocení</div>
   </div>
 </div>
+{:else if recapitulation === 'average'}
+<div class="read-mode without recap">
+  <div class="read-div">
+    <SVGIcon name="speechless" size="64"/>
+    <div class="title-recapitulation">Průměrné hodnocení</div>
+  </div>
+</div>
+{:else}
+<div class="read-mode without recap">
+  <div class="read-div">
+    <SVGIcon name="sad" size="64"/>
+    <div class="title-recapitulation">Podprůměrné hodnocení</div>
+  </div>
+</div>
+{/if}
 <div class="footer-training">
 <Button large fill back color="green">{$_('recapitulation.continue')}</Button>
 </div>
-<div class="content-mode">
-  <div class="rec-div words">
-    <span>{$_('recapitulation.number_words')}</span>
-    <span>{info.count}</span>
+<div class="content-mode result">
+  <div class="row">
+    <div class="col rec-div wrong">
+      <span class="number">{info.unknown}</span>
+      <div>Slov</div>
+      <span>Neznám</span>
     </div>
-        <div class="rec-div right">
-    <span>{$_('recapitulation.number_words')}</span>
-    <span>{info.known}</span>
+    <div class="col rec-div words">
+      <span class="number">{info.count}</span>
+      <div>Slov</div>
+      <span>Celkem</span>
     </div>
-        <div class="rec-div wrong">
-    <span>{$_('recapitulation.number_words')}</span>
-    <span>{info.unknown}</span>
+    <div class="col rec-div right">
+      <span class="number">{info.known}</span>
+      <div>Slov</div>
+      <span>Znám</span>
     </div>
+  </div>
 </div>
 
 
@@ -59,8 +81,11 @@
     Button
   } from 'framework7-svelte';
   import Header from '../components/Header.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
   import { _ } from 'svelte-i18n';
 
   export let info;
   export let open;
+
+  let recapitulation = 'below-average';
 </script>

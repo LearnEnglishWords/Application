@@ -111,6 +111,12 @@ html, body {
   height: 25vh;
   display: table;
   width: 100%;
+  &.without {
+    margin-top: 0;
+  }
+  &.recap {
+    background: var(--app);
+  }
   div {
     .read-content {
       margin-top: 7.5px;
@@ -255,6 +261,39 @@ html, body {
   text-align: center;
   background: var(--core);
   width: 100%;
+  &.result {
+    background: var(--core);
+  }
+  .row {
+    @include grid(grid, repeat(auto-fit, minmax(calc(100% / 3), 1fr)), center, center, center);
+    color: var(--app);
+    background: var(--theme);
+    .col {
+      width: 100%;
+      padding: 30px 0;
+      color: var(--app);
+      &.right {
+        span {
+          color: var(--known);
+        }
+      }
+      &.wrong {
+        span {
+          color: var(--unknown);
+        }
+      }
+      div {
+        @include font(null, 12px, 700);
+        color: var(--title);
+      }
+      span {
+        @include font(null, 15px, 600);
+        &.number {
+          @include font(null, 18px, 700);
+        }
+      }
+    }
+  }
 }
 
 .translate {
@@ -307,7 +346,8 @@ html, body {
 }
 
 .title-recapitulation {
-  @include font(null, 18px, 700);
+  @include font(null, 15px, 700);
   text-transform: uppercase;
   color: #FFF;
+  margin-top: 30px;
 }
