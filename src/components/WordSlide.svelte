@@ -28,11 +28,11 @@
           
         <div class="footer-training">
         {#if result === ""}
-        <Button large fill on:click={check}>{$_('training.buttons.check')}</Button>
-           {:else}
-              <!--<h3 style="color: {resultColor}"> {result} </h3>-->
-              <Button large fill class="button-continue" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
-            {/if}
+          <Button large fill on:click={check}>{$_('training.buttons.check')}</Button>
+        {:else}
+          <!--<h3 style="color: {resultColor}"> {result} </h3>-->
+          <Button large fill class="button-continue" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
+        {/if}
         </div>
 
          
@@ -42,12 +42,12 @@
           <div class="block-title">Přeložte do angličtiny</div>
           <input bind:value={translatedText} on:keydown={handleKeydown} id="translate-input" class="translate">
           <!-- UPRAVIT -->
-          {#if result !== "" || translatedText !== word}
+          {#if result !== null && !result}
             <div class="result-div wrong">
               <span>{$_('training.results.wrong')}</span>
               <div>{$_('training.results.result_word')}<span>word</span></div>
             </div>
-            {:else}
+          {:else if result !== null && result}
             <div class="result-div right">
               <span>{$_('training.results.right')}</span>
             </div>
@@ -89,9 +89,10 @@
   const dispatch = createEventDispatcher();
 
   let translatedText = "";
-  let result = "";
+  let result = null;
   let placeholder = "";
   let resultColor = "black";
+
 
   if (mode === "write") {
     placeholder = $_('training.placeholders.write');
@@ -102,12 +103,10 @@
   function check() {
     if (translatedText === "") { return }
     if (translatedText.toLowerCase() === word.text.toLowerCase()) {
-      result = $_('training.results.right');
-      resultColor = "green";
+      result = true;
       dispatch('updateWord', {word: word, state: true});
     } else {
-      result = $_('training.results.wrong') + word.text;
-      resultColor = "red";
+      result = false;
       dispatch('updateWord', {word: word, state: false});
     }
   }
