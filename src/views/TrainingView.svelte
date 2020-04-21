@@ -27,8 +27,10 @@
         </div>
         {/each}
       </div>
-      <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
-      <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
+      {#if $trainingData.isTraining}
+        <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
+        <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
+      {/if}
     </div>
 
     {#if !isTraining && $trainingData.mode === "read"}
