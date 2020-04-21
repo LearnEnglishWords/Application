@@ -16,52 +16,53 @@
   
   </div>
   <!-- View -->
-  <div class="view Training">
+  {#if !showRecapitulation}
+    <div class="view Training">
 
-    <div class="swiper-container swiper-init">
-      <div class="swiper-wrapper">
-        {#each $trainingData.words as word, id}
-          <div class="swiper-slide">
-            <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+      <div class="swiper-container swiper-init">
+        <div class="swiper-wrapper">
+          {#each $trainingData.words as word, id}
+            <div class="swiper-slide">
+              <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+          </div>
+          {/each}
         </div>
-        {/each}
+        {#if $trainingData.isTraining}
+          <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
+          <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
+        {/if}
       </div>
-      {#if $trainingData.isTraining}
-        <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
-        <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
+
+      {#if !isTraining && $trainingData.mode === "read"}
+        <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
+        <div class="footer-training two without">
+            <div class="footer-buttons">
+            <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
+            <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
+            </div>
+        </div>
+      {/if}
+
+      {#if $trainingData.mode === "read"}
+        <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+          <div class="wrapper-mode">
+            <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
+            <span>{$_('training.wall_text')}</span>
+          </div>
+        </Sheet>
+        {#if isTraining}
+          <Toolbar style="display:none;" position={'bottom'}>
+            <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
+            <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
+          </Toolbar>
+
+          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
+        {/if}
       {/if}
     </div>
-
-    {#if !isTraining && $trainingData.mode === "read"}
-      <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-      <div class="footer-training two without">
-          <div class="footer-buttons">
-          <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
-          <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
-          </div>
-      </div>
-    {/if}
-
-    {#if $trainingData.mode === "read"}
-      <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
-        <div class="wrapper-mode">
-          <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
-          <span>{$_('training.wall_text')}</span>
-        </div>
-      </Sheet>
-      {#if isTraining}
-        <Toolbar style="display:none;" position={'bottom'}>
-          <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
-          <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
-        </Toolbar>
-
-        <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
-      {/if}
-    {/if}
-
-    <RecapitulationPopup info={recapitulationInfo} open={showRecapitulation} />
-
-  </div>
+  {:else}
+    <Recapitulation info={recapitulationInfo} />
+  {/if}
   
   <div class="footer-training">
     {#if $trainingData.mode === "read"}
@@ -91,7 +92,7 @@
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
-  import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
+  import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
@@ -201,7 +202,6 @@
   function nextWord() {
     if ($trainingData.words.length === $trainingData.currentWordIndex+1) {
       showRecapitulation = true;
-      f7router.back();
     } else {
       f7.sheet.open(".wall", false);
       swiper.slideNext();
