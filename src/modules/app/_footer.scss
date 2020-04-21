@@ -53,6 +53,9 @@
       line-height: 38px;   
       border-radius: 15px;  
     }
+    &.without {
+      @include position(absolute, null, 15px, 15px, 15px);
+    }
     &.two {
       a {
         display: inline-block;

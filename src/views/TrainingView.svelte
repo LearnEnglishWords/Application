@@ -34,7 +34,7 @@
 
     {#if !isTraining && $trainingData.mode === "read"}
       <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-      <div class="footer-training two">
+      <div class="footer-training two without">
           <div class="footer-buttons">
           <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
           <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>

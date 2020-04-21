@@ -12,7 +12,11 @@ html, body {
 // --> Page
 .page-content {
     background: var(--core);
-    padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
+    //padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
+}
+
+.button-continue {
+  background: var(--known);
 }
 
 // --> View
@@ -97,7 +101,7 @@ html, body {
   }
 }
 
-.read-mode {
+.read-mode, .other-mode {
   margin-bottom: 15px;
   margin-top: 56px;
   padding: 15px 0;
@@ -112,11 +116,15 @@ html, body {
       margin-top: 7.5px;
     }
   }
-  .read-div {
+  .read-div, .other-div {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
   }
+}
+
+.other-div {
+  //color: var(--app);
 }
 
 .wall {
@@ -164,8 +172,13 @@ html, body {
   }
 }
 
+.result-div {
+  margin-top: 30px;
+  @include font(null, 14px, 400);
+}
+
 .word {
-  @include font(null, 24px, 700);
+  @include font(null, 18px, 700);
   color: var(--app);
 }
 .word_speak {
@@ -227,5 +240,47 @@ html, body {
   text-align: left;
   span:nth-child(2) {
     float: right;
+  }
+}
+
+.sheet-modal.description {
+  height: calc(75vh - 56px - 30px);
+  border-radius: 15px 15px 0 0;
+}
+
+.content-mode {
+  @include position(absolute, null, null, 0, null);
+  height: calc(75vh - 38px - 56px);
+  text-align: center;
+}
+
+.translate {
+  width: calc(100vw - 30px);
+  padding: 0 15px;
+  height: 45px;
+  line-height: 45px;
+  border: 0;
+  @include font(Exo, 12px, 700);
+  text-align: center;
+}
+.result-div {
+  @include font(null, 15px, 700);
+  span {
+    text-transform: uppercase;
+  }
+  &.wrong {
+    color: var(--unknown);
+    div {
+      font-weight: 400;
+      span {
+        display: block;
+        @include font(null, 15px, 700);
+        color: var(--app);
+        margin-top: 15px;
+      }
+    }
+  }
+  &.right {
+    color: var(--known);
   }
 }

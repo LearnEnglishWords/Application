@@ -115,8 +115,9 @@
           "listen": "Napište co slyšíte"
       },
       "results": {
-          "right": "Správně ;-)",
-          "wrong": "Špatně. Správná odpověď je: "
+          "right": "Správně",
+          "wrong": "Špatně",
+          "result_word": "Správná odpověď je"
       }
   },
   "about": {

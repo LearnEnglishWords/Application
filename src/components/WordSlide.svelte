@@ -12,46 +12,61 @@
 
     {:else} 
 
-      <BlockTitle medium> 
-        {#if mode==="write"} 
-          {#each word.sense as sense, id}
-            {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
-          {/each}
-        {:else if mode==="listen"} 
-          <div on:click={() => playSound(word)}>
-            <h1><b>&#x1F509;</b></h1>
-          </div>
-        {/if}
-      </BlockTitle> 
+      <div class="other-mode">
+          <div class="other-div word">
+          {#if mode==="write"} 
+            {#each word.sense as sense, id}
+              {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
+            {/each}
+          {:else if mode==="listen"} 
+            <div on:click={() => playSound(word)}>
+              <h1><b>&#x1F509;</b></h1>
+            </div>
+          {/if}
+      </div>
 
-      <Block>
-        <Row>
-          <Col width=20>
-          </Col>
-          <Col width=60>
-            <br> <br>
-            <input bind:value={translatedText} on:keydown={handleKeydown} id="translate-input" placeholder="{placeholder}">
-          </Col>
-          <Col width=20>
-          </Col>
-        </Row>
-        <Row>
-          <Col width=20>
-          </Col>
-          <Col width=60>
-            <br> <br>
-            {#if result === ""}
-              <Button large fill on:click={check}> {$_('training.buttons.check')} </Button>
-            {:else}
-              <h3 style="color: {resultColor}"> {result} </h3> 
-              <br> <br>
-              <Button large fill color="green" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
+          
+        <div class="footer-training">
+        {#if result === ""}
+        <Button large fill on:click={check}>{$_('training.buttons.check')}</Button>
+           {:else}
+              <!--<h3 style="color: {resultColor}"> {result} </h3>-->
+              <Button large fill class="button-continue" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
             {/if}
-          </Col>
-          <Col width=20>
-          </Col>
-        </Row>
-      </Block>
+        </div>
+
+         
+      </div>
+              <div class="content-mode">
+              <div class="other-div">
+          <div class="block-title">Přeložte do angličtiny</div>
+          <input bind:value={translatedText} on:keydown={handleKeydown} id="translate-input" class="translate">
+          <!-- UPRAVIT -->
+          {#if result !== "" || translatedText !== word}
+            <div class="result-div wrong">
+              <span>{$_('training.results.wrong')}</span>
+              <div>{$_('training.results.result_word')}<span>word</span></div>
+            </div>
+            {:else}
+            <div class="result-div right">
+              <span>{$_('training.results.right')}</span>
+            </div>
+          {/if}
+          <!---->
+          </div>
+        </div>
+
+
+
+
+
+
+
+        
+
+
+
+
 
     {/if}
 
