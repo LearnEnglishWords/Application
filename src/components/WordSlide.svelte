@@ -27,8 +27,8 @@
 
           
         <div class="footer-training">
-        {#if result === ""}
-          <Button large fill on:click={check}>{$_('training.buttons.check')}</Button>
+        {#if result === null}
+          <Button large fill on:click={checkButton}>{$_('training.buttons.check')}</Button>
         {:else}
           <!--<h3 style="color: {resultColor}"> {result} </h3>-->
           <Button large fill class="button-continue" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
@@ -45,7 +45,7 @@
           {#if result !== null && !result}
             <div class="result-div wrong">
               <span>{$_('training.results.wrong')}</span>
-              <div>{$_('training.results.result_word')}<span>word</span></div>
+              <div>{$_('training.results.result_word')}<span>{word.text}</span></div>
             </div>
           {:else if result !== null && result}
             <div class="result-div right">
@@ -109,6 +109,11 @@
       result = false;
       dispatch('updateWord', {word: word, state: false});
     }
+  }
+
+  function checkButton() {
+    document.activeElement.disabled = true;
+    check();
   }
 
   function handleKeydown(event) {
