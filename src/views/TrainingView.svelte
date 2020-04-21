@@ -23,7 +23,6 @@
         {#each $trainingData.words as word, id}
           <div class="swiper-slide">
             <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
-          <!-- <div class="length">{currentWordIndex+1}/{$trainingData.words.length}</div> -->
         </div>
         {/each}
       </div>
@@ -56,7 +55,7 @@
           <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
         </Toolbar>
 
-        <WordDescriptionPopup word={$trainingData.words[currentWordIndex]} />
+        <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
       {/if}
     {/if}
 
@@ -102,7 +101,6 @@
 
   let isTraining = $trainingData.isTraining;
   let wallEnable = !isTraining;
-  let currentWordIndex = 0;
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
@@ -133,11 +131,11 @@
     });
 
     swiper.on("slideNextTransitionStart", () => { 
-      currentWordIndex += 1;
+      $trainingData.currentWordIndex += 1;
       playAutoSound()
     })
     swiper.on("slidePrevTransitionStart", () => { 
-      currentWordIndex -= 1 
+      $trainingData.currentWordIndex -= 1 
       playAutoSound()
     })
     playAutoSound()
@@ -148,13 +146,13 @@
   }
 
   function noButton() {
-    let currentWord = $trainingData.words[currentWordIndex];
+    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
     updateWord({word: currentWord, state: false});
     nextWord();
   }
 
   function yesButton() {
-    let currentWord = $trainingData.words[currentWordIndex];
+    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
     updateWord({word: currentWord, state: true});
     nextWord();
   }
@@ -188,19 +186,19 @@
 
   function goToSlide(index) {
     if (!isTraining) { f7.sheet.open(".wall", false); }
-    currentWordIndex = index-2;
-    if(currentWordIndex < 0) { currentWordIndex = 1; }  
+    $trainingData.currentWordIndex = index-2;
+    if($trainingData.currentWordIndex < 0) { $trainingData.currentWordIndex = 1; }  
     swiper.slideTo(index);
   }
 
   function playAutoSound() {
     if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
-      playSound($trainingData.words[currentWordIndex])
+      playSound($trainingData.words[$trainingData.currentWordIndex])
     }
   }
 
   function nextWord() {
-    if ($trainingData.words.length === currentWordIndex+1) {
+    if ($trainingData.words.length === $trainingData.currentWordIndex+1) {
       showRecapitulation = true;
       f7router.back();
     } else {

@@ -1,8 +1,8 @@
 
       <List class="detail">
         <div class="block-title">
-        <span>{$_('training.sense_title')}</span>
-          <span style="float:right;">4/54</span>
+          <span>{$_('training.sense_title')}</span>
+          <span style="float:right;">{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
         </div>
         {#each word.sense.slice(0,3) as sense, id}
           <ListItem>{sense.toLowerCase()}

@@ -138,7 +138,8 @@
       mode: modeType, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
-      words: currentWordStorage.getWords(wordsLimit)
+      words: currentWordStorage.getWords(wordsLimit),
+      currentWordIndex: 0
     });
   }
 
