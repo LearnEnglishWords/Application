@@ -1,9 +1,6 @@
-import { _ } from 'svelte-i18n';
-import { get } from 'svelte/store';
-import DS from '../storages/data.js';
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from '../utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData } from '../utils.js'
 
 
 export default class Category {

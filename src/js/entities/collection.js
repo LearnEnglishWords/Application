@@ -1,6 +1,5 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
-import { WordsType, Modes } from '../utils.js'
 import DS from '../storages/data.js';
 import CategoryGroup from '../groups/category.js';
 import Category from './category.js';
@@ -39,7 +38,7 @@ export default class Collection {
 
   loadCategories() {
     let counter = 0;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       DS.getCategoryList(this.id).then((categories) => {
         categories.forEach((cat) => {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName);

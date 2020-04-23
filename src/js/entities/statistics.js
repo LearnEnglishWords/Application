@@ -107,7 +107,7 @@ export default class Statistics {
   }
 
   load() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       DS.getCategoryStatistics(this.collectionId, this.categoryId).then((stats) => {
         if (stats !== null) {
           this.stats = new Stats(stats);

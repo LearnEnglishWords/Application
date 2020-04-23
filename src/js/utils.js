@@ -32,7 +32,7 @@ export function getDefaultStatisticsData(count = 0) {
     "learning": 0,
     "unknown": count
   }
-};            
+}            
 
 export function getDefaultModeStatisticsData(count = 0) {
   return {
@@ -40,7 +40,7 @@ export function getDefaultModeStatisticsData(count = 0) {
     "write": { "known": 0, "unknown": count },
     "listen": { "known": 0, "unknown": count },
   }
-};            
+}            
 
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined) { return false }

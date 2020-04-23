@@ -1,7 +1,7 @@
 import { writable, get } from 'svelte/store';
 import DS from './storages/data.js';
 import { 
-  WordsType, Modes,
+  WordsType,
   isKnownForMode, getState, isKnown,
   defaultSettingsData, 
   defaultStatisticsData,

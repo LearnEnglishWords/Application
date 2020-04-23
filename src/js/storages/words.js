@@ -1,5 +1,5 @@
 import DS from './data.js';
-import { Modes, WordsType } from '../utils.js';
+import { WordsType } from '../utils.js';
 
 
 export default class WordsStorage {

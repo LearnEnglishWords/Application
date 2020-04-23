@@ -1,4 +1,3 @@
-import { WordsType, Modes } from '../utils.js'
 import Validator from '../validator.js'
 
 
