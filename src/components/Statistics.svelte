@@ -10,8 +10,8 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={1/$statisticsData.count*$statisticsData.known}
-        valueText="{$statisticsData.known} {$_('statistics.words_part')}"
+        value={1/statistic.count*statistic.known}
+        valueText="{statistic.known} {$_('statistics.words_part')}"
         valueTextColor="green"
         borderColor="green"
         labelText="{$_('statistics.known')}"
@@ -21,8 +21,8 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={1/$statisticsData.count*$statisticsData.learning}
-        valueText="{$statisticsData.learning} {$_('statistics.words_part')}"
+        value={1/statistic.count*statistic.learning}
+        valueText="{statistic.learning} {$_('statistics.words_part')}"
         valueTextColor="orange"
         borderColor="orange"
         labelText="{$_('statistics.learning')}"
@@ -32,8 +32,8 @@
     <Col class="text-align-center">
       <Gauge
         type="semicircle"
-        value={1/$statisticsData.count*$statisticsData.unknown}
-        valueText="{$statisticsData.unknown} {$_('statistics.words_part')}"
+        value={1/statistic.count*statistic.unknown}
+        valueText="{statistic.unknown} {$_('statistics.words_part')}"
         valueTextColor="red"
         borderColor="red"
         labelText="{$_('statistics.unknown')}"

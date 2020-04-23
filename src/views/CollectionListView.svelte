@@ -55,7 +55,7 @@
   export let f7router;
 
 
-  let collectionStorage = new CollectionStorage();
+  var collectionStorage = new CollectionStorage();
   let counter = 0;
   let progressBarEl;
   let wordsAmount = 0;
@@ -117,9 +117,7 @@
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
 
-    let modeStats = selectedCollection.categories[0].modeStatistics;
-    if (modeStats.read.known === 0 && modeStats.read.unknown === 0) {
-      isLoadingCategories = true;
+    if (!selectedCollection.isLoaded()) {
       setTimeout(() => { continueButton(collectionId) }, 1000);
       return
     }
@@ -128,7 +126,7 @@
     collectionData.set(selectedCollection);
 
     if ([2,3,7].includes(selectedCollection.id)) {
-      categoryDetailData.set(selectedCollection.categories[0]);
+      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
       f7router.navigate('/CategoryDetail');
     } else {
       f7router.navigate('/CategoryList');
@@ -137,7 +135,7 @@
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
-    collection.loadCategories().then(() => collection.setupMainCategory());
+    collection.load()
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }

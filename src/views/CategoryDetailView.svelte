@@ -6,7 +6,7 @@
   </center>
   <Block inset>
     <BlockTitle>{$_('category.statistics')}</BlockTitle>
-    <Statistics />
+    <Statistics statistic={$categoryDetailData.statistics.stats} />
   </Block>
 
 
@@ -16,7 +16,7 @@
         <List>
           {#each trainingModes as {value, checked}, id}
             <ListItem radio name="mode" checked={checked} on:change={() => changeTrainingMode(id)} title={$_(`category.training_mode.${value}`)}>
-              <Statistics simple statistic={$trainingModeStatisticsData[value]} />
+              <Statistics simple statistic={$categoryDetailData.statistics.modeStats[value]} />
             </ListItem>
           {/each}
         </List>
@@ -92,8 +92,8 @@
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
   currentWordStorage.loadWords();
 
-  statisticsData.set($categoryDetailData.statistics);
-  trainingModeStatisticsData.set($categoryDetailData.modeStatistics);
+  //statisticsData.set($categoryDetailData.statistics.stats());
+  //trainingModeStatisticsData.set($categoryDetailData.modeStatistics.getStats());
 
 
   function changeTrainingMode(index) {
