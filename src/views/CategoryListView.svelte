@@ -4,10 +4,10 @@
   <Block strong inset>
     <BlockTitle medium>{$_('category.title')}</BlockTitle>
     <List>
-      {#each $collectionData.categories as category, id} 
+      {#each $collectionData.categoryGroup.categories as category, id} 
         <ListItem on:click="{() => goToDetailView(category)}">
           <h3>{category.title}</h3>
-          <Statistics simple statistic={category.statistics} />
+          <Statistics simple statistic={category.statistics.stats} />
         </ListItem>
       {/each}
     </List>
