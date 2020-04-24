@@ -1,22 +1,19 @@
 {#if recapitulation === 'above-average'}
 <div class="read-mode without recap">
   <div class="read-div">
-    <SVGIcon name="smile" size="64"/>
-    <div class="title-recapitulation">Nadprůměrné hodnocení</div>
+    <div class="title-recapitulation"><SVGIcon name="smile" size="32"/><span>Nadprůměrné</span></div>
   </div>
 </div>
 {:else if recapitulation === 'average'}
 <div class="read-mode without recap">
   <div class="read-div">
-    <SVGIcon name="speechless" size="64"/>
-    <div class="title-recapitulation">Průměrné hodnocení</div>
+    <div class="title-recapitulation"><SVGIcon name="speechless" size="32"/>Průměrné</div>
   </div>
 </div>
 {:else}
 <div class="read-mode without recap">
   <div class="read-div">
-    <SVGIcon name="sad" size="64"/>
-    <div class="title-recapitulation">Podprůměrné hodnocení</div>
+    <div class="title-recapitulation"><SVGIcon name="sad" size="32"/>Podprůměrné</div>
   </div>
 </div>
 {/if}
@@ -25,20 +22,20 @@
 </div>
 <div class="content-mode result">
   <div class="row">
-    <div class="col rec-div wrong">
-      <span class="number">{info.unknown}</span>
+    <div class="col rec-div right">
+      <span class="number">{info.known}</span>
       <div>Slov</div>
-      <span>Neznám</span>
+      <span>Znám</span>
     </div>
     <div class="col rec-div words">
       <span class="number">{info.count}</span>
       <div>Slov</div>
       <span>Celkem</span>
     </div>
-    <div class="col rec-div right">
-      <span class="number">{info.known}</span>
+    <div class="col rec-div wrong">
+      <span class="number">{info.unknown}</span>
       <div>Slov</div>
-      <span>Znám</span>
+      <span>Neznám</span>
     </div>
   </div>
 </div>

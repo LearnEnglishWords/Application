@@ -115,7 +115,15 @@ html, body {
     margin-top: 0;
   }
   &.recap {
-    background: var(--app);
+    background: var(--core);
+    margin: 0;
+    padding: 0;
+    height: 30vh;
+    width: calc(100vw - 30px);
+    margin: 0 auto;
+    .read-div {
+      vertical-align: bottom;
+    }
   }
   div {
     .read-content {
@@ -268,6 +276,9 @@ html, body {
     @include grid(grid, repeat(auto-fit, minmax(calc(100% / 3), 1fr)), center, center, center);
     color: var(--app);
     background: var(--theme);
+    width: calc(100vw - 30px);
+    margin: 0 auto;
+    border-radius: 0 0 15px 15px;
     .col {
       width: 100%;
       padding: 30px 0;
@@ -287,9 +298,9 @@ html, body {
         color: var(--title);
       }
       span {
-        @include font(null, 15px, 600);
+        @include font(null, 14px, 600);
         &.number {
-          @include font(null, 18px, 700);
+          @include font(null, 14px, 700);
         }
       }
     }
@@ -348,6 +359,13 @@ html, body {
 .title-recapitulation {
   @include font(null, 15px, 700);
   text-transform: uppercase;
+  background: var(--unknown);
   color: #FFF;
-  margin-top: 30px;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 0 5px var(--unknown);
+  padding: 15px;
+  svg {
+    display: block;
+    margin: 0 auto 15px auto;
+  }
 }

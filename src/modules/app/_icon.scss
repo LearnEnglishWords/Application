@@ -47,7 +47,10 @@ svg {
       stroke: var(--theme);
     }
     circle:nth-child(3) {
-      stroke: transparent;
+      stroke: white;
+    }
+    circle:nth-child(2), circle:nth-child(3) {
+      fill: white;
     }
     path {
       stroke: white;
