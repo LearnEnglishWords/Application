@@ -74,30 +74,18 @@
     }
   }
 
-  function getRandomStatistics() {
-    let known = Math.floor(Math.random() * 101);
-    let learning = Math.floor(Math.random() * 101);
-    let unknown = Math.floor(Math.random() * 101);
-    return {
-      "count": known + learning + unknown,
-      "known": known,
-      "learning": learning,
-      "unknown": unknown
-    }
-  }
-
   function toggleCategory(category) {
     category.active = !category.active;
 
     if (category.active) {
-      globalStatisticsData.known += category.stats.known;
-      globalStatisticsData.learning += category.stats.learning;
-      globalStatisticsData.unknown += category.stats.unknown;
+      globalStatisticsData.known += category.statistics.stats.known;
+      globalStatisticsData.learning += category.statistics.stats.learning;
+      globalStatisticsData.unknown += category.statistics.stats.unknown;
       selectedCategories.push(category);
     } else {
-      globalStatisticsData.known -= category.stats.known;
-      globalStatisticsData.learning -= category.stats.learning;
-      globalStatisticsData.unknown -= category.stats.unknown;
+      globalStatisticsData.known -= category.statistics.stats.known;
+      globalStatisticsData.learning -= category.statistics.stats.learning;
+      globalStatisticsData.unknown -= category.statistics.stats.unknown;
       removeSelectedCategory(category);
     }
   }

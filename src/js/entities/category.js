@@ -9,7 +9,7 @@ export default class Category {
     this.collectionId = collectionId;
     this.name = name;
     this.title = title;
-    this.active = true;
+    this.active = false;
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, 'all', 100),
       'read': new WordsStorage(collectionId, id, 'read', 100),
