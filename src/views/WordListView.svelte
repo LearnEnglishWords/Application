@@ -37,7 +37,7 @@
   import Word from '../js/entities/word.js';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
   import { 
-    updateAllStatisticsAndSaveWord, collectionData,
+    collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
@@ -69,13 +69,26 @@
       DS.getWord(wordId).then((word) => {
         allWordsSorted.push(word);
         allWordsSorted = [...allWordsSorted];
-        wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
+        wordState[word.text] = getWordState(word);
       });
     });
 
     if (to < allWordsSortedIds.length) { 
       setTimeout(() => { loadWords(to, to + batchSize) }, 3000);
     }
+  }
+
+  function getWordState(word) {
+    if (isKnown(word) && word.knownCategories !== undefined) {
+      if ($categoryGroupData === null) {
+        return word.knownCategories.includes($categoryDetailData.id);
+      } else {
+        for (let category of $categoryGroupData.categories) {
+          if (word.knownCategories.includes(category.id)) { return true }
+        }
+      }
+    }
+    return false
   }
 
   function updateStatistics() {

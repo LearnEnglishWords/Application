@@ -8,16 +8,27 @@ function addKnownCategory(word) {
   if (word.knownCategories === undefined) {
     word.knownCategories = [];
   }
-  let currentCategory = get(categoryDetailData);
-  if (currentCategory.id !== null) {
-    word.knownCategories.push(currentCategory.id);
+  let categoryGroup = get(categoryGroupData);
+  if (categoryGroup !== null) {
+    categoryGroup.categories.forEach((category) => {
+      word.knownCategories.push(category.id);
+    });
+  } else {
+    word.knownCategories.push(get(categoryDetailData).id);
   }
 }
 
 function removeKnownCategory(word) {
-  let currentCategory = get(categoryDetailData);
-  if (word.knownCategories !== undefined && currentCategory.id !== null) {
-    let index = word.knownCategories.indexOf(currentCategory.id);
+  if (word.knownCategories === undefined) { return }
+  let categoryGroup = get(categoryGroupData);
+
+  if (categoryGroup !== null) {
+    categoryGroup.categories.forEach((category) => {
+      let index = word.knownCategories.indexOf(category.id);
+      if (index > -1) { word.knownCategories.splice(index, 1) }
+    });
+  } else {
+    let index = word.knownCategories.indexOf(get(categoryDetailData).id);
     if (index > -1) { word.knownCategories.splice(index, 1) }
   }
 }
