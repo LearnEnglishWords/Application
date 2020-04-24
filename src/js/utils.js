@@ -5,19 +5,6 @@ export const defaultSettingsData = {
   "enableAutoPlaySound": true
 };            
 
-export const defaultStatisticsData = {
-  "count": 100,
-  "known": 0,
-  "learning": 0,
-  "unknown": 100
-};            
-
-export const defaultModeStatisticsData = {
-  "read": { "known": 0, "unknown": 100 },
-  "write": { "known": 0, "unknown": 100 },
-  "listen": { "known": 0, "unknown": 100 },
-}
-
 export const trainingModes = [
   { value: "read", checked: true },
   { value: "write", checked: false },
@@ -96,5 +83,13 @@ export const Modes = {
 
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections"
+}
+
+export const Collections = {
+  BASIC: { id: 2, name: 'basic' },
+  INTERMEDIATE: { id: 7, name: 'standard' },
+  ADVANCED: { id: 3, name: 'advanced' },
+  CATEGORY: { id: 9, name: 'category' },
+  PERSONAL: { id: 'personal', name: 'personal' }
 }
 

@@ -92,17 +92,6 @@
   }
 
   function updateStatistics() {
-    //let removeWordModes = [
-    //  {mode: 'read', prevState: true},
-    //  {mode: 'write', prevState: true},
-    //  {mode: 'listen', prevState: true}
-    //];
-    //let addWordModes = [
-    //  {mode: 'read', prevState: false},
-    //  {mode: 'write', prevState: false},
-    //  {mode: 'listen', prevState: false}
-    //];
-
     removeWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (!isKnown(word)) {
@@ -168,5 +157,4 @@
       addWords = [...addWords];
     }
   }
-
 </script>

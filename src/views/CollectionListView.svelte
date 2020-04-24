@@ -46,7 +46,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
@@ -93,8 +93,8 @@
       alert($_('collection.alert.downloading'));
       return
     }
-    if (!checkDependency(collectionId, 3, 7)) { return }
-    if (!checkDependency(collectionId, 7, 2)) { return }
+    if (!checkDependency(collectionId, Collections.ADVANCED.id, Collections.INTERMEDIATE.id)) { return }
+    if (!checkDependency(collectionId, Collections.INTERMEDIATE.id, Collections.BASIC.id)) { return }
 
     downloadingCollectionId = collectionId;
     counter = 0;
@@ -132,7 +132,7 @@
     isLoadingCategories = false;
     collectionData.set(selectedCollection);
 
-    if ([2,3,7].includes(selectedCollection.id)) {
+    if (coreCollections.includes(selectedCollection.id)) {
       selectedCollection.categoryGroup.loadStatistics();
       categoryGroupData.set(selectedCollection.categoryGroup);
       categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
@@ -153,15 +153,21 @@
     $allCollectionsData.push(collection);
   }
 
-  let basicCollection = new Collection(2, 'basic', true);
-  let standardCollection = new Collection(7, 'standard', true, basicCollection);
-  let advancedCollection = new Collection(3, 'advanced', true, standardCollection);
+  let basicCollection = new Collection(Collections.BASIC.id, Collections.BASIC.name, true);
+  let standardCollection = new Collection(Collections.INTERMEDIATE.id, Collections.INTERMEDIATE.name, true, basicCollection);
+  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, true, standardCollection);
+
+  const coreCollections = [
+    Collections.BASIC.id,
+    Collections.INTERMEDIATE.id,
+    Collections.ADVANCED.id
+  ]
 
   let collectionItems = [
     basicCollection,
     standardCollection,
     advancedCollection,
-    new Collection(9, 'category', true),
+    new Collection(Collections.CATEGORY.id, Collections.CATEGORY.name, true),
     new Collection("student", 'student', false),
     new Collection("native", 'native', false),
     new Collection("media", 'media', false),
