@@ -4,11 +4,12 @@ import { statisticsData, trainingModeStatisticsData } from '../store.js';
 
 
 export default class Category {
-  constructor(id, collectionId, name, title) {
+  constructor(id, collectionId, name, title, icon) {
     this.id = id;
     this.collectionId = collectionId;
     this.name = name;
     this.title = title;
+    this.icon = icon;
     this.active = false;
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, 'all', 100),

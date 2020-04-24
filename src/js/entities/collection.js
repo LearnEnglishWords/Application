@@ -41,7 +41,7 @@ export default class Collection {
     return new Promise((resolve) => {
       DS.getCategoryList(this.id).then((categories) => {
         categories.forEach((cat) => {
-          let category = new Category(cat.id, this.id, cat.name, cat.czechName);
+          let category = new Category(cat.id, this.id, cat.name, cat.czechName, cat.icon);
           category.loadWordIds();
           category.loadStatistics().then(() => {if (++counter === categories.length) {resolve()}});
           this.categoryGroup.push(category);
