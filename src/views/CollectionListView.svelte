@@ -133,10 +133,12 @@
     collectionData.set(selectedCollection);
 
     if ([2,3,7].includes(selectedCollection.id)) {
-      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+      selectedCollection.categoryGroup.loadStatistics();
       categoryGroupData.set(selectedCollection.categoryGroup);
+      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
       f7router.navigate('/CategoryDetail');
     } else {
+      categoryGroupData.set(null);
       f7router.navigate('/CategoryList');
     }
   }

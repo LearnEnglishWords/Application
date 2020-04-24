@@ -89,6 +89,7 @@
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
   currentWordStorage.loadWords();
 
+
   statisticsData.set($categoryDetailData.statistics.stats);
   trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
 

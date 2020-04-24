@@ -1,9 +1,5 @@
 import DS from '../storages/data.js';
-import { 
-  getDefaultModeStatisticsData,
-  isKnownForMode
-} from '../utils.js'
-
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode } from '../utils.js'
 
 export class Stats {
   constructor(stats) {
@@ -43,6 +39,15 @@ export class Stats {
     this.unknown = this.startData.unknown;
   }
 
+  getData() {
+    return {
+      count: this.count,
+      known: this.known,
+      learning: this.learning,
+      unknown: this.unknown
+    }
+  }
+
   static plus(stats1, stats2) {
     return new Stats({
       count: stats1.count + stats2.count,
@@ -76,7 +81,7 @@ export class ModeStats {
     }
   }
 
-  getStats() {
+  getData() {
     return {
       read: this.read,
       write: this.write,
@@ -102,7 +107,7 @@ export class ModeStats {
 
 
 export default class Statistics {
-  constructor(collectionId, categoryId, stats = null, modeStats = null) {
+  constructor(collectionId, categoryId, stats = getDefaultStatisticsData(), modeStats = getDefaultModeStatisticsData()) {
     this.collectionId = collectionId;
     this.categoryId = categoryId;
 
@@ -137,15 +142,15 @@ export default class Statistics {
   }
 
   save() {
-    DS.saveCategoryStatistics(this.collectionId, this.categoryId, this.stats);
-    DS.saveCategoryModeStatistics(this.collectionId, this.categoryId, this.modeStats);
+    DS.saveCategoryStatistics(this.collectionId, this.categoryId, this.stats.getData());
+    DS.saveCategoryModeStatistics(this.collectionId, this.categoryId, this.modeStats.getData());
   }
 
   static plus(stats1, stats2) {
     return new Statistics(
       null, null,
-      Stats.plus(stats1.stats, stats2.stats), 
-      ModeStats.plus(stats1.modeStats, stats2.modeStats)
+      Stats.plus(stats1.stats, stats2.stats).getData(), 
+      ModeStats.plus(stats1.modeStats, stats2.modeStats).getData()
     );
   }
 }

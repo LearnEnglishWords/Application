@@ -16,10 +16,19 @@ export default class CategoryGroup {
   }
 
   load() {
+    this.loadStatistics();
+    this.loadWordIds();
+  }
+
+  loadStatistics() {
+    this.mainCategory.statistics = new Statistics(this.collectionId, this.id);
     this.categories.forEach((category) => {
       this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
+    });
+  }
 
-      // load words
+  loadWordIds() {
+    this.categories.forEach((category) => {
       Object.keys(category.wordStorages).forEach((mode) => {
         let thisWordIds = this.mainCategory.wordStorages[mode].getWordIds();
         let categoryWordIds = category.wordStorages[mode].getWordIds();

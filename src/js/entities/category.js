@@ -1,6 +1,6 @@
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
-import { getDefaultStatisticsData, getDefaultModeStatisticsData } from '../utils.js'
+import { statisticsData, trainingModeStatisticsData } from '../store.js';
 
 
 export default class Category {
@@ -16,11 +16,7 @@ export default class Category {
       'write': new WordsStorage(collectionId, id, 'write', 100),
       'listen': new WordsStorage(collectionId, id, 'listen', 100),
     };
-    this.statistics = new Statistics(
-      this.collectionId, this.id, 
-      getDefaultStatisticsData(), 
-      getDefaultModeStatisticsData()
-    );
+    this.statistics = new Statistics(this.collectionId, this.id);
   }
 
   loadWordIds() {
@@ -35,6 +31,14 @@ export default class Category {
 
   loadStatistics() {
     return this.statistics.load();
+  }
+
+  updateStatistics(word, prevLearningState) {
+    if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
+    this.statistics.update(word, prevLearningState);
+
+    statisticsData.updateData();
+    trainingModeStatisticsData.updateData();
   }
 
   save() {

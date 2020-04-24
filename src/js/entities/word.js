@@ -51,6 +51,7 @@ export default class Word {
     if (currentCategory === null) { 
       currentCategory = get(categoryDetailData);
     }
+
     currentCategory.updateStatistics(word, prevLearningState);
 
     if (isKnown(word)) {
