@@ -92,6 +92,7 @@
 
     downloadingCollectionId = collectionId;
     counter = 0;
+    wordsAmount = 0;
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
 
     let collection = getCollection(collectionId);
