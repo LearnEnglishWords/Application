@@ -12,7 +12,7 @@
                   {fullDescription}
                 </p>
                 <p id="collection-loader-{id}"></p>
-                {#if $downloadedCollections.includes(id) && selectedCollection.isLoaded()}
+                {#if $downloadedCollections.includes(id) && isLoading}
                   <Button fill color="green">{$_('collection.button.loading')}</Button>
                 {:else if $downloadedCollections.includes(id)}
                   <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
@@ -66,6 +66,7 @@
   let progressBarEl;
   let wordsAmount = 0;
   let downloadingCollectionId = null;
+  let isLoading = false;
 
 
   function preloadAllCollections() {
@@ -121,6 +122,7 @@
   }
 
   function continueButton(collectionId){
+    isLoading = true;
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
 
     if (!selectedCollection.isLoaded()) {
@@ -128,6 +130,7 @@
       return
     }
 
+    isLoading = false;
     collectionData.set(selectedCollection);
 
     if (coreCollections.includes(selectedCollection.id)) {
