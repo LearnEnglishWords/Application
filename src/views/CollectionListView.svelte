@@ -123,6 +123,7 @@
 
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
+    isLoadingCategories = true;
 
     if (!selectedCollection.isLoaded()) {
       setTimeout(() => { continueButton(collectionId) }, 1000);
