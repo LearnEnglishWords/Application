@@ -31,10 +31,10 @@
     <BlockTitle>{$_('category.select_categories')}</BlockTitle>
     <!-- List -->
     <List>
-      {#each $collectionData.categories as category, id}
-        <ListItem class="list-item" title="{category.czechName}" on:click="{() => toggleCategory(category)}">
+      {#each $collectionData.categoryGroup.categories as category, id}
+        <ListItem class="list-item" title="{category.title}" on:click="{() => toggleCategory(category)}">
           <i slot="media" class="material-icons">{category.icon}</i>
-          <div slot="after"><Statistics simple statistic={category.stats} /></div>
+          <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
         </ListItem>
       {/each}
     </List> 
@@ -52,7 +52,7 @@
     Row, Col, Icon,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import { defaultStatisticsData } from '../js/utils.js';

@@ -101,23 +101,11 @@
   let trainingModes = defaultTrainingModes;
   let modeType = trainingModes[trainingModeIndex].value;
 
-  if ($categoryDetailData.wordStorages === undefined) { 
-    $categoryDetailData.wordStorages = {
-      'read': new WordsStorage($collectionData.id, $categoryDetailData.id, 'read', 100),
-      'write': new WordsStorage($collectionData.id, $categoryDetailData.id, 'write', 100),
-      'listen': new WordsStorage($collectionData.id, $categoryDetailData.id, 'listen', 100),
-    }
-  }
-
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
+  currentWordStorage.loadWords();
 
-  trainingModes.forEach((mode) => {
-    let wordStorage = $categoryDetailData.wordStorages[mode.value];
-    wordStorage.loadIds(mode.value === 'read');
-  });
-
-  statisticsData.set($categoryDetailData.stats);
-  trainingModeStatisticsData.set($categoryDetailData.modeStats);
+  statisticsData.set($categoryDetailData.statistics.stats);
+  trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
 
 
   function changeTrainingMode(index) {

@@ -36,7 +36,7 @@
   import Header from '../components/Header.svelte';
   import { isKnown, getState, defaultTrainingModes, playSound } from '../js/utils.js'
   import { 
-    updateAllStatisticsAndSaveWord, collectionData,
+    collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
@@ -53,11 +53,7 @@
   let wordState = {};
   let allWordsSorted = [];
   let batchSize = 20;
-
-  allWordIds = $collectionData.categoriesWithWords
-                .find(({category, wordIds}) => 
-                  $categoryDetailData.id === category.id
-                ).wordIds;
+  let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
 
   // sort words 
   let allWordsSortedIds = allWordIds.sort((a, b) => {
@@ -71,7 +67,7 @@
       DS.getWord(wordId).then((word) => {
         allWordsSorted.push(word);
         allWordsSorted = [...allWordsSorted];
-        wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
+        wordState[word.text] = getWordState(word);
       });
     });
     if (to < allWordsSortedIds.length) { 
@@ -79,24 +75,24 @@
     }
   }
 
-  function updateStatistics() {
-    let removeWordModes = [
-      {mode: 'read', prevState: true},
-      {mode: 'write', prevState: true},
-      {mode: 'listen', prevState: true}
-    ];
-    let addWordModes = [
-      {mode: 'read', prevState: false},
-      {mode: 'write', prevState: false},
-      {mode: 'listen', prevState: false}
-    ];
+  function getWordState(word) {
+    if (isKnown(word) && word.knownCategories !== undefined) {
+      if ($categoryGroupData === null) {
+        return word.knownCategories.includes($categoryDetailData.id);
+      } else {
+        for (let category of $categoryGroupData.categories) {
+          if (word.knownCategories.includes(category.id)) { return true }
+        }
+      }
+    }
+    return false
+  }
 
+  function updateStatistics() {
     removeWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (!isKnown(word)) {
-        let prevState = getState(word);
-        word.learning = {"read": true, "write": true, "listen": true};
-        updateAllStatisticsAndSaveWord(word, prevState, [...removeWordModes]).then(() =>
+        Word.setNewState(word, {"read": true, "write": true, "listen": true}).then(() =>
           progress++
         );
       }
@@ -105,28 +101,10 @@
     addWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (isKnown(word)) {
-        let prevState = getState(word);
-        word.learning = {"read": false, "write": false, "listen": false};
-        updateAllStatisticsAndSaveWord(word, prevState, [...addWordModes]).then(() =>
+        Word.setNewState(word, {"read": false, "write": false, "listen": false}).then(() =>
           progress++
         );
       }
-    });
-  }
-
-  function updateCategoryWords() {
-    defaultTrainingModes.forEach((mode) => {
-      let wordStorage = $categoryDetailData.wordStorages[mode.value];
-
-      var updateWordIds = wordStorage.allWordIds
-        .concat(addWords)
-        .filter(wordId => !removeWords.includes(wordId));
-
-      wordStorage.reset();
-      wordStorage.allWordIds = [...new Set(updateWordIds)];
-      wordStorage.allWords = [];
-      wordStorage.loadWords();
-      wordStorage.saveWordIds();
     });
   }
 
@@ -134,7 +112,11 @@
     progress = 0;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
     updateStatistics();
-    updateCategoryWords();
+    defaultTrainingModes.forEach((mode) => {
+      let currentCategory = $categoryGroupData;
+      if (currentCategory === null) { currentCategory = $categoryDetailData }
+      currentCategory.updateWords(mode.value, addWords, removeWords);
+    });
     updateProgress(dialog);
   }
 
@@ -172,5 +154,4 @@
       addWords = [...addWords];
     }
   }
-
 </script>

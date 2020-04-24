@@ -1,31 +1,15 @@
-import { writable, get } from 'svelte/store';
-import DS from './storages/data.js';
+import { writable } from 'svelte/store';
 import { 
-  WordsType, Modes,
-  isKnownForMode, getState, isKnown,
   defaultSettingsData, 
-  defaultStatisticsData,
-  defaultModeStatisticsData 
+  getDefaultStatisticsData,
+  getDefaultModeStatisticsData 
 } from './utils.js'
 
 function createStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
   return {
     subscribe, set,
-    setCount: (count) => update((data) => { 
-      data.count = count;
-      data.known = 0;
-      data.learning = 0;
-      data.unknown = count;
-      return data
-    }),
-    updateData: (word, prevState) => update((data) => {
-      let currentState = getState(word);
-      if (word.learning === undefined || currentState === prevState) { return data }
-      data[currentState] += 1;
-      data[prevState] -= 1;
-      return data
-    }),
+    updateData: () => update((data) => { return data }),
     reset: () => {
       set({...startStatisticsData});
     }
@@ -36,27 +20,7 @@ function createModeStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
   return {
     subscribe, set,
-    setCount: (count, modes) => update((data) => { 
-      for (let {mode, prevState} of modes) {
-        data[mode].known = 0;
-        data[mode].unknown = count;
-      }
-      return data
-    }),
-    updateData: (word, modes) => update((data) => {
-      for (let {mode, prevState} of modes) {
-        let currentState = isKnownForMode(word, mode);
-        if(currentState === prevState) { continue }
-        if(currentState) {
-          data[mode].known += 1; 
-          data[mode].unknown -= 1; 
-        } else {
-          data[mode].known -= 1; 
-          data[mode].unknown += 1; 
-        }
-      }
-      return data
-    }),
+    updateData: () => update((data) => { return data }),
     reset: () => {
       set({...startStatisticsData});
     }
@@ -67,92 +31,9 @@ function createModeStatisticsData(startStatisticsData) {
 export const trainingData = writable(0);
 export const allCollectionsData = writable([]);
 export const collectionData = writable(0);
-export const categoriesData = writable([]);
+export const categoryGroupData = writable(null);
 export const downloadedCollections = writable([]);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
-export const trainingModeStatisticsData = createModeStatisticsData({...defaultModeStatisticsData});
-export const statisticsData = createStatisticsData({...defaultStatisticsData});
-
-
-
-function removeWordFromCategory(currentCollection, category, word) {
-  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
-    const index = wordIds.indexOf(word.text);
-    if (index > -1) { wordIds.splice(index, 1) }
-    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
-  });                                       
-}
-
-function addWordIntoCategory(currentCollection, category, word) {
-  DS.getWordIdsList(currentCollection.id, category.id, WordsType.NOT_KNOWN, Modes.ALL).then((wordIds) => {
-    wordIds.push(word.text);
-    DS.saveWordIdsList(currentCollection.id, category.id, wordIds, WordsType.NOT_KNOWN, Modes.ALL);
-  });                                       
-}
-
-async function updateStatistics(category, word, prevState, modes) {
-  let currentCollection = get(collectionData);
-
-  let stats = createStatisticsData(category.stats);
-  let modeStats = createModeStatisticsData(category.modeStats);
-
-  stats.updateData(word, prevState);
-  modeStats.updateData(word, modes);
-
-  category.stats = get(stats);
-  category.modeStats = get(modeStats);
-
-  DS.saveCategoryStatistics(currentCollection.id, category.id, get(stats));
-  DS.saveCategoryModeStatistics(currentCollection.id, category.id, get(modeStats));
-}
-
-function updateInOtherCategories(word, prevState, modes) {
-  get(collectionData).categoriesWithWords.forEach(({category, wordIds}) => {
-    if (wordIds !== null && category.id !== get(categoryDetailData).id && wordIds.includes(word.text)) {
-      updateStatistics(category, word, prevState, modes);
-      if (getState(word) === WordsType.KNOWN) {
-        removeWordFromCategory(get(collectionData), category, word);
-      } else {
-        addWordIntoCategory(get(collectionData), category, word);
-      }
-    }
-  });
-}
-
-function addKnownCategory(word) {
-  if (word.knownCategories === undefined) {
-    word.knownCategories = [];
-  }
-  word.knownCategories.push(get(categoryDetailData).id);
-}
-
-function removeKnownCategory(word) {
-  if (word.knownCategories !== undefined) {
-    let index = word.knownCategories.indexOf(get(categoryDetailData).id);
-    if (index > -1) { word.knownCategories.splice(index, 1) }
-  }
-}
-
-export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
-  let currentCategory = get(categoryDetailData);
-  let currentCollection = get(collectionData);
-
-  // Update statistics
-  statisticsData.updateData(word, prevState);
-  trainingModeStatisticsData.updateData(word, modes);
-
-  //updateInOtherCategories(word, prevState, modes);
-
-  // Save current statistics
-  DS.saveCategoryStatistics(currentCollection.id, currentCategory.id, get(statisticsData));
-  DS.saveCategoryModeStatistics(currentCollection.id, currentCategory.id, get(trainingModeStatisticsData));
-
-  if (isKnown(word)) {
-    addKnownCategory(word);
-  } else {
-    removeKnownCategory(word);
-  }
-
-  return DS.saveWord(word.text, word);
-}
+export const trainingModeStatisticsData = createModeStatisticsData({...getDefaultModeStatisticsData(100)});
+export const statisticsData = createStatisticsData({...getDefaultStatisticsData(100)});

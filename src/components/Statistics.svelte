@@ -10,8 +10,8 @@
     <Col class="category-col">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.known}
-        valueText="{$statisticsData.known}/{$statisticsData.count}"
+        value={1/statistic.count*statistic.known}
+        valueText="{statistic.known}/{statistic.count}"
         valueTextColor="var(--color-green)"
         borderColor="var(--color-green)"
         labelText="{$_('statistics.known')}"
@@ -21,8 +21,8 @@
     <Col class="category-col">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.learning}
-        valueText="{$statisticsData.learning}/{$statisticsData.count}"
+        value={1/statistic.count*statistic.learning}
+        valueText="{statistic.learning}/{statistic.count}"
         valueTextColor="var(--color-orange)"
         borderColor="var(--color-orange)"
         labelText="{$_('statistics.learning')}"
@@ -32,8 +32,8 @@
     <Col class="category-col">
       <Gauge
         type="semicircle"
-        value={$statisticsData.count/10000*$statisticsData.unknown}
-        valueText="{$statisticsData.unknown}/{$statisticsData.count}"
+        value={1/statistic.count*statistic.unknown}
+        valueText="{statistic.unknown}/{statistic.count}"
         valueTextColor="var(--color-red)"
         borderColor="var(--color-red)"
         labelText="{$_('statistics.unknown')}"

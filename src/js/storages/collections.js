@@ -15,8 +15,7 @@ export default class CollectionStorage {
     }
   }
 
-  async downloadCategoryWords(categoryId, collectionId) {
-    //const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words?collectionId=${collectionId}`);
+  async downloadCategoryWords(categoryId) {
     const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words`);
     var result = await res.json();
     if (result.payload === undefined) {
@@ -77,14 +76,14 @@ export default class CollectionStorage {
       }
 
       this.downloadAllCategories(collection.id).then((categories) => {
-        this.downloadCategories(collection.id, categories, setupProgress, progress);
+        this.downloadAndSaveCategories(collection.id, categories, setupProgress, progress);
         if (category !== null) { categories.unshift(category) }
         DS.saveCategoryList(collection.id, categories);
       });
     });
   }
 
-  downloadCategories(collectionId, categories, setupProgress, progress) {
+  downloadAndSaveCategories(collectionId, categories, setupProgress, progress) {
     categories.forEach((category) => {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {

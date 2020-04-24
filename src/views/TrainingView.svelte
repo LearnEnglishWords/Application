@@ -80,10 +80,9 @@
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
   import { 
-    updateAllStatisticsAndSaveWord, trainingData,
-    statisticsData, settingsData,
-    collectionData, categoryDetailData,
-    trainingModeStatisticsData 
+    collectionData, trainingData, settingsData,
+    categoryGroupData, categoryDetailData,
+    statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
   import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
@@ -91,6 +90,7 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
+  import Word from '../js/entities/word.js';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -172,14 +172,15 @@
       word.learning = {"read": false, "write": false, "listen": false};
     }
 
-    let previousState = getState(word);
-    let isKnown = isKnownForMode(word, $trainingData.mode);
-
     // if is not same
     if (word.learning[$trainingData.mode] !== state) {  
-      word.learning[$trainingData.mode] = state;
-      updateAllStatisticsAndSaveWord(word, previousState, [{mode: $trainingData.mode, prevState: isKnown}]);
-      $categoryDetailData.wordStorages[$trainingData.mode].removeWord(word);
+      let learningState = {...word.learning};
+      learningState[$trainingData.mode] = state;
+      Word.setNewState(word, learningState);
+
+      let currentCategory = $categoryGroupData;
+      if (currentCategory === null) { currentCategory = $categoryDetailData }
+      currentCategory.updateWords($trainingData.mode, [], [word.text]);
     }
   }
 

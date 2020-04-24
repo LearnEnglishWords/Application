@@ -6,42 +6,28 @@ export const defaultSettingsData = {
   "swiperTransitionSpeed": 0
 };            
 
-export const defaultStatisticsData = {
-  "count": 100,
-  "known": 0,
-  "learning": 0,
-  "unknown": 100
-};            
-
-export const defaultModeStatisticsData = {
-  "read": { "known": 0, "unknown": 100 },
-  "write": { "known": 0, "unknown": 100 },
-  "listen": { "known": 0, "unknown": 100 },
-}
-
-
 export const defaultTrainingModes = [
   { value: "read", checked: true, icon: "local_library" },
   { value: "write", checked: false, icon: "edit" },
   { value: "listen", checked: false, icon: "spellcheck" }
 ]; 
 
-export function getDefaultStatisticsData(count) {
+export function getDefaultStatisticsData(count = 0) {
   return {
     "count": count,
     "known": 0,
     "learning": 0,
     "unknown": count
   }
-};            
+}            
 
-export function getDefaultModeStatisticsData(count) {
+export function getDefaultModeStatisticsData(count = 0) {
   return {
     "read": { "known": 0, "unknown": count },
     "write": { "known": 0, "unknown": count },
     "listen": { "known": 0, "unknown": count },
   }
-};            
+}            
 
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined) { return false }
@@ -98,5 +84,13 @@ export const Modes = {
 
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections"
+}
+
+export const Collections = {
+  BASIC: { id: 2, name: 'basic' },
+  INTERMEDIATE: { id: 7, name: 'standard' },
+  ADVANCED: { id: 3, name: 'advanced' },
+  CATEGORY: { id: 9, name: 'category' },
+  PERSONAL: { id: 'personal', name: 'personal' }
 }
 
