@@ -1,8 +1,7 @@
 import { writable, get } from 'svelte/store';
 import DS from './storages/data.js';
 import { 
-  WordsType,
-  isKnownForMode, getState, isKnown,
+  isKnown,
   defaultSettingsData, 
   defaultStatisticsData,
   defaultModeStatisticsData 
@@ -19,13 +18,7 @@ function createStatisticsData(startStatisticsData) {
       data.unknown = count;
       return data
     }),
-    updateData: (word, prevState) => update((data) => {
-      let currentState = getState(word);
-      if (word.learning === undefined || currentState === prevState) { return data }
-      data[currentState] += 1;
-      data[prevState] -= 1;
-      return data
-    }),
+    updateData: () => update((data) => { return data }),
     reset: () => {
       set({...startStatisticsData});
     }
@@ -36,27 +29,14 @@ function createModeStatisticsData(startStatisticsData) {
   const { subscribe, set, update } = writable({...startStatisticsData});
   return {
     subscribe, set,
-    setCount: (count, modes) => update((data) => { 
-      for (let {mode, prevState} of modes) {
+    setCount: (count, prevLearningState = {"read": false, "write": false, "listen": false}) => update((data) => { 
+      for (let [mode, prevState] of Object.entries(prevLearningState)) {
         data[mode].known = 0;
         data[mode].unknown = count;
       }
       return data
     }),
-    updateData: (word, modes) => update((data) => {
-      for (let {mode, prevState} of modes) {
-        let currentState = isKnownForMode(word, mode);
-        if(currentState === prevState) { continue }
-        if(currentState) {
-          data[mode].known += 1; 
-          data[mode].unknown -= 1; 
-        } else {
-          data[mode].known -= 1; 
-          data[mode].unknown += 1; 
-        }
-      }
-      return data
-    }),
+    updateData: () => update((data) => { return data }),
     reset: () => {
       set({...startStatisticsData});
     }
@@ -67,7 +47,7 @@ function createModeStatisticsData(startStatisticsData) {
 export const trainingData = writable(0);
 export const allCollectionsData = writable([]);
 export const collectionData = writable(0);
-export const categoriesData = writable([]);
+export const categoryGroupData = writable(null);
 export const downloadedCollections = writable([]);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
@@ -154,15 +134,8 @@ function updateMainCollectionWordStatistics(word, prevState, modes) {
 
 export async function updateAllStatisticsAndSaveWord(word, prevState, modes) {
   let currentCategory = get(categoryDetailData);
-  let currentCollection = get(collectionData);
 
-  statisticsData.updateData(word, prevState);
-  trainingModeStatisticsData.updateData(word, modes);
-
-  if (![2,7,3].includes(currentCollection.id)) { 
-    currentCategory.updateStatistics(word, prevState, modes);
-  }
-  updateMainCollectionWordStatistics(word, prevState, modes);
+  currentCategory.updateStatistics(word, prevState, modes);
 
   if (isKnown(word)) {
     addKnownCategory(word);

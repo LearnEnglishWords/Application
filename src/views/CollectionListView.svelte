@@ -49,8 +49,14 @@
   import { WordsType, Modes, AppInfo } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
-  import { allCollectionsData, collectionData, categoryDetailData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
+  import { 
+    allCollectionsData,
+    collectionData,
+    categoryGroupData,
+    categoryDetailData,
+    downloadedCollections
+  } from '../js/store.js';
 
   export let f7router;
 
@@ -128,6 +134,7 @@
 
     if ([2,3,7].includes(selectedCollection.id)) {
       categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+      categoryGroupData.set(selectedCollection.categoryGroup);
       f7router.navigate('/CategoryDetail');
     } else {
       f7router.navigate('/CategoryList');

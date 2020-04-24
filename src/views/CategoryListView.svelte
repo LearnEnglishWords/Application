@@ -21,7 +21,7 @@
     Navbar, Subnavbar,
     List, ListItem
   } from 'framework7-svelte';
-  import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import { defaultStatisticsData } from '../js/utils.js';

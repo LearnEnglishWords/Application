@@ -1,5 +1,6 @@
 import Category from '../entities/category.js';
 import Statistics from '../entities/statistics.js';
+import { statisticsData, trainingModeStatisticsData } from '../store.js';
 
 
 export default class CategoryGroup {
@@ -27,17 +28,19 @@ export default class CategoryGroup {
     });
   }
 
-  //updateStatistics(word, prevState, modes) {
-  //  if (!this.mainCategory.wordStorages['all'].getWordIds.includes(word.text)) { return }
+  updateStatistics(word, prevLearningState) {
+    if (!this.mainCategory.wordStorages['all'].getWordIds().includes(word.text)) { return }
 
-  //  this.statistics.update(word, prevState);
+    this.mainCategory.statistics.update(word, prevLearningState);
+    statisticsData.updateData();
+    trainingModeStatisticsData.updateData();
 
-  //  this.categories.forEach((category) => {
-  //    if (category.wordStorages['all'].getWordIds.includes(word.text)) {  
-  //      category.statistics.update(word, prevState);
-  //    }
-  //  });
-  //}
+    this.categories.forEach((category) => {
+      if (category.wordStorages['all'].getWordIds().includes(word.text)) {  
+        category.statistics.update(word, prevLearningState);
+      }
+    });
+  }
 
   push(categories) {
     this.categories.push(categories);

@@ -34,6 +34,7 @@
   } from 'framework7-svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
+  import Word from '../js/entities/word.js';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
   import { 
     updateAllStatisticsAndSaveWord, collectionData,
@@ -78,23 +79,21 @@
   }
 
   function updateStatistics() {
-    let removeWordModes = [
-      {mode: 'read', prevState: true},
-      {mode: 'write', prevState: true},
-      {mode: 'listen', prevState: true}
-    ];
-    let addWordModes = [
-      {mode: 'read', prevState: false},
-      {mode: 'write', prevState: false},
-      {mode: 'listen', prevState: false}
-    ];
+    //let removeWordModes = [
+    //  {mode: 'read', prevState: true},
+    //  {mode: 'write', prevState: true},
+    //  {mode: 'listen', prevState: true}
+    //];
+    //let addWordModes = [
+    //  {mode: 'read', prevState: false},
+    //  {mode: 'write', prevState: false},
+    //  {mode: 'listen', prevState: false}
+    //];
 
     removeWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (!isKnown(word)) {
-        let prevState = getState(word);
-        word.learning = {"read": true, "write": true, "listen": true};
-        updateAllStatisticsAndSaveWord(word, prevState, [...removeWordModes]).then(() =>
+        Word.setNewState(word, {"read": true, "write": true, "listen": true}).then(() =>
           progress++
         );
       }
@@ -103,9 +102,7 @@
     addWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (isKnown(word)) {
-        let prevState = getState(word);
-        word.learning = {"read": false, "write": false, "listen": false};
-        updateAllStatisticsAndSaveWord(word, prevState, [...addWordModes]).then(() =>
+        Word.setNewState(word, {"read": false, "write": false, "listen": false}).then(() =>
           progress++
         );
       }

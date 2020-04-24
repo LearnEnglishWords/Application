@@ -18,7 +18,6 @@ export const defaultModeStatisticsData = {
   "listen": { "known": 0, "unknown": 100 },
 }
 
-
 export const trainingModes = [
   { value: "read", checked: true },
   { value: "write", checked: false },

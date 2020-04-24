@@ -1,7 +1,7 @@
 import DS from '../storages/data.js';
 import { 
   getDefaultModeStatisticsData,
-  isKnownForMode, getState
+  isKnownForMode
 } from '../utils.js'
 
 
@@ -14,8 +14,23 @@ export class Stats {
     this.unknown = stats.unknown;
   }
 
-  update(word, prevState) {
-    let currentState = getState(word);
+  _getStateFromWord(word) {
+    return this._getStateFromLearning(word.learning)
+  }
+
+  _getStateFromLearning(learning) {
+    if (learning === undefined || (learning.read === false && learning.write === false && learning.listen === false)) {
+      return "unknown"
+    } else if (learning.read !== false && learning.write !== false && learning.listen !== false) {
+      return "known"
+    } else {
+      return "learning"
+    }
+  }
+
+  update(word, prevLearningState) {
+    let currentState = this._getStateFromWord(word);
+    let prevState = this._getStateFromLearning(prevLearningState)
     if (word.learning === undefined || currentState === prevState) { return }
     this[currentState] += 1;
     this[prevState] -= 1;
@@ -47,8 +62,8 @@ export class ModeStats {
     this.listen = stats.listen;
   }
 
-  update(word, prevState, modes) {
-    for (let { mode, prevState } of modes) {
+  update(word, prevLearningState = {"read": false, "write": false, "listen": false}) {
+    for (let [mode, prevState] of Object.entries(prevLearningState)) {
       let currentState = isKnownForMode(word, mode);
       if(currentState === prevState) { continue }
       if(currentState) {
@@ -74,7 +89,7 @@ export class ModeStats {
   }
 
   static plus(stats1, stats2) {
-    let newModeStats = getDefaultModeStatisticsData();
+    let newModeStats = new ModeStats(getDefaultModeStatisticsData());
     Object.keys(newModeStats).forEach((mode) => {
       newModeStats[mode] = {
         "known": stats1[mode].known + stats2[mode].known,
@@ -91,19 +106,19 @@ export default class Statistics {
     this.collectionId = collectionId;
     this.categoryId = categoryId;
 
-    this.stats = stats;
-    this.modeStats = modeStats;
+    this.stats = new Stats(stats);
+    this.modeStats = new ModeStats(modeStats);
   }
 
-  update(word, prevState) {
-    this.stats.update(word, prevState);
-    this.modeStats.forEach((modeStats) => modeStats.update(word, prevState));
+  update(word, prevLearningState) {
+    this.stats.update(word, prevLearningState);
+    this.modeStats.update(word, prevLearningState);
     this.save();
   }
 
   reset() {
     this.stats.reset();
-    this.modeStats.forEach((modeStats) => modeStats.reset());
+    this.modeStats.reset();
   }
 
   load() {
