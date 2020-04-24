@@ -51,6 +51,13 @@ export default class CategoryGroup {
     });
   }
 
+  updateWords(mode, addWords, removeWords) {
+    this.mainCategory.wordStorages[mode].update(addWords, removeWords);
+    this.categories.forEach((category) => { 
+      category.wordStorages[mode].update(addWords, removeWords);
+    })
+  }
+
   push(categories) {
     this.categories.push(categories);
   }

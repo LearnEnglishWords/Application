@@ -41,7 +41,8 @@ export default class Category {
     trainingModeStatisticsData.updateData();
   }
 
-  save() {
+  updateWords(mode, addWords, removeWords) {
+    this.wordStorages[mode].update(addWords, removeWords);
   }
 }
 

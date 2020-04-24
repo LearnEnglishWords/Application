@@ -77,10 +77,9 @@
     Sheet, Toolbar, Popup
   } from 'framework7-svelte';
   import { 
-    updateAllStatisticsAndSaveWord, trainingData,
-    statisticsData, settingsData,
-    collectionData, categoryDetailData,
-    trainingModeStatisticsData 
+    collectionData, trainingData, settingsData,
+    categoryGroupData, categoryDetailData,
+    statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
   import WordSlide from '../components/WordSlide.svelte';
   import Header from '../components/Header.svelte';
@@ -161,7 +160,10 @@
       let learningState = {...word.learning};
       learningState[$trainingData.mode] = state;
       Word.setNewState(word, learningState);
-      $categoryDetailData.wordStorages[$trainingData.mode].removeWord(word);
+
+      let currentCategory = $categoryGroupData;
+      if (currentCategory === null) { currentCategory = $categoryDetailData }
+      currentCategory.updateWords($trainingData.mode, [], [word.text]);
     }
   }
 

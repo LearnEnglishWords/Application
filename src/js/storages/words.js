@@ -76,6 +76,18 @@ export default class WordsStorage {
     this.allWordIds = [];
   }
 
+  update(addWords, removeWords) {
+    var updateWordIds = this.allWordIds
+      .concat(addWords)
+      .filter(wordId => !removeWords.includes(wordId));
+
+    this.reset();
+    this.allWordIds = [...new Set(updateWordIds)];
+    this.allWords = [];
+    this.loadWords();
+    this.saveWordIds();
+  }
+
   _pushWordId(wordId) {
     this.allWordIds.push(wordId);
     DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);

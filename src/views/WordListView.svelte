@@ -122,27 +122,15 @@
     });
   }
 
-  function updateCategoryWords() {
-    trainingModes.forEach((mode) => {
-      let wordStorage = $categoryDetailData.wordStorages[mode.value];
-
-      var updateWordIds = wordStorage.allWordIds
-        .concat(addWords)
-        .filter(wordId => !removeWords.includes(wordId));
-
-      wordStorage.reset();
-      wordStorage.allWordIds = [...new Set(updateWordIds)];
-      wordStorage.allWords = [];
-      wordStorage.loadWords();
-      wordStorage.saveWordIds();
-    });
-  }
-
   function saveWords() {
     progress = 0;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
     updateStatistics();
-    updateCategoryWords();
+    trainingModes.forEach((mode) => {
+      let currentCategory = $categoryGroupData;
+      if (currentCategory === null) { currentCategory = $categoryDetailData }
+      currentCategory.updateWords(mode.value, addWords, removeWords);
+    });
     updateProgress(dialog);
   }
 
