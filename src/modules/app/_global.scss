@@ -369,3 +369,66 @@ html, body {
     margin: 0 auto 15px auto;
   }
 }
+
+.popup-container {
+  height: 100vh;
+  background: var(--core);
+}
+.popup-header {
+  background: var(--app);
+  padding: 0 15px;
+  height: 50px;
+  line-height: 50px;
+  span {
+    color: var(--theme);
+    @include font(null, 15px, 700);
+  }
+  a {
+    float: right;
+    margin-top: 10.5px;
+    line-height: initial;
+  }
+}
+.popup-content {
+  padding-top: 15px;
+  height: calc(100% - 50px - 65px);
+  .row {
+    padding: 0 15px;
+    .col {
+      width: 100%;
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0;
+        @include font(null, 14px, 400);
+        color: var(--title);
+      }
+    }
+  }
+}
+.footer-popup {
+  height: 50px;
+  text-align: center;
+  span:nth-child(1) {
+    display: block;
+    color: var(--title);
+    @include font(null, 14px, 400);
+  }
+  span:nth-child(2) {
+    @include font(null, 14px, 400);
+  }
+}
+
+.text-random {
+  margin-top: 15px;
+  color: var(--title);
+  font-size: 14px;
+  text-align: center;
+}
+
+.list.feedback {
+  background: var(--theme);
+  .item-content {
+    background: transparent;
+    border-radius: 0;
+  }
+}

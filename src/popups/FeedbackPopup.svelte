@@ -1,5 +1,53 @@
 <Popup class={name} animate={true} >
-  <Page>
+
+  <div class="popup-container">
+    <div class="popup-header">
+      <span>{title}</span>
+      <a href="#" class="popup-close"><SVGIcon name="e-remove" size="24"/></a>
+    </div>
+    <div class="popup-content">
+      <div class="list feedback">
+        <ul>
+       <li class="item-content item-input">
+      <div class="item-media">
+        <SVGIcon name="email" size="24"/>
+      </div>
+      <div class="item-inner">
+        <div class="item-input-wrap">
+          <input type="text" placeholder="Email">
+          <span class="input-clear-button"></span>
+        </div>
+      </div>
+    </li>
+           <li class="item-content item-input">
+      <div class="item-media">
+        <SVGIcon name="email" size="24"/>
+      </div>
+      <div class="item-inner">
+        <div class="item-input-wrap">
+          <textarea placeholder="Zpráva"></textarea>
+          <span class="input-clear-button"></span>
+        </div>
+      </div>
+    </li>
+        </ul>
+      </div>
+
+
+      <div class="text-random">     
+      {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
+      <a href='mailto:{email}'>{email}</a>
+      </div>
+      </div> 
+    <div class="footer-popup">
+      <Button fill color="green"> {$_('feedback.send')} </Button>
+    </div>
+  </div>
+
+
+
+
+  <Page style="display:none">
     <Header type="popup" popupName={name} {title}/>
     <Block inset>
       <p>
@@ -46,6 +94,7 @@
     Row, Col, Block
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import SVGIcon  from '../components/SVGIcon.svelte';
   import { feedbackEmail, errorEmail }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
   

@@ -1,5 +1,32 @@
-<Popup class={name} animate={true} >
-  <Page>
+<Popup class={name} animate={true}>
+
+  <div class="popup-container">
+    <div class="popup-header">
+      <span>{$_('about.title')}</span>
+      <a href="#" class="popup-close"><SVGIcon name="e-remove" size="24"/></a>
+    </div>
+    <div class="popup-content">
+      <div class="row">
+        <div class="col">{appName} {$_('about.text1')}</div>
+        <div class="col">{$_('about.text2')}</div>
+        <div class="col">{$_('about.text3')}</div>
+        <div class="col">{$_('about.text4')}</div>
+        <div class="col">{$_('about.email_feedback')}
+          <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
+        </div>
+        <div class="col"><a href=#>{$_('about.share')}</a></div>
+      </div>
+    </div>  
+    <div class="footer-popup">
+        <span>{$_('about.version')} {version}</span>
+        <span>Copyright &copy; Learn English Words 2020</span>
+      </div>
+  </div>
+
+
+
+
+  <Page style="display:none">
     <Header type="popup" popupName={name} title={$_('about.title')}/>
     <Block inset>
       <p>
@@ -38,6 +65,7 @@
     Block, Popup, Icon
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import SVGIcon  from '../components/SVGIcon.svelte';
   import { feedbackEmail, version, appName }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
   
