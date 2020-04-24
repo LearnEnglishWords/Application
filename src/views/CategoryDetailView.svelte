@@ -1,9 +1,6 @@
 <Page name="CategoryDetail">
   <Header />
 
-  <center>
-    <BlockTitle medium>{$categoryDetailData.title === null ? $collectionData.mainCategoryTitle : $categoryDetailData.title}</BlockTitle>
-  </center>
   <Block inset>
     <BlockTitle>{$_('category.statistics')}</BlockTitle>
     <Statistics statistic={$categoryDetailData.statistics.stats} />
