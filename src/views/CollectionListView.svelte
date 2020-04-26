@@ -69,6 +69,7 @@
   let isLoadingCategories = false;
 
 
+
   function preloadAllCollections() {
     if($allCollectionsData.length === 0) {
       $downloadedCollections.forEach((id) => loadCollection(id)); 
@@ -117,7 +118,7 @@
   }
 
   function updateCollectionIds(collectionIds) {
-    downloadedCollections.set(collectionIds);
+    downloadedCollections.set([...new Set(collectionIds)]); //remove duplicities and save
     DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
