@@ -1,57 +1,83 @@
 import { get } from 'svelte/store';
 import DS from '../storages/data.js';
-import { isKnown } from '../utils.js'
-import { categoryDetailData, categoryGroupData } from '../store.js';
+import { isKnown, Collections, coreCollections } from '../utils.js'
+import { allCollectionsData, categoryDetailData, categoryGroupData } from '../store.js';
 
 
-function addKnownCategory(word) {
+function addKnownCategories(word, categories) {
   if (word.knownCategories === undefined) {
     word.knownCategories = [];
   }
-  let categoryGroup = get(categoryGroupData);
-  if (categoryGroup !== null) {
-    categoryGroup.categories.forEach((category) => {
-      word.knownCategories.push(category.id);
-    });
-  } else {
-    word.knownCategories.push(get(categoryDetailData).id);
-  }
+  categories.forEach((category) => {
+    word.knownCategories.push(category.id);
+  });
 }
 
-function removeKnownCategory(word) {
+function removeKnownCategories(word, categories) {
   if (word.knownCategories === undefined) { return }
-  let categoryGroup = get(categoryGroupData);
 
-  if (categoryGroup !== null) {
-    categoryGroup.categories.forEach((category) => {
-      let index = word.knownCategories.indexOf(category.id);
-      if (index > -1) { word.knownCategories.splice(index, 1) }
-    });
-  } else {
-    let index = word.knownCategories.indexOf(get(categoryDetailData).id);
+  categories.forEach((category) => {
+    let index = word.knownCategories.indexOf(category.id);
     if (index > -1) { word.knownCategories.splice(index, 1) }
+  });
+}
+
+function setKnownCategories(word, categoryGroup) {
+  if (isKnown(word)) {
+    addKnownCategories(word, categoryGroup);
+  } else {
+    removeKnownCategories(word, categoryGroup);
   }
 }
 
+function getOtherCollections(currentCategory) {
+  if (coreCollections.includes(currentCategory.collectionId)) {
+    return get(allCollectionsData).filter((collection) => 
+      [Collections.CATEGORY.id].includes(collection.id)
+    );
+  } else {
+    return get(allCollectionsData).filter((collection) => 
+      coreCollections.includes(collection.id)
+    );
+  }
+}
+
+function getCurrentCategory() {
+  var currentCategory = get(categoryGroupData)
+  if (currentCategory === null) { 
+    currentCategory = get(categoryDetailData);
+  }
+  return currentCategory
+}
 
 export default class WordUpdater {
-  static update(word, learningState) {
-    let prevLearningState = word.learning;
-    word.learning = learningState;
-
-    var currentCategory = get(categoryGroupData)
-    if (currentCategory === null) { 
-      currentCategory = get(categoryDetailData);
-    }
-
+  static update(word, prevLearningState) {
+    var currentCategory = getCurrentCategory();
     currentCategory.updateStatistics(word, prevLearningState);
 
-    if (isKnown(word)) {
-      addKnownCategory(word);
+    let categoryGroup = get(categoryGroupData);
+    if (categoryGroup !== null) {
+      setKnownCategories(word, categoryGroup.categories);
     } else {
-      removeKnownCategory(word);
+      setKnownCategories(word, [get(categoryDetailData)]);
     }
 
     return DS.saveWord(word.text, word);
+  }
+
+
+  static updateOtherCategories(word, prevLearningState, mode, isKnown = true) {
+    var currentCategory = getCurrentCategory();
+    let collections = getOtherCollections(currentCategory);
+
+    collections.forEach((collection) => {
+      collection.categoryGroup.updateStatistics(word, prevLearningState, true);
+      if (isKnown) {
+        collection.categoryGroup.updateWords(mode, [], [word.text]);
+      } else {
+        collection.categoryGroup.updateWords(mode, [word.text], []);
+      }
+      setKnownCategories(word, collection.categoryGroup.categories);
+    });
   }
 }

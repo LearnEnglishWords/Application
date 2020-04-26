@@ -95,7 +95,9 @@
     removeWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (!isKnown(word)) {
-        WordUpdater.update(word, {"read": true, "write": true, "listen": true}).then(() =>
+        let prevLearningState = {...word.learning};
+        word.learning = {"read": true, "write": true, "listen": true};
+        WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
       }
@@ -104,7 +106,9 @@
     addWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (isKnown(word)) {
-        WordUpdater.update(word, {"read": false, "write": false, "listen": false}).then(() =>
+        let prevLearningState = {...word.learning};
+        word.learning = {"read": false, "write": false, "listen": false};
+        WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
       }

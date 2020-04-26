@@ -157,13 +157,16 @@
 
     // if is not same
     if (word.learning[$trainingData.mode] !== state) {  
-      let learningState = {...word.learning};
-      learningState[$trainingData.mode] = state;
-      WordUpdater.update(word, learningState);
+      let prevLearningState = {...word.learning};
+      word.learning[$trainingData.mode] = state;
+
+      WordUpdater.update(word, prevLearningState);
 
       let currentCategory = $categoryGroupData;
       if (currentCategory === null) { currentCategory = $categoryDetailData }
       currentCategory.updateWords($trainingData.mode, [], [word.text]);
+
+      WordUpdater.updateOtherCategories(word, prevLearningState, $trainingData.mode);
     }
   }
 

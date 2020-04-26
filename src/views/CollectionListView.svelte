@@ -46,7 +46,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo, Collections } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections, coreCollections } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
@@ -158,12 +158,6 @@
   let basicCollection = new Collection(Collections.BASIC.id, Collections.BASIC.name, true);
   let standardCollection = new Collection(Collections.INTERMEDIATE.id, Collections.INTERMEDIATE.name, true, basicCollection);
   let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, true, standardCollection);
-
-  const coreCollections = [
-    Collections.BASIC.id,
-    Collections.INTERMEDIATE.id,
-    Collections.ADVANCED.id
-  ]
 
   let collectionItems = [
     basicCollection,

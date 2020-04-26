@@ -15,7 +15,7 @@ export class Stats {
   }
 
   _getStateFromLearning(learning) {
-    if (learning === undefined || (learning.read === false && learning.write === false && learning.listen === false)) {
+    if (learning === undefined || Object.keys(learning).length === 0 || (learning.read === false && learning.write === false && learning.listen === false)) {
       return "unknown"
     } else if (learning.read !== false && learning.write !== false && learning.listen !== false) {
       return "known"
@@ -67,7 +67,10 @@ export class ModeStats {
     this.listen = stats.listen;
   }
 
-  update(word, prevLearningState = {"read": false, "write": false, "listen": false}) {
+  update(word, prevLearningState) {
+    if (prevLearningState === undefined || Object.keys(prevLearningState).length === 0) {
+      prevLearningState = {"read": false, "write": false, "listen": false}
+    }
     for (let [mode, prevState] of Object.entries(prevLearningState)) {
       let currentState = isKnownForMode(word, mode);
       if(currentState === prevState) { continue }

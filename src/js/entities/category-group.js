@@ -37,14 +37,21 @@ export default class CategoryGroup {
     });
   }
 
-  updateStatistics(word, prevLearningState) {
+  updateStatistics(word, prevLearningState, otherCategories = false) {
     if (!this.mainCategory.wordStorages['all'].getWordIds().includes(word.text)) { return }
 
     this.mainCategory.statistics.update(word, prevLearningState);
     statisticsData.updateData();
     trainingModeStatisticsData.updateData();
 
-    this.categories.forEach((category) => {
+    let categories = this.categories;
+    if (otherCategories) {
+      categories = this.categories.filter((c) => 
+        c.id === `collection_${this.collectionId}`
+      );
+    }
+
+    categories.forEach((category) => {
       if (category.wordStorages['all'].getWordIds().includes(word.text)) {  
         category.statistics.update(word, prevLearningState);
       }
@@ -55,7 +62,7 @@ export default class CategoryGroup {
     this.mainCategory.wordStorages[mode].update(addWords, removeWords);
     this.categories.forEach((category) => { 
       category.wordStorages[mode].update(addWords, removeWords);
-    })
+    });
   }
 
   push(categories) {
