@@ -34,8 +34,8 @@ function removeKnownCategory(word) {
 }
 
 
-export default class Word {
-  static setNewState(word, learningState) {
+export default class WordUpdater {
+  static update(word, learningState) {
     let prevLearningState = word.learning;
     word.learning = learningState;
 

@@ -34,6 +34,7 @@
   } from 'framework7-svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
+  import WordUpdater from '../js/entities/word-updater.js';
   import { isKnown, getState, defaultTrainingModes, playSound } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
@@ -92,7 +93,7 @@
     removeWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (!isKnown(word)) {
-        Word.setNewState(word, {"read": true, "write": true, "listen": true}).then(() =>
+        WordUpdater.update(word, {"read": true, "write": true, "listen": true}).then(() =>
           progress++
         );
       }
@@ -101,7 +102,7 @@
     addWords.forEach((wordId) => {
       let word = allWordsSorted.find((w) => w.text === wordId);
       if (isKnown(word)) {
-        Word.setNewState(word, {"read": false, "write": false, "listen": false}).then(() =>
+        WordUpdater.update(word, {"read": false, "write": false, "listen": false}).then(() =>
           progress++
         );
       }
