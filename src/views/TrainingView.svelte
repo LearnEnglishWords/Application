@@ -85,7 +85,7 @@
   import Header from '../components/Header.svelte';
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import Word from '../js/entities/word.js';
+  import WordUpdater from '../js/entities/word-updater.js';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -159,7 +159,7 @@
     if (word.learning[$trainingData.mode] !== state) {  
       let learningState = {...word.learning};
       learningState[$trainingData.mode] = state;
-      Word.setNewState(word, learningState);
+      WordUpdater.update(word, learningState);
 
       let currentCategory = $categoryGroupData;
       if (currentCategory === null) { currentCategory = $categoryDetailData }

@@ -1,7 +1,7 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import DS from '../storages/data.js';
-import CategoryGroup from '../groups/category.js';
+import CategoryGroup from './category-group.js';
 import Category from './category.js';
 
 export default class Collection {
