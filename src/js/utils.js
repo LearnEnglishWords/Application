@@ -30,12 +30,12 @@ export function getDefaultModeStatisticsData(count = 0) {
 }            
 
 export function isKnownForMode(word, mode) { 
-  if (word.learning === undefined) { return false }
+  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
   if (word.learning[mode] === false) { return false } else { return true }
 }
 
 export function isKnown(word) {
-  if (word.learning === undefined) { return false }
+  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
   if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return true
   } else {
@@ -44,7 +44,7 @@ export function isKnown(word) {
 }                   
 
 export function getState(word) {
-  if (word.learning === undefined || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
+  if (word.learning === undefined || Object.keys(word.learning).length === 0 || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
     return "unknown"
   } else if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return "known"
@@ -94,3 +94,8 @@ export const Collections = {
   PERSONAL: { id: 'personal', name: 'personal' }
 }
 
+export const coreCollections = [
+  Collections.BASIC.id,
+  Collections.INTERMEDIATE.id,
+  Collections.ADVANCED.id
+]
