@@ -6,50 +6,36 @@ export const defaultSettingsData = {
   "swiperTransitionSpeed": 0
 };            
 
-export const defaultStatisticsData = {
-  "count": 100,
-  "known": 0,
-  "learning": 0,
-  "unknown": 100
-};            
-
-export const defaultModeStatisticsData = {
-  "read": { "known": 0, "unknown": 100 },
-  "write": { "known": 0, "unknown": 100 },
-  "listen": { "known": 0, "unknown": 100 },
-}
-
-
 export const trainingModes = [
   { value: "read", checked: true },
   { value: "write", checked: false },
   { value: "listen", checked: false }
 ]; 
 
-export function getDefaultStatisticsData(count) {
+export function getDefaultStatisticsData(count = 0) {
   return {
     "count": count,
     "known": 0,
     "learning": 0,
     "unknown": count
   }
-};            
+}            
 
-export function getDefaultModeStatisticsData(count) {
+export function getDefaultModeStatisticsData(count = 0) {
   return {
     "read": { "known": 0, "unknown": count },
     "write": { "known": 0, "unknown": count },
     "listen": { "known": 0, "unknown": count },
   }
-};            
+}            
 
 export function isKnownForMode(word, mode) { 
-  if (word.learning === undefined) { return false }
+  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
   if (word.learning[mode] === false) { return false } else { return true }
 }
 
 export function isKnown(word) {
-  if (word.learning === undefined) { return false }
+  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
   if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return true
   } else {
@@ -58,7 +44,7 @@ export function isKnown(word) {
 }                   
 
 export function getState(word) {
-  if (word.learning === undefined || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
+  if (word.learning === undefined || Object.keys(word.learning).length === 0 || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
     return "unknown"
   } else if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
     return "known"
@@ -100,3 +86,16 @@ export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections"
 }
 
+export const Collections = {
+  BASIC: { id: 2, name: 'basic' },
+  INTERMEDIATE: { id: 7, name: 'standard' },
+  ADVANCED: { id: 3, name: 'advanced' },
+  CATEGORY: { id: 9, name: 'category' },
+  PERSONAL: { id: 'personal', name: 'personal' }
+}
+
+export const coreCollections = [
+  Collections.BASIC.id,
+  Collections.INTERMEDIATE.id,
+  Collections.ADVANCED.id
+]

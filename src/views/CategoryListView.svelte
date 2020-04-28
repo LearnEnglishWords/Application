@@ -4,10 +4,10 @@
   <Block strong inset>
     <BlockTitle medium>{$_('category.title')}</BlockTitle>
     <List>
-      {#each $collectionData.categories as category, id} 
+      {#each $collectionData.categoryGroup.categories as category, id} 
         <ListItem on:click="{() => goToDetailView(category)}">
-          <h3>{category.czechName}</h3>
-          <Statistics simple statistic={category.stats} />
+          <h3>{category.title}</h3>
+          <Statistics simple statistic={category.statistics.stats} />
         </ListItem>
       {/each}
     </List>
@@ -17,12 +17,11 @@
 <script>
   import { 
     Page, Link,
-    Chip, 
     Block, BlockTitle, 
     Navbar, Subnavbar,
     List, ListItem
   } from 'framework7-svelte';
-  import { collectionData, categoriesData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import { defaultStatisticsData } from '../js/utils.js';

@@ -11,10 +11,16 @@
                 <p>
                   {fullDescription}
                 </p>
-                {#if $downloadedCollections.includes(id)}
+                <p id="collection-loader-{id}"></p>
+                {#if $downloadedCollections.includes(id) && isLoadingCategories}
+                  <Button fill color="green">{$_('collection.button.loading')}</Button>
+                {:else if $downloadedCollections.includes(id)}
                   <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
+                {:else if downloadingCollectionId === id && counter === 0}
+                  <Button fill color="orange">{$_('collection.button.preparing')}</Button>
+                {:else if downloadingCollectionId === id && counter > 0}
+                  <Button fill color="orange">{$_('collection.button.downloading')}</Button>
                 {:else}
-                  <p id="collection-loader-{id}"></p>
                   <Button fill on:click={ () => download(id) } color="red">{$_('collection.button.download')}</Button>
                 {/if}
               </Block>
@@ -40,20 +46,28 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections, coreCollections } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
-  import { allCollectionsData, collectionData, downloadedCollections} from '../js/store.js';
   import { _ } from 'svelte-i18n';
+  import { 
+    allCollectionsData,
+    collectionData,
+    categoryGroupData,
+    categoryDetailData,
+    downloadedCollections
+  } from '../js/store.js';
 
   export let f7router;
 
 
-  let collectionStorage = new CollectionStorage();
-  let counter;
+  var collectionStorage = new CollectionStorage();
+  let counter = 0;
   let progressBarEl;
   let wordsAmount = 0;
   let downloadingCollectionId = null;
+  let isLoadingCategories = false;
+
 
 
   function preloadAllCollections() {
@@ -80,15 +94,16 @@
       alert($_('collection.alert.downloading'));
       return
     }
-    if (!checkDependency(collectionId, 3, 7)) { return }
-    if (!checkDependency(collectionId, 7, 2)) { return }
+    if (!checkDependency(collectionId, Collections.ADVANCED.id, Collections.INTERMEDIATE.id)) { return }
+    if (!checkDependency(collectionId, Collections.INTERMEDIATE.id, Collections.BASIC.id)) { return }
 
     downloadingCollectionId = collectionId;
     counter = 0;
+    wordsAmount = 0;
     progressBarEl = f7.progressbar.show(`#collection-loader-${collectionId}`, 0, 'orange');
 
     let collection = getCollection(collectionId);
-    collectionStorage.downloadCollection(collection, (amount) => wordsAmount = amount, downloadProgress);
+    collectionStorage.downloadCollection(collection, (amount) => wordsAmount += amount, downloadProgress);
   }
 
   function downloadProgress() {
@@ -103,31 +118,36 @@
   }
 
   function updateCollectionIds(collectionIds) {
-      downloadedCollections.set(collectionIds);
-      DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
-  }
-
-  function setupSubCollections(collection) {
-    if (collection.subCollection.length > 0) { return }
-    let findCollection = (id) => $allCollectionsData.find((c) => c.id === id) 
-    if (collection.id === 3) {
-      collection.addSubCollection(findCollection(7)); // Add indermediate collection
-    }
-    if (collection.id === 3 || collection.id === 7) {
-      collection.addSubCollection(findCollection(2)); // Add basic collection
-    }
+    downloadedCollections.set([...new Set(collectionIds)]); //remove duplicities and save
+    DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
   }
 
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
-    setupSubCollections(selectedCollection)
+    isLoadingCategories = true;
+
+    if (!selectedCollection.isLoaded()) {
+      setTimeout(() => { continueButton(collectionId) }, 1000);
+      return
+    }
+
+    isLoadingCategories = false;
     collectionData.set(selectedCollection);
-    f7router.navigate('/CategoryList');
+
+    if (coreCollections.includes(selectedCollection.id)) {
+      selectedCollection.categoryGroup.loadStatistics();
+      categoryGroupData.set(selectedCollection.categoryGroup);
+      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+      f7router.navigate('/CategoryDetail');
+    } else {
+      categoryGroupData.set(null);
+      f7router.navigate('/CategoryList');
+    }
   }
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
-    collection.loadCategories();
+    collection.load()
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }
@@ -135,11 +155,15 @@
     $allCollectionsData.push(collection);
   }
 
+  let basicCollection = new Collection(Collections.BASIC.id, Collections.BASIC.name, true);
+  let standardCollection = new Collection(Collections.INTERMEDIATE.id, Collections.INTERMEDIATE.name, true, basicCollection);
+  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, true, standardCollection);
+
   let collectionItems = [
-    new Collection(2, 'basic', true),
-    new Collection(7, 'standard', true),
-    new Collection(3, 'advanced', true),
-    new Collection(9, 'category', true),
+    basicCollection,
+    standardCollection,
+    advancedCollection,
+    new Collection(Collections.CATEGORY.id, Collections.CATEGORY.name, true),
     new Collection("student", 'student', false),
     new Collection("native", 'native', false),
     new Collection("media", 'media', false),

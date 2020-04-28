@@ -1,27 +1,26 @@
 <Page name="WordList">
   <Header title={$_('words_list.title')} />
-
   <BlockTitle>{$_('words_list.info')}</BlockTitle>
+
   <Block>
-    <List>
-      {#each allWordsSorted as word, id}
-        <ListItem>
-          <div on:click={() => playSound(word)}>
-            {word.text}  &#x1F509;
-          </div>
-          <Button raised on:click={() => { setState(word, !wordState[word.text]) }}>
-            {#if wordState[word.text]} {$_('words_list.unknown')} {:else} {$_('words_list.known')} {/if}
-          </Button>
-        </ListItem>
-      {/each}
-    </List>
+    <div class="list virtual-list media-list"></div>
+    {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
+      <Button on:click={loadNextWords}>
+        {$_('words_list.next_button')}
+      </Button>
+    {/if}
+    {#if allWordsLength === 0}
+      {$_('words_list.loading')}
+    {/if}
   </Block>
+
   {#if removeWords.length > 0 || addWords.length > 0}
     <Toolbar position={'bottom'}>
       <Link></Link>
       <Link on:click={saveWords}>Ulozit</Link>
     </Toolbar>
   {/if}
+
 </Page>
 
 <script>
@@ -32,11 +31,13 @@
     Button, Link,
     Toolbar
   } from 'framework7-svelte';
+  import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
+  import WordUpdater from '../js/entities/word-updater.js';
   import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
   import { 
-    updateAllStatisticsAndSaveWord, collectionData,
+    collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData 
   } from '../js/store.js';
@@ -47,102 +48,133 @@
 
   export let name;
   export let f7router;
-
+	
   let addWords = [];
   let removeWords = [];
   let progress = 0;
+  let fullProgress = 0;
+  let clickedWord = null;
 
   let wordState = {};
-  let allWordsSorted = [];
-  let batchSize = 20;
-  let allWordIds = $collectionData.categoriesWithWords
-                    .find(({category, wordIds}) => 
-                      $categoryDetailData.id === category.id
-                    ).wordIds;
+  let allWords = [];
+  let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
+  let allWordsLength = 0;
 
-  // sort words 
-  let allWordsSortedIds = allWordIds.sort((a, b) => {
-    return a.charCodeAt(0) - b.charCodeAt(0)
-  });
+  let virtualList = null; 
+  let allowInfinite = true;
+  let itemsPerLoad = 30;
 
-  loadWords(0, batchSize);
-  async function loadWords(from, to) {
-    allWordsSortedIds.slice(from, to).forEach((wordId) => {
-      DS.getWord(wordId).then((word) => {
-        allWordsSorted.push(word);
-        allWordsSorted = [...allWordsSorted];
-        wordState[word.text] = isKnown(word) && word.knownCategories !== undefined && word.knownCategories.includes($categoryDetailData.id);
-      });
+
+  onMount(() => { 
+    virtualList = f7.virtualList.create({
+      el: '.virtual-list',
+      items: allWords,
+      itemTemplate:
+      `<li class="word-item">
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title play-sound">{{word.text}} &#x1F509;</div>
+              <input type="checkbox" {{checked}} class="wordbox">
+            </div>
+          </div>
+        </li>`,
+      height: f7.theme === 'ios' ? 42 : (f7.theme === 'md' ? 52 : 25),
     });
 
-    if (to < allWordsSortedIds.length) { 
-      setTimeout(() => { loadWords(to, to + batchSize) }, 3000);
+
+    virtualList.$el.on('click', '.word-item', function (e) {
+      let index = this.f7VirtualListIndex;
+      clickedWord = allWords[index].word;
+    });
+
+    virtualList.$el.on('click', '.wordbox', function (e) {
+      setState(clickedWord, !wordState[clickedWord.text]);
+    });
+
+    virtualList.$el.on('click', '.play-sound', function (e) {
+      playSound(clickedWord);
+    });
+
+    loadWords(0, itemsPerLoad);
+  });
+
+
+  function loadNextWords() {
+    if (!allowInfinite) return;
+
+    allowInfinite = false;
+    loadWords(allWords.length, allWords.length + itemsPerLoad);
+  }
+
+  function loadWords(from, to) {
+    allWordIds.slice(from, to).forEach((wordId, index) => {
+      DS.getWord(wordId).then((word) => {
+        virtualList.appendItem({"word": word, "checked": isKnown(word) ? "checked" : ""});
+        wordState[word.text] = getWordState(word);
+        allWordsLength++;
+      });
+      if (index+1 === itemsPerLoad) {
+        allowInfinite = true;
+      }
+    });
+  }
+
+  function getWordState(word) {
+    if (isKnown(word) && word.knownCategories !== undefined) {
+      if ($categoryGroupData === null) {
+        return word.knownCategories.includes($categoryDetailData.id);
+      } else {
+        for (let category of $categoryGroupData.categories) {
+          if (word.knownCategories.includes(category.id)) { return true }
+        }
+      }
     }
+    return false
   }
 
   function updateStatistics() {
-    let removeWordModes = [
-      {mode: 'read', prevState: true},
-      {mode: 'write', prevState: true},
-      {mode: 'listen', prevState: true}
-    ];
-    let addWordModes = [
-      {mode: 'read', prevState: false},
-      {mode: 'write', prevState: false},
-      {mode: 'listen', prevState: false}
-    ];
-
     removeWords.forEach((wordId) => {
-      let word = allWordsSorted.find((w) => w.text === wordId);
+      let word = allWords.find((item) => item.word.text === wordId).word;
       if (!isKnown(word)) {
-        let prevState = getState(word);
+        let prevLearningState = {...word.learning};
         word.learning = {"read": true, "write": true, "listen": true};
-        updateAllStatisticsAndSaveWord(word, prevState, [...removeWordModes]).then(() =>
+        WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
       }
     });
 
     addWords.forEach((wordId) => {
-      let word = allWordsSorted.find((w) => w.text === wordId);
+      let word = allWords.find((item) => item.word.text === wordId).word;
+
       if (isKnown(word)) {
-        let prevState = getState(word);
+        let prevLearningState = {...word.learning};
+
         word.learning = {"read": false, "write": false, "listen": false};
-        updateAllStatisticsAndSaveWord(word, prevState, [...addWordModes]).then(() =>
+        WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
       }
     });
   }
 
-  function updateCategoryWords() {
-    trainingModes.forEach((mode) => {
-      let wordStorage = $categoryDetailData.wordStorages[mode.value];
-
-      var updateWordIds = wordStorage.allWordIds
-        .concat(addWords)
-        .filter(wordId => !removeWords.includes(wordId));
-
-      wordStorage.reset();
-      wordStorage.allWordIds = [...new Set(updateWordIds)];
-      wordStorage.allWords = [];
-      wordStorage.loadWords();
-      wordStorage.saveWordIds();
-    });
-  }
-
   function saveWords() {
     progress = 0;
+    fullProgress = removeWords.length + addWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
     updateStatistics();
-    updateCategoryWords();
+    trainingModes.forEach((mode) => {
+      let currentCategory = $categoryGroupData;
+      if (currentCategory === null) { currentCategory = $categoryDetailData }
+      currentCategory.updateWords(mode.value, addWords, removeWords);
+    });
     updateProgress(dialog);
   }
 
   function updateProgress(dialog) {
-    dialog.setProgress(100/(removeWords.length + addWords.length)*progress);
+    dialog.setProgress(100/fullProgress*progress);
     setTimeout(() => {
-      if (progress === removeWords.length + addWords.length) {
+      if (progress === fullProgress) {
         dialog.close();
         addWords = [];
         removeWords = [];
@@ -171,7 +203,6 @@
     } else {
       addWords.push(word.text);
       addWords = [...addWords];
-    }
+    }       
   }
-
 </script>
