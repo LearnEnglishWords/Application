@@ -162,7 +162,7 @@
       "title": "Seznam slov",
       "progress": "Ukládání...",
       "info": "Zde můžete označit slovíčka, která již znáte:",
-      "known": "Znám",
-      "unknown": "Neznám"
+      "next_button": "Načíst další",
+      "loading": "Probíhá načítání..."
   }
 }
