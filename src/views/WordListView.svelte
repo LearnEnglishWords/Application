@@ -76,7 +76,7 @@
             </div>
           </div>
         </li>`,
-      height: f7.theme === 'ios' ? 42 : (f7.theme === 'md' ? 52 : 25),
+      height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),
     });
 
 
