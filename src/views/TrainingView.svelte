@@ -165,18 +165,22 @@
     }
   }
 
+  function setDefaultLearning(word) {
+    if (word.learning === undefined) { 
+      word.learning = {"read": false, "write": false, "listen": false};
+    }
+  }
+
   function updateWord({word, state}) {
     updateRecapitulation(state);
 
     if ($trainingData.isTraining) { return }
+    setDefaultLearning(word);
 
     // if is not same
-    if (word.learning === undefined || word.learning[$trainingData.mode] !== state) {  
-
+    if (word.learning[$trainingData.mode] !== state) {  
       DS.getWord(word.text).then((word) => {
-        if (word.learning === undefined) { 
-          word.learning = {"read": false, "write": false, "listen": false};
-        }
+        setDefaultLearning(word);
 
         let prevLearningState = {...word.learning};
         word.learning[$trainingData.mode] = state;

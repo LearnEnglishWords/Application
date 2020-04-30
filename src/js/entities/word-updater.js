@@ -32,9 +32,10 @@ function setKnownCategories(word, categoryGroup) {
 
 function getOtherCollections(currentCategory) {
   if (coreCollections.includes(currentCategory.collectionId)) {
-    return get(allCollectionsData).filter((collection) => 
-      [Collections.CATEGORY.id].includes(collection.id)
-    );
+    return null
+    //return get(allCollectionsData).filter((collection) => 
+    //  [Collections.CATEGORY.id].includes(collection.id)
+    //);
   } else {
     return get(allCollectionsData).filter((collection) => 
       coreCollections.includes(collection.id)
@@ -69,6 +70,7 @@ export default class WordUpdater {
   static updateOtherCategories(word, prevLearningState, mode, isKnown = true) {
     var currentCategory = getCurrentCategory();
     let collections = getOtherCollections(currentCategory);
+    if (collections === null) return
 
     collections.forEach((collection) => {
       collection.categoryGroup.updateStatistics(word, prevLearningState, true);
