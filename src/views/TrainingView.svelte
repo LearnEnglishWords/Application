@@ -87,6 +87,7 @@
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
   import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
+  import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
@@ -151,22 +152,26 @@
     updateRecapitulation(state);
 
     if ($trainingData.isTraining) { return }
-    if (word.learning === undefined) { 
-      word.learning = {"read": false, "write": false, "listen": false};
-    }
 
     // if is not same
-    if (word.learning[$trainingData.mode] !== state) {  
-      let prevLearningState = {...word.learning};
-      word.learning[$trainingData.mode] = state;
+    if (word.learning === undefined || word.learning[$trainingData.mode] !== state) {  
 
-      WordUpdater.update(word, prevLearningState);
+      DS.getWord(word.text).then((word) => {
+        if (word.learning === undefined) { 
+          word.learning = {"read": false, "write": false, "listen": false};
+        }
 
-      let currentCategory = $categoryGroupData;
-      if (currentCategory === null) { currentCategory = $categoryDetailData }
-      currentCategory.updateWords($trainingData.mode, [], [word.text]);
+        let prevLearningState = {...word.learning};
+        word.learning[$trainingData.mode] = state;
 
-      WordUpdater.updateOtherCategories(word, prevLearningState, $trainingData.mode);
+        WordUpdater.update(word, prevLearningState);
+
+        let currentCategory = $categoryGroupData;
+        if (currentCategory === null) { currentCategory = $categoryDetailData }
+        currentCategory.updateWords($trainingData.mode, [], [word.text]);
+
+        WordUpdater.updateOtherCategories(word, prevLearningState, $trainingData.mode);
+      });
     }
   }
 
