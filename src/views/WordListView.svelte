@@ -107,8 +107,8 @@
   function loadWords(from, to) {
     allWordIds.slice(from, to).forEach((wordId, index) => {
       DS.getWord(wordId).then((word) => {
-        virtualList.appendItem({"word": word, "checked": isKnown(word) ? "checked" : ""});
         wordState[word.text] = getWordState(word);
+        virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
         allWordsLength++;
       });
       if (index+1 === itemsPerLoad) {
