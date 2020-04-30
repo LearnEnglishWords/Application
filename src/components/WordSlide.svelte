@@ -102,7 +102,7 @@
   }
 
   function check() {
-    if (translatedText === "") { return }
+    //if (translatedText === "") { return }
     if (translatedText.toLowerCase() === word.text.toLowerCase()) {
       result = true;
       dispatch('updateWord', {word: word, state: true});
