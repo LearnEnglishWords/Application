@@ -86,7 +86,7 @@
   }
 
   function check() {
-    if (translatedText === "") { return }
+    //if (translatedText === "") { return }
     if (translatedText.toLowerCase() === word.text.toLowerCase()) {
       result = $_('training.results.right');
       resultColor = "green";
