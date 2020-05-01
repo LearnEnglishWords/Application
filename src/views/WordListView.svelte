@@ -35,11 +35,12 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, getState, trainingModes, playSound } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
-    statisticsData, trainingModeStatisticsData 
+    statisticsData, trainingModeStatisticsData,
+    settingsData
   } from '../js/store.js';
 
   import { appName }  from '../js/config.js';
@@ -92,7 +93,7 @@
     });
 
     virtualList.$el.on('click', '.play-sound', function (e) {
-      playSound(clickedWord);
+      playTextSound(clickedWord.text, $settingsData.pronunciation);
     });
 
     loadWords(0, itemsPerLoad);

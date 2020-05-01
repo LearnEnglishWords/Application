@@ -86,7 +86,7 @@
   import RecapitulationPopup from '../popups/RecapitulationPopup.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnownForMode, getState, playSound, shuffle, WordsType } from '../js/utils.js'
+  import { isKnownForMode, getState, playTextSound, shuffle, WordsType } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -188,7 +188,7 @@
 
   function playAutoSound() {
     if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
-      playSound($trainingData.words[currentWordIndex])
+      playTextSound($trainingData.words[currentWordIndex].text, $settingsData.pronunciation)
     }
   }
 

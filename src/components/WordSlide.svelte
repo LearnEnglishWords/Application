@@ -2,7 +2,7 @@
   <center>
     {#if mode==="read"}
 
-      <div on:click={() => playSound(word)}>
+      <div on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
         <BlockTitle large>{word.text}</BlockTitle>
         <Block>
           <BlockTitle>[ {word.pronunciation[$settingsData.pronunciation]} ]  &#x1F509;</BlockTitle>
@@ -18,7 +18,7 @@
             {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
           {/each}
         {:else if mode==="listen"} 
-          <div on:click={() => playSound(word)}>
+          <div on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
             <h1><b>&#x1F509;</b></h1>
           </div>
         {/if}
@@ -67,7 +67,7 @@
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
   import { statisticsData, settingsData } from '../js/store.js';
-  import { playSound } from '../js/utils.js';
+  import { playTextSound } from '../js/utils.js';
 
   export let word;
   export let mode;

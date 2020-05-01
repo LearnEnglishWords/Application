@@ -4,7 +4,9 @@
     <Block>
       <List>
         {#each word.examples as example, id}
-          <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
+          <ListItem> {example} 
+            <Button on:click={() => playExampleSound(example, $settingsData.pronunciation)}>&#x1F509;</Button>
+          </ListItem>
         {/each}
       </List>
     </Block>
@@ -19,6 +21,8 @@
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
   import Header from '../components/Header.svelte';
+  import { playExampleSound } from '../js/utils.js'
+  import { settingsData } from '../js/store.js';
 
   export let word;
   let descriptionOpened = false;
