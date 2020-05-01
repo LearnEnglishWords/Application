@@ -1,6 +1,6 @@
    {#if mode==="read"}
 
-<div class="read-mode" on:click="{() => playSound(word)}">
+<div class="read-mode" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
   <div class="read-div">
     <div class="word">{word.text}</div>
     <div class="word_speak">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
@@ -19,7 +19,7 @@
               {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
             {/each}
           {:else if mode==="listen"} 
-            <div class="read-mode" on:click={() => playSound(word)}>
+            <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
             <div class="read-title">Klikněte pro poslechnutí slova</div>
               <SVGIcon name="sound" size="24"/>
             </div>
@@ -82,7 +82,7 @@
   import WordDetail from './WordDetail.svelte';
   import SVGIcon from './SVGIcon.svelte';
   import { statisticsData, settingsData } from '../js/store.js';
-  import { playSound } from '../js/utils.js';
+  import { playTextSound } from '../js/utils.js';
 
   export let word;
   export let mode;

@@ -5,7 +5,12 @@
   </div>
             <List>
         {#each word.examples as example, id}
-          <ListItem>{example}<SVGIcon name="sound" size="24"/></ListItem>
+          <ListItem>
+            {example}
+            <div on:click={playExampleSound(example, $settingsData.pronunciation)}>
+              <SVGIcon name="sound" size="24"/>
+            </div>
+          </ListItem>
         {/each}
       </List>
   
@@ -30,6 +35,8 @@
   import { _ } from 'svelte-i18n';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
+  import { playExampleSound } from '../js/utils.js'
+  import { settingsData } from '../js/store.js'
 
   export let word;
   let descriptionOpened = false;

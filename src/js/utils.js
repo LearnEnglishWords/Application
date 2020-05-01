@@ -1,3 +1,5 @@
+import md5 from 'md5';
+
 export const defaultSettingsData = {
   "enableDarkMode": false,
   "wordsLimit": 30,
@@ -53,9 +55,30 @@ export function getState(word) {
   }
 }
 
-export function playSound(word) {
+function getHash(text, pronunciation, speed = 'normal') {
+  return md5(text + pronunciation + speed)
+}
+
+function getLangCode(pronunciation) {
+  switch(pronunciation) {
+  case 'uk':
+    return 'en-GB'
+  case 'us':
+    return 'en-US'
+  } 
+}
+
+export function playTextSound(text, pronunciation) {
+  if (pronunciation === 'uk') { pronunciation = 'gb' }
   var audio = new Audio();
-  audio.src = `https://drakeman.cz/english-words/collections/basic/sounds/${word.text}.mp3`;
+  audio.src = `https://learn-english-words.eu/sounds/words/${text}-${pronunciation}.mp3`;
+  audio.play();
+}
+
+export function playExampleSound(example, pronunciation) {
+  let hash = getHash(example, getLangCode(pronunciation));
+  var audio = new Audio();
+  audio.src = `https://learn-english-words.eu/sounds/examples/${hash}.mp3`;
   audio.play();
 }
 

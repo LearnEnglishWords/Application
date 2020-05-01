@@ -73,6 +73,7 @@
     "framework7-svelte": "^5.5.0",
     "localforage": "^1.7.3",
     "localforage-cordovasqlitedriver": "^1.8.0",
+    "md5": "^2.2.1",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "svelte": "^3.21.0",
