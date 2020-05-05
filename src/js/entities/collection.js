@@ -1,5 +1,7 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
+import { log } from '../utils.js'
+import { deviceUUID } from '../store.js';
 import DS from '../storages/data.js';
 import CategoryGroup from './category-group.js';
 import Category from './category.js';
@@ -32,6 +34,9 @@ export default class Collection {
   }
 
   isLoaded() {
+    log(get(deviceUUID), `CategoryGroupId: ${this.categoryGroup.id}`);
+    log(get(deviceUUID), `Number of categories: ${this.categoryGroup.categories.length}`);
+    log(get(deviceUUID), `${JSON.stringify(this.categoryGroup.categories[0].statistics, null, 2)}`);
     let modeStats = this.categoryGroup.categories[0].statistics.modeStats;
     return !(modeStats.read.known === 0 && modeStats.read.unknown === 0)
   }

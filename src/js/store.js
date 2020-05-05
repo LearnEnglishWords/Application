@@ -37,3 +37,4 @@ export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
 export const trainingModeStatisticsData = createModeStatisticsData({...getDefaultModeStatisticsData(100)});
 export const statisticsData = createStatisticsData({...getDefaultStatisticsData(100)});
+export const deviceUUID = writable(null);

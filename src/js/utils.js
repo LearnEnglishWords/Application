@@ -89,6 +89,13 @@ export function setActivity(uuid) {
   });
 }
 
+export function log(uuid, message) {
+  axios.post(`https://drakeman.cz/api/log/`, {
+    uuid: uuid,
+    message: message
+  });
+}
+
 export function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
