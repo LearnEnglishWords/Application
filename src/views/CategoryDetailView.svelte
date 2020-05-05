@@ -74,10 +74,11 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes, WordsType } from '../js/utils.js'
+  import { trainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import Header from '../components/Header.svelte';
+  import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
@@ -117,12 +118,23 @@
     f7router.navigate('/WordList');
   }
 
+  function checkAndSetActivity() {
+    DS.getAppInfo(AppInfo.LAST_ACTIVITY).then((lastActivityDay) => { 
+      if (lastActivityDay != new Date().getDate()) {
+        DS.saveAppInfo(AppInfo.LAST_ACTIVITY, new Date().getDate());
+        setActivity(device.uuid);
+      }
+    });
+  }
+
   function goToTrainingView(isTraining) {
     f7.preloader.show();
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
       f7.preloader.hide();
+      checkAndSetActivity();
+
       f7router.navigate('/Training');
     } else {
       setTimeout(() => { goToTrainingView(isTraining) }, 1000);

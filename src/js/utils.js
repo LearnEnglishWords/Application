@@ -1,4 +1,5 @@
 import md5 from 'md5';
+import axios from 'axios';
 
 export const defaultSettingsData = {
   "enableDarkMode": false,
@@ -82,6 +83,12 @@ export function playExampleSound(example, pronunciation) {
   audio.play();
 }
 
+export function setActivity(uuid) {
+  axios.post(`https://drakeman.cz/api/activity/`, {
+    uuid: uuid
+  });
+}
+
 export function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -106,7 +113,8 @@ export const Modes = {
 }
 
 export const AppInfo = {
-  DOWNLOADED_COLLECTIONS: "downloadedCollections"
+  DOWNLOADED_COLLECTIONS: "downloadedCollections",
+  LAST_ACTIVITY: "lastActivity"
 }
 
 export const Collections = {
