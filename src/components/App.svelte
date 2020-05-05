@@ -24,7 +24,7 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData, AppInfo } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo, setActivity } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
   import { settingsData } from '../js/store.js';
 
@@ -69,6 +69,12 @@
           } else { 
             settingsData.set(data);
           }
+        });
+        DS.getAppInfo(AppInfo.LAST_ACTIVITY).then((data) => { 
+          if (data === null) {
+            DS.saveAppInfo(AppInfo.LAST_ACTIVITY, new Date().getDate()-1);
+            setActivity(device.uuid);
+          } 
         });
         DS.getAppInfo(AppInfo.DOWNLOADED_COLLECTIONS).then((data) => { 
           if (data === null) {
