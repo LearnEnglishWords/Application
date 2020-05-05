@@ -1,47 +1,54 @@
 <Page name="CategoryList">
   <!-- Navbar -->
   <Header>
-    <div slot="title" class="title">
-      <span>{$_('statistics.title')}</span>
-    </div>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header statistics">
-    <Row class="CategoryList">
-      <Col class="known">
-        <span>{globalStatisticsData.known}</span>
-        <span>{$_('statistics.known')}</span>
-        <span>{$_('statistics.text')}</span>
+  <div class="header-statistics">
+    <Row class="header-row">
+      <Col class="header-col">
+        <div class="header-count">{globalStatisticsData.known}</div>
+        <div class="header-type">{$_('statistics.known')}</div>
+        <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="learning">
-        <span>{globalStatisticsData.learning}</span>
-        <span>{$_('statistics.learning')}</span>
-        <span>{$_('statistics.text')}</span>
+      <Col class="header-col">
+        <div class="header-count">{globalStatisticsData.learning}</div>
+        <div class="header-type">{$_('statistics.learning')}</div>
+        <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="unknown">
-        <span>{globalStatisticsData.unknown}</span>
-        <span>{$_('statistics.unknown')}</span>
-        <span>{$_('statistics.text')}</span>
+      <Col class="header-col">
+        <div class="header-count">{globalStatisticsData.unknown}</div>
+        <div class="header-type">{$_('statistics.unknown')}</div>
+        <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-    </Row>
+    </Row>       
   </div>
   <!-- View -->
-  <div class="view CategoryList">
+  <div class="page-view view">
+    <div class="page-container">
     <!-- Title -->
-    <BlockTitle>{$_('category.select_categories')}</BlockTitle>
+    <div class="page-title">{$_('category.select_categories')}</div>
     <!-- List -->
-    <List>
+    <List class="list-categories">
       {#each $collectionData.categoryGroup.categories as category, id}
         <ListItem class="list-item" title="{category.title}" on:click="{() => toggleCategory(category)}">
-          <i slot="media" class="material-icons">{category.icon}</i>
+          <!-- paw,  -->
+          <div slot="media" class="item-media">
+            <SVGIcon name="paw" size="24" element="list" />
+          </div>
           <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
         </ListItem>
       {/each}
     </List> 
   </div>
+  </div>
   <!-- Footer -->
-  <div class="footer one">
-    <Button large on:click={goToDetailView}>{$_('category.confirm')}</Button>
+  <div class="footer">
+    <div class="footer-single">
+      <div class="footer-buttons">
+        <Button class="button-next" on:click={goToDetailView}>{$_('category.confirm')}</Button>
+      </div>
+    </div>
   </div>
 </Page>
 
@@ -55,11 +62,15 @@
   import { collectionData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
   import { defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
+
+  // IKONY ZDE
+  let icons = ['paw', 'translation', 'test'];
 
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
   let selectedCategories = [];

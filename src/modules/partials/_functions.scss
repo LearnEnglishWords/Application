@@ -1,0 +1,16 @@
+// --------------------------------------------------
+// ==> SCSS: Functions
+// --------------------------------------------------
+
+// Variables
+@function app($variable) {
+  @return var(--app-#{$variable});
+}
+
+@function f7($variable) {
+  @return var(--f7-#{$variable});
+}
+
+@function em($pixels, $context: $default) {
+  @return #{$pixels / $default}em;
+}

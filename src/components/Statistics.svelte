@@ -1,8 +1,8 @@
 {#if simple}
 
-  <span class="known">{statistic.known}</span> 
-  {#if !withoutLearning} <span class="learning">{statistic.learning}</span> {/if}
-  <span class="unknown">{statistic.unknown}</span>
+  <div class="item-count">{statistic.known}</div> 
+  {#if !withoutLearning} <div class="item-count">{statistic.learning}</div> {/if}
+  <div class="item-count">{statistic.unknown}</div>
 
 {:else}
   <Row>

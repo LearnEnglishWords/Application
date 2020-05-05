@@ -1,0 +1,56 @@
+// --------------------------------------------------
+// ==> MIXINS: Font
+// --------------------------------------------------
+
+@mixin font($family: null, $size: null, $weight: null, $style: null) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+}
+
+// --------------------------------------------------
+// ==> MIXINS: Position
+// --------------------------------------------------
+
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// --------------------------------------------------
+// ==> MIXINS: Padding
+// --------------------------------------------------
+
+@mixin padding($top: null, $right: null, $bottom: null, $left: null) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left; 
+}
+
+// --------------------------------------------------
+// ==> MIXINS: Margin
+// --------------------------------------------------
+
+@mixin margin($top: null, $right: null, $bottom: null, $left: null) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left; 
+}
+
+// --------------------------------------------------
+// ==> MIXINS: Grid
+// --------------------------------------------------
+
+@mixin grid($display, $template-columns, $align-items: null, $justify-items: null, $text-align: null) {
+  display: $display;
+  grid-template-columns: $template-columns;
+  align-items: $align-items;
+  justify-content: $justify-items;
+  text-align: $text-align;
+}

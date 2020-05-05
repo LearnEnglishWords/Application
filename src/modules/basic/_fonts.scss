@@ -2,15 +2,7 @@
 // ==> SCSS: Fonts
 // --------------------------------------------------
 // --> Exo
-@include font-face("Exo", "../fonts/Exo-Thin", 100, null, ttf);
-@include font-face("Exo", "../fonts/Exo-ExtraLight", 200, null, ttf);
-@include font-face("Exo", "../fonts/Exo-Light", 300, null, ttf);
-@include font-face("Exo", "../fonts/Exo-Regular", 400, null, ttf);
-@include font-face("Exo", "../fonts/Exo-Medium", 500, null, ttf);
-@include font-face("Exo", "../fonts/Exo-SemiBold", 600, null, ttf);
-@include font-face("Exo", "../fonts/Exo-Bold", 700, null, ttf);
-@include font-face("Exo", "../fonts/Exo-ExtraBold", 800, null, ttf);
-@include font-face("Exo", "../fonts/Exo-Black", 900, null, ttf);
+
 
 // --> Framework7 Icons
 @include font-face("Framework7 Icons", "../fonts/Framework7Icons-Regular", null, null, eot woff woff2 ttf);

@@ -1,0 +1,118 @@
+// --------------------------------------------------
+// ==> PARTIALS --> VARIABLES: Global theme
+// --------------------------------------------------
+
+$app: (
+
+  "app-primary": "#5D9CEC",
+  "app-secondary": "#4A89DC",
+
+  "app-success": "#0DC80D",
+  "app-warning": "#F1A924",
+  "app-error": "#FF6A4F",
+
+  "app-transition-property": "all",
+  "app-transition-duration": "300ms",
+  "app-transition-timing-function": "ease-in-out",
+
+  "navbar-main-title--text-align": "center",
+  "navbar-main-title--font-size": "18px",
+  "navbar-main-title--font-weight": "600",
+
+  "header-statistics--height": "20vh",
+  "header-statistics-row--border-radius": "10px",
+  "header-statistics-row--box-shadow": "0 0 0.5em",
+  "header-statistics-count--font-size": "16px",
+  "header-statistics-count--font-weight": "700",
+  "header-statistics-type--font-size": "14px",
+  "header-statistics-type--font-weight": "500",
+  "header-statistics-subtitle--font-size": "16px",
+  "header-statistics-subtitle--font-weight": "500",
+
+  "page-view--border-radius": "25px",
+  "page-title--font-size": "14px",
+  "page-title--font-weight": "600",
+
+  "list-categories--transition-property": var(--app-transition-property),
+  "list-categories--transition-duration": var(--app-transition-duration),
+  "list-categories--transition-timing-function": var(--app-transition-timing-function),
+  "list-categories-title--font-size": "14px",
+  "list-categories-title--font-weight": "600",
+  "list-categories-item--border-radius": "10px",
+  "list-categories-count--font-size": "12px",
+  "list-categories-count--font-weight": "700",
+
+  "button-next--height": "42px",
+  "button-next--font-size": "13px",
+  "button-next--font-weight": "700",
+  "button-next--border-radius": "10px",
+  "button-next--box-shadow": "0 0 0.5em",
+);
+
+:root {
+  @each $variable, $value in $app {
+    --#{$variable}: #{$value}; 
+  }
+}
+
+// --------------------------------------------------
+// ==> PARTIALS --> VARIABLES: Light theme
+// --------------------------------------------------
+
+$app-light: (
+
+  "app-background": "#FFFFFF",
+  "app-border": "#DDDDDD",
+  "app-element": "#F0F5FC",
+  "app-ripple": "rgba(0, 0, 0, 0.075)",
+  "app-title": "#2D353B",
+  "app-text": "#586775",
+
+  "navbar-main-bg--background-color": var(--app-secondary),
+  "navbar-main-title--color": var(--app-background),
+
+  "header-statistics--background-color": var(--app-primary),
+  "header-statistics-row--background-color": var(--app-background),
+  "header-statistics-known-count--color": var(--app-success),
+  "header-statistics-known-type--color": var(--app-title),
+  "header-statistics-known-subtitle--color": var(--app-success),
+  "header-statistics-learning-count--color": var(--app-warning),
+  "header-statistics-learning-type--color": var(--app-title),
+  "header-statistics-learning-subtitle--color": var(--app-warning),
+  "header-statistics-unknown-count--color": var(--app-error),
+  "header-statistics-unknown-type--color": var(--app-title),
+  "header-statistics-unknown-subtitle--color": var(--app-error),
+
+  "page-view--background-color": var(--app-background),
+  "page-title--color": var(--app-title),
+
+  "list-categories-item--background-color": var(--app-element),
+  "list-categories-title--color": var(--app-text),
+  "list-categories-active-title--color": var(--app-background),
+  "list-categories-active-count--color": var(--app-background),
+
+  "footer--border-color": var(--app-border),
+
+  "button-next--background-color": var(--app-secondary),
+  "button-next--color": var(--app-background),
+);
+
+:root {
+  @each $variable, $value in $app-light {
+    --#{$variable}: #{$value}; 
+  }
+}
+
+// --------------------------------------------------
+// ==> PARTIALS --> VARIABLES: Dark theme
+// --------------------------------------------------
+
+$app-dark: (
+
+);
+
+:root .dark-theme {
+  @each $variable, $value in $app-dark {
+    --#{$variable}: #{$value};
+  }
+}

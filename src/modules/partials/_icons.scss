@@ -1,0 +1,22 @@
+// --------------------------------------------------
+// ==> ICONS --> 24px
+// --------------------------------------------------
+
+.icon-24 {
+
+  // --> menu-8
+
+  &-menu-8 {
+    line {
+      stroke: var(--navbar-link-color);
+    }
+  }
+
+  // --> arrow-left
+
+  &-left-arrow {
+    polyline {
+      stroke: var(--navbar-link-color);
+    }
+  }
+}
