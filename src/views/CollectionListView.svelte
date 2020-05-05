@@ -46,7 +46,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo, Collections, coreCollections } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections, coreCollections, log } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
@@ -55,7 +55,8 @@
     collectionData,
     categoryGroupData,
     categoryDetailData,
-    downloadedCollections
+    downloadedCollections,
+    deviceUUID
   } from '../js/store.js';
 
   export let f7router;
@@ -67,6 +68,7 @@
   let wordsAmount = 0;
   let downloadingCollectionId = null;
   let isLoading = false;
+  let sentLog = false;
 
 
   function preloadAllCollections() {
@@ -123,12 +125,19 @@
 
   function continueButton(collectionId){
     isLoading = true;
+    if (!sentLog) { log($deviceUUID, "Continue click.") }
+
+    if (!sentLog) { log($deviceUUID, `Number of all collections: ${$allCollectionsData.length}.`) }
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
 
+    if (!sentLog) { log($deviceUUID, `Selected collection: ${selectedCollection.id}`) }
+
     if (!selectedCollection.isLoaded()) {
+      sentLog = true;
       setTimeout(() => { continueButton(collectionId) }, 1000);
       return
-    }
+    } 
+    log($deviceUUID, `Selected collection is loaded.`)
 
     isLoading = false;
     collectionData.set(selectedCollection);

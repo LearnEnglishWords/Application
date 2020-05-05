@@ -24,9 +24,9 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData, AppInfo, setActivity } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo, setActivity, log } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
-  import { settingsData } from '../js/store.js';
+  import { settingsData, deviceUUID } from '../js/store.js';
 
 
   // internationalization init:
@@ -59,7 +59,8 @@
             localforage.WEBSQL,
             localforage.LOCALSTORAGE
           ]
-        });
+        });               
+        deviceUUID.set(device.uuid);
                                     
         // App basic setup
         DS.getSettings().then((data) => { 
@@ -73,7 +74,7 @@
         DS.getAppInfo(AppInfo.LAST_ACTIVITY).then((data) => { 
           if (data === null) {
             DS.saveAppInfo(AppInfo.LAST_ACTIVITY, new Date().getDate()-1);
-            setActivity(device.uuid);
+            setActivity($deviceUUID);
           } 
         });
         DS.getAppInfo(AppInfo.DOWNLOADED_COLLECTIONS).then((data) => { 
