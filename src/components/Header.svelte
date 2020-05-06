@@ -3,7 +3,7 @@
     <!-- Left -->
     <NavLeft>
       <Link class="back">
-        <SVGIcon name="left-arrow" size="24" />
+        <SVGIcon name="left-arrow" size="24" tag="navbar" />
       </Link>
     </NavLeft>
     <!-- Title -->
@@ -11,7 +11,7 @@
     <!-- Right -->
     <NavRight>
       <Link popoverOpen=".popover-menu">
-        <SVGIcon name="menu-8" size="24" />
+        <SVGIcon name="menu-8" size="24" tag="navbar" />
       </Link>
     </NavRight>
   </Navbar>

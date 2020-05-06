@@ -1,0 +1,253 @@
+// --------------------------------------------------
+// ==> PARTIALS --> ICONS: 24px
+// --------------------------------------------------
+
+svg.icon-24 {
+  
+  &-navbar {
+
+    &-left-arrow {
+      polyline {
+        fill: none;
+        stroke: #FFFFFF;
+      }
+    }
+
+    &-menu-8 {
+      line {
+        stroke: #FFFFFF;
+      }
+    }
+  }
+
+  &-list {
+
+    &-male {
+      path:nth-child(1) {
+        stroke: var(--app-icon);
+        fill: none;
+      }
+      path:nth-child(2) {
+        stroke: var(--app-icon-colored);
+        fill: none;
+      }
+    }
+
+    &-new-construction {
+      polyline {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-bag {
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      rect, polyline {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-car-2 {
+      polyline, line {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      circle {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-shorts {
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      path {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-palette {
+      path {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      circle {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-multiple-11 {
+      path:nth-child(1), path:nth-child(3), path:nth-child(5) {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      path:nth-child(2), path:nth-child(4), path:nth-child(6) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-cutlery {
+      line, polyline {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      path {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-fence {
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      polygon {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-heartbeat {
+      polyline {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      path {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-law {
+      rect, line:nth-child(3), line:nth-child(4) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      polyline, line:nth-child(5), line:nth-child(6) {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-math {
+      line:nth-child(1), line:nth-child(2), line:nth-child(6), line:nth-child(7) {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      line:nth-child(3), line:nth-child(4), line:nth-child(5) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-music {
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      polyline, circle {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-school {
+      polyline:nth-child(1), polyline:nth-child(3) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+      rect:nth-child(2) {
+        stroke: none;
+        fill: var(--app-icon);
+      }
+      rect:nth-child(4), rect:nth-child(5) {
+        stroke: none;
+        fill: var(--app-icon-colored);
+      }
+      polygon {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+    }
+
+    &-flask-2 {
+      path:nth-child(1) {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      path:nth-child(2) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-soccer-ball {
+      circle {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      polygon, path {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-time-clock {
+      circle {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      polyline, line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-map-pin {
+      polyline {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      path, circle {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-sun-fog-43 {
+      path, line:nth-child(1), line:nth-child(2), line:nth-child(3), line:nth-child(4), line:nth-child(5) {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      line:nth-child(7), line:nth-child(8), line:nth-child(9) {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+
+    &-trash {
+      polyline, path, rect {
+        fill: none;
+        stroke: var(--app-icon);
+      }
+      line {
+        fill: none;
+        stroke: var(--app-icon-colored);
+      }
+    }
+  }
+}

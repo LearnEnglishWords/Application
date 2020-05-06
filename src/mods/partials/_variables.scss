@@ -47,6 +47,16 @@ $app: (
   "button-next--font-weight": "700",
   "button-next--border-radius": "10px",
   "button-next--box-shadow": "0 0 0.5em",
+  "button-training--height": "42px",
+  "button-training--font-size": "13px",
+  "button-training--font-weight": "700",
+  "button-training--border-radius": "10px",
+  "button-training--box-shadow": "0 0 0.5em",
+  "button-practice--height": "42px",
+  "button-practice--font-size": "13px",
+  "button-practice--font-weight": "700",
+  "button-practice--border-radius": "10px",
+  "button-practice--box-shadow": "0 0 0.5em",
 );
 
 :root {
@@ -64,6 +74,8 @@ $app-light: (
   "app-background": "#FFFFFF",
   "app-border": "#DDDDDD",
   "app-element": "#F0F5FC",
+  "app-icon": var(--app-text),
+  "app-icon-colored": var(--app-primary),
   "app-ripple": "rgba(0, 0, 0, 0.075)",
   "app-title": "#2D353B",
   "app-text": "#586775",
@@ -95,6 +107,10 @@ $app-light: (
 
   "button-next--background-color": var(--app-secondary),
   "button-next--color": var(--app-background),
+  "button-training--background-color": var(--app-text),
+  "button-training--color": var(--app-background),
+  "button-practice--background-color": var(--app-secondary),
+  "button-practice--color": var(--app-background),
 );
 
 :root {

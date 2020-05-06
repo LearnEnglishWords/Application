@@ -7,6 +7,7 @@
 @import 'partials/_placeholders';
 @import 'partials/_mixins';
 @import 'partials/_fonts';
+@import 'partials/_icons';
 
 // --------------------------------------------------
 // ==> SCSS --> APP: Global
@@ -42,25 +43,6 @@ rect, circle, line, polyline, path {
       color: var(--#{$name}-#{$type}-title--color);
       text-align: var(--#{$name}-#{$type}-title--text-align);
       @include font($size: var(--#{$name}-#{$type}-title--font-size), $weight: var(--#{$name}-#{$type}-title--font-weight));
-    }
-
-    .left {
-  
-      .icon-24-left-arrow {
-        polyline {
-          fill: none;
-          stroke: #FFFFFF;
-        }
-      }
-    }
-
-    .right {
-
-      .icon-24-menu-8 {
-        line {
-          stroke: #FFFFFF;
-        }
-      }
     }
   }
 
@@ -147,7 +129,18 @@ rect, circle, line, polyline, path {
 
   $name: "page";
 
-  &[data-name="CategoryList"] {
+  .#{$name}-container {
+    overflow: auto;
+    @include position($position: absolute, $top: calc(var(--page-view--border-radius) / 2), $right: 0, $bottom: 0, $left: 0);
+  }
+
+  .#{$name}-title {
+    color: var(--#{$name}-title--color);
+    padding: 1em;
+    @include font($size: var(--#{$name}-title--font-size), $weight: var(--#{$name}-title--font-weight));
+  }
+
+  &[data-name="CategoryList"], &[data-name="CategoryDetail"] {
 
     .#{$name}-content {
       overflow: hidden;
@@ -158,17 +151,6 @@ rect, circle, line, polyline, path {
       height: auto;
       border-radius: var(--#{$name}-view--border-radius) var(--#{$name}-view--border-radius) 0 0;
       @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics--height)), $right: 0, $bottom: calc(3em + var(--button-next--height) + 1px), $left: 0);
-    }
-
-    .#{$name}-container {
-      overflow: auto;
-      @include position($position: absolute, $top: calc(var(--page-view--border-radius) / 2), $right: 0, $bottom: 0, $left: 0);
-    }
-
-    .#{$name}-title {
-      color: var(--#{$name}-title--color);
-      padding: 1em;
-      @include font($size: var(--#{$name}-title--font-size), $weight: var(--#{$name}-title--font-weight));
     }
   }
 }
@@ -209,6 +191,11 @@ rect, circle, line, polyline, path {
         margin: 0 -0.5em 0.25em;
         @extend %-pattern;
 
+        svg {
+          --app-icon: #FFFFFF;
+          --app-icon-colored: #FFFFFF;
+        }
+
         .item-title {
           color: var(--#{$name}-categories-active-title--color);
         }
@@ -217,38 +204,12 @@ rect, circle, line, polyline, path {
           color: var(--#{$name}-categories-active-count--color) !important;
         }
 
-        .item-media {
-            
-          .icon-24-paw {
-            path:nth-child(1), path:nth-child(2), path:nth-child(3), path:nth-child(4) {
-              stroke: #FFFFFF;
-              fill: none;
-            }
-            path:nth-child(5) {
-              stroke: #FFFFFF;
-              fill: none;
-            } 
-          }
-        }
+
       }
     }
 
     .item-content {
       border-radius: var(--#{$name}-categories-item--border-radius);
-    }
-
-    .item-media {
-
-      .icon-24-paw {
-        path:nth-child(1), path:nth-child(2), path:nth-child(3), path:nth-child(4) {
-          stroke: var(--app-primary);
-          fill: none;
-        }
-        path:nth-child(5) {
-          stroke: var(--app-text);
-          fill: none;
-        }
-      }
     }
 
     .item-title {
@@ -299,9 +260,33 @@ rect, circle, line, polyline, path {
   }
 
   .#{$name}-double {
+    padding: 1em 0;
+    border-top: 1px solid var(--#{$name}--border-color);
+    @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
 
     .#{$name}-buttons {
       width: calc(100% - 3em);
+      margin: 0 auto;
+    }
+
+    .button {
+      display: inline-block;
+      width: calc((100% / 2) - 0.5em);
+      
+      &:nth-child(1) {
+        float: left;
+      }
+      &:nth-child(2) {
+        float: right;
+      }
+    }
+
+    .button-training {
+      @include button($type: "training");
+    }
+
+    .button-practice {
+      @include button($type: "practice");
     }
   }
 }

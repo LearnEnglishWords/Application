@@ -32,9 +32,31 @@
     <List class="list-categories">
       {#each $collectionData.categoryGroup.categories as category, id}
         <ListItem class="list-item" title="{category.title}" on:click="{() => toggleCategory(category)}">
-          <!-- paw,  -->
+          <!-- 
+            "zvířata": "paw",
+            "tělo": "male",
+            "město": "new-construction",
+            "práce a zaměstnání": "bag",
+            "auto": "car-2",
+            "oblečení": "shorts",
+            "barvy": "palette",
+            "lidé": "multiple-11",
+            "jídlo": "cutlery",
+            "dům a zahrada": "fence",
+            "zdraví": "heartbeat",
+            "zákon a pořádek": "law",
+            "matematika": "math",
+            "hudba": "music",
+            "škola": "school",
+            "věda a výzkum": "flask-2",
+            "sport": "soccer-ball",
+            "datum a čas": "time-clock",
+            "cestování": "map-pin",
+            "počasí": "sun-fog-43",
+            "ostatní": "trash",
+          -->
           <div slot="media" class="item-media">
-            <SVGIcon name="paw" size="24" element="list" />
+            <SVGIcon name="{category.icon}" size="24" tag="list" />
           </div>
           <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
         </ListItem>
@@ -68,9 +90,6 @@
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
-
-  // IKONY ZDE
-  let icons = ['paw', 'translation', 'test'];
 
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
   let selectedCategories = [];
