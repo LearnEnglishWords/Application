@@ -1,0 +1,368 @@
+// --------------------------------------------------
+// ==> SCSS --> Import
+// --------------------------------------------------
+
+@import "partials/_functions";
+@import "partials/_variables";
+@import "partials/_mixins";
+@import "partials/_icons";
+@import "partials/_fonts";
+@import "partials/_placeholders";
+
+// --------------------------------------------------
+// ==> SCSS --> App
+// --------------------------------------------------
+
+html, body {
+  @include font($family: "Exo 2", $size: 16px);
+  height: 100vh;
+}
+
+// --------------------------------------------------
+// ==> SCSS --> Navbar
+// --------------------------------------------------
+
+.navbar {
+
+  // --> background
+
+  &-bg {
+    background-color: var(--app-color-secondary);
+    @extend %background-pattern;
+  }
+
+  // --> title
+
+  .title {
+    color: var(--navbar-title-color);
+    width: 100%;
+    text-align: var(--navbar-title-text-align);
+    @include font($size: var(--navbar-title-font-size), $weight: var(--navbar-title-font-weight));
+  }
+}
+
+// --------------------------------------------------
+// ==> SCSS --> Header
+// --------------------------------------------------
+
+.header {
+
+  // --> Statistics
+
+  &-statistics {
+    background-color: var(--app-color-primary);
+    @extend %background-pattern;
+    @include position(fixed, $top: 0, $right: 0, $left: 0);
+    padding: calc(var(--f7-navbar-height) + var(--f7-safe-area-top)) 0 5em 0;  
+    display: flex;
+    align-items: center;
+    height: 25vh;
+    width: 100%;
+    text-align: center;
+    
+    .wrapper {
+      width: 100%;
+      margin: 0 1em;
+    }
+
+    .row {
+      background-color: var(--header-statistics-background-color);
+      border-radius: var(--header-statistics-border-radius);
+      box-shadow: var(--header-statistics-box-shadow) var(--header-statistics-background-color);
+      align-items: center;
+    }
+
+    .col {
+      padding: 1em 0;
+      width: calc(100% / 3);
+
+      &:nth-child(2) {
+        border-left: 1px solid var(--header-statistics-border-color);
+        border-right: 1px solid var(--header-statistics-border-color);
+      }
+    }
+
+    $header: map-get($CategoryList, "header");
+
+    @each $variable in $header {
+      $i: index($header, $variable);
+
+      .col:nth-child(#{$i}) {
+        span {
+          display: block;
+
+          &:nth-child(1), &:nth-child(3) {
+            color: var(--#{$variable});
+          }
+
+          &:nth-child(1) {
+            @include font($size: var(--header-statistics-first-font-size), $weight: var(--header-statistics-first-font-weight));
+          }
+
+          &:nth-child(2) {
+            color: var(--header-statistics-color);
+            @include font($size: var(--header-statistics-second-font-size), $weight: var(--header-statistics-second-font-weight));
+          }
+
+          &:nth-child(3) {
+            @include font($size: var(--header-statistics-third-font-size), $weight: var(--header-statistics-third-font-weight));
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------
+// ==> SCSS --> Page
+// --------------------------------------------------
+
+.page {
+
+  // --> Content
+
+  &-content {
+    background-color: var(--page-content-background-color);
+  }
+
+  // --> CategoryList
+
+  &[data-name="CategoryList"] {
+    .view {
+      @include position(fixed, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh), $right: 0, $bottom: calc(var(--footer-button-CategoryList-height) + 3em + 1px), $left: 0);
+      padding: 0 1em;
+      background-color: var(--page-content-background-color);
+      border-radius: var(--page-view-border-radius);
+      height: auto;
+    }
+  }
+
+  // --> CategoryDetail
+
+  &[data-name="CategoryDetail"] {
+    .view {
+      @include position(fixed, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh), $right: 0, $bottom: 80px, $left: 0);
+      padding: 0 1em;
+      background-color: var(--page-content-background-color);
+      border-radius: var(--page-view-border-radius);
+      height: auto;
+    }  
+  }
+
+  // --> View
+
+  .view {
+
+    // --> Wrapper
+
+    &-wrapper {
+      margin: var(--page-view-border-radius) 0 0 0;
+      padding: 0 1em 1em 1em;
+      overflow: auto;
+      overflow-x: hidden;
+      @include position(absolute, $top: 0, $right: 0, $bottom: 0, $left: 0);
+    }
+
+    // --> Title
+
+    &-title {
+      color: var(--page-view-title-color);
+      margin: 1em 0;
+      @include font($size: var(--page-view-title-font-size), $weight: var(--page-view-title-font-weight));
+      &:nth-child(1) {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------
+// ==> SCSS --> Footer
+// --------------------------------------------------
+
+.footer {
+
+  // --> Single
+
+  &-single {
+    border-top: 1px solid var(--footer-container-border-color);
+    padding: 1em 0 0 0;
+    @include position(absolute, $right: 0, $bottom: 1em, $left: 0);
+
+
+    .button {
+
+      &-CategoryList {
+
+      }
+    }
+  }
+
+
+
+
+ 
+  // --> Container
+
+  &-container {
+
+  }
+
+  // --> Amount
+
+  &-one {
+    width: calc((100% - 4em) - (24px * 2));
+    margin: 0 auto;
+
+    &-without {
+      width: calc(100% - 2em);
+    }
+  }
+
+  &-two {
+    width: calc((100% - 4em) - (24px * 2));
+    margin: 0 auto;
+
+    .without {
+      width: calc(100% - 2em);
+    }
+
+    .button {
+      width: calc((100% / 2) - 1em);
+
+      &:first-child {
+        float: left;
+      }
+
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+
+  // --> Buttons
+
+  &-button, .button {
+    border: 1px solid transparent;
+
+    &.outline {
+      border-image-slice: 1;
+      border-image-source: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+      border: 1px solid 1px;
+      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    // --> CategoryList
+
+    &-CategoryList {
+      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+      border-radius: var(--footer-button-CategoryList-border-radius);
+      height: var(--footer-button-CategoryList-height);
+      line-height: var(--footer-button-CategoryList-height);
+      color: var(--footer-button-CategoryList-color);
+      --f7-touch-ripple-color: var(--f7-touch-ripple-black);
+      @include font($size: var(--footer-button-CategoryList-font-size), $weight: var(--footer-button-CategoryList-font-weight));
+
+      // --> State
+
+      &.active-state {
+        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+        color: var(--footer-button-CategoryList-color);
+      }
+    }
+
+    // --> CategoryDetail
+
+    &-CategoryDetail {
+      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+      border-radius: var(--footer-button-CategoryDetail-border-radius);
+      height: var(--footer-button-CategoryDetail-height);
+      line-height: var(--footer-button-CategoryDetail-height);
+      color: var(--footer-button-CategoryDetail-color);
+      --f7-touch-ripple-color: var(--f7-touch-ripple-black);
+      @include font($size: var(--footer-button-CategoryDetail-font-size), $weight: var(--footer-button-CategoryDetail-font-weight));
+
+      // --> State
+
+      &.active-state {
+        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
+        color: var(--footer-button-CategoryDetail-color);
+      }
+    }
+  }
+}
+
+// --------------------------------------------------
+// ==> SCSS --> List
+// --------------------------------------------------
+
+.list {
+
+  // --> Categories
+
+  &-categories {
+    margin: 0 1em;
+
+    ul {
+      background-color: transparent;
+    }
+
+    // --> Item
+
+    .list-item {
+      background-color: var(--list-categories-background-color);
+      border-radius: var(--list-categories-border-radius);
+
+      &.active {
+        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary)); 
+      }
+    }
+
+    li.list-item {
+      margin: 0 0 0.25em 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+      // --> State
+
+      &.active {
+        
+        // --> Title
+
+        .item-title {
+          -webkit-text-fill-color: #FFFFFF;
+        }
+
+        
+      }
+    }
+
+    // --> Title
+
+    .item-title {
+      color: var(--list-categories-title-color);
+      @include font($size: var(--list-categories-title-font-size), $weight: var(--list-categories-title-font-weight));
+    }
+  }
+}

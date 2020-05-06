@@ -2,18 +2,11 @@
 // ==> SCSS: App
 // --------------------------------------------------
 // --> Global
-html, body {
-  @include font('Exo', null, 400);
-}
+
 .device-cordova.device-ios {
   height: 100vh;
 }
     
-// --> Page
-.page-content {
-    background: var(--core);
-    //padding-top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
-}
 
 .button-continue {
   background: var(--known);
@@ -22,14 +15,7 @@ html, body {
 // --> View
 .view {
   &.CategoryList, &.CategoryDetail {
-    @include position(absolute, calc((((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) + 85px) + 7.5px), 0, calc(39px * 2), 0);
-    width: auto;
-    overflow: auto;
-    padding: 15px 15px 0 15px;
-    height: auto;
-    border-radius: 15px 15px 0 0;
-    background: var(--core);
-    overflow-x: hidden;
+
   }
   &.Settings {
     @include position(absolute, calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) - 7.5px), 0, 0, 0);
@@ -216,25 +202,8 @@ html, body {
 .swiper-container {
   height: 100%;
 }
-.swiper-button-prev, .swiper-button-next {
-  top: inherit;
-  bottom: calc(15px + ((38px - 24px) / 2));
-  width: 24px;
-  height: 24px;
-  color: var(--title);
-  &::after {
-    content: none;
-  }
-}
-.swiper-button-prev {
-  left: 15px;
-}
-.swiper-button-next {
-  right: 15px;
-}
-.swiper-button-disabled {
-  opacity: 0.75;
-}
+
+
 
 .icon {
   height: 24px;

@@ -1,5 +1,7 @@
 <Page name="CollectionList">
-  <Header />
+  <Header>
+    <div slot="title">{$_('app_name')}</div>
+  </Header>
   <Block strong inset>
     <BlockTitle medium>{$_('collection.title')}</BlockTitle>
     <List accordionList mediaList inset>

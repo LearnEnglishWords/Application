@@ -1,14 +1,10 @@
-   {#if mode==="read"}
-
-<div class="read-mode" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
-  <div class="read-div">
-    <div class="word">{word.text}</div>
-    <div class="word_speak">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-    <SVGIcon name="sound" size="24"/>
-</div>
-</div>
-    <!-- <div class="block-title">{$_('training.sense_title')}</div> -->
-    <WordDetail {word}/>
+{#if mode==="read"}
+  <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
+    <span class="word">{word.text}</span>
+    <span class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</span>
+    <SVGIcon name="sound" size="24" />
+  </div>
+  <WordDetail {word}/>
 
     {:else} 
 
@@ -56,18 +52,6 @@
           <!---->
           </div>
         </div>
-
-
-
-
-
-
-
-        
-
-
-
-
 
     {/if}
 

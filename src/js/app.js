@@ -8,7 +8,8 @@ import Framework7Svelte from 'framework7-svelte';
 import 'framework7/css/framework7.bundle.css';
 
 // Import Icons and App Custom Styles
-import '../modules/import.scss';
+
+import '../mods/app.scss';
 
 // Import App Component
 import App from '../components/App.svelte';

@@ -3,25 +3,22 @@
 // --------------------------------------------------
 // --> List
 .list {
-  margin: 0 15px;
+
   ul {
-    background: transparent;
+
     li {
-      margin-bottom: 7.5px;
+
       &:last-child {
-        margin-bottom: 0;
+
       }
       .item-content {
-        background: var(--theme);
-        border-radius: 7.5px;
+
         .item-inner {
-          color: var(--title);
-          @include font(null, 12px, 600);
+
         }
       }
       .list-item {
-        background: var(--theme);
-        @include transition(all 300ms ease-in-out);
+
         .item-media {
           i {
             color: var(--app);
@@ -30,9 +27,7 @@
         }
         .item-inner {
           .item-title {
-            @include font(null, 13px, 700);
-            color: var(--title);
-            @include transition(all 300ms ease-in-out);
+
           }
           .item-after {
             div {
@@ -63,7 +58,7 @@
           padding: 0px 15px 0 calc((var(--f7-list-item-padding-horizontal) + var(--f7-safe-area-left) + 15px ));
           margin: 0 -15px;
           border-radius: 5px;
-          background: var(--app);
+
           .item-media {
             i {
               color: #FFFFFF;

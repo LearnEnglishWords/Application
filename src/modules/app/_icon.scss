@@ -1,25 +1,9 @@
 svg {
   &[data-name="translation"] {
-    g {
-      fill: var(--title);
-      stroke: var(--title);
-    }
-    path {
-      &:nth-child(2) {
-        stroke: var(--app);
-      }
-      &:nth-child(4) {
-        fill: var(--app);
-      }
-    }
+
   }
   &[data-name="sound"] {
-    polygon {
-      stroke: var(--title);
-    }
-    path {
-      stroke: var(--app);
-    }
+
   }
   &[data-name="drag-down"] {
     path, line, polyline {

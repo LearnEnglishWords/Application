@@ -1,21 +1,51 @@
 <Page name="Training">
   <!-- Navbar -->
   <Header>
-    <div slot="title" class="title">
-      <span>
-        {#if isTraining}
-          {$_('training.subtitle.trenink')}
-        {:else}
-          {$_('training.subtitle.testing')}
-        {/if}
-      </span>
-    </div>
+    <div slot="title" class="title">{$_('app_name')}</div>
   </Header>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-subtitle">
+      <div class="wrapper">
+        <span>        
+          {#if isTraining}
+            {$_('training.subtitle.trenink')}
+          {:else}
+            {$_('training.subtitle.testing')}
+          {/if}
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- View -->
+  <div class="view">
+    <div class="swiper-container swiper-init">
+      <div class="swiper-wrapper">
+        {#each $trainingData.words as word, id}
+          <div class="swiper-slide">
+            <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+          </div>
+          {/each}
+        </div>
+        {#if $trainingData.isTraining}
+          <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
+          <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
+        {/if}
+      </div>  
+  </div>
+
+
+
+
 
   <!-- View -->
   {#if !showRecapitulation}
-    <div class="view Training">
+    <div style="display:none" class="view Training">
+      <span>
 
+      </span>
       <div class="swiper-container swiper-init">
         <div class="swiper-wrapper">
           {#each $trainingData.words as word, id}
@@ -61,13 +91,20 @@
     <Recapitulation info={recapitulationInfo} />
   {/if}
   
-  <div class="footer-training">
+
+    <!-- Footer -->
+  <div class="app-footer-container">
+    <div class="app-footer-single">
     {#if $trainingData.mode === "read"}
       {#if $trainingData.isTraining}
-        <Button sheetOpen=".description">{$_('training.buttons.examples')}</Button>
+        <Button class="app-button-next" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
       {/if}
     {/if}
+    </div>
   </div>
+
+
+
 </Page>
 
 <script>

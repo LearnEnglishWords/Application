@@ -1,32 +1,39 @@
 <Page name="CategoryDetail">
   <!-- Navbar -->
   <Header>
-    <div slot="title" class="title">
-      <span>{$_('statistics.title')}</span>
-    </div>
+    <div slot="title" class="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header statistics">
-    <Row class="CategoryDetail">
-      <Col class="known">
+  <div class="header-container">
+  <div class="header-statistics">
+    <div class="wrapper">
+      <Row>
+      <Col>
         <span>42</span>
         <span>{$_('statistics.known')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="learning">
+      <Col>
         <span>241</span>
         <span>{$_('statistics.learning')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-      <Col class="unknown">
+      <Col>
         <span>604</span>
         <span>{$_('statistics.unknown')}</span>
         <span>{$_('statistics.text')}</span>
       </Col>
-    </Row>
+    </Row>  
+    </div>
   </div>
+</div>
+
+
+
+
   <!-- View -->
-  <div class="view CategoryDetail">
+  <div class="view">
+
     <!-- Title -->
     <BlockTitle>{$_('category.training_title')}</BlockTitle>
     <!-- Mode -->
@@ -65,9 +72,11 @@
     <Button large class="show-more" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
   </div>
   <!-- Footer -->
-  <div class="footer two">
-    <Button large on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-    <Button large on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+  <div class="footer-container">
+    <div class="footer-two without">
+    <Button class="footer-button-CategoryDetail outline" on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+    <Button class="footer-button-CategoryDetail" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+    </div>
   </div>  
 </Page>
 

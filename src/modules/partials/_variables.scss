@@ -1,0 +1,148 @@
+// --------------------------------------------------
+// ==> VARIABLES --> Config
+// --------------------------------------------------
+
+$CategoryList: (
+  "header": ("known", "learning", "unknown")
+);
+
+// --------------------------------------------------
+// ==> VARIABLES --> Global theme
+// --------------------------------------------------
+
+$app: (
+
+  // --> Navbar
+
+  "navbar-title-text-align": "center",
+  "navbar-title-font-size": "18px",
+  "navbar-title-font-weight": "700",
+
+  // --> Header
+
+  "header-statistics-border-radius": "10px",
+  "header-statistics-box-shadow": "0 0 5px",
+  "header-statistics-first-font-size": "16px",
+  "header-statistics-first-font-weight": "700",
+  "header-statistics-second-font-size": "14px",
+  "header-statistics-second-font-weight": "500",
+  "header-statistics-third-font-size": "16px",
+  "header-statistics-third-font-weight": "500",
+
+
+
+
+
+
+
+
+  // --> Gradient
+
+  "gradient-primary": "#967ADC",
+  "gradient-secondary": "#AC92EC",
+  "gradient-angle": "135deg",
+
+  // --> Navbar
+
+
+
+  // --> Page
+
+  "page-view-border-radius": "25px",
+  "page-view-title-font-size": "14px",
+  "page-view-title-font-weight": "500",
+
+  // --> Footer
+
+  "footer-button-CategoryList-border-radius": "10px",
+  "footer-button-CategoryList-height": "42px",
+  "footer-button-CategoryList-font-size": "12px",
+  "footer-button-CategoryList-font-weight": "700",
+  "footer-button-CategoryDetail-border-radius": "10px",
+  "footer-button-CategoryDetail-height": "42px",
+  "footer-button-CategoryDetail-font-size": "12px",
+  "footer-button-CategoryDetail-font-weight": "700",
+
+  // --> List
+
+  "list-categories-border-radius": "10px",
+  "list-categories-title-font-size": "13px",
+  "list-categories-title-font-weight": "600",
+
+);
+
+// --------------------------------------------------
+// ==> VARIABLES --> Light theme
+// --------------------------------------------------
+
+$app-light: (
+
+  // --> App
+
+  "app-color-primary": "#5D9CEC",
+  "app-color-secondary": "#4A89DC",
+  "app-background": "#FFFFFF",
+  "app-element": "#F0F5FC",
+
+  // --> Navbar
+
+  "navbar-title-color": "#FFFFFF",
+  "navbar-link-color": "#FFFFFF",
+
+  // --> Header
+
+  "header-statistics-background-color": "#FFFFFF",
+  "header-statistics-border-color": "#EEEEEE",
+  "header-statistics-color": "#999999",
+
+
+
+
+
+  
+
+  // --> Page
+
+  "page-content-background-color": "#FFFFFF",
+  "page-view-title-color": "#777777",
+
+  // --> Footer
+
+  "footer-container-border-color": "#DDDDDD",
+  "footer-button-CategoryList-color": "#FFFFFF",
+  "footer-button-CategoryDetail-color": "#FFFFFF",
+
+  // --> List
+
+  "list-categories-background-color": red,
+  "list-categories-title-color": "#586775",
+
+);
+
+// --------------------------------------------------
+// ==> VARIABLES --> Dark theme
+// --------------------------------------------------
+
+$app-dark: (
+
+);
+
+// --------------------------------------------------
+// ==> VARIABLES
+// --------------------------------------------------
+
+:root {
+  @each $variable, $value in $app {
+    --#{$variable}: #{$value}; 
+  }
+}
+:root {
+  @each $variable, $value in $app-light {
+    --#{$variable}: #{$value}; 
+  }
+}
+:root .dark-theme {
+  @each $variable, $value in $app-dark {
+    --#{$variable}: #{$value};
+  }
+}

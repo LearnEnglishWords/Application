@@ -71,7 +71,7 @@
       },
       "words_limit": "Zvolte si počet slov",
       "words_title": "Počet slov",
-      "words": "Slov",
+      "words": "slov",
       "buttons": {
           "words_list": "Zobrazit seznam všech slov",
           "start_training": "Trénovat",
@@ -93,8 +93,8 @@
   },
   "training": {
       "subtitle": {
-          "trenink": "Trénink",
-          "testing": "Ověření znalostí"
+          "trenink": "Trénování slovíček",
+          "testing": "Procvičování slovíček"
       },
       "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "sense_title": "Význam slova",
