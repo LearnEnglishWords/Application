@@ -16,7 +16,7 @@ export default class CollectionStorage {
   }
 
   async downloadCategoryWords(categoryId) {
-    const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words`);
+    const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words?shuffle=true`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -26,7 +26,7 @@ export default class CollectionStorage {
   }
 
   async downloadCollectionWords(collectionId) {
-    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/words`);
+    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/words?shuffle=true`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
