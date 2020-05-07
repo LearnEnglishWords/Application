@@ -127,19 +127,13 @@
 
   function continueButton(collectionId){
     isLoading = true;
-    if (!sentLog) { log($deviceUUID, "Continue click.") }
-
-    if (!sentLog) { log($deviceUUID, `Number of all collections: ${$allCollectionsData.length}.`) }
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
-
-    if (!sentLog) { log($deviceUUID, `Selected collection: ${selectedCollection.id}`) }
 
     if (!selectedCollection.isLoaded()) {
       sentLog = true;
       setTimeout(() => { continueButton(collectionId) }, 1000);
       return
     } 
-    log($deviceUUID, `Selected collection is loaded.`)
 
     isLoading = false;
     collectionData.set(selectedCollection);
@@ -180,5 +174,5 @@
     new Collection("personal", 'personal', false),
   ];
   
-  setTimeout(() => { preloadAllCollections() }, 1000);
+  setTimeout(() => { preloadAllCollections() }, 2000);
 </script>
