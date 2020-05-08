@@ -1,22 +1,288 @@
 // --------------------------------------------------
-// ==> ICONS --> 24px
+// ==> PARTIALS --> ICONS: 24px
 // --------------------------------------------------
 
 .icon-24 {
 
-  // --> menu-8
-
-  &-menu-8 {
-    line {
-      stroke: var(--navbar-link-color);
+  &-left-arrow {
+    polyline {
+      fill: none;
+      stroke: var(--app-icon);
     }
   }
 
-  // --> arrow-left
+  &-menu-8 {
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
 
-  &-left-arrow {
+  &-paw {
+    path:nth-child(1), path:nth-child(2), path:nth-child(3), path:nth-child(4) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    path:nth-child(5) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+  
+  &-male {
+    path:nth-child(1) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path:nth-child(2) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-new-construction {
     polyline {
-      stroke: var(--navbar-link-color);
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-bag {
+    polyline, rect {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-car-2 {
+    polyline, line:nth-child(1), line:nth-child(5) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    circle, line:nth-child(6) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-shorts {
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-paint-38 {
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-users-wm {
+    path:nth-child(1) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path:nth-child(2) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-cutlery {
+    line, polyline {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-fence {
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    polygon {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-heartbeat {
+    polyline {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    path {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-law {
+    rect, polyline, line:nth-child(6) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line:nth-child(3), line:nth-child(4), line:nth-child(5) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-math {
+    line:nth-child(1), line:nth-child(2), line:nth-child(6), line:nth-child(7) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line:nth-child(3), line:nth-child(4), line:nth-child(5) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-music-note {
+    path {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line, circle {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-design {
+    polyline {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    rect, line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-dna-27 {
+    polyline:nth-child(1), polyline:nth-child(2), line:nth-child(5) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    polyline:nth-child(3), polyline:nth-child(4), line:nth-child(6) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-deadlift {
+    path, line:nth-child(2), line:nth-child(3), line:nth-child(6), line:nth-child(7), circle {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    line:nth-child(5), line:nth-child(8), line:nth-child(9) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-time-clock {
+    circle, polyline {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-map-pin {
+    polyline {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path, circle:nth-child(3) {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    circle:nth-child(4) {
+      fill: var(--app-primary);
+      stroke: none;
+    }
+  }
+
+  &-sun-cloud {
+    path:nth-child(1), line {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+    path:nth-child(7) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-trash {
+    polyline, path, rect {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-d-edit {
+    polyline {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    line, polygon {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-book-open-2 {
+    polygon {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-primary);
+    }
+  }
+
+  &-volume {
+    polygon {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    line {
+      fill: none;
+      stroke: var(--app-primary);
     }
   }
 }

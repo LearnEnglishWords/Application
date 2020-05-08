@@ -1,9 +1,18 @@
 <Page name="WordList">
-  <Header title={$_('words_list.title')} />
-  <BlockTitle>{$_('words_list.info')}</BlockTitle>
+  <!-- Navbar -->
+  <Header>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
+  </Header>
 
-  <Block>
-    <div class="list virtual-list media-list"></div>
+  <div class="page-title">{$_('words_list.info')}</div>
+
+
+
+
+
+
+
+    <List class="list-container list-words virtual-list media-list"></List>
     {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
       <Button on:click={loadNextWords}>
         {$_('words_list.next_button')}
@@ -12,7 +21,6 @@
     {#if allWordsLength === 0}
       {$_('words_list.loading')}
     {/if}
-  </Block>
 
   {#if removeWords.length > 0 || addWords.length > 0}
     <Toolbar position={'bottom'}>
@@ -26,7 +34,8 @@
 <script>
   import { 
     f7, Page, 
-    BlockTitle, Block,
+    BlockTitle, Block, 
+    Row, Col,
     List, ListItem,
     Button, Link,
     Toolbar

@@ -3,9 +3,9 @@
 // --------------------------------------------------
 // --> Global
 
-.device-cordova.device-ios {
-  height: 100vh;
-}
+//.device-cordova.device-ios {
+//  height: 100vh;
+//}
     
 
 .button-continue {
@@ -13,36 +13,8 @@
 }
 
 // --> View
-.view {
-  &.CategoryList, &.CategoryDetail {
 
-  }
-  &.Settings {
-    @include position(absolute, calc(((var(--f7-navbar-height) + var(--f7-safe-area-top)) + (var(--f7-navbar-height) + var(--f7-safe-area-top)) / 2) - 7.5px), 0, 0, 0);
-    width: auto;
-    overflow: auto;
-    padding: 15px 15px 0 15px;
-    height: auto;
-    border-radius: 15px 15px 0 0;
-    background: var(--core);
-    overflow-x: hidden;
-  }
-  &.Training {
-    background: var(--core);
-    @include position(absolute, 0, 0, 0, 0);
-    overflow: auto;
-    height: auto;
-    overflow-x: hidden;
-  }
-}
 
-// --> Title
-.block-title {
-  text-transform: uppercase;
-  @include font(null, 11px, 700);
-  color: var(--title);
-  margin-top: 0;
-}
 
 // --> show-more
 .show-more {

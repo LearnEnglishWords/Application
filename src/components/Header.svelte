@@ -1,17 +1,14 @@
 {#if type === "main"}
   <Navbar noShadow class="navbar-main"> 
-    <!-- Left -->
     <NavLeft>
       <Link class="back">
-        <SVGIcon name="left-arrow" size="24" tag="navbar" />
+        <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
-    <!-- Title -->
     <slot name="title"></slot>
-    <!-- Right -->
     <NavRight>
       <Link popoverOpen=".popover-menu">
-        <SVGIcon name="menu-8" size="24" tag="navbar" />
+        <SVGIcon element="navbar" name="menu-8" size="24" />
       </Link>
     </NavRight>
   </Navbar>

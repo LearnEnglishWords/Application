@@ -4,19 +4,19 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics">
+  <div class="header-statistics header-container">
     <Row class="header-row">
-      <Col class="header-col">
+      <Col class="header-col header-known">
         <div class="header-count">{globalStatisticsData.known}</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col">
+      <Col class="header-col header-learning">
         <div class="header-count">{globalStatisticsData.learning}</div>
         <div class="header-type">{$_('statistics.learning')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col">
+      <Col class="header-col header-unknown">
         <div class="header-count">{globalStatisticsData.unknown}</div>
         <div class="header-type">{$_('statistics.unknown')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
@@ -24,38 +24,35 @@
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-view view">
-    <div class="page-container">
-    <!-- Title -->
-    <div class="page-title">{$_('category.select_categories')}</div>
-    <!-- List -->
-    <List class="list-categories">
-      {#each $collectionData.categoryGroup.categories as category, id}
-        <ListItem class="list-item" title="{category.title}" on:click="{() => toggleCategory(category)}">
-          <div slot="media" class="item-media">
-            <SVGIcon name="{category.icon}" size="24" tag="list" />
-          </div>
-          <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
-        </ListItem>
-      {/each}
-    </List> 
-  </div>
+  <div class="page-container view">
+    <div class="page-wrapper">
+      <!-- Title -->
+      <div class="page-title">{$_('category.select_categories')}</div>
+      <!-- List -->
+      <List class="list-container list-categories">
+        {#each $collectionData.categoryGroup.categories as category, id}
+          <ListItem class="list-item" title="{category.title}" on:click="{() => toggleCategory(category)}">
+            <div slot="media" class="item-media">
+              <SVGIcon element="item" name="{category.icon}" size="24" />
+            </div>
+            <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
+          </ListItem>
+        {/each}
+      </List> 
+    </div>
   </div>
   <!-- Footer -->
-  <div class="footer">
-    <div class="footer-single">
-      <div class="footer-buttons">
-        <Button class="button-next" on:click={goToDetailView}>{$_('category.confirm')}</Button>
-      </div>
+  <div class="footer-container footer-singular">
+    <div class="footer-content">
+      <Button class="page-button button-next" on:click={goToDetailView}>{$_('category.confirm')}</Button>
     </div>
   </div>
 </Page>
 
 <script>
   import { 
-    Page, Button, 
-    Block, BlockTitle,
-    Row, Col, Icon,
+    Page, Button,
+    Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
   import { collectionData, categoryDetailData } from '../js/store.js';

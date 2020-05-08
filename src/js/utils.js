@@ -10,9 +10,9 @@ export const defaultSettingsData = {
 };            
 
 export const defaultTrainingModes = [
-  { value: "read", checked: true, icon: "local_library" },
-  { value: "write", checked: false, icon: "edit" },
-  { value: "listen", checked: false, icon: "spellcheck" }
+  { value: "read", checked: true, icon: "book-open-2" },
+  { value: "write", checked: false, icon: "d-edit" },
+  { value: "listen", checked: false, icon: "volume" }
 ]; 
 
 export function getDefaultStatisticsData(count = 0) {
