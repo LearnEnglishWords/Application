@@ -120,6 +120,44 @@
     }
   }
 
+  function getCurrentDate() {
+    return new Date().toISOString().split("T")[0] + "T00:00:00";
+  }
+
+  function saveCurrentDate() {
+    DS.saveAppInfo(AppInfo.LAST_UPDATE, getCurrentDate());
+  }
+
+  function updateWords() {
+    let numWords = 0;
+    return new Promise((resolve) => {
+      let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
+      DS.getAppInfo(AppInfo.LAST_UPDATE).then((lastUpdateDate) => {
+        if (getCurrentDate() !== lastUpdateDate) {
+          alert(lastUpdateDate);
+          if (lastUpdateDate === null) {
+            saveCurrentDate();
+            dialog.close();
+            resolve();
+          } else {
+            collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
+              if (numWords !== 0) { alert(numberWords); numWords = numberWords; }
+              dialog.setProgress(100/numberWords*counter);
+              if (numberWords === counter) {
+                saveCurrentDate();
+                dialog.close();
+                resolve();
+              }
+            });
+          }
+        } else {
+          dialog.close();
+          resolve();
+        }
+      });
+    });
+  }
+
   function updateCollectionIds(collectionIds) {
     downloadedCollections.set(collectionIds);
     DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, collectionIds);
@@ -174,5 +212,5 @@
     new Collection("personal", 'personal', false),
   ];
   
-  setTimeout(() => { preloadAllCollections() }, 2000);
+  setTimeout(() => { updateWords().then(preloadAllCollections) }, 2000);
 </script>

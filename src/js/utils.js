@@ -121,7 +121,8 @@ export const Modes = {
 
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
-  LAST_ACTIVITY: "lastActivity"
+  LAST_ACTIVITY: "lastActivity",
+  LAST_UPDATE: "lastUpdate"
 }
 
 export const Collections = {
