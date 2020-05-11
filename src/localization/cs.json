@@ -6,7 +6,7 @@
           "dependency": "Ještě nemáte staženu {0} kolekci. \nDoporučujeme si nejdříve stáhnout a projít slovíčka této kolekce, než budete pokračovat dále..",
           "downloading": "Již se stahuje jiná kolekce slovíček. Počkejte než se stáhne a pak můžete začít stahovat tuto."
       },
-
+      "update_progress": "Aktualizace slovíček...",
       "button": {
           "continue": "Pokračovat",
           "loading": "Načítání...",

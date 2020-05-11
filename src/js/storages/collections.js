@@ -34,6 +34,33 @@ export default class CollectionStorage {
       return result.payload
     }
   }
+ 
+  async downloadUpdates(fromDate, progress) {
+    const res = await fetch(`https://drakeman.cz/api/word/updated?from=${fromDate}`);
+    var result = await res.json();
+    if (result.payload === undefined || result.payload.count === 0) {
+      progress(0, 0);
+    } 
+    let words = result.payload.words;
+    let counter = 0;
+    words.forEach((updatedWord) => {
+      DS.getWord(updatedWord.text).then((word) => {
+        if (word === null) {
+          progress(words.length, ++counter);
+        } else {
+          word.pronunciation = updatedWord.pronunciation;
+          word.sense = updatedWord.sense;
+          word.examples = updatedWord.examples;
+          word.state = updatedWord.state;
+          word.rank = updatedWord.rank;
+
+          DS.saveWord(word.text, word).then(() => { 
+            progress(words.length, ++counter);
+          });
+        }
+      });
+    });
+  }
 
   saveCategory(collectionId, category, words, progress) {
     DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
