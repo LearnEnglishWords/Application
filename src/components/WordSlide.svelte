@@ -1,7 +1,7 @@
 {#if mode==="read"}
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
-    <span class="word">{word.text}</span>
-    <span class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</span>
+    <div class="word">{word.text}</div>
+    <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
     <SVGIcon name="sound" size="24" />
   </div>
   <WordDetail {word}/>

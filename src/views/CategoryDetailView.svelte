@@ -4,49 +4,49 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics">
+  <div class="header-statistics header-container">
     <Row class="header-row">
-      <Col class="header-col">
+      <Col class="header-col header-known">
         <div class="header-count">42</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col">
+      <Col class="header-col header-learning">
         <div class="header-count">547</div>
         <div class="header-type">{$_('statistics.learning')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col">
-        <div class="header-count">5774</div>
+      <Col class="header-col header-unknown">
+        <div class="header-count">4722</div>
         <div class="header-type">{$_('statistics.unknown')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-view view">
-    <div class="page-container">
-    <!-- Title -->
-    <BlockTitle>{$_('category.training_title')}</BlockTitle>
-    <!-- Mode -->
-    <div class="training-mode">
-      {#each trainingModes as {value, checked, icon}, id}
-        <div class="radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
-          <input type="radio" name="training-mode" value={value} id={value} checked/>
-          <i class="material-icons">{icon}</i>
-          <label for={value}>{$_(`category.training_mode.${value}`)}</label>
-          <Statistics simple withoutLearning statistic={$trainingModeStatisticsData[value]} />
-        </div>
-      {/each}
-    </div>
-    <!-- Title -->
-    <BlockTitle>{$_('category.words_limit')}</BlockTitle>
-    <!-- Stepper -->
-    <div class="list">
-      <ul>
-        <ListItem>
-          <div class="title">{$_('category.words_title')}</div>
-          <Stepper
+  <div class="page-container view">
+    <div class="page-wrapper">
+      <!-- Title -->
+      <div class="page-title">{$_('category.training_title')}</div>
+      <!-- Mode -->
+      <div class="page-mode">
+        {#each trainingModes as {value, checked, icon}, id}
+          <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
+            <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
+            <SVGIcon element="mode" name="{icon}" size="24" />
+            <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+            <div class="mode-statistics">
+              <Statistics simple withoutLearning statistic={$trainingModeStatisticsData[value]} />
+            </div>
+          </div>
+        {/each}
+      </div>
+      <!-- Title -->
+      <div class="page-title">{$_('category.words_limit')}</div>
+      <!-- Stepper -->
+      <List class="list-container list-stepper">
+        <ListItem class="list-item" title="{$_('category.words_title')}">
+          <div slot="after"><Stepper
             min={10}
             max={100}
             step={10}
@@ -58,19 +58,17 @@
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
           ></Stepper>
+          </div>
         </ListItem>
-      </ul>
+      </List>
+      <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
     </div>
-    <Button large class="show-more" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
-  </div>
   </div>
   <!-- Footer -->
-  <div class="footer">
-    <div class="footer-double">
-      <div class="footer-buttons">
-        <Button class="button-training" on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-        <Button class="button-practice" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
-      </div>
+  <div class="footer-container footer-double">
+    <div class="footer-content">
+        <Button class="page-button button-training" on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
+        <Button class="page-button button-practice" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
     </div>
   </div> 
 </Page>
@@ -95,6 +93,7 @@
   import { defaultTrainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';

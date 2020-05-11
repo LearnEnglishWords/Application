@@ -1,252 +1,65 @@
 // --------------------------------------------------
-// ==> SCSS --> Import
+// ==> MODULES --> APP: import 
 // --------------------------------------------------
 
-@import "partials/_functions";
-@import "partials/_variables";
-@import "partials/_mixins";
-@import "partials/_icons";
-@import "partials/_fonts";
-@import "partials/_placeholders";
+@import 'partials/_variables';
+@import 'partials/_functions';
+@import 'partials/_placeholders';
+@import 'partials/_mixins';
+@import 'partials/_icons';
+@import 'partials/_fonts';
 
 // --------------------------------------------------
-// ==> SCSS --> App
+// ==> MODULES --> APP: global 
 // --------------------------------------------------
 
 html, body {
-  @include font($family: "Exo 2", $size: 16px);
+  font-family: "Exo 2";
+  font-size: 16px;
+  font-weight: 400;
   height: 100vh;
 }
 
-// --------------------------------------------------
-// ==> SCSS --> Navbar
-// --------------------------------------------------
-
-.navbar {
-
-  // --> background
-
-  &-bg {
-    background-color: var(--app-color-secondary);
-    @extend %background-pattern;
-  }
-
-  // --> title
-
-  .title {
-    color: var(--navbar-title-color);
-    width: 100%;
-    text-align: var(--navbar-title-text-align);
-    @include font($size: var(--navbar-title-font-size), $weight: var(--navbar-title-font-weight));
-  }
+svg {
+  @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
 }
 
 // --------------------------------------------------
-// ==> SCSS --> Header
+// ==> MODULES --> APP: footer 
 // --------------------------------------------------
 
-.header {
+.footer {$name: "footer";
 
-  // --> Statistics
+  &-singular {$type: "singular";
 
-  &-statistics {
-    background-color: var(--app-color-primary);
-    @extend %background-pattern;
-    @include position(fixed, $top: 0, $right: 0, $left: 0);
-    padding: calc(var(--f7-navbar-height) + var(--f7-safe-area-top)) 0 5em 0;  
-    display: flex;
-    align-items: center;
-    height: 25vh;
-    width: 100%;
-    text-align: center;
-    
-    .wrapper {
-      width: 100%;
-      margin: 0 1em;
-    }
-
-    .row {
-      background-color: var(--header-statistics-background-color);
-      border-radius: var(--header-statistics-border-radius);
-      box-shadow: var(--header-statistics-box-shadow) var(--header-statistics-background-color);
-      align-items: center;
-    }
-
-    .col {
+    &.#{$name}-container {$element: "container";
       padding: 1em 0;
-      width: calc(100% / 3);
-
-      &:nth-child(2) {
-        border-left: 1px solid var(--header-statistics-border-color);
-        border-right: 1px solid var(--header-statistics-border-color);
-      }
+      border-top: 1px solid var(--#{$name}-#{$type}-#{$element}-border);
+      @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
     }
 
-    $header: map-get($CategoryList, "header");
-
-    @each $variable in $header {
-      $i: index($header, $variable);
-
-      .col:nth-child(#{$i}) {
-        span {
-          display: block;
-
-          &:nth-child(1), &:nth-child(3) {
-            color: var(--#{$variable});
-          }
-
-          &:nth-child(1) {
-            @include font($size: var(--header-statistics-first-font-size), $weight: var(--header-statistics-first-font-weight));
-          }
-
-          &:nth-child(2) {
-            color: var(--header-statistics-color);
-            @include font($size: var(--header-statistics-second-font-size), $weight: var(--header-statistics-second-font-weight));
-          }
-
-          &:nth-child(3) {
-            @include font($size: var(--header-statistics-third-font-size), $weight: var(--header-statistics-third-font-weight));
-          }
-        }
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --------------------------------------------------
-// ==> SCSS --> Page
-// --------------------------------------------------
-
-.page {
-
-  // --> Content
-
-  &-content {
-    background-color: var(--page-content-background-color);
-  }
-
-  // --> CategoryList
-
-  &[data-name="CategoryList"] {
-    .view {
-      @include position(fixed, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh), $right: 0, $bottom: calc(var(--footer-button-CategoryList-height) + 3em + 1px), $left: 0);
-      padding: 0 1em;
-      background-color: var(--page-content-background-color);
-      border-radius: var(--page-view-border-radius);
-      height: auto;
-    }
-  }
-
-  // --> CategoryDetail
-
-  &[data-name="CategoryDetail"] {
-    .view {
-      @include position(fixed, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh), $right: 0, $bottom: 80px, $left: 0);
-      padding: 0 1em;
-      background-color: var(--page-content-background-color);
-      border-radius: var(--page-view-border-radius);
-      height: auto;
-    }  
-  }
-
-  // --> View
-
-  .view {
-
-    // --> Wrapper
-
-    &-wrapper {
-      margin: var(--page-view-border-radius) 0 0 0;
-      padding: 0 1em 1em 1em;
-      overflow: auto;
-      overflow-x: hidden;
-      @include position(absolute, $top: 0, $right: 0, $bottom: 0, $left: 0);
-    }
-
-    // --> Title
-
-    &-title {
-      color: var(--page-view-title-color);
-      margin: 1em 0;
-      @include font($size: var(--page-view-title-font-size), $weight: var(--page-view-title-font-weight));
-      &:nth-child(1) {
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-// --------------------------------------------------
-// ==> SCSS --> Footer
-// --------------------------------------------------
-
-.footer {
-
-  // --> Single
-
-  &-single {
-    border-top: 1px solid var(--footer-container-border-color);
-    padding: 1em 0 0 0;
-    @include position(absolute, $right: 0, $bottom: 1em, $left: 0);
-
-
-    .button {
-
-      &-CategoryList {
-
-      }
-    }
-  }
-
-
-
-
- 
-  // --> Container
-
-  &-container {
-
-  }
-
-  // --> Amount
-
-  &-one {
-    width: calc((100% - 4em) - (24px * 2));
-    margin: 0 auto;
-
-    &-without {
+    .#{$name}-content {
       width: calc(100% - 2em);
+      margin: 0 auto;
     }
+
   }
 
-  &-two {
-    width: calc((100% - 4em) - (24px * 2));
-    margin: 0 auto;
+  &-double {$type: "double";
 
-    .without {
-      width: calc(100% - 2em);
+    &.#{$name}-container {$element: "container";
+      padding: 1em 0;
+      border-top: 1px solid var(--#{$name}-#{$type}-#{$element}-border);
+      @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
+    }
+
+    .#{$name}-content {
+      width: calc(100% - 3em);
+      margin: 0 auto;
     }
 
     .button {
-      width: calc((100% / 2) - 1em);
+      width: calc((100% / 2) - 0.5em);
 
       &:first-child {
         float: left;
@@ -256,113 +69,419 @@ html, body {
         float: right;
       }
     }
+
+  }
+}
+
+// --------------------------------------------------
+// ==> MODULES --> APP: header 
+// --------------------------------------------------
+
+.header {$name: "header";
+
+  &-simple {$type: "simple";
+
+    .row {
+
+    }
+    .col {
+
+    }
+    .title {
+
+    }
   }
 
-  // --> Buttons
+  &-statistics {$type: "statistics";
 
-  &-button, .button {
-    border: 1px solid transparent;
-
-    &.outline {
-      border-image-slice: 1;
-      border-image-source: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-      border: 1px solid 1px;
-      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    &.#{$name}-container {$element: "container";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 5em;
+      height: var(--#{$name}-#{$type}-#{$element}-height);
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      @include position($position: absolute, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top)), $right: 0, $bottom: 0, $left: 0);
+      @extend %-pattern;
     }
 
-    // --> CategoryList
+    .#{$name}-row {$element: "row";
+      width: calc(100% - 2em);
+      box-shadow: var(--#{$name}-#{$type}-#{$element}-box-shadow) var(--#{$name}-#{$type}-#{$element}-background-color);
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius);
+    }
 
-    &-CategoryList {
-      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-      border-radius: var(--footer-button-CategoryList-border-radius);
-      height: var(--footer-button-CategoryList-height);
-      line-height: var(--footer-button-CategoryList-height);
-      color: var(--footer-button-CategoryList-color);
-      --f7-touch-ripple-color: var(--f7-touch-ripple-black);
-      @include font($size: var(--footer-button-CategoryList-font-size), $weight: var(--footer-button-CategoryList-font-weight));
+    .#{$name}-col {$element: "col";
+      padding: 0.5em 0;
+      width: calc(100% / 3);
 
-      // --> State
-
-      &.active-state {
-        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-        color: var(--footer-button-CategoryList-color);
+      .#{$name}-type {
+        color: var(--#{$name}-#{$type}-#{$element}-color);
       }
     }
 
-    // --> CategoryDetail
+    $statistics: ("known", "learning", "unknown");
 
-    &-CategoryDetail {
-      background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-      border-radius: var(--footer-button-CategoryDetail-border-radius);
-      height: var(--footer-button-CategoryDetail-height);
-      line-height: var(--footer-button-CategoryDetail-height);
-      color: var(--footer-button-CategoryDetail-color);
-      --f7-touch-ripple-color: var(--f7-touch-ripple-black);
-      @include font($size: var(--footer-button-CategoryDetail-font-size), $weight: var(--footer-button-CategoryDetail-font-weight));
+    @each $variable in $statistics {
 
-      // --> State
+      .#{$name}-#{$variable} {
 
-      &.active-state {
-        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary));
-        color: var(--footer-button-CategoryDetail-color);
+        .#{$name}-count {$element: "count";
+          color: var(--#{$name}-#{$type}-#{$variable}-color);
+          font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+          font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+        }
+
+        .#{$name}-type {$element: "type"; 
+          text-transform: lowercase;
+          font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+          font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+        }
+
+        .#{$name}-subtitle {$element: "subtitle";
+          text-transform: lowercase;
+          color: var(--#{$name}-#{$type}-#{$variable}-color);
+          font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+          font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+        }
       }
     }
   }
 }
 
 // --------------------------------------------------
-// ==> SCSS --> List
+// ==> MODULES --> APP: list
 // --------------------------------------------------
 
-.list {
+.list {$name: "list";
 
-  // --> Categories
-
-  &-categories {
-    margin: 0 1em;
-
-    ul {
-      background-color: transparent;
+  &-categories {$type: "categories";
+  
+    &.#{$name}-container {
+      margin: 0;
     }
 
-    // --> Item
+    ul {$element: "ul";
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      margin: 0 2em;
 
-    .list-item {
-      background-color: var(--list-categories-background-color);
-      border-radius: var(--list-categories-border-radius);
-
-      &.active {
-        background-image: linear-gradient(var(--gradient-angle), var(--gradient-primary), var(--gradient-secondary)); 
+      &::before {
+        content: none;
       }
     }
 
-    li.list-item {
-      margin: 0 0 0.25em 0;
-
+    .#{$name}-item {$element: "item";
+      margin-bottom: 0.25em;
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius);
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+      
       &:last-child {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
       }
-      // --> State
 
-      &.active {
-        
-        // --> Title
+      &.active {$element: "item-active";
+        margin: 0 -0.5em 0.25em;
+        background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+        @extend %-pattern;
 
-        .item-title {
-          -webkit-text-fill-color: #FFFFFF;
+        .item-icon {
+          --app-icon: #FFFFFF;
+          --app-primary: #FFFFFF;
         }
 
-        
+        .item-title {
+          color: #FFFFFF;
+        }
+
+        .item-count {
+          color: #FFFFFF !important;
+        }
+
       }
     }
 
-    // --> Title
+    .item-title {$element: "title";
+      color: var(--#{$name}-#{$type}-#{$element}-color);
+      font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+      font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+    }
+
+    .item-after {$element: "after";
+
+      $statistics: ("known", "learning", "unknown");
+
+      @each $variable in $statistics {
+        $i: index($statistics, $variable);
+
+        .item-count:nth-child(#{$i}) {$element: "count";
+          color: var(--header-statistics-#{$variable}-color);
+          text-align: right;
+          height: calc(var(--#{$name}-#{$type}-#{$element}-font-size) + 0.25em);
+          line-height: calc(var(--#{$name}-#{$type}-#{$element}-font-size) + 0.25em);
+          font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+          font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+          @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+        }
+      }
+    }
+  }
+
+  &-stepper, &-words {
+    margin: 0;
+    ul {
+      margin: 0 1em;
+      background-color: transparent;
+      &::before {
+        content: none;
+      }
+    }
+    .list-item {
+      border-radius: 10px;
+      background-color: var(--app-element);
+    }
 
     .item-title {
-      color: var(--list-categories-title-color);
-      @include font($size: var(--list-categories-title-font-size), $weight: var(--list-categories-title-font-weight));
+      color: var(--app-text);
+      font-size: 14px;
+      font-weight: 600;
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
     }
+  }
+
+}
+
+// --------------------------------------------------
+// ==> MODULES --> APP: stepper 
+// --------------------------------------------------
+
+.stepper {
+  background: var(--app-element);
+
+  .stepper-button-minus, .stepper-button-plus {
+    background: var(--app-element);
+    border: 0;
+  }
+  .stepper-button-plus:after, .stepper-button-minus:after, .stepper-button-plus:before, .stepper-button-minus:before {
+    background-color: var(--app-text);
+  }
+  .stepper-input-wrap {
+    border: 0;
+    color: var(--app-title);
+  }
+}
+
+
+// --------------------------------------------------
+// ==> MODULES --> APP: navbar 
+// --------------------------------------------------
+
+.navbar {$name: "navbar";
+
+  &-main {$type: "main";
+
+    .#{$name}-bg {$element: "bg";
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      @extend %-pattern;
+    }
+
+    .#{$name}-icon {$element: "icon";
+      --app-icon: var(--#{$name}-#{$type}-#{$element}-color);
+    }
+
+    .#{$name}-title {$element: "title";
+      width: 100%;
+      color: var(--#{$name}-#{$type}-#{$element}-color);
+      text-align: var(--#{$name}-#{$type}-#{$element}-text-align);
+      font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+      font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+    }
+  }
+
+  &-popup {$type: "popup";
+  
+  }
+}
+
+// --------------------------------------------------
+// ==> MODULES --> APP: page
+// --------------------------------------------------
+
+.page {$name: "page";
+
+  &[data-name="CategoryDetail"] {
+
+    .#{$name}-content {$type: "content";
+
+      .#{$name}-container {$element: "container";
+        height: auto;
+        border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius) var(--#{$name}-#{$type}-#{$element}-border-radius) 0 0;
+        background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height)), $right: 0, $bottom: calc(3em + var(--page-button-default-height)), $left: 0);
+      }
+    }
+
+    .#{$name}-wrapper {
+      overflow: auto;
+      @include position($position: absolute, $top: calc(var(--page-content-container-border-radius) / 2), $right: 0, $bottom: 0, $left: 0);
+    }
+  }
+  
+  &[data-name="CategoryList"] {
+
+    .#{$name}-content {$type: "content";
+
+      .#{$name}-container {$element: "container";
+        height: auto;
+        border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius) var(--#{$name}-#{$type}-#{$element}-border-radius) 0 0;
+        background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height)), $right: 0, $bottom: calc(3em + var(--page-button-default-height)), $left: 0);
+      }
+    }
+
+    .#{$name}-wrapper {
+      overflow: auto;
+      @include position($position: absolute, $top: calc(var(--page-content-container-border-radius) / 2), $right: 0, $bottom: 0, $left: 0);
+    }
+  }
+
+  &[data-name="CollectionList"] {}
+  &[data-name="Settings"] {}
+  &[data-name="Training"] {}
+  &[data-name="WordList"] {}
+
+  .#{$name}-content {$type: "content";
+
+    .#{$name}-title {$element: "title";
+      color: var(--#{$name}-#{$type}-#{$element}-color);
+      text-transform: var(--#{$name}-#{$type}-#{$element}-text-transform);
+      padding: calc((var(--page-content-container-border-radius) / 2)) 1em 1em;
+      font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+      font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+    }
+  }
+
+
+  .#{$name}-button {$type: "button";
+
+    &.#{$type}-next {
+      @include button($type: "next", $pattern: "true");
+    }
+
+    &.#{$type}-training {
+      @include button($type: "training", $pattern: "false");
+    }
+
+    &.#{$type}-practice {
+      @include button($type: "practice", $pattern: "true");
+    }  
+
+    &.#{$type}-show {
+      @include button($type: "show", $pattern: "true");
+      margin: 1em 1em 0;
+    }
+  }
+
+  .#{$name}-mode {$type: "mode";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 1em;
+    
+    .#{$type}-radio {$element: "radio";
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius);
+      width: calc(100% / 3);
+      padding: 1em;
+      --f7-touch-ripple-color: var(--app-ripple);
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+
+      &:nth-child(2) {
+        margin: 0 1em;
+      }
+
+      &.active {
+        background-color: var(--app-primary);
+        box-shadow: var(--#{$name}-#{$type}-#{$element}-box-shadow) var(--app-primary);
+        @extend %-pattern;
+
+        .#{$type}-label {
+          color: #FFFFFF;
+        }
+
+        .#{$type}-icon {
+          --app-icon: #FFFFFF;
+          --app-primary: #FFFFFF;
+        }
+
+        .item-count {
+          color: #FFFFFF !important;
+
+          &::after {
+            color: #FFFFFF !important;
+          }
+        }
+      }
+    }
+
+    .#{$type}-input {
+      @include appearance($value: none);
+      margin: 0;
+    }
+
+    .#{$type}-icon {$element: "icon";
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+    }
+
+    .#{$type}-label {$element: "label";
+      display: block;
+      margin: 0.5em 0;
+      color: var(--#{$name}-#{$type}-#{$element}-color);
+      font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+      font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+      @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+    }
+
+    .#{$type}-statistics {
+      .item-count {$element: "count";
+        display: inline-block;
+        font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+        font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+        @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+  
+        &:nth-child(1) {
+          color: var(--header-statistics-known-color);
+  
+          &::after {
+            content: " / ";
+            color: var(--app-text);
+            @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+          }
+        }
+  
+        &:nth-child(2) {
+          color: var(--header-statistics-unknown-color);
+        }
+      }
+    }
+  }
+}
+
+// -------------------------------------------------------------
+
+.mode-read {
+  background-color: var(--app-element);
+  height: 20vh;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100vw;
+  text-align: center;
+
+  .word, .pronunciation {
+
   }
 }
