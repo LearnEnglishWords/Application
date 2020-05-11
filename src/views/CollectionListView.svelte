@@ -128,8 +128,20 @@
     DS.saveAppInfo(AppInfo.LAST_UPDATE, getCurrentDate());
   }
 
-  function updateWords() {
+  function downloadUpdatesProgress(lastUpdateDate, dialog, resolve) {
     let numWords = 0;
+    collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
+      if (numWords !== 0) { alert(numberWords); numWords = numberWords; }
+      dialog.setProgress(100/numberWords*counter);
+      if (numberWords === counter) {
+        saveCurrentDate();
+        dialog.close();
+        resolve();
+      }
+    });
+  }
+
+  function updateWords() {
     return new Promise((resolve) => {
       let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
       DS.getAppInfo(AppInfo.LAST_UPDATE).then((lastUpdateDate) => {
@@ -140,15 +152,7 @@
             dialog.close();
             resolve();
           } else {
-            collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
-              if (numWords !== 0) { alert(numberWords); numWords = numberWords; }
-              dialog.setProgress(100/numberWords*counter);
-              if (numberWords === counter) {
-                saveCurrentDate();
-                dialog.close();
-                resolve();
-              }
-            });
+            downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
           }
         } else {
           dialog.close();
