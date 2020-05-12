@@ -16,10 +16,10 @@
   <Menu name="popover-menu" />
 
 {:else if type === "popup"}
-  <Navbar {title} data-type="popup">
+  <Navbar {title} class="navbar-popup">
   <NavRight>
     <Link popupClose=".{popupName}">
-      <Icon material="clear" />
+      <SVGIcon name="e-remove" size="24" />
     </Link>
   </NavRight>
   </Navbar>
