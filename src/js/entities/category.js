@@ -1,6 +1,8 @@
+import { get } from 'svelte/store';
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
 import { statisticsData, trainingModeStatisticsData, allKnownWordsData } from '../store.js';
+import { trainingModes } from '../utils.js';
 
 
 export default class Category {
@@ -20,8 +22,9 @@ export default class Category {
   }
 
   loadWordIds() {
-    Object.values(this.wordStorages).forEach((wordsStorage) => {
-      wordsStorage.loadIds(false)
+    this.wordStorages['all'].loadIds(false);
+    trainingModes.forEach((mode) => {
+      this.wordStorages[mode.value].loadIds(false, get(allKnownWordsData)[mode.value]);
     });
   }
 
