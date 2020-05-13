@@ -120,7 +120,7 @@
       "results": {
           "right": "Správně",
           "wrong": "Špatně",
-          "result_word": "Správná odpověď je"
+          "result_word": "Správná odpověď je:"
       }
   },
   "about": {
@@ -162,8 +162,8 @@
   "statistics": {
       "title": "Statistika",
       "known": "naučených",
-      "learning": "nenaučených",
-      "unknown": "zbývajících",
+      "learning": "učících se",
+      "unknown": "nenaučených",
       "text": "Slov"
   },
   "words_list": {

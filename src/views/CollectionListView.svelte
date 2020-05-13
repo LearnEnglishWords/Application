@@ -1,10 +1,10 @@
 <Page name="CollectionList">
   <Header>
-    <div slot="title">{$_('app_name')}</div>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-  <Block strong inset>
-    <BlockTitle medium>{$_('collection.title')}</BlockTitle>
-    <List accordionList mediaList inset>
+
+    <div class="page-title">{$_('collection.title')}</div>
+    <List accordionList mediaList class="collection-list">
       {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
         {#if active}
           <ListItem accordionItem title="{title}" text="{shortDescription}">
@@ -15,15 +15,15 @@
                 </p>
                 <p id="collection-loader-{id}"></p>
                 {#if $downloadedCollections.includes(id) && isLoading}
-                  <Button fill color="green">{$_('collection.button.loading')}</Button>
+                  <Button fill color="var(--app-success)">{$_('collection.button.loading')}</Button>
                 {:else if $downloadedCollections.includes(id)}
                   <Button fill on:click={ () => continueButton(id) } color="green">{$_('collection.button.continue')}</Button>
                 {:else if downloadingCollectionId === id && counter === 0}
-                  <Button fill color="orange">{$_('collection.button.preparing')}</Button>
+                  <Button fill color="var(--app-warning)">{$_('collection.button.preparing')}</Button>
                 {:else if downloadingCollectionId === id && counter > 0}
-                  <Button fill color="orange">{$_('collection.button.downloading')}</Button>
+                  <Button fill color="var(--app-warning">{$_('collection.button.downloading')}</Button>
                 {:else}
-                  <Button fill on:click={ () => download(id) } color="red">{$_('collection.button.download')}</Button>
+                  <Button fill on:click={ () => download(id) } color="var(--app-error)">{$_('collection.button.download')}</Button>
                 {/if}
               </Block>
             </AccordionContent>
@@ -31,7 +31,7 @@
         {/if}
       {/each}
     </List>
-  </Block>
+
 </Page>
 
 <script>

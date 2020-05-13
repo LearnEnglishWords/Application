@@ -255,7 +255,7 @@ svg {
     }
     .list-item {
       border-radius: 10px;
-      background-color: var(--app-element);
+      background-color: var(--app-background);
     }
 
     .item-title {
@@ -273,10 +273,10 @@ svg {
 // --------------------------------------------------
 
 .stepper {
-  background: var(--app-element);
+  background: var(--app-background);
 
   .stepper-button-minus, .stepper-button-plus {
-    background: var(--app-element);
+    background: var(--app-background);
     border: 0;
   }
   .stepper-button-plus:after, .stepper-button-minus:after, .stepper-button-plus:before, .stepper-button-minus:before {
@@ -329,6 +329,7 @@ svg {
   &[data-name="CategoryDetail"] {
 
     .#{$name}-content {$type: "content";
+      background-color: var(--app-element);
 
       .#{$name}-container {$element: "container";
         height: auto;
@@ -347,6 +348,7 @@ svg {
   &[data-name="CategoryList"] {
 
     .#{$name}-content {$type: "content";
+      background-color: var(--app-element);
 
       .#{$name}-container {$element: "container";
         height: auto;
@@ -362,12 +364,18 @@ svg {
     }
   }
 
-  &[data-name="CollectionList"] {}
+  &[data-name="CollectionList"] {
+
+    .page-content {
+      background: var(--app-element);
+    }
+  }
   &[data-name="Settings"] {}
   &[data-name="Training"] {
 
     .view {
-      height: calc(100% - 35px);
+      height: 100%;
+      background: var(--app-element);
     }
 
   }
@@ -503,8 +511,8 @@ svg {
 // -------------------------------------------------------------
 
 .mode-read, .other-mode {
-  background-color: var(--app-element);
-  height: 20vh;
+  background-color: var(--app-background);
+  height: 25vh;
   display: table-cell;
   vertical-align: middle;
   width: 100vw;
@@ -518,6 +526,13 @@ svg {
     }
   }
 }
+
+.other-mode {
+  .word {
+    font-size: 24px;
+  }
+}
+
 
 .other-div {
   .word {
@@ -552,15 +567,19 @@ svg {
 }
 
 .swiper-button-prev, .swiper-button-next {
-  --app-icon: var(--app-title);
   &::after {content: none};
   z-index: 9999999999;
+  svg {
+    polyline {
+      --app-icon: var(--app-title);
+    }
+  }
 }
 
 .word {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--app-primary);
+  color: var(--app-secondary);
 }
 
 .pronunciation {
@@ -568,6 +587,7 @@ svg {
   font-size: 16px;
   font-weight: 400;
   color: var(--app-text);
+  display: inline-block;
 }
 
 .page-title span {
@@ -576,7 +596,7 @@ svg {
 }
 
 .sheet-modal {
-  background: #FFF;
+  background: var(--app-element);
 
   .sheet-title {
     padding: 0 1em;
@@ -615,7 +635,7 @@ svg {
 
 .wall {
   height: calc(75vh - calc(var(--f7-navbar-height) + var(--f7-safe-area-top)));
-  background: var(--app-primary);
+  background: var(--app-secondary);
   padding: 2em 1em;
   border-radius: 10px 10px 0 0;
   color: white;
@@ -705,9 +725,9 @@ input.translate {
 .content-mode {
   position: absolute;
   bottom: 0;
-  height: calc(70vh - 35px - (calc(var(--f7-navbar-height) + var(--f7-safe-area-top))));
+  top: calc(25vh + (calc(var(--f7-navbar-height) + var(--f7-safe-area-top))) + 2em);
   text-align: center;
-  background: #FFF;
+  background: var(--app-element);
   width: 100%;
   &.result {
     background: #FFF;
@@ -806,5 +826,30 @@ input.translate {
   svg {
     display: block;
     margin: 0 auto 15px auto;
+  }
+}
+
+.collection-list {
+  margin: 0 1em;
+  .item-title {
+    color: var(--app-title);
+  }
+  .item-text {
+    color: var(--app-text);
+  }
+  .accordion-item-content {
+    p {
+      color: var(--app-title);
+    }
+  }
+  .media-item {
+    background: var(--app-background);
+    margin-bottom: 0.25em;
+    &-last-child {
+      margin-bottom: 0;
+    }
+    .button {
+      margin-bottom: 1em;
+    }
   }
 }

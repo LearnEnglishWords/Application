@@ -9,7 +9,9 @@
   
   const icons = {
     "12": {},
-    "16": {},
+    "16": {
+      "sound": '<g transform="translate(0, 0)"><polygon fill="none" stroke="#595959" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="5.5,5.5 0.5,5.5 0.5,11.5 5.5,11.5 11.5,15.5 11.5,1.5 "></polygon> <path fill="none" stroke="#595959" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M14,4.93 c0.926,0.907,1.5,2.172,1.5,3.57c0,1.363-0.545,2.598-1.43,3.5" data-color="color-2"></path></g>'
+    },
     "24": {
       "left-arrow": '<g transform="translate(0, 0)"><polyline stroke-linecap="round" stroke-miterlimit="10" points="17,2 7,12 17,22" transform="translate(0, 0)" stroke-linejoin="round"></polyline></g>',
       "menu-8": '<g transform="translate(0, 0)"><line stroke-linecap="round" stroke-miterlimit="10" x1="1" y1="12" x2="23" y2="12" stroke-linejoin="round"></line><line stroke-linecap="round" stroke-miterlimit="10" x1="1" y1="5" x2="23" y2="5" stroke-linejoin="round"></line><line stroke-linecap="round" stroke-miterlimit="10" x1="1" y1="19" x2="23" y2="19" stroke-linejoin="round"></line></g>',

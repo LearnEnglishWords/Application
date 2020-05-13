@@ -3,20 +3,7 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-  <!-- Header -->
-  <div class="header">
-    <div class="header-simple">
-      <div class="wrapper">
-        <span>        
-          {#if isTraining}
-            {$_('training.subtitle.trenink')}
-          {:else}
-            {$_('training.subtitle.testing')}
-          {/if}
-        </span>
-      </div>
-    </div>
-  </div>
+
 
 
 

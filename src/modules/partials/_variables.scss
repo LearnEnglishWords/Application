@@ -6,8 +6,8 @@ $app-global: (
   "primary": "#5D9CEC",
   "secondary": "#4A89DC",
 
-  "error": "#FF6A4F",
-  "success": "#0DC80D",
+  "error": "#FF4929",
+  "success": "#29DB29",
   "warning": "#F1A924",
 
   "transition-property": "all",
@@ -172,8 +172,7 @@ $app-light: (
   "background": "#FFFFFF",
   "border": "#DDDDDD",
   "element": "#F0F5FC",
-  "icon": "#B6C9DE",
-  "placeholder": "#A5B2C3",
+  "icon": "#A5B2C3",
   "ripple": "rgba(0, 0, 0, 0.075)",
   "text": "#586775",
   "title": "#2D353B",
@@ -221,7 +220,7 @@ $light-theme: (
     // type
     "categories": (
       "item": (
-        "background-color": var(--app-element)
+        "background-color": var(--app-background)
       ),
       "item-active": (
         "background-color": var(--app-primary)
@@ -261,19 +260,19 @@ $light-theme: (
         "color": "#FFFFFF"
       ),
       "practice": (
-        "background-color": var(--app-secondary),
+        "background-color": var(--app-error),
         "border": "transparent",
         "color": "#FFFFFF"
       ),
       "show": (
-        "background-color": "#3A4D59",
+        "background-color": var(--app-secondary),
         "border": "transparent",
         "color": "#FFFFFF"
       ),
       "training": (
-        "background-color": "transparent",
-        "border": var(--app-secondary),
-        "color": var(--app-secondary)
+        "background-color": var(--app-success),
+        "border": "transparent",
+        "color": "#FFFFFF"
       ),
       "examples": (
         "background-color": var(--app-primary),
@@ -294,7 +293,7 @@ $light-theme: (
     // type
     "content": (
       "container": (
-        "background-color": var(--app-background)
+        "background-color": var(--app-element)
       ),
       "title": (
         "color": var(--app-title)
@@ -306,7 +305,7 @@ $light-theme: (
         "color": var(--app-text)
       ),
       "radio": (
-        "background-color": var(--app-element)
+        "background-color": var(--app-background)
       )
     )
   )

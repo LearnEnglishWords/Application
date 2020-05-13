@@ -288,13 +288,13 @@
 
   &-ctrl-left {
     polyline {
-      stroke: var(--app-text);
+      stroke: var(--app-title);
     }
   }
 
   &-ctrl-right {
     polyline {
-      stroke: var(--app-text);
+      stroke: var(--app-title);
     }
   }
 
@@ -371,6 +371,17 @@
     }
     circle:nth-child(5), circle:nth-child(6) {
       fill: #FFF;
+    }
+  }
+
+  .icon-16 {
+    &-sound {
+      polygon {
+        stroke: var(--app-icon);
+      }
+      path {
+        stroke: var(--app-primary);
+      }
     }
   }
 }
