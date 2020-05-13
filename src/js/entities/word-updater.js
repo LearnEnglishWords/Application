@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import DS from '../storages/data.js';
-import { isKnown, Collections, coreCollections } from '../utils.js'
-import { allCollectionsData, categoryDetailData, categoryGroupData } from '../store.js';
+import { isKnown } from '../utils.js'
+import { categoryDetailData, categoryGroupData } from '../store.js';
 
 
 function addKnownCategories(word, categories) {
@@ -30,19 +30,6 @@ function setKnownCategories(word, categoryGroup) {
   }
 }
 
-function getOtherCollections(currentCategory) {
-  if (coreCollections.includes(currentCategory.collectionId)) {
-    return null
-    //return get(allCollectionsData).filter((collection) => 
-    //  [Collections.CATEGORY.id].includes(collection.id)
-    //);
-  } else {
-    return get(allCollectionsData).filter((collection) => 
-      coreCollections.includes(collection.id)
-    );
-  }
-}
-
 function getCurrentCategory() {
   var currentCategory = get(categoryGroupData)
   if (currentCategory === null) { 
@@ -64,22 +51,5 @@ export default class WordUpdater {
     }
 
     return DS.saveWord(word.text, word);
-  }
-
-
-  static updateOtherCategories(word, prevLearningState, mode, isKnown = true) {
-    var currentCategory = getCurrentCategory();
-    let collections = getOtherCollections(currentCategory);
-    if (collections === null) return
-
-    collections.forEach((collection) => {
-      collection.categoryGroup.updateStatistics(word, prevLearningState, true);
-      if (isKnown) {
-        collection.categoryGroup.updateWords(mode, [], [word.text]);
-      } else {
-        collection.categoryGroup.updateWords(mode, [word.text], []);
-      }
-      setKnownCategories(word, collection.categoryGroup.categories);
-    });
   }
 }
