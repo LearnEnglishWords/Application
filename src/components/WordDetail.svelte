@@ -1,11 +1,11 @@
-<div class="view-title">{$_('training.sense_title')}
+<div class="page-title">{$_('training.sense_title')}
   <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
 </div>
 <!-- List -->
-<List class="list-training">
+<List class="list-container list-categories">
   {#each word.sense.slice(0,3) as sense, id}
-    <ListItem>{sense.toLowerCase()}
-      <div slot="media">
+    <ListItem class="list-item" title={sense.toLowerCase()}>
+      <div slot="media" class="item-media">
         <SVGIcon name="translation" size="24" />
       </div>
     </ListItem>

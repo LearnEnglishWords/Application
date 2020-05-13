@@ -285,4 +285,92 @@
       stroke: var(--app-primary);
     }
   }
+
+  &-ctrl-left {
+    polyline {
+      stroke: var(--app-text);
+    }
+  }
+
+  &-ctrl-right {
+    polyline {
+      stroke: var(--app-text);
+    }
+  }
+
+  &-translation {
+    path:nth-child(1) {
+      fill: none;
+      stroke: var(--app-icon);
+    }
+    path:nth-child(3) {
+      fill: var(--app-icon);
+    }
+    path:nth-child(2) {
+      stroke: var(--app-primary);
+    }
+    path:nth-child(4) {
+      fill: var(--app-primary);
+    }
+  }
+
+  &-e-remove {
+    line {
+      stroke: #FFF;
+    }
+  }
+
+  &-drag-down {
+    line, polyline, path {
+      stroke: #FFF;
+    }
+  }
+}
+
+.icon-32  {
+
+  &-smile {
+    circle, path {
+      stroke: #FFF;
+    }
+    circle:nth-child(3) {
+      stroke: transparent;
+    }
+    circle:nth-child(5), circle:nth-child(6) {
+      fill: #FFF;
+    }
+  }
+  
+  &-sad {
+    circle:nth-child(1), circle:nth-child(2) {
+      stroke: #FFF;
+    }
+    circle:nth-child(3) {
+      stroke: white;
+    }
+    circle:nth-child(2), circle:nth-child(3) {
+      fill: white;
+    }
+    path {
+      stroke: white;
+    }
+    circle:nth-child(5), circle:nth-child(6) {
+      fill: white;
+    }
+  }
+
+  &-speechless {
+    line {
+      stroke: #FFF;
+    }
+    circle:nth-child(2), circle:nth-child(3) {
+      stroke: #FFF;
+    }
+    circle:nth-child(4) {
+      stroke: transparent;
+    }
+    circle:nth-child(5), circle:nth-child(6) {
+      fill: #FFF;
+    }
+  }
 }

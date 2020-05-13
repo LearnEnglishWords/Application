@@ -1,25 +1,28 @@
 {#if recapitulation === 'above-average'}
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation"><SVGIcon name="smile" size="32"/><span>Nadprůměrné</span></div>
+    <div class="title-recapitulation right"><SVGIcon name="smile" size="32"/><span>Nadprůměrné</span></div>
   </div>
 </div>
 {:else if recapitulation === 'average'}
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation"><SVGIcon name="speechless" size="32"/>Průměrné</div>
+    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>Průměrné</div>
   </div>
 </div>
 {:else}
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation"><SVGIcon name="sad" size="32"/>Podprůměrné</div>
+    <div class="title-recapitulation wrong"><SVGIcon name="sad" size="32"/>Podprůměrné</div>
   </div>
 </div>
 {/if}
-<div class="footer-training">
-<Button large fill back color="green">{$_('recapitulation.continue')}</Button>
-</div>
+  <div class="footer-container footer-singular">
+    <div class="footer-content">
+      <Button back class="page-button button-next">{$_('recapitulation.continue')}</Button>
+    </div>
+  </div>
+
 <div class="content-mode result">
   <div class="row">
     <div class="col rec-div right">

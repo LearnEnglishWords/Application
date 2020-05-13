@@ -2,7 +2,7 @@
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
     <div class="word">{word.text}</div>
     <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-    <SVGIcon name="sound" size="24" />
+    <SVGIcon name="volume" size="24" />
   </div>
   <WordDetail {word}/>
 
@@ -17,36 +17,38 @@
           {:else if mode==="listen"} 
             <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
             <div class="read-title">Klikněte pro poslechnutí slova</div>
-              <SVGIcon name="sound" size="24"/>
+              <SVGIcon name="volume" size="24"/>
             </div>
           {/if}
       </div>
 
-          
-        <div class="footer-training">
-        {#if result === null}
-          <Button large fill on:click={checkButton}>{$_('training.buttons.check')}</Button>
-        {:else}
-          <!--<h3 style="color: {resultColor}"> {result} </h3>-->
-          <Button large fill class="button-continue" on:click={() => dispatch('nextWord')}> {$_('training.buttons.continue')} </Button>
-        {/if}
-        </div>
+      <div class="footer-container footer-singular arrows">
+    <div class="footer-content arrows">
+{#if result === null}
+        <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
+{:else}
+<Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
+    {/if}
+    </div>
+  </div>
+
+
+
 
          
       </div>
               <div class="content-mode">
               <div class="other-div">
-          <div class="block-title">Přeložte do angličtiny</div>
-          <input bind:value={translatedText} on:keydown={handleKeydown} id="translate-input" class="translate">
+          <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" id="translate-input" class="translate">
           <!-- UPRAVIT -->
           {#if result !== null && !result}
             <div class="result-div wrong">
-              <span>{$_('training.results.wrong')}</span>
-              <div>{$_('training.results.result_word')}<span>{word.text}</span></div>
+              <span class="result">{$_('training.results.wrong')}</span>
+              <div>{$_('training.results.result_word')}<span class="this-word">{word.text}</span></div>
             </div>
           {:else if result !== null && result}
             <div class="result-div right">
-              <span>{$_('training.results.right')}</span>
+              <span class="result">{$_('training.results.right')}</span>
             </div>
           {/if}
           <!---->

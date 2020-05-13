@@ -1,15 +1,15 @@
 <Sheet class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
   <div class="sheet-title">
     <span>{$_('training.description_title')}</span>
-    <SVGIcon name="e-remove" size="24"/>
+    <div class="sheet-link" popupClose=".{popupName}">
+      <SVGIcon name="e-remove" size="24"/>
+    </div>
   </div>
-            <List>
+            <List class="list-container list-categories">
         {#each word.examples as example, id}
-          <ListItem>
+          <ListItem class="list-item" on:click={playExampleSound(example, $settingsData.pronunciation)}>
             {example}
-            <div on:click={playExampleSound(example, $settingsData.pronunciation)}>
-              <SVGIcon name="sound" size="24"/>
-            </div>
+              <div slot="media" class="item-media"><SVGIcon name="volume" size="24"/></div>
           </ListItem>
         {/each}
       </List>
@@ -40,4 +40,5 @@
 
   export let word;
   let descriptionOpened = false;
+  export let popupName;
 </script>

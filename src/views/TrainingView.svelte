@@ -1,11 +1,11 @@
 <Page name="Training">
   <!-- Navbar -->
   <Header>
-    <div slot="title" class="title">{$_('app_name')}</div>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
   <div class="header">
-    <div class="header-subtitle">
+    <div class="header-simple">
       <div class="wrapper">
         <span>        
           {#if isTraining}
@@ -19,8 +19,14 @@
   </div>
 
 
+
+
+
+
   <!-- View -->
-  <div class="view">
+  {#if !showRecapitulation}
+    <div class="view">
+
     <div class="swiper-container swiper-init">
       <div class="swiper-wrapper">
         {#each $trainingData.words as word, id}
@@ -28,46 +34,22 @@
             <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
           </div>
           {/each}
-        </div>
-        {#if $trainingData.isTraining}
-          <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
-          <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
-        {/if}
-      </div>  
-  </div>
-
-
-
-
-
-  <!-- View -->
-  {#if !showRecapitulation}
-    <div style="display:none" class="view Training">
-      <span>
-
-      </span>
-      <div class="swiper-container swiper-init">
-        <div class="swiper-wrapper">
-          {#each $trainingData.words as word, id}
-            <div class="swiper-slide">
-              <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
-          </div>
-          {/each}
-        </div>
-        {#if $trainingData.isTraining}
-          <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="left-arrow" size="24"/></div>
-          <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="right-arrow" size="24"/></div>
-        {/if}
       </div>
-
+        {#if $trainingData.isTraining}
+          <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="ctrl-left" size="24"/></div>
+          <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
+        {/if}
+    </div>  
       {#if !isTraining && $trainingData.mode === "read"}
         <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-        <div class="footer-training two without">
-            <div class="footer-buttons">
-            <Button large fill color="red" on:click={noButton}>{$_('training.question.no')}</Button>
-            <Button large fill color="green" on:click={yesButton}>{$_('training.question.yes')}</Button>
-            </div>
-        </div>
+  <div class="footer-container footer-double">
+    <div class="footer-content">
+        <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
+        <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
+    </div>
+  </div> 
+
+
       {/if}
 
       {#if $trainingData.mode === "read"}
@@ -93,16 +75,15 @@
   
 
     <!-- Footer -->
-  <div class="app-footer-container">
-    <div class="app-footer-single">
+  <div class="footer-container footer-singular arrows">
+    <div class="footer-content arrows">
     {#if $trainingData.mode === "read"}
       {#if $trainingData.isTraining}
-        <Button class="app-button-next" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
+        <Button class="page-button button-examples" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
       {/if}
     {/if}
     </div>
   </div>
-
 
 
 </Page>

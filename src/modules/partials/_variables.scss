@@ -100,7 +100,25 @@ $global-theme: (
         "box-shadow": "0 0 0.25em",
         "font-size": "13px",
         "font-weight": "700",
-      )
+      ),
+      "examples": (
+        "border-radius": "10px",
+        "box-shadow": "0 0 0.25em",
+        "font-size": "13px",
+        "font-weight": "700",
+      ),
+      "no": (
+        "border-radius": "10px",
+        "box-shadow": "0 0 0.25em",
+        "font-size": "13px",
+        "font-weight": "700",
+      ),
+      "yes": (
+        "border-radius": "10px",
+        "box-shadow": "0 0 0.25em",
+        "font-size": "13px",
+        "font-weight": "700",
+      ),
     ),
     // type
     "content": (
@@ -256,6 +274,21 @@ $light-theme: (
         "background-color": "transparent",
         "border": var(--app-secondary),
         "color": var(--app-secondary)
+      ),
+      "examples": (
+        "background-color": var(--app-primary),
+        "border": "transparent",
+        "color": "#FFFFFF"
+      ),    
+      "no": (
+        "background-color": var(--app-error),
+        "border": "transparent",
+        "color": "#FFFFFF"
+      ), 
+      "yes": (
+        "background-color": var(--app-success),
+        "border": "transparent",
+        "color": "#FFFFFF"
       )
     ),
     // type
