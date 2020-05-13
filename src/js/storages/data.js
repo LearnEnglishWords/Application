@@ -1,4 +1,5 @@
 import Validator from '../validator.js'
+import { WordsType } from '../utils.js'
 
 
 export default class DataStorage {
@@ -25,6 +26,14 @@ export default class DataStorage {
       return 
     }
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`);
+  }
+
+  static saveAllKnownWords(mode, wordIds) {
+    return DataStorage.saveWordIdsList('all', 'knownWords', wordIds, WordsType.KNOWN, mode)
+  }
+
+  static getAllKnownWords(mode) {
+    return DataStorage.getWordIdsList('all', 'knownWords', WordsType.KNOWN, mode)
   }
 
   static saveWord(wordId, word) {

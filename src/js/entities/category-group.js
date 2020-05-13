@@ -1,6 +1,6 @@
 import Category from '../entities/category.js';
 import Statistics from '../entities/statistics.js';
-import { statisticsData, trainingModeStatisticsData } from '../store.js';
+import { statisticsData, trainingModeStatisticsData, allKnownWordsData } from '../store.js';
 
 
 export default class CategoryGroup {
@@ -63,6 +63,7 @@ export default class CategoryGroup {
     this.categories.forEach((category) => { 
       category.wordStorages[mode].update(addWords, removeWords);
     });
+    allKnownWordsData.updateData(mode, removeWords, addWords);
   }
 
   push(categories) {
