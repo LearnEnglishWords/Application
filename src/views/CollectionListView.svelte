@@ -178,6 +178,7 @@
 
     isLoadingCategories = false;
     collectionData.set(selectedCollection);
+    selectedCollection.updateKnownWords();
 
     if (coreCollections.includes(selectedCollection.id)) {
       selectedCollection.categoryGroup.loadStatistics();

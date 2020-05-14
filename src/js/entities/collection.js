@@ -36,6 +36,10 @@ export default class Collection {
     return !(modeStats.read.known === 0 && modeStats.read.unknown === 0)
   }
 
+  updateKnownWords() {
+    this.categoryGroup.categories.forEach((category) => category.updateKnownWords());
+  }
+
   loadCategories() {
     let counter = 0;
     return new Promise((resolve) => {
