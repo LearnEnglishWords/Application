@@ -1,5 +1,5 @@
 import DS from '../storages/data.js';
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode } from '../utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode, trainingModes } from '../utils.js'
 
 export class Stats {
   constructor(stats) {
@@ -30,6 +30,13 @@ export class Stats {
     if (word.learning === undefined || currentState === prevState) { return }
     this[currentState] += 1;
     this[prevState] -= 1;
+  }
+
+  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+    let learningNum = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"])).size;
+    this.known += groupWords["all"].length;
+    this.learning += learningNum;
+    this.unknown -= (groupWords["all"].length + learningNum);
   }
 
   reset() {
@@ -84,6 +91,15 @@ export class ModeStats {
     }
   }
 
+  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+    trainingModes.forEach((mode) => {
+      let num = groupWords[mode.value].length + groupWords["all"].length;
+      this[mode.value].known += num;
+      this[mode.value].unknown -= num;
+    });
+  }
+
+
   getData() {
     return {
       read: this.read,
@@ -124,6 +140,12 @@ export default class Statistics {
     this.save();
   }
 
+  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+    this.stats.updateWithGroup(groupWords);
+    this.modeStats.updateWithGroup(groupWords);
+    this.save();
+  }
+
   reset() {
     this.stats.reset();
     this.modeStats.reset();
@@ -139,6 +161,8 @@ export default class Statistics {
               this.modeStats = new ModeStats(modeStats); 
               resolve();
             });
+        } else {
+          resolve();
         }
       });
     });

@@ -43,7 +43,12 @@ export default class Collection {
         categories.forEach((cat) => {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName);
           category.loadWordIds();
-          category.loadStatistics().then(() => {if (++counter === categories.length) {resolve()}});
+          category.loadStatistics().then(() => {
+            category.updateKnownWords();
+            if (++counter === categories.length) {
+              resolve();
+            }
+          });
           this.categoryGroup.push(category);
         });
       });

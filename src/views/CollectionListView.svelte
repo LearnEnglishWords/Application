@@ -192,7 +192,7 @@
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
-    collection.load()
+    collection.load();
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }

@@ -24,7 +24,7 @@ export default class Category {
   loadWordIds() {
     this.wordStorages['all'].loadIds(false);
     trainingModes.forEach((mode) => {
-      this.wordStorages[mode.value].loadIds(false, get(allKnownWordsData)[mode.value]);
+      this.wordStorages[mode.value].loadIds(false);
     });
   }
 
@@ -34,6 +34,29 @@ export default class Category {
 
   loadStatistics() {
     return this.statistics.load();
+  }
+
+  updateKnownWords() {
+    let tmpWordIds = { "all": [], "read": [], "write": [], "listen": [] };
+    for (let mode of trainingModes) {
+      let wordStorage = this.wordStorages[mode.value];
+      let allKnownWordIds = get(allKnownWordsData)[mode.value]
+      for (let wordId of allKnownWordIds) {
+        if (wordStorage.allWordIds.includes(wordId)) {
+          tmpWordIds[mode.value].push(wordId);
+        }
+      }
+    }
+    for (let wordId of tmpWordIds["read"]) {
+      if (tmpWordIds["write"].includes(wordId) && tmpWordIds["listen"].includes(wordId)) {
+        tmpWordIds["all"].push(wordId);
+      }
+    }
+    for (let mode of trainingModes) {
+      this.wordStorages[mode.value].update([], tmpWordIds[mode.value]);
+      tmpWordIds[mode.value] = tmpWordIds[mode.value].filter((wordId) => !tmpWordIds["all"].includes(wordId));
+    }
+    this.statistics.updateWithGroup(tmpWordIds);
   }
 
   updateStatistics(word, prevLearningState) {
