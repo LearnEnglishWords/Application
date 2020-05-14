@@ -7,17 +7,17 @@
   <div class="header-statistics header-container">
     <Row class="header-row">
       <Col class="header-col header-known">
-        <div class="header-count">42</div>
+        <div class="header-count">{$statisticsData.known}</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
       <Col class="header-col header-learning">
-        <div class="header-count">547</div>
+        <div class="header-count">{$statisticsData.learning}</div>
         <div class="header-type">{$_('statistics.learning')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
       <Col class="header-col header-unknown">
-        <div class="header-count">4722</div>
+        <div class="header-count">{$statisticsData.unknown}</div>
         <div class="header-type">{$_('statistics.unknown')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
