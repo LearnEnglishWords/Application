@@ -55,10 +55,11 @@
     Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryGroupData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
+  import CategoryGroup from '../js/entities/category-group.js';
   import { defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -73,7 +74,12 @@
 
   function goToDetailView() {
     if (selectedCategories.length > 0) {
-      categoryDetailData.set(selectedCategories[0]);
+      let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories);
+
+      categoryGroup.loadStatistics();
+      categoryGroupData.set(categoryGroup);
+      categoryDetailData.set(categoryGroup.mainCategory);
+
       f7router.navigate('/CategoryDetail');
     }
   }
