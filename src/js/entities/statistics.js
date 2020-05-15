@@ -32,11 +32,37 @@ export class Stats {
     this[prevState] -= 1;
   }
 
-  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
-    let learningNum = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"])).size;
-    this.known += groupWords["all"].length;
-    this.learning += learningNum;
-    this.unknown -= (groupWords["all"].length + learningNum);
+  updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+    var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].includes(wordId) };
+
+    let allLearningWordIds = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"]));
+    let learningNum = allLearningWordIds.size;
+    let knownNum = groupWords["all"].length;
+
+    let counter = 0;
+    for (let wordId of allLearningWordIds) {
+      DS.getWord(wordId).then((word) => {
+        switch(this._getStateFromWord(word)) {
+          case "known":
+            learningNum -= 1;
+            knownNum += 1;
+            break;
+          case "learning":
+            if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
+              learningNum -= 1;
+            }
+            break;
+          case "unknown":
+            learningNum -= 1;
+            break;
+        } 
+        if (++counter === allLearningWordIds.size) {
+          this.learning += learningNum;
+          this.known += knownNum;
+          this.unknown -= (knownNum + learningNum);
+        }
+      });
+    }
   }
 
   reset() {
@@ -140,8 +166,8 @@ export default class Statistics {
     this.save();
   }
 
-  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
-    this.stats.updateWithGroup(groupWords);
+  updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+    this.stats.updateWithGroup(wordStorageIds, groupWords);
     this.modeStats.updateWithGroup(groupWords);
     this.save();
   }

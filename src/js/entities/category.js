@@ -52,11 +52,16 @@ export default class Category {
         tmpWordIds["all"].push(wordId);
       }
     }
+    let wordStoragesCopy = {
+      'read': [...this.wordStorages["read"].getWordIds()],
+      'write': [...this.wordStorages["write"].getWordIds()],
+      'listen': [...this.wordStorages["listen"].getWordIds()],
+    };
     for (let mode of trainingModes) {
       this.wordStorages[mode.value].update([], tmpWordIds[mode.value]);
       tmpWordIds[mode.value] = tmpWordIds[mode.value].filter((wordId) => !tmpWordIds["all"].includes(wordId));
     }
-    this.statistics.updateWithGroup(tmpWordIds);
+    this.statistics.updateWithGroup(wordStoragesCopy, tmpWordIds);
   }
 
   updateStatistics(word, prevLearningState) {
