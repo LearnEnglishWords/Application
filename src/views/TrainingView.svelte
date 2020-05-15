@@ -173,8 +173,6 @@
         let currentCategory = $categoryGroupData;
         if (currentCategory === null) { currentCategory = $categoryDetailData }
         currentCategory.updateWords($trainingData.mode, [], [word.text]);
-
-        WordUpdater.updateOtherCategories(word, prevLearningState, $trainingData.mode);
       });
     }
   }
