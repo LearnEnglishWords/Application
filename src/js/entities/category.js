@@ -47,21 +47,26 @@ export default class Category {
         }
       }
     }
+
     for (let wordId of tmpWordIds["read"]) {
       if (tmpWordIds["write"].includes(wordId) && tmpWordIds["listen"].includes(wordId)) {
         tmpWordIds["all"].push(wordId);
       }
     }
-    let wordStoragesCopy = {
-      'read': [...this.wordStorages["read"].getWordIds()],
-      'write': [...this.wordStorages["write"].getWordIds()],
-      'listen': [...this.wordStorages["listen"].getWordIds()],
-    };
+
     for (let mode of trainingModes) {
-      this.wordStorages[mode.value].update([], tmpWordIds[mode.value]);
       tmpWordIds[mode.value] = tmpWordIds[mode.value].filter((wordId) => !tmpWordIds["all"].includes(wordId));
     }
-    this.statistics.updateWithGroup(wordStoragesCopy, tmpWordIds);
+
+    return new Promise((resolve) => {
+      this.statistics.updateWithGroup(this.wordStorages, tmpWordIds).then(() => {
+        for (let mode of trainingModes) {
+          let allModeWordIds = tmpWordIds[mode.value].concat(tmpWordIds["all"]);
+          this.wordStorages[mode.value].update([], allModeWordIds);
+        }
+        resolve();
+      });
+    });
   }
 
   updateStatistics(word, prevLearningState) {

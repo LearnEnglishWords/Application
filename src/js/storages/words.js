@@ -31,9 +31,11 @@ export default class WordsStorage {
 
   loadIds(withWords, withoutIds = []) {
     DS.getWordIdsList(this.collectionId, this.categoryId, WordsType.NOT_KNOWN, this.currentMode).then((wordIds) => {
-      this.allWordIds = wordIds.filter((wordId) => !withoutIds.includes(wordId));
-      if(withWords) {
-        this.loadWords();
+      if (wordIds !== null) {
+        this.allWordIds = wordIds.filter((wordId) => !withoutIds.includes(wordId));
+        if(withWords) {
+          this.loadWords();
+        }
       }
     });
   }

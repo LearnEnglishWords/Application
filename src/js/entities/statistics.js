@@ -33,36 +33,45 @@ export class Stats {
   }
 
   updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
-    var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].includes(wordId) };
+    return new Promise((resolve) => {
+      var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].getWordIds().includes(wordId) };
 
-    let allLearningWordIds = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"]));
-    let learningNum = allLearningWordIds.size;
-    let knownNum = groupWords["all"].length;
+      let allLearningWordIds = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"]));
+      let learningNum = allLearningWordIds.size;
+      let knownNum = groupWords["all"].length;
 
-    let counter = 0;
-    for (let wordId of allLearningWordIds) {
-      DS.getWord(wordId).then((word) => {
-        switch(this._getStateFromWord(word)) {
-          case "known":
-            learningNum -= 1;
-            knownNum += 1;
-            break;
-          case "learning":
-            if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
+      if (learningNum === 0) {
+        this.known += knownNum;
+        this.unknown -= knownNum;
+        resolve();
+      }
+
+      let counter = 0;
+      for (let wordId of allLearningWordIds) {
+        DS.getWord(wordId).then((word) => {
+          switch(this._getStateFromWord(word)) {
+            case "known":
               learningNum -= 1;
-            }
-            break;
-          case "unknown":
-            learningNum -= 1;
-            break;
-        } 
-        if (++counter === allLearningWordIds.size) {
-          this.learning += learningNum;
-          this.known += knownNum;
-          this.unknown -= (knownNum + learningNum);
-        }
-      });
-    }
+              knownNum += 1;
+              break;
+            case "learning":
+              if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
+                learningNum -= 1;
+              }
+              break;
+            case "unknown":
+              learningNum -= 1;
+              break;
+          } 
+          if (++counter === allLearningWordIds.size) {
+            this.learning += learningNum;
+            this.known += knownNum;
+            this.unknown -= (knownNum + learningNum);
+            resolve();
+          }
+        });
+      }
+    });
   }
 
   reset() {
@@ -167,9 +176,13 @@ export default class Statistics {
   }
 
   updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
-    this.stats.updateWithGroup(wordStorageIds, groupWords);
-    this.modeStats.updateWithGroup(groupWords);
-    this.save();
+    return new Promise((resolve) => {
+      this.stats.updateWithGroup(wordStorageIds, groupWords).then(() => {
+        this.modeStats.updateWithGroup(groupWords);
+        this.save();
+        resolve();
+      });
+    });
   }
 
   reset() {

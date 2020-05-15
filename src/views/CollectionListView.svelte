@@ -178,17 +178,17 @@
 
     isLoadingCategories = false;
     collectionData.set(selectedCollection);
-    selectedCollection.updateKnownWords();
-
-    if (coreCollections.includes(selectedCollection.id)) {
-      selectedCollection.categoryGroup.loadStatistics();
-      categoryGroupData.set(selectedCollection.categoryGroup);
-      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
-      f7router.navigate('/CategoryDetail');
-    } else {
-      categoryGroupData.set(null);
-      f7router.navigate('/CategoryList');
-    }
+    selectedCollection.updateKnownWords().then(() => {
+      if (coreCollections.includes(selectedCollection.id)) {
+        selectedCollection.categoryGroup.loadStatistics();
+        categoryGroupData.set(selectedCollection.categoryGroup);
+        categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+        f7router.navigate('/CategoryDetail');
+      } else {
+        categoryGroupData.set(null);
+        f7router.navigate('/CategoryList');
+      }
+    });
   }
 
   function loadCollection(collectionId) {

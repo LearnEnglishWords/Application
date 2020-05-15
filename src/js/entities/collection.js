@@ -37,7 +37,15 @@ export default class Collection {
   }
 
   updateKnownWords() {
-    this.categoryGroup.categories.forEach((category) => category.updateKnownWords());
+    return new Promise((resolve) => {
+      this.categoryGroup.categories.forEach((category, index) => {
+        category.updateKnownWords().then(() => {
+          if(index+1 === this.categoryGroup.categories.length) {
+            resolve();
+          }
+        });
+      });
+    });
   }
 
   loadCategories() {
