@@ -78,10 +78,10 @@
       el: '.virtual-list',
       items: allWords,
       itemTemplate:
-      `<li class="word-item">
+      `<li class="list-item word-item">
           <div class="item-inner">
             <div class="item-title-row">
-              <div class="item-title play-sound">{{word.text}} &#x1F509;</div>
+              <div class="item-title play-sound">{{word.text}}</div>
               <input type="checkbox" {{checked}} class="wordbox">
             </div>
           </div>

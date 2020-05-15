@@ -379,7 +379,12 @@ svg {
     }
 
   }
-  &[data-name="WordList"] {}
+  &[data-name="WordList"] {
+
+    .page-content {
+      background: var(--app-element);
+    }
+  }
 
   .#{$name}-content {$type: "content";
 
@@ -852,4 +857,35 @@ input.translate {
       margin-bottom: 1em;
     }
   }
+}
+
+.accordion-item-opened {
+  .item-link {
+    background: var(--app-secondary);
+    @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
+
+  }
+  .item-title {
+    color: white;
+  }
+  .item-text {
+    color: white;
+  }
+  .item-title-row {
+    &:before {
+      color: white;
+    }
+  }
+}
+
+.word-item {
+  background: var(--app-background);
+  margin-bottom: 0.25em;
+  .item-title {
+    color: var(--app-text);
+    padding-left: 1em;
+  }
+}
+.media-list .accordion-item-opened > .item-link .item-title-row:before {
+  color: white;
 }
