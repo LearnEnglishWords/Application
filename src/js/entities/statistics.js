@@ -32,13 +32,13 @@ export class Stats {
     this[prevState] -= 1;
   }
 
-  updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
     return new Promise((resolve) => {
       var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].getWordIds().includes(wordId) };
 
-      let allLearningWordIds = new Set(groupWords["read"].concat(groupWords["write"]).concat(groupWords["listen"]));
+      let allLearningWordIds = new Set(data["read"].concat(data["write"]).concat(data["listen"]));
       let learningNum = allLearningWordIds.size;
-      let knownNum = groupWords["all"].length;
+      let knownNum = data["all"].length;
 
       if (learningNum === 0) {
         this.known += knownNum;
@@ -126,9 +126,9 @@ export class ModeStats {
     }
   }
 
-  updateWithGroup(groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateKnownWords(data = { "all": [], "read": [], "write": [], "listen": [] }) {
     trainingModes.forEach((mode) => {
-      let num = groupWords[mode.value].length + groupWords["all"].length;
+      let num = data[mode.value].length + data["all"].length;
       this[mode.value].known += num;
       this[mode.value].unknown -= num;
     });
@@ -175,10 +175,10 @@ export default class Statistics {
     this.save();
   }
 
-  updateWithGroup(wordStorageIds, groupWords = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
     return new Promise((resolve) => {
-      this.stats.updateWithGroup(wordStorageIds, groupWords).then(() => {
-        this.modeStats.updateWithGroup(groupWords);
+      this.stats.updateKnownWords(wordStorageIds, data).then(() => {
+        this.modeStats.updateKnownWords(data);
         this.save();
         resolve();
       });

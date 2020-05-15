@@ -36,32 +36,47 @@ export default class Category {
     return this.statistics.load();
   }
 
+  _getKnownWordsData() {
+    let knownWordsData = { "all": [], "read": [], "write": [], "listen": [] };
+    for (let mode of trainingModes) {
+      knownWordsData[mode.value] = this._getAllKnownWords(mode.value);
+    }
+
+    this._reformatKnownWordsData(knownWordsData);
+    return knownWordsData
+  }
+
+  _getAllKnownWords(mode) {
+    let tmpWordIds = [];
+    let wordStorage = this.wordStorages[mode];
+    let allKnownWordIds = get(allKnownWordsData)[mode]
+    for (let wordId of allKnownWordIds) {
+      if (wordStorage.allWordIds.includes(wordId)) {
+        tmpWordIds.push(wordId);
+      }
+    }
+    return tmpWordIds
+  }
+
+  _reformatKnownWordsData(knownWordsData) {
+    for (let wordId of knownWordsData["read"]) {
+      if (knownWordsData["write"].includes(wordId) && knownWordsData["listen"].includes(wordId)) {
+        knownWordsData["all"].push(wordId);
+      }
+    }
+
+    for (let mode of trainingModes) {
+      knownWordsData[mode.value] = knownWordsData[mode.value].filter((wordId) => !knownWordsData["all"].includes(wordId));
+    }
+  }
+
   updateKnownWords() {
-    let tmpWordIds = { "all": [], "read": [], "write": [], "listen": [] };
-    for (let mode of trainingModes) {
-      let wordStorage = this.wordStorages[mode.value];
-      let allKnownWordIds = get(allKnownWordsData)[mode.value]
-      for (let wordId of allKnownWordIds) {
-        if (wordStorage.allWordIds.includes(wordId)) {
-          tmpWordIds[mode.value].push(wordId);
-        }
-      }
-    }
-
-    for (let wordId of tmpWordIds["read"]) {
-      if (tmpWordIds["write"].includes(wordId) && tmpWordIds["listen"].includes(wordId)) {
-        tmpWordIds["all"].push(wordId);
-      }
-    }
-
-    for (let mode of trainingModes) {
-      tmpWordIds[mode.value] = tmpWordIds[mode.value].filter((wordId) => !tmpWordIds["all"].includes(wordId));
-    }
-
     return new Promise((resolve) => {
-      this.statistics.updateWithGroup(this.wordStorages, tmpWordIds).then(() => {
+      let knownWordsData = this._getKnownWordsData();
+
+      this.statistics.updateKnownWords(this.wordStorages, knownWordsData).then(() => {
         for (let mode of trainingModes) {
-          let allModeWordIds = tmpWordIds[mode.value].concat(tmpWordIds["all"]);
+          let allModeWordIds = knownWordsData[mode.value].concat(knownWordsData["all"]);
           this.wordStorages[mode.value].update([], allModeWordIds);
         }
         resolve();
