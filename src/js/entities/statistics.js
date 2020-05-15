@@ -1,5 +1,5 @@
 import DS from '../storages/data.js';
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode } from '../utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode, trainingModes } from '../utils.js'
 
 export class Stats {
   constructor(stats) {
@@ -30,6 +30,48 @@ export class Stats {
     if (word.learning === undefined || currentState === prevState) { return }
     this[currentState] += 1;
     this[prevState] -= 1;
+  }
+
+  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
+    return new Promise((resolve) => {
+      var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].getWordIds().includes(wordId) };
+
+      let allLearningWordIds = new Set(data["read"].concat(data["write"]).concat(data["listen"]));
+      let learningNum = allLearningWordIds.size;
+      let knownNum = data["all"].length;
+
+      if (learningNum === 0) {
+        this.known += knownNum;
+        this.unknown -= knownNum;
+        resolve();
+      }
+
+      let counter = 0;
+      for (let wordId of allLearningWordIds) {
+        DS.getWord(wordId).then((word) => {
+          switch(this._getStateFromWord(word)) {
+            case "known":
+              learningNum -= 1;
+              knownNum += 1;
+              break;
+            case "learning":
+              if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
+                learningNum -= 1;
+              }
+              break;
+            case "unknown":
+              learningNum -= 1;
+              break;
+          } 
+          if (++counter === allLearningWordIds.size) {
+            this.learning += learningNum;
+            this.known += knownNum;
+            this.unknown -= (knownNum + learningNum);
+            resolve();
+          }
+        });
+      }
+    });
   }
 
   reset() {
@@ -84,6 +126,15 @@ export class ModeStats {
     }
   }
 
+  updateKnownWords(data = { "all": [], "read": [], "write": [], "listen": [] }) {
+    trainingModes.forEach((mode) => {
+      let num = data[mode.value].length + data["all"].length;
+      this[mode.value].known += num;
+      this[mode.value].unknown -= num;
+    });
+  }
+
+
   getData() {
     return {
       read: this.read,
@@ -124,6 +175,16 @@ export default class Statistics {
     this.save();
   }
 
+  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
+    return new Promise((resolve) => {
+      this.stats.updateKnownWords(wordStorageIds, data).then(() => {
+        this.modeStats.updateKnownWords(data);
+        this.save();
+        resolve();
+      });
+    });
+  }
+
   reset() {
     this.stats.reset();
     this.modeStats.reset();
@@ -139,6 +200,8 @@ export default class Statistics {
               this.modeStats = new ModeStats(modeStats); 
               resolve();
             });
+        } else {
+          resolve();
         }
       });
     });

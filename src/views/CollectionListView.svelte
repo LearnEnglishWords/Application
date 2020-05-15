@@ -179,21 +179,22 @@
 
     isLoading = false;
     collectionData.set(selectedCollection);
-
-    if (coreCollections.includes(selectedCollection.id)) {
-      selectedCollection.categoryGroup.loadStatistics();
-      categoryGroupData.set(selectedCollection.categoryGroup);
-      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
-      f7router.navigate('/CategoryDetail');
-    } else {
-      categoryGroupData.set(null);
-      f7router.navigate('/CategoryList');
-    }
+    selectedCollection.updateKnownWords().then(() => {
+      if (coreCollections.includes(selectedCollection.id)) {
+        selectedCollection.categoryGroup.loadStatistics();
+        categoryGroupData.set(selectedCollection.categoryGroup);
+        categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+        f7router.navigate('/CategoryDetail');
+      } else {
+        categoryGroupData.set(null);
+        f7router.navigate('/CategoryList');
+      }
+    });
   }
 
   function loadCollection(collectionId) {
     let collection = getCollection(collectionId);
-    collection.load()
+    collection.load();
 
     const index = $allCollectionsData.findIndex((c) => c.id === collectionId);
     if (index > -1) { $allCollectionsData.splice(index, 1) }

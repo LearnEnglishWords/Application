@@ -24,9 +24,9 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData, AppInfo, setActivity, log } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo, setActivity, trainingModes } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
-  import { settingsData, deviceUUID } from '../js/store.js';
+  import { settingsData, deviceUUID, allKnownWordsData } from '../js/store.js';
 
 
   // internationalization init:
@@ -85,6 +85,14 @@
           } else {
             downloadedCollections.set(data);
           }
+        });
+
+        trainingModes.forEach((mode) => {
+          DS.getAllKnownWords(mode.value).then((data) => { 
+            if (data !== null) {
+              $allKnownWordsData[mode.value] = data;
+            }
+          });
         });
       });
     });
