@@ -44,7 +44,7 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, getState, defaultTrainingModes, playTextSound } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
@@ -159,7 +159,7 @@
     fullProgress = removeWords.length + addWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
     updateStatistics();
-    defaultTrainingModes.forEach((mode) => {
+    trainingModes.forEach((mode) => {
       let currentCategory = $categoryGroupData;
       if (currentCategory === null) { currentCategory = $categoryDetailData }
       currentCategory.updateWords(mode.value, addWords, removeWords);

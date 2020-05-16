@@ -90,7 +90,7 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { defaultTrainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
+  import { trainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
@@ -102,7 +102,6 @@
 
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModeIndex = 0;
-  let trainingModes = defaultTrainingModes;
   let modeType = trainingModes[trainingModeIndex].value;
 
   let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 

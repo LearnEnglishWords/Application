@@ -9,7 +9,7 @@ export const defaultSettingsData = {
   "swiperTransitionSpeed": 0
 };            
 
-export const defaultTrainingModes = [
+export const trainingModes = [
   { value: "read", checked: true, icon: "book-open-2" },
   { value: "write", checked: false, icon: "d-edit" },
   { value: "listen", checked: false, icon: "volume" }
