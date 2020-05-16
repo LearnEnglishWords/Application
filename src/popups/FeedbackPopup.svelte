@@ -1,47 +1,41 @@
 <Popup class={name} animate={true} >
   <Header type="popup" popupName={name} title={$_('app_name')} />
-  <div class="popup-container">
-    <div class="popup-header">
-      <div class="page-title">{title}</div>
-    </div>
+    <div class="page-title">{title}</div>
     <div class="popup-content">
       <div class="list feedback">
         <ul>
-       <li class="item-content item-input">
-      <div class="item-inner">
-        <div class="item-input-wrap">
-          <input type="text" placeholder="Email">
-          <span class="input-clear-button"></span>
-        </div>
-      </div>
-    </li>
-           <li class="item-content item-input">
-      <div class="item-inner">
-        <div class="item-input-wrap">
-          <textarea placeholder="Zpráva"></textarea>
-          <span class="input-clear-button"></span>
-        </div>
-      </div>
-    </li>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-input-wrap">
+                <input type="text" placeholder="Email">
+                <span class="input-clear-button"></span>
+              </div>
+            </div>
+          </li>
+          <li class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-input-wrap">
+                <textarea placeholder="Zpráva"></textarea>
+                <span class="input-clear-button"></span>
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
-
-
       <div class="text-random">     
-      {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
-      <a href='mailto:{email}'>{email}</a>
+        {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
+        <a href='mailto:{email}'>{email}</a>
       </div>
-      </div> 
-  <!-- Footer -->
-  <div class="footer-container footer-singular">
-    <div class="footer-content">
-      <Button class="page-button button-next">{$_('feedback.send')}</Button>
+    </div> 
+    <!-- Footer -->
+    <div class="footer-container footer-singular">
+      <div class="footer-content">
+        <Button class="page-button button-next">{$_('feedback.send')}</Button>
+      </div>
     </div>
-  </div>
+</Popup>
 
-
-
-  <Page style="display:none">
+<!--  <Page style="display:none">
     <Header type="popup" popupName={name} {title}/>
     <Block inset>
       <p>
@@ -77,7 +71,7 @@
       </p>
     </Block>
   </Page>
-</Popup>
+-->
 
 <script>
   import {

@@ -24,11 +24,11 @@
             </div>
           </a>
           <div class="accordion-item-content">
-              <ListItem>
-                <Button class="settings_button" on:click={() => savePronunciation("uk")}>{$_('settings.pronunciation.uk')}</Button>
+              <ListItem on:click={() => savePronunciation("uk")}>
+                <Button class="settings_button">{$_('settings.pronunciation.uk')}</Button>
               </ListItem>
-              <ListItem>
-                <Button class="settings_button" on:click={() => savePronunciation("us")}>{$_('settings.pronunciation.us')}</Button>
+              <ListItem on:click={() => savePronunciation("us")}>
+                <Button class="settings_button">{$_('settings.pronunciation.us')}</Button>
               </ListItem>
           </div>
         </li>

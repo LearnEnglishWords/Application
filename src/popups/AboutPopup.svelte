@@ -1,9 +1,7 @@
 <Popup class={name} animate={true}>
   <Header type="popup" popupName={name} title={$_('app_name')} />
-  <div class="popup-container">
-    <div class="popup-header">
-      <div class="page-title">{$_('about.title')}</div>
-    </div>
+
+    <div class="page-title">{$_('about.title')}</div>
     <div class="popup-content">
       <div class="row">
         <div class="col">{appName} {$_('about.text1')}</div>
@@ -19,9 +17,8 @@
     <div class="footer-popup">
         <span>{$_('about.version')} {version}</span>
         <span>Copyright &copy; Learn English Words 2020</span>
-      </div>
-  </div>
-
+    </div>
+</Popup>
 
 
 
@@ -55,7 +52,6 @@
       </center>
     </Block>
   </Page>
-</Popup>
 
 <script>
   import {

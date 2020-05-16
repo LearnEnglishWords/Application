@@ -389,7 +389,10 @@ svg {
   &[data-name="Settings"] {
 
     .page-content {
-      background: var(--app-element);
+      background: var(--app-primary);
+    }
+    .page-title {
+      color: var(--app-background) !important;
     }
   }
   &[data-name="Training"] {
@@ -1017,6 +1020,10 @@ input:focus::placeholder {
   ul {
     border-radius: 10px;
   }
+  .accordion-item-content {
+    background: #FFF;
+  }
+
   li {
     margin-bottom: 0 !important;
     &:first-child {
@@ -1031,6 +1038,9 @@ input:focus::placeholder {
         border-radius: 0 0 10px 10px;
       }
     }
+    &.accordion-item {
+      background: var(--app-element);
+    }
   }
   .item-link {
     background: var(--app-element);
@@ -1040,5 +1050,11 @@ input:focus::placeholder {
     &:before {
       color: var(--app-title);
     }
+  }
+}
+
+.collection-list {
+  .button {
+    border-radius: 10px;
   }
 }
