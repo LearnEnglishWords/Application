@@ -1,16 +1,14 @@
 <Page name="Settings">
   <!-- Navbar -->
   <Header>
-    <div slot="title" class="title">
-      <span>{$_('settings.title')}</span>
-    </div>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
     <!-- Title -->
-    <BlockTitle>{$_('settings.subtitle')}</BlockTitle>
-    <List>
+    <div class="page-title">{$_('settings.subtitle')}</div>
+    <List class="settings-list">
       <ListItem>
         <div>{$_('settings.words_limit')}</div>
         <Stepper small fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
@@ -44,7 +42,7 @@
           <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
         {/if}
       </ListItem>
-      <ListItem>
+      <ListItem style="display:none">
         <div>
           {$_('settings.night_theme')}
         </div>
