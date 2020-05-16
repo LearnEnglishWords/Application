@@ -51,7 +51,7 @@ export class Stats {
         DS.getWord(wordId).then((word) => {
           switch(this._getStateFromWord(word)) {
             case "known":
-              learningNum -= 1;
+              learningNum -= 2;
               knownNum += 1;
               break;
             case "learning":
@@ -60,7 +60,7 @@ export class Stats {
               }
               break;
             case "unknown":
-              learningNum -= 1;
+              learningNum -= 2;
               break;
           } 
           if (++counter === allLearningWordIds.size) {
