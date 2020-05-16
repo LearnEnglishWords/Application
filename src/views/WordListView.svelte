@@ -84,7 +84,6 @@
       height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),
     });
 
-
     virtualList.$el.on('click', '.word-item', function (e) {
       let index = this.f7VirtualListIndex;
       clickedWord = allWords[index].word;
