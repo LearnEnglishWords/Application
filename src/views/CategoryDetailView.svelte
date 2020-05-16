@@ -120,7 +120,7 @@
     trainingModes[index].checked = true;
 
     if (currentWordStorage.getWords(wordsLimit).length === 0) {
-      currentWordStorage.loadIds($collectionData.id, $categoryDetailData.id, true);
+      currentWordStorage.loadIds(true);
     }
   }
 
