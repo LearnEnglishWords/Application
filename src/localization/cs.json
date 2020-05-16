@@ -81,7 +81,7 @@
   "settings": {
       "title": "Nastavení",
       "subtitle": "Personalizace",
-      "words_limit": "Přednastavený počet slov",
+      "words_limit": "Výchozí počet slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "night_theme": "Tmavý motiv",
       "swiper_transition": "Animované přechody slov",

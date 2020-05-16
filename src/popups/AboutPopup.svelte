@@ -1,6 +1,5 @@
 <Popup class={name} animate={true}>
   <Header type="popup" popupName={name} title={$_('app_name')} />
-
     <div class="page-title">{$_('about.title')}</div>
     <div class="popup-content">
       <div class="row">
@@ -15,43 +14,10 @@
       </div>
     </div>  
     <div class="footer-popup">
-        <span>{$_('about.version')} {version}</span>
-        <span>Copyright &copy; Learn English Words 2020</span>
+      <span>{$_('about.version')} {version}</span>
+      <span>Copyright &copy; Learn English Words 2020</span>
     </div>
 </Popup>
-
-
-
-  <Page style="display:none">
-    <Header type="popup" popupName={name} title={$_('about.title')}/>
-    <Block inset>
-      <p>
-        {appName} {$_('about.text1')}
-      </p>
-      <p>
-        {$_('about.text2')}
-      </p>
-      <p>
-        {$_('about.text3')}
-      </p>
-      <p>
-        {$_('about.text4')}
-      </p>
-
-      <p>
-        {$_('about.email_feedback')}
-      <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
-      </p>
-      <p>
-      <a href=#>{$_('about.share')}</a>
-      </p>
-
-      <center>
-        {$_('about.version')} {version} <br/>
-        Copyright &copy; Learn English Words 2020
-      </center>
-    </Block>
-  </Page>
 
 <script>
   import {

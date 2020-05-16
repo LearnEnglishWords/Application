@@ -380,7 +380,8 @@ svg {
   &[data-name="CollectionList"] {
 
     .page-content {
-      background: var(--app-primary);
+      background: var(--app-secondary);
+      @extend %-pattern;
     }
     .page-title {
       color: var(--app-background) !important;
@@ -389,7 +390,8 @@ svg {
   &[data-name="Settings"] {
 
     .page-content {
-      background: var(--app-primary);
+      background: var(--app-secondary);
+      @extend %-pattern;
     }
     .page-title {
       color: var(--app-background) !important;
@@ -995,24 +997,28 @@ input:focus::placeholder {
 }
 
 .footer-popup {
-  position: absolute;
-  bottom: 0;
   text-align: center;
-  color: var(--app-text);
+  color: #FFF;
   font-size: 16px;
   padding: 1em;
+  span:nth-child(1) {
+    display: block;
+  }
 }
 .list-feedback {
   margin: 0;
 }
 
 .text-random {
+  color: white;
   margin-top: 1em;
   a {
     width: 100%;
     display: block;
+    font-weight: 700;
     text-align: center;
     margin-top: 1em;
+    color: white;
   }
 }
 
@@ -1055,6 +1061,39 @@ input:focus::placeholder {
 
 .collection-list {
   .button {
+    border-radius: 10px;
+  }
+}
+
+.settings-list {
+  ul {
+    border-radius: 10px;
+  }
+}
+
+.about.popup, .error-feedback.popup, .info-feedback {
+  overflow: auto;
+  background: var(--app-secondary);
+  @extend %-pattern;
+  .footer-container {
+    border-top: 0!important;
+    .button {
+      background-color: white;
+      color: var(--app-secondary);
+      box-shadow: 0 0 0.25em white;
+      background-image: none;
+    }
+  }
+  .page-title {
+    color: white;
+
+  }
+  .row {
+    background: white;
+    padding: 1em;
+    border-radius: 10px;
+  }
+  ul {
     border-radius: 10px;
   }
 }

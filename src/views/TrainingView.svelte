@@ -3,42 +3,31 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-
-
-
-
-
-
-
   <!-- View -->
   {#if !showRecapitulation}
     <div class="view">
-
-    <div class="swiper-container swiper-init">
-      <div class="swiper-wrapper">
-        {#each $trainingData.words as word, id}
-          <div class="swiper-slide">
-            <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
-          </div>
+      <div class="swiper-container swiper-init">
+        <div class="swiper-wrapper">
+          {#each $trainingData.words as word, id}
+            <div class="swiper-slide">
+              <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+            </div>
           {/each}
-      </div>
+        </div>
         {#if $trainingData.isTraining}
           <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="ctrl-left" size="24"/></div>
           <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
         {/if}
-    </div>  
+      </div>  
       {#if !isTraining && $trainingData.mode === "read"}
         <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-  <div class="footer-container footer-double">
-    <div class="footer-content">
-        <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
-        <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
-    </div>
-  </div> 
-
-
+        <div class="footer-container footer-double">
+          <div class="footer-content">
+            <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
+            <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
+          </div>
+        </div> 
       {/if}
-
       {#if $trainingData.mode === "read"}
         <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
           <div class="wrapper-mode">
@@ -51,7 +40,6 @@
             <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
             <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
           </Toolbar>
-
           <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
         {/if}
       {/if}
@@ -59,9 +47,7 @@
   {:else}
     <Recapitulation info={recapitulationInfo} />
   {/if}
-  
-
-    <!-- Footer -->
+  <!-- Footer -->
   <div class="footer-container footer-singular arrows">
     <div class="footer-content arrows">
     {#if $trainingData.mode === "read"}
@@ -71,8 +57,6 @@
     {/if}
     </div>
   </div>
-
-
 </Page>
 
 <script>

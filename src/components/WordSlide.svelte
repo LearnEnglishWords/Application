@@ -7,56 +7,48 @@
   <WordDetail {word}/>
 
     {:else} 
-
       <div class="other-mode">
-          <div class="other-div word">
+        <div class="other-div word">
           {#if mode==="write"} 
             {#each word.sense as sense, id}
               {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
             {/each}
           {:else if mode==="listen"} 
-            <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+          <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
             <div class="read-title">Klikněte pro poslechnutí slova</div>
               <SVGIcon name="volume" size="24"/>
             </div>
           {/if}
-      </div>
-
-      <div class="footer-container footer-singular arrows">
-    <div class="footer-content arrows">
-{#if result === null}
-        <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
-{:else}
-<Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
-    {/if}
-    </div>
-  </div>
-
-
-
-
-         
-      </div>
-              <div class="content-mode">
-              <div class="other-div">
-          <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
-          <!-- UPRAVIT -->
-          {#if result !== null && !result}
+          </div>
+          <div class="footer-container footer-singular arrows">
+            <div class="footer-content arrows">
+              {#if result === null}
+                <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
+              {:else}
+                <Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
+              {/if}
+            </div>
+          </div>
+        </div>
+        <div class="content-mode">
+          <div class="other-div">
+            <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
+            {#if result !== null && !result}
             <div class="result-div wrong">
               <span class="result">{$_('training.results.wrong')}</span>
-              <div>{$_('training.results.result_word')}<span class="this-word">{word.text}</span></div>
+              <div>{$_('training.results.result_word')}
+                <span class="this-word">{word.text}</span>
+              </div>
             </div>
-          {:else if result !== null && result}
+            {:else if result !== null && result}
             <div class="result-div right">
               <span class="result">{$_('training.results.right')}</span>
             </div>
-          {/if}
-          <!---->
+            {/if}
           </div>
         </div>
-
     {/if}
-
+    
 <script>
   import { 
     f7, Block, BlockTitle,

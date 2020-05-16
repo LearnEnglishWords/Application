@@ -5,25 +5,14 @@
       <SVGIcon name="e-remove" size="24"/>
     </div>
   </div>
-            <List class="list-container list-categories">
-        {#each word.examples as example, id}
-          <ListItem class="list-item" on:click={playExampleSound(example, $settingsData.pronunciation)}>
-            {example}
-              <div slot="media" class="item-media"><SVGIcon name="volume" size="24"/></div>
-          </ListItem>
-        {/each}
-      </List>
-  
-  
-  
-  <!--<PageContent>
-    <Header type="popup" popupName="description" title={$_('training.description_title')} />
-      <List>
-        {#each word.examples as example, id}
-          <ListItem> {example} <Button>&#x1F509;</Button></ListItem>
-        {/each}
-      </List>
-  </PageContent>-->
+  <List class="list-container list-categories">
+    {#each word.examples as example, id}
+      <ListItem class="list-item" on:click={playExampleSound(example, $settingsData.pronunciation)}>
+        {example}
+        <div slot="media" class="item-media"><SVGIcon name="volume" size="24"/></div>
+      </ListItem>
+    {/each}
+  </List>
 </Sheet>
 
 <script>

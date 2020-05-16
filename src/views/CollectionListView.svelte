@@ -2,36 +2,34 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-
-    <div class="page-title">{$_('collection.title')}</div>
-    <List accordionList mediaList class="collection-list">
-      {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
-        {#if active}
-          <ListItem accordionItem title="{title}" text="{shortDescription}">
-            <AccordionContent>
-              <Block>
-                <p>
-                  {fullDescription}
-                </p>
-                <p id="collection-loader-{id}"></p>
-                {#if $downloadedCollections.includes(id) && isLoading}
-                  <Button fill style="background-color: var(--app-success)">{$_('collection.button.loading')}</Button>
-                {:else if $downloadedCollections.includes(id)}
-                  <Button fill on:click={ () => continueButton(id) } style="background-color: var(--app-success)">{$_('collection.button.continue')}</Button>
-                {:else if downloadingCollectionId === id && counter === 0}
-                  <Button fill style="background-color: var(--app-warning)">{$_('collection.button.preparing')}</Button>
-                {:else if downloadingCollectionId === id && counter > 0}
-                  <Button fill style="background-color: var(--app-warning)">{$_('collection.button.downloading')}</Button>
-                {:else}
-                  <Button fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')}</Button>
-                {/if}
-              </Block>
-            </AccordionContent>
-          </ListItem>
-        {/if}
-      {/each}
-    </List>
-
+  <div class="page-title">{$_('collection.title')}</div>
+  <List accordionList mediaList class="collection-list">
+    {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
+      {#if active}
+        <ListItem accordionItem title="{title}" text="{shortDescription}">
+          <AccordionContent>
+            <Block>
+              <p>
+                {fullDescription}
+              </p>
+              <p id="collection-loader-{id}"></p>
+              {#if $downloadedCollections.includes(id) && isLoading}
+                <Button fill style="background-color: var(--app-success)">{$_('collection.button.loading')}</Button>
+              {:else if $downloadedCollections.includes(id)}
+                <Button fill on:click={ () => continueButton(id) } style="background-color: var(--app-success)">{$_('collection.button.continue')}</Button>
+              {:else if downloadingCollectionId === id && counter === 0}
+                <Button fill style="background-color: var(--app-warning)">{$_('collection.button.preparing')}</Button>
+              {:else if downloadingCollectionId === id && counter > 0}
+                <Button fill style="background-color: var(--app-warning)">{$_('collection.button.downloading')}</Button>
+              {:else}
+                <Button fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')}</Button>
+              {/if}
+            </Block>
+          </AccordionContent>
+        </ListItem>
+      {/if}
+    {/each}
+  </List>
 </Page>
 
 <script>

@@ -3,15 +3,7 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-
   <div class="page-title">{$_('words_list.info')}</div>
-
-
-
-
-
-
-
     <List class="list-container list-words virtual-list media-list"></List>
     {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
       <Button on:click={loadNextWords}>
@@ -28,7 +20,6 @@
       <Link on:click={saveWords}>Uložit</Link>
     </Toolbar>
   {/if}
-
 </Page>
 
 <script>
