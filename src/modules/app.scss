@@ -380,10 +380,18 @@ svg {
   &[data-name="CollectionList"] {
 
     .page-content {
+      background: var(--app-primary);
+    }
+    .page-title {
+      color: var(--app-background) !important;
+    }
+  }
+  &[data-name="Settings"] {
+
+    .page-content {
       background: var(--app-element);
     }
   }
-  &[data-name="Settings"] {}
   &[data-name="Training"] {
 
     .page-content {
@@ -890,6 +898,16 @@ input.translate {
       color: var(--app-title);
     }
   }
+  .item-link {
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
+  }
+  .accordion-item-opened {
+    .item-link {
+      border-radius: 0!important;
+    }
+  }
   .media-item {
     background: var(--app-background);
     margin-bottom: 0.25em;
@@ -902,25 +920,35 @@ input.translate {
   }
 }
 
+.settings-list {
+  margin: 0 1em;
+  .list {
+    color: var(--app-title);
+
+  }
+}
+
 .accordion-item-opened {
   background: transparent;
   .item-link {
-    border-radius: 10px 10px 0 0;
-    background: var(--app-secondary);
     @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
 
   }
   .item-title {
-    color: white;
+    color: var(--app-title);
   }
   .item-text {
-    color: white;
+    color: var(--app-text);
   }
   .item-title-row {
     &:before {
-      color: white;
+      color: var(--app-title);
     }
   }
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 .word-item {
@@ -932,7 +960,7 @@ input.translate {
   }
 }
 .media-list .accordion-item-opened > .item-link .item-title-row:before {
-  color: white;
+  color: var(--app-title);
 }
 .toolbar {
   background: var(--app-secondary);
@@ -982,5 +1010,35 @@ input.translate {
     display: block;
     text-align: center;
     margin-top: 1em;
+  }
+}
+
+.collection-list {
+  ul {
+    border-radius: 10px;
+  }
+  li {
+    margin-bottom: 0 !important;
+    &:first-child {
+      border-radius: 10px 10px 0 0;
+      .item-link {
+        border-radius: 10px 10px 0 0!important;
+      }
+    }
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+      .item-link {
+        border-radius: 0 0 10px 10px;
+      }
+    }
+  }
+  .item-link {
+    background: var(--app-element);
+    
+  }
+  .item-title-row {
+    &:before {
+      color: var(--app-title);
+    }
   }
 }
