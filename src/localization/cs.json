@@ -137,6 +137,8 @@
       "wrong_email": "Nespravný formát emailové adresy.",
       "text_length1": "Délka zprávy musí být maximálně",
       "text_length2": "slov.",
+      "email_placeholder": "Váš email",
+      "text_placeholder": "Zpráva",
       "send": "Odeslat",
       "info1": "Pokud je vaše zpětná vazba delší jak",
       "info2": "slov, tak ji můžete poslat na email:",
