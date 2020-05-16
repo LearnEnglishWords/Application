@@ -21,6 +21,11 @@
   font-size: var(--#{$name}-button-#{$type}-font-size);
   font-weight: var(--#{$name}-button-#{$type}-font-weight);
   border: 1px solid var(--#{$name}-button-#{$type}-border);
+
+  &.active-state {
+    background-color: var(--#{$name}-button-#{$type}-background-color);
+    color: var(--#{$name}-button-#{$type}-color);
+  }
   
   @if $pattern == "true" {
     @extend %-pattern;  

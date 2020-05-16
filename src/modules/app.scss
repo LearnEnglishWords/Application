@@ -315,8 +315,21 @@ svg {
     }
   }
 
-  &-popup {$type: "popup";
+  &-popup {$type: "main";
   
+    .#{$name}-bg {$element: "bg";
+      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      @extend %-pattern;
+    }
+
+    .title {$element: "title";
+      width: 100%;
+      color: #FFF;
+      text-align: left;
+      font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+      font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+    }
+    
   }
 }
 
@@ -373,6 +386,9 @@ svg {
   &[data-name="Settings"] {}
   &[data-name="Training"] {
 
+    .page-content {
+      background: var(--app-element);
+    }
     .view {
       height: 100%;
       background: var(--app-element);
@@ -384,6 +400,7 @@ svg {
     .page-content {
       background: var(--app-element);
     }
+
   }
 
   .#{$name}-content {$type: "content";
@@ -513,6 +530,9 @@ svg {
   }
 }
 
+.button-next {
+  @include button($type: "next", $pattern: "true");
+}
 // -------------------------------------------------------------
 
 .mode-read, .other-mode {
@@ -538,13 +558,28 @@ svg {
   }
 }
 
-
+.read-div {
+  background: var(--app-element);
+}
 .other-div {
   .word {
     padding: 0.5em 0;
   }
 }
 
+.menu-list {
+  background: var(--app-element);
+}
+
+.popup-content {
+  .col {
+    width: 100%;
+  }
+}
+
+.popup-container {
+  @include position($position: absolute, $top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top)), $bottom: 0);
+}
 .header-simple {
   font-size: 14px;
   font-weight: 600;
@@ -735,7 +770,7 @@ input.translate {
   background: var(--app-element);
   width: 100%;
   &.result {
-    background: #FFF;
+    background: var(--app-element);
   }
   .row {
     display: grid;
@@ -744,7 +779,7 @@ input.translate {
     justify-content: center;
     text-align: center;
     color: var(--app-primary);
-    background: var(--app-element);
+    background: var(--app-background);
     width: calc(100vw - 30px);
     margin: 0 auto;
     border-radius: 0 0 15px 15px;
@@ -777,6 +812,14 @@ input.translate {
       }
     }
   }
+}
+
+.page-title {$name: "page"; $type: "content"; $element: "title";
+  color: var(--#{$name}-#{$type}-#{$element}-color);
+  text-transform: var(--#{$name}-#{$type}-#{$element}-text-transform);
+  padding: calc((var(--page-content-container-border-radius) / 2)) 1em 1em;
+  font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
+  font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
 }
 
 .read-mode, .other-mode {
@@ -860,7 +903,9 @@ input.translate {
 }
 
 .accordion-item-opened {
+  background: transparent;
   .item-link {
+    border-radius: 10px 10px 0 0;
     background: var(--app-secondary);
     @include transition($property: var(--app-transition-property), $duration: var(--app-transition-duration), $timing-function: var(--app-transition-timing-function), $delay: var(--app-transition-delay));
 
@@ -888,4 +933,54 @@ input.translate {
 }
 .media-list .accordion-item-opened > .item-link .item-title-row:before {
   color: white;
+}
+.toolbar {
+  background: var(--app-secondary);
+  .link {
+    color: white;
+    font-weight: 700;
+  }
+}
+
+.list-words {
+  svg {
+    float: right;
+  }
+}
+
+.popup-content {
+  padding: 0 1em;
+  .col {
+    margin-bottom: 0.5em;
+    color: var(--app-text);
+    font-size: 15px;
+    font-weight: 400;
+    &:last-child {
+      text-align: center;
+      margin-top: 1em;
+      color: var(--app-primary);
+    }
+  }
+}
+
+.footer-popup {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  color: var(--app-text);
+  font-size: 16px;
+  padding: 1em;
+}
+.list-feedback {
+  margin: 0;
+}
+
+.text-random {
+  margin-top: 1em;
+  a {
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: 1em;
+  }
 }

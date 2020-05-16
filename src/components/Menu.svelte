@@ -1,5 +1,5 @@
 <Popover class="{name}">
-  <List>
+  <List class="menu-list">
     <ListButton popoverClose popupOpen=".feedback" title="{$_('menu.feedback')}" />
     <ListButton popoverClose popupOpen=".error-feedback" title="{$_('menu.error_feedback')}" />
     <ListButton popoverClose href="/Settings" title="{$_('menu.settings')}" />
