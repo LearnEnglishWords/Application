@@ -142,10 +142,9 @@
 
   function updateWords() {
     return new Promise((resolve) => {
-      let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
       DS.getAppInfo(AppInfo.LAST_UPDATE).then((lastUpdateDate) => {
         if (getCurrentDate() !== lastUpdateDate) {
-          alert(lastUpdateDate);
+          let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
           if (lastUpdateDate === null) {
             saveCurrentDate();
             dialog.close();
@@ -154,7 +153,6 @@
             downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
           }
         } else {
-          dialog.close();
           resolve();
         }
       });
