@@ -78,7 +78,7 @@ export default class WordsStorage {
     this.allWordIds = [];
   }
 
-  update(addWords, removeWords) {
+  update(addWords, removeWords, loadWords = true) {
     var updateWordIds = this.allWordIds
       .concat(addWords)
       .filter(wordId => !removeWords.includes(wordId));
@@ -86,7 +86,9 @@ export default class WordsStorage {
     this.reset();
     this.allWordIds = [...new Set(updateWordIds)];
     this.allWords = [];
-    this.loadWords();
+    if (loadWords) { 
+      this.loadWords()
+    }
     this.saveWordIds();
   }
 

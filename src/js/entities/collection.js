@@ -56,7 +56,6 @@ export default class Collection {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName);
           category.loadWordIds();
           category.loadStatistics().then(() => {
-            category.updateKnownWords();
             if (++counter === categories.length) {
               resolve();
             }

@@ -77,7 +77,7 @@ export default class Category {
       this.statistics.updateKnownWords(this.wordStorages, knownWordsData).then(() => {
         for (let mode of trainingModes) {
           let allModeWordIds = knownWordsData[mode.value].concat(knownWordsData["all"]);
-          this.wordStorages[mode.value].update([], allModeWordIds);
+          this.wordStorages[mode.value].update([], allModeWordIds, false);
         }
         resolve();
       });
