@@ -118,7 +118,7 @@
   function loadWords(from, to) {
     allWordIds.slice(from, to).forEach((wordId, index) => {
       DS.getWord(wordId).then((word) => {
-        wordState[word.text] = getWordState(word);
+        wordState[word.text] = isKnown(word);
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
         allWordsLength++;
       });
@@ -126,19 +126,6 @@
         allowInfinite = true;
       }
     });
-  }
-
-  function getWordState(word) {
-    if (isKnown(word) && word.knownCategories !== undefined) {
-      if ($categoryGroupData === null) {
-        return word.knownCategories.includes($categoryDetailData.id);
-      } else {
-        for (let category of $categoryGroupData.categories) {
-          if (word.knownCategories.includes(category.id)) { return true }
-        }
-      }
-    }
-    return false
   }
 
   function updateStatistics() {
@@ -197,7 +184,7 @@
   function setState(word, known) {
     wordState[word.text] = known;
 
-    if (isKnown(word) === known && (word.knownCategories === undefined || word.knownCategories.length === 0)) {
+    if (isKnown(word) === known) {
       var index = addWords.indexOf(word.text);
       if (index > -1) { addWords.splice(index, 1) }
 
