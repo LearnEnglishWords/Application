@@ -1,9 +1,8 @@
 <Popup class={name} animate={true}>
-
+  <Header type="popup" popupName={name} title={$_('app_name')} />
   <div class="popup-container">
     <div class="popup-header">
-      <span>{$_('about.title')}</span>
-      <a href="#" class="popup-close"><SVGIcon name="e-remove" size="24"/></a>
+      <div class="page-title">{$_('about.title')}</div>
     </div>
     <div class="popup-content">
       <div class="row">

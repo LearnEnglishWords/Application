@@ -1,17 +1,13 @@
 <Popup class={name} animate={true} >
-
+  <Header type="popup" popupName={name} title={$_('app_name')} />
   <div class="popup-container">
     <div class="popup-header">
-      <span>{title}</span>
-      <a href="#" class="popup-close"><SVGIcon name="e-remove" size="24"/></a>
+      <div class="page-title">{title}</div>
     </div>
     <div class="popup-content">
       <div class="list feedback">
         <ul>
        <li class="item-content item-input">
-      <div class="item-media">
-        <SVGIcon name="email" size="24"/>
-      </div>
       <div class="item-inner">
         <div class="item-input-wrap">
           <input type="text" placeholder="Email">
@@ -20,9 +16,6 @@
       </div>
     </li>
            <li class="item-content item-input">
-      <div class="item-media">
-        <SVGIcon name="email" size="24"/>
-      </div>
       <div class="item-inner">
         <div class="item-input-wrap">
           <textarea placeholder="Zpráva"></textarea>
@@ -39,11 +32,12 @@
       <a href='mailto:{email}'>{email}</a>
       </div>
       </div> 
-    <div class="footer-popup">
-      <Button fill color="green"> {$_('feedback.send')} </Button>
+  <!-- Footer -->
+  <div class="footer-container footer-singular">
+    <div class="footer-content">
+      <Button class="page-button button-next">{$_('feedback.send')}</Button>
     </div>
   </div>
-
 
 
 
