@@ -39,7 +39,7 @@
       </div>
               <div class="content-mode">
               <div class="other-div">
-          <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" id="translate-input" class="translate">
+          <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
           <!-- UPRAVIT -->
           {#if result !== null && !result}
             <div class="result-div wrong">
