@@ -67,6 +67,7 @@
         {/if}
       </ListItem>
     </List>
+    <Footer />
   </div>
 </Page>
 
@@ -82,6 +83,7 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
+  import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';

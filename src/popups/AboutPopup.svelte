@@ -20,7 +20,7 @@
         -->
       </div>
     </div>  
-    <Footer/>
+    <Footer />
 </Popup>
 
 <script>

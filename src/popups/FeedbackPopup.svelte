@@ -28,6 +28,7 @@
       </div>
       <Button class="page-button button-next">{$_('feedback.send')}</Button>
     </div> 
+  <Footer />
 </Popup>
 
 <script>
@@ -39,6 +40,7 @@
     Row, Col, Block
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import Footer  from '../components/Footer.svelte';
   import SVGIcon  from '../components/SVGIcon.svelte';
   import { feedbackEmail, errorEmail }  from '../js/config.js';
   import { _ } from 'svelte-i18n';

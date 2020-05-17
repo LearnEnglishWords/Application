@@ -30,7 +30,7 @@
       {/if}
     {/each}
   </List>
-  <Footer/>
+  <Footer />
 </Page>
 
 <script>
