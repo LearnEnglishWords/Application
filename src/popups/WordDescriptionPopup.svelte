@@ -1,7 +1,7 @@
-<Sheet class="description" opened={descriptionOpened} onSheetClosed={() => descriptionOpened = false}>
+<Sheet class="description" opened={false}>
   <div class="sheet-title">
     <span>{$_('training.description_title')}</span>
-    <div class="sheet-link" popupClose=".{popupName}">
+    <div class="sheet-link" on:click={() => f7.sheet.close()}>
       <SVGIcon name="e-remove" size="24"/>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 <script>
   import { 
-    PageContent, Block, 
+    f7, PageContent, Block, 
     List, ListItem,
     Button, Sheet
   } from 'framework7-svelte';
@@ -28,6 +28,5 @@
   import { settingsData } from '../js/store.js'
 
   export let word;
-  let descriptionOpened = false;
   export let popupName;
 </script>
