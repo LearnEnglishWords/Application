@@ -29,7 +29,7 @@
         </div> 
       {/if}
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnable} onSheetClosed={() => wallEnable = false}>
+        <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnabled}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -88,7 +88,7 @@
   export let f7router;
 
   let isTraining = $trainingData.isTraining;
-  let wallEnable = !isTraining;
+  let wallEnabled = !isTraining || $settingsData.enableTrainingModeWall;
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
@@ -121,13 +121,15 @@
 
     swiper.on("slideNextTransitionStart", () => { 
       $trainingData.currentWordIndex += 1;
-      playAutoSound()
+      playAutoSound();
+      openWall();
     })
     swiper.on("slidePrevTransitionStart", () => { 
       $trainingData.currentWordIndex -= 1 
-      playAutoSound()
+      playAutoSound();
+      openWall();
     })
-    playAutoSound()
+    playAutoSound();
   });
 
   if ($trainingData.mode === "read" && !$trainingData.isTraining) {
@@ -144,6 +146,12 @@
     let currentWord = $trainingData.words[$trainingData.currentWordIndex];
     updateWord({word: currentWord, state: true});
     nextWord();
+  }
+
+  function openWall() {
+    if (wallEnabled) {
+      f7.sheet.open(".wall", false);
+    }
   }
 
   function updateRecapitulation(state) {
@@ -200,7 +208,7 @@
     if ($trainingData.words.length === $trainingData.currentWordIndex+1) {
       showRecapitulation = true;
     } else {
-      f7.sheet.open(".wall", false);
+      openWall();
       swiper.slideNext();
       playAutoSound();
     }

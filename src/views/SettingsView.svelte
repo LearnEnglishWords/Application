@@ -46,6 +46,16 @@
           <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
         {/if}
       </ListItem>
+      <ListItem>
+        <div>
+          {$_('settings.training_mode_wall')}
+        </div>
+        {#if enableTrainingModeWall}
+          <Toggle on:toggleChange={saveTrainingModeWall} checked></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveTrainingModeWall}></Toggle>
+        {/if}
+      </ListItem>
       <ListItem style="display:none">
         <div>
           {$_('settings.night_theme')}
@@ -90,6 +100,7 @@
 
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
+  let enableTrainingModeWall = $settingsData.enableTrainingModeWall;
   let enableDarkMode = $settingsData.enableDarkMode;
   let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
@@ -102,6 +113,11 @@
 
   function saveAutoPlaySound() {
     $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveTrainingModeWall() {
+    $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
     DS.saveSettings($settingsData);
   }
 

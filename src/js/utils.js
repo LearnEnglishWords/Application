@@ -6,7 +6,8 @@ export const defaultSettingsData = {
   "wordsLimit": 30,
   "pronunciation": "uk",
   "enableAutoPlaySound": true,
-  "swiperTransitionSpeed": 0
+  "swiperTransitionSpeed": 0,
+  "enableTrainingModeWall": false
 };            
 
 export const trainingModes = [
