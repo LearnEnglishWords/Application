@@ -1,33 +1,35 @@
 <Popup class={name} animate={true} >
   <Header type="popup" popupName={name} title={$_('app_name')} />
-    <div class="page-title">{title}</div>
-    <div class="popup-content">
-      <div class="list feedback">
-        <ul>
-          <li class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-input-wrap">
-                <input type="text" placeholder={$_('feedback.email_placeholder')}>
-                <span class="input-clear-button"></span>
+    <div class="popup-wrapper">
+      <div class="page-title">{title}</div>
+      <div class="popup-content">
+        <div class="list feedback">
+          <ul>
+            <li class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-input-wrap">
+                  <input type="text" placeholder={$_('feedback.email_placeholder')}>
+                  <span class="input-clear-button"></span>
+                </div>
               </div>
-            </div>
-          </li>
-          <li class="item-content item-input">
-            <div class="item-inner">
-              <div class="item-input-wrap">
-                <textarea placeholder={$_('feedback.text_placeholder')}></textarea>
-                <span class="input-clear-button"></span>
+            </li>
+            <li class="item-content item-input">
+              <div class="item-inner">
+                <div class="item-input-wrap">
+                  <textarea placeholder={$_('feedback.text_placeholder')}></textarea>
+                  <span class="input-clear-button"></span>
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="text-random">     
-        {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
-        <a href='mailto:{email}'>{email}</a>
-      </div>
-      <Button class="page-button button-next">{$_('feedback.send')}</Button>
-    </div> 
+            </li>
+          </ul>
+        </div>
+        <div class="text-random">     
+          {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
+          <a href='mailto:{email}'>{email}</a>
+        </div>
+        <Button class="page-button button-next">{$_('feedback.send')}</Button>
+      </div> 
+    </div>
   <Footer />
 </Popup>
 

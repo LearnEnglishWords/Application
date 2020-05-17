@@ -1,25 +1,27 @@
 <Popup class={name} animate={true}>
   <Header type="popup" popupName={name} title={$_('app_name')} />
-    <div class="page-title">{$_('about.title')}</div>
-    <div class="popup-content">
-      <div class="row">
-        <div class="col">{appName} {$_('about.text1')}</div>
-        <div class="col">{$_('about.text2')}</div>
-        <div class="col">{$_('about.text3')}</div>
-        <div class="col">{$_('about.text4')}</div>
-        <div class="col">{$_('about.email_feedback')}</div>
-        <div class="col">
-          <center>
-          <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
-          </center>
+    <div class="popup-wrapper">
+      <div class="page-title">{$_('about.title')}</div>
+      <div class="popup-content">
+        <div class="row">
+          <div class="col">{appName} {$_('about.text1')}</div>
+          <div class="col">{$_('about.text2')}</div>
+          <div class="col">{$_('about.text3')}</div>
+          <div class="col">{$_('about.text4')}</div>
+          <div class="col">{$_('about.email_feedback')}</div>
+          <div class="col">
+            <center>
+            <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
+            </center>
+          </div>
+          <!--
+          <div class="col">
+            <a href=#>{$_('about.share')}</a>
+          </div>
+          -->
         </div>
-        <!--
-        <div class="col">
-          <a href=#>{$_('about.share')}</a>
-        </div>
-        -->
-      </div>
-    </div>  
+      </div> 
+    </div> 
     <Footer />
 </Popup>
 
