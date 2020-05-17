@@ -24,7 +24,9 @@
           </ul>
         </div>
         <div class="text-random">     
-          {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
+          <center>
+            {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
+          </center>
           <a href='mailto:{email}'>{email}</a>
         </div>
         <Button class="page-button button-next">{$_('feedback.send')}</Button>
