@@ -70,6 +70,7 @@
   let selectedCategories = [];
 
   setTimeout(() => { setupCategoryToggler() }, 200);
+  $collectionData.categoryGroup.categories.forEach((category) => category.active = false);
 
 
   function goToDetailView() {
