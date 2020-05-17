@@ -125,6 +125,7 @@ svg {
       box-shadow: var(--#{$name}-#{$type}-#{$element}-box-shadow) var(--#{$name}-#{$type}-#{$element}-background-color);
       background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
       border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius);
+      padding: 0;
     }
 
     .#{$name}-col {$element: "col";
@@ -382,9 +383,16 @@ svg {
     .page-content {
       background: var(--app-secondary);
       @extend %-pattern;
+      @include position($position: absolute, $top: 0, $right: 0, $bottom: 80px, $left: 0);
+      height: auto;
     }
     .page-title {
       color: var(--app-background) !important;
+    }
+    .footer-popup {
+      @include position(fixed, $right: 0, $bottom: 0, $left: 0);
+      background: var(--app-secondary);
+      @extend %-pattern;
     }
   }
   &[data-name="Settings"] {
@@ -916,8 +924,11 @@ input.translate {
   .media-item {
     background: var(--app-background);
     margin-bottom: 0.25em;
-    &-last-child {
+    &:last-child {
       margin-bottom: 0;
+      .accordion-item-content {
+        border-radius: 0 0 10px 10px;
+      }
     }
     .button {
       margin-bottom: 1em;
@@ -1010,7 +1021,7 @@ input:focus::placeholder {
 }
 
 .text-random {
-  color: white;
+  color: var(--app-title);
   margin-top: 1em;
   a {
     width: 100%;
@@ -1018,7 +1029,7 @@ input:focus::placeholder {
     font-weight: 700;
     text-align: center;
     margin-top: 1em;
-    color: white;
+    color: var(--app-text);
   }
 }
 
@@ -1075,15 +1086,13 @@ input:focus::placeholder {
   overflow: auto;
   background: var(--app-secondary);
   @extend %-pattern;
-  .footer-container {
-    border-top: 0!important;
-    .button {
-      background-color: white;
-      color: var(--app-secondary);
-      box-shadow: 0 0 0.25em white;
-      background-image: none;
-    }
+  .button {
+    background-color: var(--app-success);
+    color: white;
+    box-shadow: 0 0 0.25em var(--app-success);
+    margin-top: 2em;
   }
+}
   .page-title {
     color: white;
 
@@ -1095,5 +1104,21 @@ input:focus::placeholder {
   }
   ul {
     border-radius: 10px;
+  }
+
+.info-feedback, .error-feedback.popup {
+  .popup-content {
+    background: white;
+    margin: 0 1em;
+    border-radius: 10px;
+    padding: 1em;
+  } 
+  .list {
+    margin: 0;
+    ul {
+      &:before, &:after {
+        content: none;
+      }
+    }
   }
 }

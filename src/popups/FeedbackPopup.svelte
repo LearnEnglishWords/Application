@@ -26,13 +26,8 @@
         {$_('feedback.info1')} {feedbackLength} {$_('feedback.info2')}
         <a href='mailto:{email}'>{email}</a>
       </div>
+      <Button class="page-button button-next">{$_('feedback.send')}</Button>
     </div> 
-    <!-- Footer -->
-    <div class="footer-container footer-singular">
-      <div class="footer-content">
-        <Button class="page-button button-next">{$_('feedback.send')}</Button>
-      </div>
-    </div>
 </Popup>
 
 <script>

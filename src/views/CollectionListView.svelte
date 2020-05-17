@@ -3,7 +3,6 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- <div class="page-title">{$_('collection.title')}</div>-->
-  <br/>
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
       {#if active}
