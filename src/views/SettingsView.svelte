@@ -20,10 +20,10 @@
         <li class="accordion-item">
           <a href="#" class="item-content item-link">
             <div class="item-inner">
-              <div class="item-title">{$_('settings.pronunciation.text')}</div>
+              <div class="item-title">{$_('settings.pronunciation.text')}:  {pronunciations[$settingsData.pronunciation]}</div>
             </div>
           </a>
-          <div class="accordion-item-content">
+          <div class="accordion-item-content" on:click={() => f7.accordion.close(".accordion-item")}>
             <div on:click={() => savePronunciation("uk")}>
               <ListItem>
                 <Button class="settings_button">{$_('settings.pronunciation.uk')}</Button>
@@ -73,7 +73,7 @@
 
 <script>
   import { 
-    Page, Link, Navbar, Button,
+    f7, Page, Link, Navbar, Button,
     Block, BlockTitle, 
     List, ListItem, 
     Toggle, Stepper,
