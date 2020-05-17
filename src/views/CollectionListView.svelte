@@ -2,11 +2,12 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-  <div class="page-title">{$_('collection.title')}</div>
+  <!-- <div class="page-title">{$_('collection.title')}</div>-->
+  <br/>
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
       {#if active}
-        <ListItem accordionItem title="{title}" text="{shortDescription}">
+        <ListItem accordionItem accordionItemOpened={id === Collections.BASIC.id} title="{title}" text="{shortDescription}">
           <AccordionContent>
             <Block>
               <p>
