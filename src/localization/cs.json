@@ -154,7 +154,14 @@
       "number_words": "Počet slov:",
       "number_right_words": "Počet slov správně:",
       "number_wrong_words": "Počet slov špatně:",
-      "continue": "Pokračovat"
+      "continue": "Pokračovat",
+      "score": {
+          "great": "Skvělé",
+          "good": "Dobré",
+          "ok": "Ujde to",
+          "bad": "Špatné",
+          "horrible": "Strašné"
+      }
   },
   "menu": {
       "feedback": "Zpětná vazba",

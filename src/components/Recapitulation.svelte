@@ -1,19 +1,31 @@
-{#if recapitulation === 'above-average'}
+{#if successInPercent > 80}    <!-- Udelat zelene -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation right"><SVGIcon name="smile" size="32"/><span>Nadprůměrné</span></div>
+    <div class="title-recapitulation right"><SVGIcon name="smile" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
   </div>
 </div>
-{:else if recapitulation === 'average'}
+{:else if successInPercent > 60}   <!-- Udelat svetle zelene -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>Průměrné</div>
+    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.good')}</div>
+  </div>
+</div>
+{:else if successInPercent > 40}  <!-- Udelat zlute -->
+<div class="read-mode without recap">
+  <div class="read-div">
+    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.ok')}</div>
+  </div>
+</div>
+{:else if successInPercent > 20}  <!-- Udelat oranzove -->
+<div class="read-mode without recap">
+  <div class="read-div">
+    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.bad')}</div>
   </div>
 </div>
 {:else}
 <div class="read-mode without recap">
-  <div class="read-div">
-    <div class="title-recapitulation wrong"><SVGIcon name="sad" size="32"/>Podprůměrné</div>
+  <div class="read-div">          <!-- Udelat cervene -->
+    <div class="title-recapitulation wrong"><SVGIcon name="sad" size="32"/>{$_('recapitulation.score.horrible')}</div>
   </div>
 </div>
 {/if}
@@ -44,35 +56,6 @@
 </div>
 
 
-<!--
-<Page style="display:none">
-  <Header type="popup" popupName="recapitulation"/>
-  <center>
-    <BlockTitle large >{$_('recapitulation.large_title')}</BlockTitle>
-    <BlockTitle medium >{$_('recapitulation.medium_title')}</BlockTitle>
-    <Block>
-      <Row>
-        <Col> {$_('recapitulation.number_words')} </Col> <Col> {info.count} </Col>
-      </Row>
-      <Row style="color: green">
-        <Col> {$_('recapitulation.number_right_words')} </Col> <Col> {info.known} </Col>
-      </Row>
-      <Row style="color: red">
-        <Col> {$_('recapitulation.number_wrong_words')} </Col> <Col> {info.unknown} </Col>
-      </Row>
-      <br/> <br/>
-      <Row>
-        <Col width=25> </Col>
-        <Col width=50>
-          <Button large fill popupClose color="green" > {$_('recapitulation.continue')} </Button>
-        </Col>
-        <Col width=25> </Col>
-      </Row>
-    </Block>
-  </center>
-</Page>
--->
-
 <script>
   import { 
     Page,  
@@ -86,6 +69,7 @@
 
   export let info;
   export let open;
+  let successInPercent = 100/info.count*info.known;
 
   let recapitulation = 'below-average';
 </script>
