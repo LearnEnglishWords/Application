@@ -18,10 +18,7 @@
         </div>
       </div>
     </div>  
-    <div class="footer-popup">
-      <span>{$_('about.version')} {version}</span>
-      <span>Copyright &copy; LearnEnglishWords 2020</span>
-    </div>
+    <Footer/>
 </Popup>
 
 <script>
@@ -31,6 +28,7 @@
     Block, Popup, Icon
   } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
+  import Footer  from '../components/Footer.svelte';
   import SVGIcon  from '../components/SVGIcon.svelte';
   import { feedbackEmail, version, appName }  from '../js/config.js';
   import { _ } from 'svelte-i18n';

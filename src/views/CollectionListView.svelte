@@ -31,6 +31,7 @@
       {/if}
     {/each}
   </List>
+  <Footer/>
 </Page>
 
 <script>
@@ -50,6 +51,7 @@
   import { WordsType, Modes, AppInfo, Collections, coreCollections, log } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
+  import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
   import { 
     allCollectionsData,
