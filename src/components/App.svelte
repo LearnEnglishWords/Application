@@ -114,8 +114,8 @@
       androidOverlaysWebView: false,
       iosTextColor: "white",
       androidTextColor: "white",
-      androidBackgroundColor: "#0F51AB",
-      iosBackgroundColor: "#0F51AB",
+      androidBackgroundColor: "#000000",
+      iosBackgroundColor: "#000000",
     },
     routes: [
       {
