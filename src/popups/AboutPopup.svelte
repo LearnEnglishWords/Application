@@ -13,9 +13,11 @@
           <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
           </center>
         </div>
+        <!--
         <div class="col">
           <a href=#>{$_('about.share')}</a>
         </div>
+        -->
       </div>
     </div>  
     <Footer/>
