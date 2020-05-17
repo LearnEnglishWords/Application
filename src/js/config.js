@@ -1,7 +1,7 @@
 export const appName = "LearnEnglishWords";
 export const appId = "'com.learnenglishwords'";
-export const version = "v3.0.0";
-export const feedbackEmail = "feedback@learnenglishwords.com";
-export const infoEmail = "info@learnenglishwords.com";
-export const errorEmail = "error@learnenglishwords.com";
+export const version = "3.0.0";
+export const feedbackEmail = "feedback@learn-english-words.eu";
+export const infoEmail = "info@learn-english-words.eu";
+export const errorEmail = "error@learn-english-words.eu";
 export const isProduction = false;

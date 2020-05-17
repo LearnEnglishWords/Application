@@ -7,15 +7,20 @@
         <div class="col">{$_('about.text2')}</div>
         <div class="col">{$_('about.text3')}</div>
         <div class="col">{$_('about.text4')}</div>
-        <div class="col">{$_('about.email_feedback')}
+        <div class="col">{$_('about.email_feedback')}</div>
+        <div class="col">
+          <center>
           <a href='mailto:{feedbackEmail}'>{feedbackEmail}</a>
+          </center>
         </div>
-        <div class="col"><a href=#>{$_('about.share')}</a></div>
+        <div class="col">
+          <a href=#>{$_('about.share')}</a>
+        </div>
       </div>
     </div>  
     <div class="footer-popup">
       <span>{$_('about.version')} {version}</span>
-      <span>Copyright &copy; Learn English Words 2020</span>
+      <span>Copyright &copy; LearnEnglishWords 2020</span>
     </div>
 </Popup>
 
