@@ -8,7 +8,7 @@ var cordovaApp = {
     if (!window.navigator.splashscreen || f7.device.electron) return;
     setTimeout(() => {
       window.navigator.splashscreen.hide();
-    }, 1000);
+    }, 3000);
   },
   /*
   This method prevents back button tap to exit from app on android.
