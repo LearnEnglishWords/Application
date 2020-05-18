@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="item-inner">
-            <div class="item-title">{{word.text}}</div>
+            <div class="item-title play-sound">{{word.text}}</div>
             <div class="item-after">
               <div slot="after">
                 <label class="item-checkbox item-content">

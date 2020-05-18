@@ -803,7 +803,7 @@ input.translate {
 .content-mode {
   position: absolute;
   bottom: 0;
-  top: calc(25vh + (calc(var(--f7-navbar-height) + var(--f7-safe-area-top))) + 2em);
+  top: calc(25vh + (calc(var(--f7-navbar-height) + var(--f7-safe-area-top))) + 2em + 24px);
   text-align: center;
   background: var(--app-element);
   width: 100%;
@@ -925,7 +925,7 @@ input.translate {
 }
 
 .count-word {
-  margin-bottom: 1em;
+  margin: 1em;
   display: block;
   color: var(--app-text);
   font-size: 16px;
