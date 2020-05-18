@@ -82,14 +82,15 @@
   }
 
   function check() {
-    //if (translatedText === "") { return }
-    if (translatedText.toLowerCase() === word.text.toLowerCase()) {
-      result = true;
-      dispatch('updateWord', {word: word, state: true});
-    } else {
-      result = false;
-      dispatch('updateWord', {word: word, state: false});
-    }
+    setTimeout(() => { 
+      if (translatedText.toLowerCase() === word.text.toLowerCase()) {
+        result = true;
+        dispatch('updateWord', {word: word, state: true});
+      } else {
+        result = false;
+        dispatch('updateWord', {word: word, state: false});
+      }
+    }, 200);
   }
 
   function checkButton() {
