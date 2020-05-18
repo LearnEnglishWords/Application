@@ -370,6 +370,15 @@
       stroke: #FFF;
     }
   }
+
+  &-happy-sun {
+    circle:nth-child(1), line, path {
+      stroke: white;
+    }
+    circle:nth-child(11), circle:nth-child(12) {
+      fill: white;
+    }
+  }
 }
 
 .icon-16 {

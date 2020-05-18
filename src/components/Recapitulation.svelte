@@ -1,7 +1,7 @@
 {#if successInPercent > 80}    <!-- Udelat zelene -->
 <div class="read-mode without recap">
-  <div class="read-div">
-    <div class="title-recapitulation great"><SVGIcon name="laugh-17" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
+  <div class="read-div"> <!-- DEFAULT SVG: laugh-17 -->
+    <div class="title-recapitulation great"><SVGIcon name="happy-sun" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
   </div>
 </div>
 {:else if successInPercent > 60}   <!-- Udelat svetle zelene -->

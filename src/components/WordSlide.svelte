@@ -31,6 +31,7 @@
           </div>
         </div>
         <div class="content-mode">
+          <span class="count-word">{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
           <div class="other-div">
             <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
             {#if result !== null && !result}
@@ -61,6 +62,7 @@
   import SVGIcon from './SVGIcon.svelte';
   import { statisticsData, settingsData } from '../js/store.js';
   import { playTextSound } from '../js/utils.js';
+  import { trainingData } from '../js/store.js';
 
   export let word;
   export let mode;

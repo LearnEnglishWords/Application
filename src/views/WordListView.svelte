@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <div class="page-title">{$_('words_list.info')}</div>
-    <List class="list-container list-words virtual-list media-list">
+    <List class="list-container virtual-list list-words">
     
     </List>
     {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
@@ -72,15 +72,23 @@
       items: allWords,
       itemTemplate:
       `<li class="list-item word-item">
-        <div class="item-inner">
-         <div class="item-title">     
-           <label class="item-checkbox">
-             <input type="checkbox" {{checked}} class="wordbox">
-             <i class="icon icon-checkbox"></i>
-            {{word.text}}
-           </label>
-           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="24" height="24" class="mode-icon icon-24-volume play-sound" stroke-width="2"><g transform="translate(0, 0)"><polygon stroke-linecap="square" stroke-miterlimit="10" points="14,22 6,16 1,16 1,8 6,8 14,2" stroke-linejoin="miter"></polygon><line stroke-linecap="square" stroke-miterlimit="10" x1="19" y1="12" x2="23" y2="12" stroke-linejoin="miter"></line><line stroke-linecap="square" stroke-miterlimit="10" x1="17.7" y1="7" x2="21.1" y2="5" stroke-linejoin="miter"></line><line stroke-linecap="square" stroke-miterlimit="10" x1="17.7" y1="17" x2="21.1" y2="19" stroke-linejoin="miter"></line></g></svg></div>     
-         </div>
+        <div class="list-item item-content">
+          <div class="list-media">
+            <div slot="media" class="item-media">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="24" height="24" class="mode-icon icon-24-volume play-sound" stroke-width="2"><g transform="translate(0, 0)"><polygon stroke-linecap="square" stroke-miterlimit="10" points="14,22 6,16 1,16 1,8 6,8 14,2" stroke-linejoin="miter"></polygon><line stroke-linecap="square" stroke-miterlimit="10" x1="19" y1="12" x2="23" y2="12" stroke-linejoin="miter"></line><line stroke-linecap="square" stroke-miterlimit="10" x1="17.7" y1="7" x2="21.1" y2="5" stroke-linejoin="miter"></line><line stroke-linecap="square" stroke-miterlimit="10" x1="17.7" y1="17" x2="21.1" y2="19" stroke-linejoin="miter"></line></g></svg>    
+            </div>
+          </div>
+          <div class="item-inner">
+            <div class="item-title">{{word.text}}</div>
+            <div class="item-after">
+              <div slot="after">
+                <label class="item-checkbox item-content">
+                  <input type="checkbox" {{checked}} class="wordbox">
+                  <i class="icon icon-checkbox"></i>
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
       </li>`,
       //height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),

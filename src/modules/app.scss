@@ -924,6 +924,13 @@ input.translate {
   }
 }
 
+.count-word {
+  margin-bottom: 1em;
+  display: block;
+  color: var(--app-text);
+  font-size: 16px;
+  font-weight: 600;
+}
 .collection-list {
   margin: 0 1em;
   .item-title {
@@ -1014,16 +1021,26 @@ input:focus::placeholder {
 
 .word-button {
   margin: 1em;
-  background: var(--app-warning);
-  box-shadow: 0 0 0.25em var(--app-warning);
+  background: var(--app-primary);
+  box-shadow: 0 0 0.25em var(--app-primary);
 
 }
 
 .list-words {
   overflow: auto;
-  --f7-touch-ripple-color: transparent;
+  --f7-touch-ripple-color: transparent !important;
   svg {
     float: right;
+  }
+  .item-checkbox {
+    padding-left: 0!important;
+    --f7-touch-ripple-color: transparent !important;
+    &.active-state {
+      background: white;
+    }
+  }
+  .icon-checkbox {
+    margin-right: 0 !important;
   }
 }
 
