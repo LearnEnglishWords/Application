@@ -30,8 +30,8 @@
             </div>
           </div>
         </div>
+        <span class="count-word">{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
         <div class="content-mode">
-          <span class="count-word">{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
           <div class="other-div">
             <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
             {#if result !== null && !result}
