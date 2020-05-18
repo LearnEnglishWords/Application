@@ -327,61 +327,58 @@
   }
 }
 
-.icon-32  {
 
-  &-smile {
+.icon-32 {
+
+  &-laugh-17 {
     circle, path {
       stroke: #FFF;
     }
-    circle:nth-child(3) {
-      stroke: transparent;
+  }
+  &-wink-06 {
+    circle:nth-child(1) {
+      stroke: white;
     }
-    circle:nth-child(5), circle:nth-child(6) {
-      fill: #FFF;
+    circle:nth-child(2) {
+      fill: white;
+    }
+    line, path {
+      stroke: white;
     }
   }
-  
-  &-sad {
-    circle:nth-child(1), circle:nth-child(2) {
-      stroke: #FFF;
-    }
-    circle:nth-child(3) {
+
+  &-puzzled {
+    line, circle:nth-child(1) {
       stroke: white;
     }
     circle:nth-child(2), circle:nth-child(3) {
       fill: white;
+    }
+  }
+
+  &-disgusted {
+    circle:nth-child(1), polyline {
+      stroke: #FFF;
+    }
+    circle:nth-child(2), circle:nth-child(3) {
+      fill: white;
+    }
+  }
+
+  &-dizzy-face {
+    circle, line {
+      stroke: #FFF;
+    }
+  }
+}
+
+.icon-16 {
+  &-sound {
+    polygon {
+      stroke: var(--app-icon);
     }
     path {
-      stroke: white;
-    }
-    circle:nth-child(5), circle:nth-child(6) {
-      fill: white;
-    }
-  }
-
-  &-speechless {
-    line {
-      stroke: #FFF;
-    }
-    circle:nth-child(2), circle:nth-child(3) {
-      stroke: #FFF;
-    }
-    circle:nth-child(4) {
-      stroke: transparent;
-    }
-    circle:nth-child(5), circle:nth-child(6) {
-      fill: #FFF;
-    }
-  }
-
-  .icon-16 {
-    &-sound {
-      polygon {
-        stroke: var(--app-icon);
-      }
-      path {
-        stroke: var(--app-primary);
-      }
+      stroke: var(--app-primary);
     }
   }
 }

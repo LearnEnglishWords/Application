@@ -4,9 +4,11 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <div class="page-title">{$_('words_list.info')}</div>
-    <List class="list-container list-words virtual-list media-list"></List>
+    <List class="list-container list-words virtual-list media-list">
+    
+    </List>
     {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
-      <Button on:click={loadNextWords}>
+      <Button class="word-button button-next" on:click={loadNextWords}>
         {$_('words_list.next_button')}
       </Button>
     {/if}
@@ -81,7 +83,7 @@
          </div>
         </div>
       </li>`,
-      height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),
+      //height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),
     });
 
     virtualList.$el.on('click', '.word-item', function (e) {

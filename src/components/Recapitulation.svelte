@@ -1,31 +1,31 @@
 {#if successInPercent > 80}    <!-- Udelat zelene -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation right"><SVGIcon name="smile" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
+    <div class="title-recapitulation great"><SVGIcon name="laugh-17" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
   </div>
 </div>
 {:else if successInPercent > 60}   <!-- Udelat svetle zelene -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.good')}</div>
+    <div class="title-recapitulation good"><SVGIcon name="wink-06" size="32"/>{$_('recapitulation.score.good')}</div>
   </div>
 </div>
 {:else if successInPercent > 40}  <!-- Udelat zlute -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.ok')}</div>
+    <div class="title-recapitulation ok"><SVGIcon name="puzzled" size="32"/>{$_('recapitulation.score.ok')}</div>
   </div>
 </div>
 {:else if successInPercent > 20}  <!-- Udelat oranzove -->
 <div class="read-mode without recap">
   <div class="read-div">
-    <div class="title-recapitulation neutral"><SVGIcon name="speechless" size="32"/>{$_('recapitulation.score.bad')}</div>
+    <div class="title-recapitulation bad"><SVGIcon name="disgusted" size="32"/>{$_('recapitulation.score.bad')}</div>
   </div>
 </div>
 {:else}
 <div class="read-mode without recap">
   <div class="read-div">          <!-- Udelat cervene -->
-    <div class="title-recapitulation wrong"><SVGIcon name="sad" size="32"/>{$_('recapitulation.score.horrible')}</div>
+    <div class="title-recapitulation horrible"><SVGIcon name="dizzy-face" size="32"/>{$_('recapitulation.score.horrible')}</div>
   </div>
 </div>
 {/if}

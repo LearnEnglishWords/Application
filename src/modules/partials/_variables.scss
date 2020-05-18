@@ -13,7 +13,13 @@ $app-global: (
   "transition-property": "all",
   "transition-duration": "300ms",
   "transition-timing-function": "ease-in-out",
-  "transition-delay": "0ms"
+  "transition-delay": "0ms",
+
+  "recap-horrible": "#FF4929",
+  "recap-bad": "#ffb629",
+  "recap-ok": "violet",
+  "recap-good": "#89e889",
+  "recap-great": "#29DB29"
 );
 
 $global-theme: (

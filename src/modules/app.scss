@@ -898,17 +898,25 @@ input.translate {
   color: #FFF;
   border-radius: 15px 15px 0 0;
   padding: 1em;
-  &.wrong {
-    background: var(--app-error);
-    box-shadow: 0 0 0.25em var(--app-error);
+  &.horrible {
+    background: var(--app-recap-horrible);
+    box-shadow: 0 0 0.25em var(--app-recap-horrible);
   }
-  &.right {
-    background: var(--app-success);
-    box-shadow: 0 0 0.25em var(--app-success);
+  &.bad {
+    background: var(--app-recap-bad);
+    box-shadow: 0 0 0.25em var(--app-recap-bad);
   }
-  &.neutral {
-    background: var(--app-warning);
-    box-shadow: 0 0 0.25em var(--app-warning);
+  &.ok {
+    background: var(--app-recap-ok);
+    box-shadow: 0 0 0.25em var(--app-recap-ok);
+  }
+  &.good {
+    background: var(--app-recap-good);
+    box-shadow: 0 0 0.25em var(--app-recap-good);
+  }
+  &.great {
+    background: var(--app-recap-great);
+    box-shadow: 0 0 0.25em var(--app-recap-great);
   }
   svg {
     display: block;
@@ -1004,11 +1012,21 @@ input:focus::placeholder {
   }
 }
 
+.word-button {
+  margin: 1em;
+  background: var(--app-warning);
+  box-shadow: 0 0 0.25em var(--app-warning);
+
+}
+
 .list-words {
+  overflow: auto;
+  --f7-touch-ripple-color: transparent;
   svg {
     float: right;
   }
 }
+
 
 .popup-content {
   padding: 0 1em;
