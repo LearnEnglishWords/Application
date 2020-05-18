@@ -91,7 +91,7 @@
           </div>
         </div>
       </li>`,
-      //height: f7.theme === 'ios' ? 50 : (f7.theme === 'md' ? 60 : 33),
+      height: f7.theme === 'ios' ? 58 : (f7.theme === 'md' ? 68 : 41),
     });
 
     virtualList.$el.on('click', '.word-item', function (e) {
