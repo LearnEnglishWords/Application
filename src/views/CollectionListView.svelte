@@ -177,7 +177,7 @@
 
     isLoading = false;
     collectionData.set(selectedCollection);
-    selectedCollection.updateKnownWords().then(() => {
+    selectedCollection.updateLearningWords().then(() => {
       if (coreCollections.includes(selectedCollection.id)) {
         selectedCollection.categoryGroup.loadStatistics();
         categoryGroupData.set(selectedCollection.categoryGroup);

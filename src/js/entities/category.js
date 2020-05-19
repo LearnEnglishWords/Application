@@ -1,4 +1,3 @@
-import { get } from 'svelte/store';
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
 import { statisticsData, trainingModeStatisticsData, allKnownWordsData } from '../store.js';
@@ -35,54 +34,6 @@ export default class Category {
 
   loadStatistics() {
     return this.statistics.load();
-  }
-
-  _getKnownWordsData() {
-    let knownWordsData = { "all": [], "read": [], "write": [], "listen": [] };
-    for (let mode of trainingModes) {
-      knownWordsData[mode.value] = this._getAllKnownWords(mode.value);
-    }
-
-    this._reformatKnownWordsData(knownWordsData);
-    return knownWordsData
-  }
-
-  _getAllKnownWords(mode) {
-    let tmpWordIds = [];
-    let wordStorage = this.wordStorages[mode];
-    let allKnownWordIds = get(allKnownWordsData)[mode]
-    for (let wordId of allKnownWordIds) {
-      if (wordStorage.allWordIds.includes(wordId)) {
-        tmpWordIds.push(wordId);
-      }
-    }
-    return tmpWordIds
-  }
-
-  _reformatKnownWordsData(knownWordsData) {
-    for (let wordId of knownWordsData["read"]) {
-      if (knownWordsData["write"].includes(wordId) && knownWordsData["listen"].includes(wordId)) {
-        knownWordsData["all"].push(wordId);
-      }
-    }
-
-    for (let mode of trainingModes) {
-      knownWordsData[mode.value] = knownWordsData[mode.value].filter((wordId) => !knownWordsData["all"].includes(wordId));
-    }
-  }
-
-  updateKnownWords() {
-    return new Promise((resolve) => {
-      let knownWordsData = this._getKnownWordsData();
-
-      this.statistics.updateKnownWords(this.wordStorages, knownWordsData).then(() => {
-        for (let mode of trainingModes) {
-          let allModeWordIds = knownWordsData[mode.value].concat(knownWordsData["all"]);
-          this.wordStorages[mode.value].update([], allModeWordIds, false);
-        }
-        resolve();
-      });
-    });
   }
 
   updateStatistics(word, prevLearningState) {

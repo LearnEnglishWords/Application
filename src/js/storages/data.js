@@ -28,12 +28,12 @@ export default class DataStorage {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`);
   }
 
-  static saveAllKnownWords(mode, wordIds) {
-    return DataStorage.saveWordIdsList('all', 'knownWords', wordIds, WordsType.KNOWN, mode)
+  static saveAllLearningWords(type, mode, wordIds) {
+    return DataStorage.saveWordIdsList('all', 'learningWords', wordIds, type, mode)
   }
 
-  static getAllKnownWords(mode) {
-    return DataStorage.getWordIdsList('all', 'knownWords', WordsType.KNOWN, mode)
+  static getAllLearningWords(type, mode) {
+    return DataStorage.getWordIdsList('all', 'learningWords', type, mode)
   }
 
   static saveWord(wordId, word) {

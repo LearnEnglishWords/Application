@@ -24,9 +24,9 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData, AppInfo, setActivity, trainingModes } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo, setActivity, trainingModes, WordsType } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
-  import { settingsData, deviceUUID, allKnownWordsData } from '../js/store.js';
+  import { settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
 
 
   // internationalization init:
@@ -88,9 +88,14 @@
         });
 
         trainingModes.forEach((mode) => {
-          DS.getAllKnownWords(mode.value).then((data) => { 
+          DS.getAllLearningWords(WordsType.KNOWN, mode.value).then((data) => { 
             if (data !== null) {
               $allKnownWordsData[mode.value] = data;
+            }
+          });
+          DS.getAllLearningWords(WordsType.NOT_KNOWN, mode.value).then((data) => { 
+            if (data !== null) {
+              $allNotKnownWordsData[mode.value] = data;
             }
           });
         });

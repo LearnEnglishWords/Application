@@ -1,5 +1,5 @@
 import DS from '../storages/data.js';
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode, trainingModes } from '../utils.js'
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, isKnownForMode, trainingModes, WordsType } from '../utils.js'
 
 export class Stats {
   constructor(stats) {
@@ -32,37 +32,61 @@ export class Stats {
     this[prevState] -= 1;
   }
 
-  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateLearningWords(type, wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
     return new Promise((resolve) => {
       var isKnownForMode = (mode, wordId) => { return !wordStorageIds[mode].getWordIds().includes(wordId) };
 
       let allLearningWordIds = new Set(data["read"].concat(data["write"]).concat(data["listen"]));
       let learningNum = allLearningWordIds.size;
-      let knownNum = data["all"].length;
+      let knownNum = 0;
+      let notKnownNum = 0;
+
+      switch (type) {
+        case WordsType.KNOWN: 
+          knownNum = data["all"].length;
+          break;
+        case WordsType.NOT_KNOWN: 
+          notKnownNum = data["all"].length;
+          break;
+      }
 
       if (learningNum === 0) {
         this.known += knownNum;
         this.unknown -= knownNum;
+        this.known -= notKnownNum;
+        this.unknown += notKnownNum;
         resolve();
       }
 
       let counter = 0;
       for (let wordId of allLearningWordIds) {
         DS.getWord(wordId).then((word) => {
-          switch(this._getStateFromWord(word)) {
-            case "known":
-              learningNum -= 2;
-              knownNum += 1;
-              break;
-            case "learning":
-              if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
-                learningNum -= 1;
-              }
-              break;
-            case "unknown":
-              learningNum -= 2;
-              break;
-          } 
+          if (type === WordsType.KNOWN) {
+            switch(this._getStateFromWord(word)) {
+              case "known":
+                if (type === WordsType.KNOWN) {
+                  learningNum -= 2;
+                  knownNum += 1;
+                }
+                break;
+              case "learning":
+                if(isKnownForMode("read", wordId) || isKnownForMode("write", wordId) || isKnownForMode("listen", wordId)) {
+                  if (type === WordsType.KNOWN) {
+                    learningNum -= 1;
+                  }
+                  if (type === WordsType.NOT_KNOWN) {
+                    learningNum += 1;
+                  }
+                }
+                break;
+              case "unknown":
+                if (type === WordsType.NOT_KNOWN) {
+                  learningNum += 2;
+                  knownNum -= 1;
+                }
+                break;
+            } 
+          }
           if (++counter === allLearningWordIds.size) {
             this.learning += learningNum;
             this.known += knownNum;
@@ -126,11 +150,19 @@ export class ModeStats {
     }
   }
 
-  updateKnownWords(data = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateLearningWords(type, data = { "all": [], "read": [], "write": [], "listen": [] }) {
     trainingModes.forEach((mode) => {
       let num = data[mode.value].length + data["all"].length;
-      this[mode.value].known += num;
-      this[mode.value].unknown -= num;
+      switch (type) {
+        case WordsType.KNOWN:
+          this[mode.value].known += num;
+          this[mode.value].unknown -= num;
+          break;
+        case WordsType.NOT_KNOWN:
+          this[mode.value].known -= num;
+          this[mode.value].unknown += num;
+          break;
+      }
     });
   }
 
@@ -175,10 +207,10 @@ export default class Statistics {
     this.save();
   }
 
-  updateKnownWords(wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
+  updateLearningWords(type, wordStorageIds, data = { "all": [], "read": [], "write": [], "listen": [] }) {
     return new Promise((resolve) => {
-      this.stats.updateKnownWords(wordStorageIds, data).then(() => {
-        this.modeStats.updateKnownWords(data);
+      this.stats.updateLearningWords(type, wordStorageIds, data).then(() => {
+        this.modeStats.updateLearningWords(type, data);
         this.save();
         resolve();
       });

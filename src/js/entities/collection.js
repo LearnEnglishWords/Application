@@ -3,6 +3,7 @@ import { get } from 'svelte/store';
 import DS from '../storages/data.js';
 import CategoryGroup from './category-group.js';
 import Category from './category.js';
+import WordUpdater from './word-updater.js';
 
 export default class Collection {
   constructor(id, name, active, parentCollection = null) {
@@ -36,10 +37,10 @@ export default class Collection {
     return !(modeStats.read.known === 0 && modeStats.read.unknown === 0)
   }
 
-  updateKnownWords() {
+  updateLearningWords() {
     return new Promise((resolve) => {
       this.categoryGroup.categories.forEach((category, index) => {
-        category.updateKnownWords().then(() => {
+        WordUpdater.updateLearningWords(category).then(() => {
           if(index+1 === this.categoryGroup.categories.length) {
             resolve();
           }
