@@ -136,7 +136,8 @@
       let word = allWords.find((item) => item.word.text === wordId).word;
       if (!isKnown(word)) {
         let prevLearningState = {...word.learning};
-        word.learning = {"read": true, "write": true, "listen": true};
+        word.known = {"read": true, "write": true, "listen": true};
+        word.knownStage = 10;
         WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
@@ -150,6 +151,7 @@
         let prevLearningState = {...word.learning};
 
         word.learning = {"read": false, "write": false, "listen": false};
+        word.knownStage = 0;
         WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );

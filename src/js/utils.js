@@ -47,6 +47,19 @@ export function isKnown(word) {
   }
 }                   
 
+export function updateKnownStage(word) {
+  if (word.known === undefined || Object.keys(word.known).length === 0) { return KnownStages.UNKNOWN }
+  if (isKnown(word)) {
+    word.knownStage += KnownStages.KNOWN;
+    if (word.knownStage === KnownStages.KNOWN) {
+      word.knownDate = new Date().now();
+    }
+    return word.knownStage
+  } else {
+    return KnownStages.NOT_KNOWN
+  }
+}                   
+
 export function getState(word) {
   if (word.learning === undefined || Object.keys(word.learning).length === 0 || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
     return "unknown"
@@ -118,6 +131,14 @@ export const Modes = {
     READ: 'read',
     WRITE: 'write',
     LISTEN: 'listen'
+}
+
+export const KnownStages = {
+    UNKNOWN: 0,
+    NOT_KNOWN: 0,
+    KNOWN: 3,
+    MIDDLE_KNOWN: 6,
+    HARD_KNOWN: 10
 }
 
 export const AppInfo = {
