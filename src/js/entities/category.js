@@ -1,7 +1,7 @@
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
 import { statisticsData, trainingModeStatisticsData } from '../store.js';
-import { trainingModes } from '../utils.js';
+import { trainingModes, KnownStages } from '../utils.js';
 
 
 export default class Category {
@@ -17,12 +17,14 @@ export default class Category {
       'read': new WordsStorage(collectionId, id, 'read', 100),
       'write': new WordsStorage(collectionId, id, 'write', 100),
       'listen': new WordsStorage(collectionId, id, 'listen', 100),
+      'known': new WordsStorage(collectionId, id, 'known', 10000)
     };
     this.statistics = new Statistics(this.collectionId, this.id);
   }
 
   loadWordIds() {
     this.wordStorages['all'].loadIds(false);
+    this.wordStorages['known'].loadIds(false);
     trainingModes.forEach((mode) => {
       this.wordStorages[mode.value].loadIds(false);
     });
@@ -48,5 +50,15 @@ export default class Category {
   //  allKnownWordsData.updateData(mode, removeWords, []);
   //  allNotKnownWordsData.updateData(mode, addWords, removeWords);
   //}
+
+  updateKnownWordList(word) {
+    if (word.knownStage === KnownStages.UNKNOWN || word.knownStage === KnownStages.NOT_KNOWN) {
+      this.wordStorages['known'].removeWord(word);
+    } else if (word.knownStage < KnownStages.HARD_KNOWN) {
+      this.wordStorages['known'].addWord(word);
+    } else {
+      this.wordStorages['known'].removeWord(word);
+    }
+  }
 }
 

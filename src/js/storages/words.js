@@ -1,5 +1,5 @@
 import DS from './data.js';
-import { WordsType } from '../utils.js';
+import { WordsType, KnownStages } from '../utils.js';
 
 
 export default class WordsStorage {
@@ -43,7 +43,7 @@ export default class WordsStorage {
   loadWords(from = 0, to = this.maxAmount) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
       DS.getWord(wordId).then((word) => {
-        if (this._getWordIndex(word) === null) {
+        if (this._getWordIndex(word) === null && word.knownStage <= KnownStages.MEDIUM_KNOWN) {
           this._pushWord(word);
         }
       });
