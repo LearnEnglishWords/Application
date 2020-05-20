@@ -37,7 +37,7 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, getState, trainingModes, playTextSound } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound, KnownStages } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
@@ -137,7 +137,7 @@
       if (!isKnown(word)) {
         let prevLearningState = {...word.learning};
         word.known = {"read": true, "write": true, "listen": true};
-        word.knownStage = 10;
+        word.knownStage = KnownStages.HARD_KNOWN;
         WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
@@ -151,7 +151,7 @@
         let prevLearningState = {...word.learning};
 
         word.learning = {"read": false, "write": false, "listen": false};
-        word.knownStage = 0;
+        word.knownStage = KnownStages.NOT_KNOWN;
         WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );
