@@ -54,7 +54,7 @@ export default class Category {
   updateKnownWordList(word) {
     if (word.knownStage === KnownStages.UNKNOWN || word.knownStage === KnownStages.NOT_KNOWN) {
       this.wordStorages['known'].removeWord(word);
-    } else if (word.knownStage < KnownStages.HARD_KNOWN) {
+    } else if (word.knownStage <= KnownStages.MEDIUM_KNOWN) {
       this.wordStorages['known'].addWord(word);
     } else {
       this.wordStorages['known'].removeWord(word);

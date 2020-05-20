@@ -12,21 +12,6 @@ function getCurrentCategory() {
   return currentCategory
 }
 
-function updateKnownWord(word) {
-  if (word.known === undefined || Object.keys(word.known).length === 0) { 
-    word.knownStage = KnownStages.UNKNOWN;
-  }
-
-  if (isKnown(word)) {
-    word.knownStage += KnownStages.KNOWN;
-    if (word.knownStage === KnownStages.KNOWN) {
-      word.knownDate = new Date().now();
-    }
-    getCurrentCategory().updateKnownWordList(word);
-  } else {
-    word.knownStage = KnownStages.NOT_KNOWN;
-  }
-}                   
 
 
 export default class WordUpdater {
@@ -34,10 +19,21 @@ export default class WordUpdater {
     var currentCategory = getCurrentCategory();
     currentCategory.updateStatistics(word, prevLearningState);
 
-    updateKnownWord(word);
-
-    return DS.saveWord(word.text, word);
+    return DS.saveWord(word.text, word)
   }
+
+  static updateKnownWord(word) {
+    if (isKnown(word)) {
+      word.knownStage += KnownStages.KNOWN;
+      if (word.knownStage === KnownStages.KNOWN) {
+        word.knownDate = Date.now();
+      }
+      getCurrentCategory().updateKnownWordList(word);
+    } else {
+      word.knownStage = KnownStages.NOT_KNOWN;
+    }
+    DS.saveWord(word.text, word);
+  }                   
 
   static updateLearningWords(category) {
     return new Promise((resolve) => {

@@ -74,6 +74,7 @@ export default class CollectionStorage {
     Object.values(Modes).forEach((value) => {
       DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN, value);
     });
+    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.NOT_KNOWN, Modes.KNOWN);
 
     DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL, Modes.ALL).then(() => {
       words.forEach((word) => {

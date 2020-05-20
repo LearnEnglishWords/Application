@@ -62,14 +62,16 @@
         </ListItem>
       </List>
       <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
-      <Button class="page-button button-repeat" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_repeat')}</Button>
+      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
+        <Button class="page-button button-repeat" on:click={() => goToTrainingView(false, true)}>{$_('category.buttons.start_repeat')}</Button>
+      {/if}
     </div>
   </div>
   <!-- Footer -->
   <div class="footer-container footer-double">
     <div class="footer-content">
-        <Button class="page-button button-training" on:click={() => goToTrainingView(true)}>{$_('category.buttons.start_training')}</Button>
-        <Button class="page-button button-practice" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_testing')}</Button>
+        <Button class="page-button button-training" on:click={() => goToTrainingView(true, false)}>{$_('category.buttons.start_training')}</Button>
+        <Button class="page-button button-practice" on:click={() => goToTrainingView(false, false)}>{$_('category.buttons.start_testing')}</Button>
     </div>
   </div> 
 </Page>
@@ -157,8 +159,11 @@
     });
   }
 
-  function goToTrainingView(isTraining) {
+  function goToTrainingView(isTraining, repetition = false) {
     f7.preloader.show();
+    if (repetition) {
+      currentWordStorage = $categoryDetailData.wordStorages["known"];
+    }
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
