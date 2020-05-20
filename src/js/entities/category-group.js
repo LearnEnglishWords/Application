@@ -61,7 +61,10 @@ export default class CategoryGroup {
   updateWords(mode, addWords, removeWords) {
     this.mainCategory.wordStorages[mode].update(addWords, removeWords);
     this.categories.forEach((category) => { 
-      category.wordStorages[mode].update(addWords, removeWords);
+      category.wordStorages[mode].update(
+        addWords.filter((wordId) => category.wordStorages['all'].includes(wordId)), 
+        removeWords
+      );
     });
     allKnownWordsData.updateData(mode, removeWords, []);
     allNotKnownWordsData.updateData(mode, addWords, removeWords);
