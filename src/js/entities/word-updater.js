@@ -65,15 +65,17 @@ export class LearningWordsUpdater {
 
   _getAllLearningWords(type, mode) {
     let tmpWordIds = [];
-    let wordStorage = this.category.wordStorages[mode];
     let allLearningWordIds = []
+    let wordStorage;
 
     switch(type) {
       case WordsType.KNOWN: 
         allLearningWordIds = get(allKnownWordsData)[mode]
+        wordStorage = this.category.wordStorages[mode]
         break;
       case WordsType.NOT_KNOWN: 
         allLearningWordIds = get(allNotKnownWordsData)[mode]
+        wordStorage = this.category.wordStorages['all']
         break;
     }
 

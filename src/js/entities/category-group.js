@@ -62,7 +62,7 @@ export default class CategoryGroup {
     this.mainCategory.wordStorages[mode].update(addWords, removeWords);
     this.categories.forEach((category) => { 
       category.wordStorages[mode].update(
-        addWords.filter((wordId) => category.wordStorages['all'].includes(wordId)), 
+        addWords.filter((wordId) => category.wordStorages['all'].getWordIds().includes(wordId)), 
         removeWords
       );
     });
