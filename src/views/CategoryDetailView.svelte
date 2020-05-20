@@ -62,6 +62,7 @@
         </ListItem>
       </List>
       <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
+      <Button class="page-button button-repeat" on:click={() => goToTrainingView(false)}>{$_('category.buttons.start_repeat')}</Button>
     </div>
   </div>
   <!-- Footer -->
