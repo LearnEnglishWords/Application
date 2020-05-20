@@ -17,6 +17,7 @@ export default class DataStorage {
       alert(`WordIdsList cannot be saved with Mode: '${mode}' and WordType: '${type}'`)
       return 
     }
+    if (collectionId === undefined || categoryId === null) { return }
     return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`, words);
   }
 
