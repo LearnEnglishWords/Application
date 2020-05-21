@@ -51,6 +51,7 @@ export default class WordsStorage {
   }
 
   isLoaded(amount) {
+    //alert(JSON.stringify(`${this.loadedWordsCounter} === ${this.allWordIds.length} || ${this.loadedWordsCounter} >= ${amount}`, null, 2))
     return this.loadedWordsCounter === this.allWordIds.length || this.loadedWordsCounter >= amount
   }
 

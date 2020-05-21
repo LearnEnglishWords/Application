@@ -42,7 +42,7 @@
         {/each}
       </div>
       <!-- Title -->
-      <div class="page-title">{$_('category.words_limit')}</div>
+      <div class="page-title"></div>
       <!-- Stepper -->
       <List class="list-container list-stepper">
         <ListItem class="list-item" title="{$_('category.words_title')}">
@@ -159,11 +159,9 @@
     });
   }
 
-  function goToTrainingView(isTraining, repetition = false) {
+  function goToTrainingView(isTraining, repetition) {
     f7.preloader.show();
-    if (repetition) {
-      currentWordStorage = $categoryDetailData.wordStorages["known"];
-    }
+    currentWordStorage = $categoryDetailData.wordStorages[repetition ? "known" : modeType];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
@@ -172,7 +170,7 @@
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView(isTraining) }, 1000);
+      setTimeout(() => { goToTrainingView(isTraining, repetition) }, 1000);
     }
   }
 

@@ -28,10 +28,10 @@ export default class WordUpdater {
       if (word.knownStage === KnownStages.KNOWN) {
         word.knownDate = Date.now();
       }
-      getCurrentCategory().updateKnownWordList(word);
     } else {
       word.knownStage = KnownStages.NOT_KNOWN;
     }
+    getCurrentCategory().updateKnownWordList(word);
     DS.saveWord(word.text, word);
   }                   
 

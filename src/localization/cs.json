@@ -60,7 +60,7 @@
   },
   "category": {
       "select_categories": "Vyberte si kategorie",
-      "training_title": "Zvolte si druh cvičení",
+      "training_title": "Nastavení cvičení:",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": {
