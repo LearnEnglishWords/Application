@@ -457,6 +457,11 @@ svg {
       @include button($type: "practice", $pattern: "true");
     }  
 
+    &.#{$type}-repeat {
+      @include button($type: "repeat", $pattern: "true");
+      margin: 1em 1em 0;
+    }  
+
     &.#{$type}-show {
       @include button($type: "show", $pattern: "true");
       margin: 1em 1em 0;

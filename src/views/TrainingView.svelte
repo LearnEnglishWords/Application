@@ -183,11 +183,14 @@
         word.learning[$trainingData.mode] = state;
 
         WordUpdater.update(word, prevLearningState);
+        WordUpdater.updateKnownWord(word);
 
         let currentCategory = $categoryGroupData;
         if (currentCategory === null) { currentCategory = $categoryDetailData }
         currentCategory.updateWords($trainingData.mode, [], [word.text]);
       });
+    } else {
+      WordUpdater.updateKnownWord(word);
     }
   }
 

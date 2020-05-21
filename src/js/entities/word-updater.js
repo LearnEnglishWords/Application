@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import DS from '../storages/data.js';
 import { categoryDetailData, categoryGroupData, allKnownWordsData, allNotKnownWordsData } from '../store.js';
-import { WordsType, trainingModes } from '../utils.js';
+import { WordsType, trainingModes, KnownStages, isKnown } from '../utils.js';
 
 
 function getCurrentCategory() {
@@ -13,13 +13,27 @@ function getCurrentCategory() {
 }
 
 
+
 export default class WordUpdater {
   static update(word, prevLearningState) {
     var currentCategory = getCurrentCategory();
     currentCategory.updateStatistics(word, prevLearningState);
 
-    return DS.saveWord(word.text, word);
+    return DS.saveWord(word.text, word)
   }
+
+  static updateKnownWord(word) {
+    if (isKnown(word)) {
+      word.knownStage += KnownStages.KNOWN;
+      if (word.knownStage === KnownStages.KNOWN) {
+        word.knownDate = Date.now();
+      }
+      getCurrentCategory().updateKnownWordList(word);
+    } else {
+      word.knownStage = KnownStages.NOT_KNOWN;
+    }
+    DS.saveWord(word.text, word);
+  }                   
 
   static updateLearningWords(category) {
     return new Promise((resolve) => {

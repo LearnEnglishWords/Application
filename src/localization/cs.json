@@ -74,6 +74,7 @@
       "words": "slov",
       "buttons": {
           "words_list": "Zobrazit seznam všech slov",
+          "start_repeat": "Zopakovat si již naučená slovíčka",
           "start_training": "Trénovat",
           "start_testing": "Otestovat"
       }
