@@ -80,7 +80,7 @@
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, isKnownForMode, getState, playTextSound, shuffle, WordsType } from '../js/utils.js'
+  import { isKnownForMode, getState, playTextSound, shuffle, WordsType } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
