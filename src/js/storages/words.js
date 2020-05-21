@@ -1,5 +1,5 @@
 import DS from './data.js';
-import { WordsType } from '../utils.js';
+import { WordsType, KnownStages } from '../utils.js';
 
 
 export default class WordsStorage {
@@ -43,7 +43,7 @@ export default class WordsStorage {
   loadWords(from = 0, to = this.maxAmount) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
       DS.getWord(wordId).then((word) => {
-        if (this._getWordIndex(word) === null) {
+        if (this._getWordIndex(word) === null && (word.knownStage <= KnownStages.MEDIUM_KNOWN || word.knownStage === undefined)) {
           this._pushWord(word);
         }
       });
@@ -93,19 +93,27 @@ export default class WordsStorage {
   }
 
   _pushWordId(wordId) {
-    this.allWordIds.push(wordId);
-    DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    let index = this.allWordIds.findIndex((id) => id === wordId);
+    if (index === -1) { 
+      this.allWordIds.push(wordId) 
+      DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    }
   }
 
   _pullWordId(wordId) {
     let index = this.allWordIds.findIndex((id) => id === wordId);
-    if (index > -1) { this.allWordIds.splice(index, 1) }
-    DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    if (index > -1) { 
+      this.allWordIds.splice(index, 1) 
+      DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, WordsType.NOT_KNOWN, this.currentMode);
+    }
   }
 
   _pushWord(word) {
-    this.allWords.push(word);
-    this.loadedWordsCounter++;
+    let index = this._getWordIndex(word);
+    if (index === null) { 
+      this.allWords.push(word);
+      this.loadedWordsCounter++;
+    }
   }
 
   _pullWord(word) {

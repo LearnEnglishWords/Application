@@ -70,6 +70,12 @@ export default class CategoryGroup {
   concat(group) {
     group.categories.forEach((category) => this.push(category));
   }
+
+  updateKnownWordList(word) {
+    this.categories.forEach((category) => { 
+      category.updateKnownWordList(word);
+    });
+  }
 }
 
 
