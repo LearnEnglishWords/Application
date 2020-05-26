@@ -49,15 +49,19 @@ export default class CollectionStorage {
         if (word === null) {
           progress(words.length, ++counter);
         } else {
-          word.pronunciation = updatedWord.pronunciation;
-          word.sense = updatedWord.sense;
-          word.examples = updatedWord.examples;
-          word.state = updatedWord.state;
-          word.rank = updatedWord.rank;
+          if (updatedWord.state === "CORRECT") {
+            word.pronunciation = updatedWord.pronunciation;
+            word.sense = updatedWord.sense;
+            word.examples = updatedWord.examples;
+            word.state = updatedWord.state;
+            word.rank = updatedWord.rank;
 
-          DS.saveWord(word.text, word).then(() => { 
+            DS.saveWord(word.text, word).then(() => { 
+              progress(words.length, ++counter);
+            });
+          } else {
             progress(words.length, ++counter);
-          });
+          }
         }
       });
     });
