@@ -1,5 +1,5 @@
 import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from '../utils.js'
-import { isProduction } from '../config.js'
+import { isProduction, backendApiUrl } from '../config.js'
 import DS from './data.js';
 
 
@@ -7,7 +7,7 @@ export default class CollectionStorage {
   constructor() {}
 
   async downloadAllCategories(collectionId) {
-    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/categories`);
+    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/categories`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -17,7 +17,7 @@ export default class CollectionStorage {
   }
 
   async downloadCategoryWords(categoryId) {
-    const res = await fetch(`https://drakeman.cz/api/category/${categoryId}/words?shuffle=${isProduction}`);
+    const res = await fetch(`${backendApiUrl}/category/${categoryId}/words?shuffle=${isProduction}`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -27,7 +27,7 @@ export default class CollectionStorage {
   }
 
   async downloadCollectionWords(collectionId) {
-    const res = await fetch(`https://drakeman.cz/api/collection/${collectionId}/words?shuffle=${isProduction}`);
+    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/words?shuffle=${isProduction}`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -37,7 +37,7 @@ export default class CollectionStorage {
   }
  
   async downloadUpdates(fromDate, progress) {
-    const res = await fetch(`https://drakeman.cz/api/word/updated?from=${fromDate}`);
+    const res = await fetch(`${backendApiUrl}/word/updated?from=${fromDate}`);
     var result = await res.json();
     if (result.payload === undefined || result.payload.count === 0) {
       progress(0, 0);

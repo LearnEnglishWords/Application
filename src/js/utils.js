@@ -1,5 +1,6 @@
 import md5 from 'md5';
 import axios from 'axios';
+import { backendUrl, backendApiUrl} from './config.js';
 
 export const defaultSettingsData = {
   "enableDarkMode": false,
@@ -73,25 +74,25 @@ function getLangCode(pronunciation) {
 export function playTextSound(text, pronunciation) {
   if (pronunciation === 'uk') { pronunciation = 'gb' }
   var audio = new Audio();
-  audio.src = `https://learn-english-words.eu/sounds/words/${text}-${pronunciation}.mp3`;
+  audio.src = `${backendUrl}/sounds/words/${text}-${pronunciation}.mp3`;
   audio.play();
 }
 
 export function playExampleSound(example, pronunciation) {
   let hash = getHash(example, getLangCode(pronunciation));
   var audio = new Audio();
-  audio.src = `https://learn-english-words.eu/sounds/examples/${hash}.mp3`;
+  audio.src = `${backendUrl}/sounds/examples/${hash}.mp3`;
   audio.play();
 }
 
 export function setActivity(uuid) {
-  axios.post(`https://drakeman.cz/api/activity/`, {
+  axios.post(`${backendApiUrl}/activity/`, {
     uuid: uuid
   });
 }
 
 export function log(uuid, message) {
-  axios.post(`https://drakeman.cz/api/log/`, {
+  axios.post(`${backendApiUrl}/log/`, {
     uuid: uuid,
     message: message
   });
