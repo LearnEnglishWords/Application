@@ -202,7 +202,7 @@
 
   let basicCollection = new Collection(Collections.BASIC.id, Collections.BASIC.name, true);
   let standardCollection = new Collection(Collections.INTERMEDIATE.id, Collections.INTERMEDIATE.name, true, basicCollection);
-  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, true, standardCollection);
+  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, false, standardCollection);
 
   let collectionItems = [
     basicCollection,
