@@ -17,7 +17,7 @@ export default class CollectionStorage {
   }
 
   async downloadCategoryWords(categoryId) {
-    const res = await fetch(`${backendApiUrl}/category/${categoryId}/words?shuffle=${isProduction}`);
+    const res = await fetch(`${backendApiUrl}/category/${categoryId}/words?shuffle=${isProduction}&state=CORRECT`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -27,7 +27,7 @@ export default class CollectionStorage {
   }
 
   async downloadCollectionWords(collectionId) {
-    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/words?shuffle=${isProduction}`);
+    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/words?shuffle=${isProduction}&state=CORRECT`);
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
