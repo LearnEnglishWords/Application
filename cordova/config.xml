@@ -34,11 +34,17 @@
         <icon density="xhdpi" background="@color/background" foreground="res/icon/android/xhdpi.png" />
         <icon density="xxhdpi" background="@color/background" foreground="res/icon/android/xxhdpi.png" />
         <icon density="xxxhdpi" background="@color/background" foreground="res/icon/android/xxxhdpi.png" />
+        <splash density="ldpi" src="res/screen/android/splash-port-ldpi.png" />
         <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+        <splash density="hdpi" src="res/screen/android/splash-port-hdpi.png" />
         <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
+        <splash density="mdpi" src="res/screen/android/splash-port-mdpi.png" />
         <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+        <splash density="xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
         <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+        <splash density="xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
         <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
+        <splash density="xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
         <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
     </platform>
 
