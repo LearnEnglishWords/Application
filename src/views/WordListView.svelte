@@ -50,7 +50,7 @@
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData,
-    settingsData, allKnownWordsData
+    settingsData, allKnownWordsData, allNotKnownWordsData
   } from '../js/store.js';
 
   import { get } from 'svelte/store';
@@ -234,7 +234,13 @@
       allKnownWords["all"] = [];
       for (let wordId of allKnownWords["read"]) {
         if (allKnownWords["write"].includes(wordId) && allKnownWords["listen"].includes(wordId)) {
-          allKnownWords["all"].push(wordId);
+          if (
+            !$allNotKnownWordsData["read"].includes(wordId) || 
+            !$allNotKnownWordsData["write"].includes(wordId) || 
+            !$allNotKnownWordsData["listen"].includes(wordId)
+          ) {
+            allKnownWords["all"].push(wordId);
+          }
         }
       }
 
