@@ -16,12 +16,20 @@
       {$_('words_list.loading')}
     {/if}
 
- {#if removeWords.length > 0 || addWords.length > 0}
     <Toolbar position={'bottom'}>
-      <Link></Link>
-      <Link on:click={saveWords}>Uložit</Link>
+      <Link popoverOpen=".filter-menu">Filtrovat</Link>
+      {#if removeWords.length > 0 || addWords.length > 0}
+        <Link on:click={saveWords}>Uložit</Link>
+      {/if}
     </Toolbar>
-  {/if}
+
+  <Popover class="filter-menu">
+    <List class="filter-menu-list">
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title="Naučená slova" />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("unknown") }} title="Nenaučená slova" />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("all") }} title="Všechna slova" />
+    </List>
+  </Popover>
 </Page>
 
 <script>
@@ -29,9 +37,9 @@
     f7, Page, 
     BlockTitle, Block, 
     Row, Col,
-    List, ListItem,
+    List, ListItem, ListButton,
     Button, Link,
-    Toolbar
+    Toolbar, Popover
   } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
@@ -58,18 +66,17 @@
 
   let wordState = {};
   let allWords = [];
-  var allWordIds = getWordIds("unknown");
+  var allWordIds = getWordIds($settingsData["defaultWordListFilter"]);
   let allWordsLength = 0;
 
   let virtualList = null; 
   let allowInfinite = true;
   let itemsPerLoad = 30;
 
-
   onMount(() => { 
     virtualList = f7.virtualList.create({
       el: '.virtual-list',
-      items: allWords,
+      items: [],
       itemTemplate:
       `<li class="list-item word-item">
         <div class="list-item item-content">
@@ -96,7 +103,7 @@
 
     virtualList.$el.on('click', '.word-item', function (e) {
       let index = this.f7VirtualListIndex;
-      clickedWord = allWords[index].word;
+      clickedWord = allWords[index];
     });
 
     virtualList.$el.on('click', '.wordbox', function (e) {
@@ -123,6 +130,7 @@
       DS.getWord(wordId).then((word) => {
         wordState[word.text] = isKnown(word);
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
+        allWords.push(word);
         allWordsLength++;
       });
       if (index+1 === itemsPerLoad) {
@@ -133,7 +141,7 @@
 
   function updateStatistics() {
     removeWords.forEach((wordId) => {
-      let word = allWords.find((item) => item.word.text === wordId).word;
+      let word = allWords.find((word) => word.text === wordId);
       if (!isKnown(word)) {
         let prevLearningState = {...word.learning};
         word.learning = {"read": true, "write": true, "listen": true};
@@ -145,7 +153,7 @@
     });
 
     addWords.forEach((wordId) => {
-      let word = allWords.find((item) => item.word.text === wordId).word;
+      let word = allWords.find((word) => word.text === wordId);
 
       if (isKnown(word)) {
         let prevLearningState = {...word.learning};
@@ -207,8 +215,21 @@
     }       
   }
 
+  function saveFilterAndReload(filter) {
+    $settingsData.defaultWordListFilter = filter;
+    DS.saveSettings($settingsData);
+    allWordIds = getWordIds(filter);
+
+    allWords = [];
+    virtualList.deleteAllItems();
+
+    loadWords(0, itemsPerLoad);
+    allWordsLength = 0;
+  }
+
   function getWordIds(filter = "all") {
-    if (filter === "unknown") {
+    let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
+    if (filter === "unknown" || filter === "known") {
       let allKnownWords = {...$allKnownWordsData};
       allKnownWords["all"] = [];
       for (let wordId of allKnownWords["read"]) {
@@ -217,9 +238,13 @@
         }
       }
 
-      return $categoryDetailData.wordStorages['all'].getWordIds().filter((wordId) => !allKnownWords["all"].includes(wordId));
+      if (filter === "unknown") {
+        return allWordIds.filter((wordId) => !allKnownWords["all"].includes(wordId));
+      } else {
+        return allWordIds.filter((wordId) => allKnownWords["all"].includes(wordId));
+      }
     } else {
-      return $categoryDetailData.wordStorages['all'].getWordIds()
+      return allWordIds
     }
   }
 </script>
