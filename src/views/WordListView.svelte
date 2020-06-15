@@ -42,7 +42,7 @@
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData,
-    settingsData
+    settingsData, allKnownWordsData
   } from '../js/store.js';
 
   import { get } from 'svelte/store';
@@ -58,7 +58,7 @@
 
   let wordState = {};
   let allWords = [];
-  let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
+  var allWordIds = getWordIds("unknown");
   let allWordsLength = 0;
 
   let virtualList = null; 
@@ -205,5 +205,21 @@
       addWords.push(word.text);
       addWords = [...addWords];
     }       
+  }
+
+  function getWordIds(filter = "all") {
+    if (filter === "unknown") {
+      let allKnownWords = {...$allKnownWordsData};
+      allKnownWords["all"] = [];
+      for (let wordId of allKnownWords["read"]) {
+        if (allKnownWords["write"].includes(wordId) && allKnownWords["listen"].includes(wordId)) {
+          allKnownWords["all"].push(wordId);
+        }
+      }
+
+      return $categoryDetailData.wordStorages['all'].getWordIds().filter((wordId) => !allKnownWords["all"].includes(wordId));
+    } else {
+      return $categoryDetailData.wordStorages['all'].getWordIds()
+    }
   }
 </script>
