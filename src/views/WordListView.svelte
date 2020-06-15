@@ -16,12 +16,20 @@
       {$_('words_list.loading')}
     {/if}
 
- {#if removeWords.length > 0 || addWords.length > 0}
     <Toolbar position={'bottom'}>
-      <Link></Link>
-      <Link on:click={saveWords}>Uložit</Link>
+      <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
+      {#if removeWords.length > 0 || addWords.length > 0}
+        <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
+      {/if}
     </Toolbar>
-  {/if}
+
+  <Popover class="filter-menu">
+    <List class="filter-menu-list">
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title={$_('words_list.filter.known')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("unknown") }} title={$_('words_list.filter.unknown')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("all") }} title={$_('words_list.filter.all')} />
+    </List>
+  </Popover>
 </Page>
 
 <script>
@@ -29,20 +37,20 @@
     f7, Page, 
     BlockTitle, Block, 
     Row, Col,
-    List, ListItem,
+    List, ListItem, ListButton,
     Button, Link,
-    Toolbar
+    Toolbar, Popover
   } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, getState, trainingModes, playTextSound, KnownStages } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordListFilter } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
     statisticsData, trainingModeStatisticsData,
-    settingsData
+    settingsData, allKnownWordsData, allNotKnownWordsData
   } from '../js/store.js';
 
   import { get } from 'svelte/store';
@@ -58,18 +66,17 @@
 
   let wordState = {};
   let allWords = [];
-  let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
+  var allWordIds = getWordIds($settingsData["defaultWordListFilter"]);
   let allWordsLength = 0;
 
   let virtualList = null; 
   let allowInfinite = true;
   let itemsPerLoad = 30;
 
-
   onMount(() => { 
     virtualList = f7.virtualList.create({
       el: '.virtual-list',
-      items: allWords,
+      items: [],
       itemTemplate:
       `<li class="list-item word-item">
         <div class="list-item item-content">
@@ -96,7 +103,7 @@
 
     virtualList.$el.on('click', '.word-item', function (e) {
       let index = this.f7VirtualListIndex;
-      clickedWord = allWords[index].word;
+      clickedWord = allWords[index];
     });
 
     virtualList.$el.on('click', '.wordbox', function (e) {
@@ -123,6 +130,7 @@
       DS.getWord(wordId).then((word) => {
         wordState[word.text] = isKnown(word);
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
+        allWords.push(word);
         allWordsLength++;
       });
       if (index+1 === itemsPerLoad) {
@@ -133,7 +141,7 @@
 
   function updateStatistics() {
     removeWords.forEach((wordId) => {
-      let word = allWords.find((item) => item.word.text === wordId).word;
+      let word = allWords.find((word) => word.text === wordId);
       if (!isKnown(word)) {
         let prevLearningState = {...word.learning};
         word.learning = {"read": true, "write": true, "listen": true};
@@ -145,7 +153,7 @@
     });
 
     addWords.forEach((wordId) => {
-      let word = allWords.find((item) => item.word.text === wordId).word;
+      let word = allWords.find((word) => word.text === wordId);
 
       if (isKnown(word)) {
         let prevLearningState = {...word.learning};
@@ -205,5 +213,44 @@
       addWords.push(word.text);
       addWords = [...addWords];
     }       
+  }
+
+  function saveFilterAndReload(filter) {
+    $settingsData.defaultWordListFilter = filter;
+    DS.saveSettings($settingsData);
+    allWordIds = getWordIds(filter);
+
+    allWords = [];
+    virtualList.deleteAllItems();
+
+    loadWords(0, itemsPerLoad);
+    allWordsLength = 0;
+  }
+
+  function getWordIds(filter = "all") {
+    let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
+    if (filter === WordListFilter.UNKNOWN || filter === WordListFilter.KNOWN) {
+      let allKnownWords = {...$allKnownWordsData};
+      allKnownWords["all"] = [];
+      for (let wordId of allKnownWords["read"]) {
+        if (allKnownWords["write"].includes(wordId) && allKnownWords["listen"].includes(wordId)) {
+          if (
+            !$allNotKnownWordsData["read"].includes(wordId) || 
+            !$allNotKnownWordsData["write"].includes(wordId) || 
+            !$allNotKnownWordsData["listen"].includes(wordId)
+          ) {
+            allKnownWords["all"].push(wordId);
+          }
+        }
+      }
+
+      if (filter === WordListFilter.UNKNOWN) {
+        return allWordIds.filter((wordId) => !allKnownWords["all"].includes(wordId));
+      } else {
+        return allWordIds.filter((wordId) => allKnownWords["all"].includes(wordId));
+      }
+    } else {
+      return allWordIds
+    }
   }
 </script>
