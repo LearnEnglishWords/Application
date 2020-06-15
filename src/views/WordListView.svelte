@@ -45,7 +45,7 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnown, getState, trainingModes, playTextSound, KnownStages } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordListFilter } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
@@ -229,7 +229,7 @@
 
   function getWordIds(filter = "all") {
     let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
-    if (filter === "unknown" || filter === "known") {
+    if (filter === WordListFilter.UNKNOWN || filter === WordListFilter.KNOWN) {
       let allKnownWords = {...$allKnownWordsData};
       allKnownWords["all"] = [];
       for (let wordId of allKnownWords["read"]) {
@@ -244,7 +244,7 @@
         }
       }
 
-      if (filter === "unknown") {
+      if (filter === WordListFilter.UNKNOWN) {
         return allWordIds.filter((wordId) => !allKnownWords["all"].includes(wordId));
       } else {
         return allWordIds.filter((wordId) => allKnownWords["all"].includes(wordId));

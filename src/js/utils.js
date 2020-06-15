@@ -131,6 +131,12 @@ export const KnownStages = {
     HARD_KNOWN: 10
 }
 
+export const WordListFilter = {
+    ALL: "all",
+    KNOWN: "known",
+    UNKNOWN: "unknown"
+}
+
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
   LAST_ACTIVITY: "lastActivity",
