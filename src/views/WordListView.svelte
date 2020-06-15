@@ -17,17 +17,17 @@
     {/if}
 
     <Toolbar position={'bottom'}>
-      <Link popoverOpen=".filter-menu">Filtrovat</Link>
+      <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
       {#if removeWords.length > 0 || addWords.length > 0}
-        <Link on:click={saveWords}>Uložit</Link>
+        <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
       {/if}
     </Toolbar>
 
   <Popover class="filter-menu">
     <List class="filter-menu-list">
-      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title="Naučená slova" />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload("unknown") }} title="Nenaučená slova" />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload("all") }} title="Všechna slova" />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title={$_('words_list.filter.known')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("unknown") }} title={$_('words_list.filter.unknown')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("all") }} title={$_('words_list.filter.all')} />
     </List>
   </Popover>
 </Page>

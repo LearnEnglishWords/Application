@@ -182,6 +182,13 @@
       "progress": "Ukládání...",
       "info": "Zde můžete označit slovíčka, která již znáte:",
       "next_button": "Načíst další",
-      "loading": "Probíhá načítání..."
+      "save_button": "Uložit",
+      "loading": "Probíhá načítání...",
+      "filter": {
+          "button": "Filtrovat",
+          "known": "Naučená slova",
+          "unknown": "Nenaučená slova",
+          "all": "Všechna slova"
+      }
   }
 }
