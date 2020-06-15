@@ -8,7 +8,8 @@ export const defaultSettingsData = {
   "pronunciation": "uk",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
-  "enableTrainingModeWall": false
+  "enableTrainingModeWall": false,
+  "defaultWordListFilter": "all"
 };            
 
 export const trainingModes = [
@@ -128,6 +129,12 @@ export const KnownStages = {
     KNOWN: 3,
     MEDIUM_KNOWN: 6,
     HARD_KNOWN: 10
+}
+
+export const WordListFilter = {
+    ALL: "all",
+    KNOWN: "known",
+    UNKNOWN: "unknown"
 }
 
 export const AppInfo = {
