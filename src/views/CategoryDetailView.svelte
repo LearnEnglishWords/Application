@@ -73,7 +73,7 @@
     </div>
   </div> 
 
-  <div class="bottom-panel">
+  <div class="bottom-panel {currentTestingMode !== null ? 'active' : ''}">
     <Row>
       <Col class="panel-item panel-learning {currentTestingMode === 'learning' ? 'active' : ''}" on:click={() => currentTestingMode = 'learning'}>
         <SVGIcon element="panel" name="book-open-2" size="16" />
