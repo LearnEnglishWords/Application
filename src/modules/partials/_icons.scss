@@ -390,4 +390,28 @@
       stroke: var(--app-primary);
     }
   }
+
+  &-reload {
+    path {
+      fill: var(--app-icon);
+    }
+  }
+
+  &-sign-right {
+    polygon {
+      fill: var(--app-icon);
+    }
+  }
+
+  &-todo {
+    path, rect {
+      fill: var(--app-icon);
+    }
+  }
+
+  &-book-open-2 {
+    path, rect {
+      fill: var(--app-icon);
+    }
+  }
 }

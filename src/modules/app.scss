@@ -482,7 +482,7 @@ svg {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 0 1em;
+    margin: 0 1em 1em;
     
     .#{$type}-radio {$element: "radio";
       background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
@@ -861,7 +861,7 @@ input.translate {
 .page-title {$name: "page"; $type: "content"; $element: "title";
   color: var(--#{$name}-#{$type}-#{$element}-color);
   text-transform: var(--#{$name}-#{$type}-#{$element}-text-transform);
-  padding: calc((var(--page-content-container-border-radius) / 2)) 1em 1em;
+  padding: calc((var(--page-content-container-border-radius) / 2)) 1em 0.75em;
   font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
   font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
 }
@@ -1180,4 +1180,76 @@ input:focus::placeholder {
       }
     }
   }
+}
+
+.bottom-panel {
+  background: white;
+  @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
+  border-top: 1px solid var(--app-border);
+  margin-bottom: -55px;
+
+  .row {
+    text-align: center;
+    padding: 0;
+  }
+
+  .col {
+    padding: 9px 0;
+    &.panel-item {
+      &.panel-learning.active {
+        svg {
+          --app-icon: var(--app-success);
+          transition: all 300ms ease-in-out;
+        }
+      }
+      &.panel-repeat.active {
+        svg {
+          --app-icon: var(--app-warning);
+          transition: all 300ms ease-in-out;
+        }
+      }
+      &.panel-training.active {
+        svg {
+          --app-icon: var(--app-error);
+          transition: all 300ms ease-in-out;
+        }
+      }
+    }
+    &.panel-start {
+      padding: 0;
+      .button {
+        background: var(--app-error);
+        color: white;
+        font-size: 13px;
+        font-weight: 700;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 10px;
+        box-shadow: 0 0 2.5px var(--app-error);
+        margin: 0 auto 9px;
+        width: 50%;
+      }
+    }
+  }
+
+  svg {
+    transition: all 300ms ease-in-out;
+  }
+
+  span {
+    display: block;
+    color: var(--app-text);
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+.panel-icon {
+  --app-icon: #CDDAE2;
+}
+
+.panel-buttons {
+  border-top: 1px solid var(--app-border);
+  padding-top: 9px !important;
 }

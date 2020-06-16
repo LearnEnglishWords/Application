@@ -190,5 +190,11 @@
           "unknown": "Nenaučená slovíčka",
           "all": "Všechna slovíčka"
       }
+  },
+  "panel": {
+      "training": "Otestovat",
+      "learning": "Procvičovat",
+      "repeat": "Opakovat",
+      "start": "Spustit"
   }
 }

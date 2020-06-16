@@ -41,8 +41,6 @@
           </div>
         {/each}
       </div>
-      <!-- Title -->
-      <div class="page-title"></div>
       <!-- Stepper -->
       <List class="list-container list-stepper">
         <ListItem class="list-item" title="{$_('category.words_title')}">
@@ -68,12 +66,35 @@
     </div>
   </div>
   <!-- Footer -->
-  <div class="footer-container footer-double">
+  <div class="footer-container footer-double" style="display:none;">
     <div class="footer-content">
         <Button class="page-button button-training" on:click={() => goToTrainingView(true, false)}>{$_('category.buttons.start_training')}</Button>
         <Button class="page-button button-practice" on:click={() => goToTrainingView(false, false)}>{$_('category.buttons.start_testing')}</Button>
     </div>
   </div> 
+
+  <div class="bottom-panel">
+    <Row>
+      <Col class="panel-item panel-learning">
+        <SVGIcon element="panel" name="book-open-2" size="16" />
+        <span>{$_('panel.learning')}</span>
+      </Col>
+      <Col class="panel-item panel-repeat">
+        <SVGIcon element="panel" name="reload" size="16" />
+        <span>{$_('panel.repeat')}</span>
+      </Col>
+      <Col class="panel-item panel-training active">
+        <SVGIcon element="panel" name="todo" size="16" />
+        <span>{$_('panel.training')}</span>
+      </Col>
+
+    </Row>
+    <Row class="panel-buttons">
+      <Col class="panel-item panel-start">
+        <Button>{$_('panel.start')}</Button>
+      </Col>
+    </Row>
+  </div>
 </Page>
 
 <script>
