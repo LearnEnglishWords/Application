@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container">
+  <div class="header-statistics header-container" on:click={() => currentTestingMode = null}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{$statisticsData.known}</div>
@@ -24,7 +24,7 @@
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-container view">
+  <div class="page-container view" on:click={() => currentTestingMode = null}>
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.training_title')}</div>
@@ -89,7 +89,7 @@
       </Col>
 
     </Row>
-    <Row class="panel-buttons">
+    <Row class="panel-buttons {currentTestingMode !== null ? currentTestingMode : ''}">
       <Col class="panel-item panel-start">
         <Button>{$_('panel.start')}</Button>
       </Col>
