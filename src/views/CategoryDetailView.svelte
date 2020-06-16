@@ -75,15 +75,15 @@
 
   <div class="bottom-panel">
     <Row>
-      <Col class="panel-item panel-learning">
+      <Col class="panel-item panel-learning {currentTestingMode === 'learning' ? 'active' : ''}" on:click={() => currentTestingMode = 'learning'}>
         <SVGIcon element="panel" name="book-open-2" size="16" />
         <span>{$_('panel.learning')}</span>
       </Col>
-      <Col class="panel-item panel-repeat">
+      <Col class="panel-item panel-repeat {currentTestingMode === 'repeat' ? 'active' : ''}" on:click={() => currentTestingMode = 'repeat'}>
         <SVGIcon element="panel" name="reload" size="16" />
         <span>{$_('panel.repeat')}</span>
       </Col>
-      <Col class="panel-item panel-training active">
+      <Col class="panel-item panel-training {currentTestingMode === 'training' ? 'active' : ''}" on:click={() => currentTestingMode = 'training'}>
         <SVGIcon element="panel" name="todo" size="16" />
         <span>{$_('panel.training')}</span>
       </Col>
@@ -128,6 +128,7 @@
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
   let modeType = trainingModes[trainingModeIndex].value;
+  let currentTestingMode = null;
 
   trainingModes.forEach((mode, index) => {
     if (mode.checked) {
@@ -142,7 +143,6 @@
 
   statisticsData.set($categoryDetailData.statistics.stats);
   trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
-
 
   function changeTrainingMode(index) {
     trainingModeIndex = index;
