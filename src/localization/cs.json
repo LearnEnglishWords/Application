@@ -12,7 +12,8 @@
           "loading": "Načítání...",
           "download": "Stáhnout",
           "preparing": "Příprava...",
-          "downloading": "Stahování..."
+          "downloading": "Stahování...",
+          "start": "Spustit"
       },
       "items": {
           "main_category_default": "Všechna slovíčka",
@@ -191,10 +192,9 @@
           "all": "Všechna slovíčka"
       }
   },
-  "panel": {
+  "navigation": {
       "training": "Otestovat",
-      "learning": "Procvičovat",
-      "repeat": "Opakovat",
-      "start": "Spustit"
+      "practice": "Procvičovat",
+      "repetition": "Opakovat"
   }
 }

@@ -1182,70 +1182,73 @@ input:focus::placeholder {
   }
 }
 
-.bottom-panel {
+.bottom-navigation {
+
+  $bottom-navigation: (
+    "practice": success,
+    "repetition": warning,
+    "training": error
+  );
+
   background: white;
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
   border-top: 1px solid var(--app-border);
   margin-bottom: -55px;
   z-index: 10000;
-  transition: margin-bottom 300ms ease-in-out;
-
-  &.active {
+  transition: margin-bottom 350ms ease-in-out;
+  &.activated {
     margin-bottom: 0;
   }
-
   .row {
-    text-align: center;
     padding: 0;
-  }
+    text-align: center;
+    &:last-child {
+      border-top: 1px solid var(--app-border);
+      .col {
+        padding: 9px 0 0;
+        .button {
+          color: white;
+          font-size: 13px;
+          font-weight: 700;
+          height: 36px;
+          line-height: 36px;
+          border-radius: 10px;
+          transition: all 350ms ease-in-out;
+          margin: 0 auto 9px;
+          width: 50%;
+        }
+      }
 
+      @each $type, $color in $bottom-navigation {
+        &.#{$type} {
+          .button {
+            background: var(--app-#{$color});
+            box-shadow: 0 0 5px var(--app-#{$color});
+          }
+        }
+      }
+    }
+  }
   .col {
     padding: 9px 0;
-    &.panel-item {
-      z-index: 100000;
-      --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-      &.panel-learning.active {
-        svg {
-          --app-icon: var(--app-success);
-          transition: all 300ms ease-in-out;
-        }
-      }
-      &.panel-repeat.active {
-        svg {
-          --app-icon: var(--app-warning);
-          transition: all 300ms ease-in-out;
-        }
-      }
-      &.panel-training.active {
-        svg {
-          --app-icon: var(--app-error);
-          transition: all 300ms ease-in-out;
+    z-index: 100000;
+    --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    @each $type, $color in $bottom-navigation {
+      &.mode-#{$type} {
+        &.selected {
+          .navigation-icon {
+            --app-icon: var(--app-#{$color});
+          }
         }
       }
     }
-    &.panel-start {
-      padding: 0;
-      .button {
-        background: var(--app-error);
-        color: white;
-        font-size: 13px;
-        font-weight: 700;
-        height: 36px;
-        line-height: 36px;
-        border-radius: 10px;
-        box-shadow: 0 0 2.5px var(--app-error);
-        margin: 0 auto 9px;
-        width: 50%;
-      }
-    }
   }
-
-  svg {
-    transition: all 300ms ease-in-out;
+  .navigation-icon {
+    --app-icon: #CDDAE2;
   }
-
   span {
     display: block;
     color: var(--app-text);
@@ -1253,13 +1256,4 @@ input:focus::placeholder {
     font-size: 10px;
     font-weight: 600;
   }
-}
-
-.panel-icon {
-  --app-icon: #CDDAE2;
-}
-
-.panel-buttons {
-  border-top: 1px solid var(--app-border);
-  padding-top: 9px !important;
 }

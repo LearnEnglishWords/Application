@@ -73,25 +73,24 @@
     </div>
   </div> 
 
-  <div class="bottom-panel {currentTestingMode !== null ? 'active' : ''}">
+  <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
     <Row>
-      <Col class="panel-item ripple panel-learning {currentTestingMode === 'learning' ? 'active' : ''}" on:click={() => currentTestingMode = 'learning'}>
-        <SVGIcon element="panel" name="book-open-2" size="16" />
-        <span>{$_('panel.learning')}</span>
+      <Col class="ripple mode-practice {currentTestingMode === 'practice' ? 'selected' : ''}" on:click={() => currentTestingMode = 'practice'}>
+        <SVGIcon element="navigation" name="book-open-2" size="16" />
+        <span>{$_('navigation.practice')}</span>
       </Col>
-      <Col class="panel-item ripple panel-repeat {currentTestingMode === 'repeat' ? 'active' : ''}" on:click={() => currentTestingMode = 'repeat'}>
-        <SVGIcon element="panel" name="reload" size="16" />
-        <span>{$_('panel.repeat')}</span>
+      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode = 'repetition'}>
+        <SVGIcon element="navigation" name="reload" size="16" />
+        <span>{$_('navigation.repetition')}</span>
       </Col>
-      <Col class="panel-item ripple panel-training {currentTestingMode === 'training' ? 'active' : ''}" on:click={() => currentTestingMode = 'training'}>
-        <SVGIcon element="panel" name="todo" size="16" />
-        <span>{$_('panel.training')}</span>
+      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
+        <SVGIcon element="navigation" name="todo" size="16" />
+        <span>{$_('navigation.training')}</span>
       </Col>
-
     </Row>
-    <Row class="panel-buttons {currentTestingMode !== null ? currentTestingMode : ''}">
-      <Col class="panel-item panel-start">
-        <Button>{$_('panel.start')}</Button>
+    <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
+      <Col>
+        <Button>{$_('collection.button.start')}</Button>
       </Col>
     </Row>
   </div>
