@@ -75,15 +75,15 @@
 
   <div class="bottom-panel {currentTestingMode !== null ? 'active' : ''}">
     <Row>
-      <Col class="panel-item panel-learning {currentTestingMode === 'learning' ? 'active' : ''}" on:click={() => currentTestingMode = 'learning'}>
+      <Col class="panel-item ripple panel-learning {currentTestingMode === 'learning' ? 'active' : ''}" on:click={() => currentTestingMode = 'learning'}>
         <SVGIcon element="panel" name="book-open-2" size="16" />
         <span>{$_('panel.learning')}</span>
       </Col>
-      <Col class="panel-item panel-repeat {currentTestingMode === 'repeat' ? 'active' : ''}" on:click={() => currentTestingMode = 'repeat'}>
+      <Col class="panel-item ripple panel-repeat {currentTestingMode === 'repeat' ? 'active' : ''}" on:click={() => currentTestingMode = 'repeat'}>
         <SVGIcon element="panel" name="reload" size="16" />
         <span>{$_('panel.repeat')}</span>
       </Col>
-      <Col class="panel-item panel-training {currentTestingMode === 'training' ? 'active' : ''}" on:click={() => currentTestingMode = 'training'}>
+      <Col class="panel-item ripple panel-training {currentTestingMode === 'training' ? 'active' : ''}" on:click={() => currentTestingMode = 'training'}>
         <SVGIcon element="panel" name="todo" size="16" />
         <span>{$_('panel.training')}</span>
       </Col>

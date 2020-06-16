@@ -1187,6 +1187,12 @@ input:focus::placeholder {
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
   border-top: 1px solid var(--app-border);
   margin-bottom: -55px;
+  z-index: 10000;
+  transition: margin-bottom 300ms ease-in-out;
+
+  &.active {
+    margin-bottom: 0;
+  }
 
   .row {
     text-align: center;
@@ -1196,6 +1202,10 @@ input:focus::placeholder {
   .col {
     padding: 9px 0;
     &.panel-item {
+      z-index: 100000;
+      --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
       &.panel-learning.active {
         svg {
           --app-icon: var(--app-success);
