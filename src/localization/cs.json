@@ -74,8 +74,8 @@
       "words": "slov",
       "buttons": {
           "words_list": "Zobrazit seznam všech slov",
-          "training": "Prozkoušet",
-          "practice": "Procvičovat",
+          "exam": "Prozkoušet",
+          "training": "Procvičovat",
           "repetition": "Opakovat",
           "start": "Spustit"
       }

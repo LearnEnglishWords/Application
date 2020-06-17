@@ -1185,10 +1185,12 @@ input:focus::placeholder {
 .bottom-navigation {
 
   $bottom-navigation: (
-    "practice": secondary,
+    "training": secondary,
     "repetition": warning,
-    "training": error
+    "exam": error
   );
+
+  $bottom-navigation-border-radius: 10px;
 
   background: white;
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
@@ -1196,6 +1198,7 @@ input:focus::placeholder {
   margin-bottom: -55px;
   z-index: 10000;
   transition: margin-bottom 350ms ease-in-out;
+  border-radius: $bottom-navigation-border-radius $bottom-navigation-border-radius 0 0; 
   &.activated {
     margin-bottom: 0;
   }
@@ -1204,6 +1207,7 @@ input:focus::placeholder {
     text-align: center;
     &:last-child {
       border-top: 1px solid var(--app-border);
+      border-radius: $bottom-navigation-border-radius $bottom-navigation-border-radius 0 0;
       .col {
         padding: 9px 0 0;
         .button {
@@ -1242,6 +1246,9 @@ input:focus::placeholder {
           .navigation-icon {
             --app-icon: var(--app-#{$color});
           }
+          span {
+            color: var(--app-#{$color});
+          }
         }
       }
     }
@@ -1254,6 +1261,7 @@ input:focus::placeholder {
     color: var(--app-text);
     text-transform: uppercase;
     font-size: 10px;
+    transition: all 350ms ease-in-out;
     font-weight: 600;
   }
 }
