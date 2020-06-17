@@ -74,6 +74,9 @@
       "words": "slov",
       "buttons": {
           "words_list": "Zobrazit seznam všech slov",
+          "training": "Prozkoušet",
+          "practice": "Procvičovat",
+          "repetition": "Opakovat",
           "start": "Spustit"
       }
   },
@@ -188,10 +191,5 @@
           "unknown": "Nenaučená slovíčka",
           "all": "Všechna slovíčka"
       }
-  },
-  "navigation": {
-      "training": "Otestovat",
-      "practice": "Procvičovat",
-      "repetition": "Opakovat"
   }
 }
