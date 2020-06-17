@@ -60,28 +60,21 @@
         </ListItem>
       </List>
       <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
-      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-        <Button class="page-button button-repeat" on:click={() => goToTrainingView(false, true)}>{$_('category.buttons.start_repeat')}</Button>
-      {/if}
     </div>
   </div>
-  <!-- Footer -->
-  <div class="footer-container footer-double" style="display:none;">
-    <div class="footer-content">
-        <Button class="page-button button-training" on:click={() => goToTrainingView(true, false)}>{$_('category.buttons.start_training')}</Button>
-        <Button class="page-button button-practice" on:click={() => goToTrainingView(false, false)}>{$_('category.buttons.start_testing')}</Button>
-    </div>
-  </div> 
 
+  <!-- Footer -->
   <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
     <Row>
-      <Col class="ripple mode-practice {currentTestingMode === 'practice' ? 'selected' : ''}" on:click={() => currentTestingMode = 'practice'}>
-        <SVGIcon element="navigation" name="book-open-2" size="16" />
-        <span>{$_('navigation.practice')}</span>
-      </Col>
+      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
       <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode = 'repetition'}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('navigation.repetition')}</span>
+      </Col>
+      {/if}
+      <Col class="ripple mode-practice {currentTestingMode === 'practice' ? 'selected' : ''}" on:click={() => currentTestingMode = 'practice'}>
+        <SVGIcon element="navigation" name="book-open-2" size="16" />
+        <span>{$_('navigation.practice')}</span>
       </Col>
       <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
         <SVGIcon element="navigation" name="todo" size="16" />
@@ -90,7 +83,7 @@
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
-        <Button>{$_('collection.button.start')}</Button>
+        <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
   </div>
@@ -179,9 +172,12 @@
     });
   }
 
-  function goToTrainingView(isTraining, repetition) {
+  function goToTrainingView() {
+    let isTraining = currentTestingMode === "practice";  
+    let isRepetition = currentTestingMode === "repetition";
+
     f7.preloader.show();
-    currentWordStorage = $categoryDetailData.wordStorages[repetition ? "known" : modeType];
+    currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : modeType];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
@@ -190,7 +186,7 @@
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView(isTraining, repetition) }, 1000);
+      setTimeout(() => { goToTrainingView(isTraining, isRepetition) }, 1000);
     }
   }
 
