@@ -16,11 +16,11 @@ $app-global: (
   "transition-timing-function": "ease-in-out",
   "transition-delay": "0ms",
 
-  "recap-horrible": "violet",
-  "recap-bad": "#FF4929",
-  "recap-ok": "#ffb629",
-  "recap-good": "#5D9CEC",
-  "recap-great": "#29DB29"
+  "recap-1": "violet",
+  "recap-2": "#FF4929",
+  "recap-3": "#ffb629",
+  "recap-4": "#5D9CEC",
+  "recap-5": "#29DB29"
 );
 
 $global-theme: (
@@ -184,11 +184,12 @@ $global-theme: (
 $app-light: (
   "background": "#FFFFFF",
   "border": "#DDDDDD",
-  "element": "#F0F5FC",
+  "element": "#F7FAFC",
   "icon": "#A5B2C3",
   "ripple": "rgba(0, 0, 0, 0.075)",
   "text": "#586775",
   "title": "#2D353B",
+  "text-gray": "#B3BFCD"
 );
 
 $light-theme: (

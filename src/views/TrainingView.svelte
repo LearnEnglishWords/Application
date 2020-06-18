@@ -95,7 +95,9 @@
   let recapitulationInfo = {
     count: $trainingData.words.length,
     known: 0,
-    unknown: 0
+    unknown: 0,
+    trainingMode: $trainingData.mode,
+    trainingType: $trainingData.type
   };
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');

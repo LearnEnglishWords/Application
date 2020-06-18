@@ -151,18 +151,39 @@
       "error_content": "Informace o chybě"
   },
   "recapitulation": {
-      "large_title": "Konec",
-      "medium_title": "Celkové vyhodnoceni:",
-      "number_words": "Počet slov:",
-      "number_right_words": "Počet slov správně:",
-      "number_wrong_words": "Počet slov špatně:",
+      "exam": {
+          "title": "Zkouška:",
+          "info_text": {
+              "read": "Už umíte přečíst a poznat celkem",
+              "write": "Už umíte napsat celkem",
+              "listen": "Už umíte poslechově rozpoznat celkem"
+          },
+          "info_text_end": "nových slov.",
+          "info_text_description": "Pro úplné naučení těchto slovíček musíte úspěšně projít přezkoušením i pro:",
+          "info_text_conjunction": "a"
+      },
+      "repetition": {
+          "title": "Opakování:",
+          "info_text": "Máte špatně celkem",
+          "info_text_end": "slov.",
+          "info_text_description": "Daná slovíčka se tedy aktualizovala že je neumíte a budete se je muset zase opět naučit."
+      },
       "continue": "Pokračovat",
+      "read": "Čtení",
+      "write": "Psaní",
+      "listen": "Poslech",
+      "column": {
+          "text": "Slov",
+          "known": "Znám",
+          "unknown": "Neznám",
+          "all": "Celkem"
+      },
       "score": {
-          "great": "Skvělá práce",
-          "good": "Dobré",
-          "ok": "Ujde to",
-          "bad": "To je špatné",
-          "horrible": "Hrůza"
+          "5": "Skvělá práce",
+          "4": "Dobré",
+          "3": "Ujde to",
+          "2": "To je špatné",
+          "1": "Hrůza"
       }
   },
   "menu": {
