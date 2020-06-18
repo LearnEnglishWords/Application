@@ -25,8 +25,8 @@
 
   <Popover class="filter-menu">
     <List class="filter-menu-list">
-      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title={$_('words_list.filter.known')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload("unknown") }} title={$_('words_list.filter.unknown')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload("known") }} title={$_('words_list.filter.known')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload("all") }} title={$_('words_list.filter.all')} />
     </List>
   </Popover>
