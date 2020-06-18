@@ -171,11 +171,11 @@
           "all": "Celkem"
       },
       "score": {
-          "great": "Skvělá práce",
-          "good": "Dobré",
-          "ok": "Ujde to",
-          "bad": "To je špatné",
-          "horrible": "Hrůza"
+          "5": "Skvělá práce",
+          "4": "Dobré",
+          "3": "Ujde to",
+          "2": "To je špatné",
+          "1": "Hrůza"
       }
   },
   "menu": {

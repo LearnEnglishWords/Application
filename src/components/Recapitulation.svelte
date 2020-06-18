@@ -1,70 +1,61 @@
-<h1> {$_('recapitulation.large_title')} {$_('recapitulation.' + info.trainingMode)}</h1>
-<p> {$_('recapitulation.info_text.' + info.trainingMode)} {info.known} {$_('recapitulation.info_text_end')} </p>
-<p> 
-  {$_('recapitulation.info_text_description')} 
-  {$_('recapitulation.' + remainingModes[0])} 
-  {$_('recapitulation.info_text_conjunction')} 
-  {$_('recapitulation.' + remainingModes[1])} 
-</p>
-
-{#if successInPercent > 80}    <!-- Udelat zelene -->
-<div class="read-mode without recap">
-  <div class="read-div"> <!-- DEFAULT SVG: laugh-17 -->
-    <div class="title-recapitulation great"><SVGIcon name="happy-sun" size="32"/><span>{$_('recapitulation.score.great')}</span></div>
+<div class="recapitulation">
+  <div class="title" data-mode="exam">
+    <span>{$_('recapitulation.large_title')}</span>
+    <span>{$_('recapitulation.' + info.trainingMode)}</span>
   </div>
-</div>
-{:else if successInPercent > 60}   <!-- Udelat svetle zelene -->
-<div class="read-mode without recap">
-  <div class="read-div">
-    <div class="title-recapitulation good"><SVGIcon name="wink-06" size="32"/>{$_('recapitulation.score.good')}</div>
-  </div>
-</div>
-{:else if successInPercent > 40}  <!-- Udelat zlute -->
-<div class="read-mode without recap">
-  <div class="read-div">
-    <div class="title-recapitulation ok"><SVGIcon name="puzzled" size="32"/>{$_('recapitulation.score.ok')}</div>
-  </div>
-</div>
-{:else if successInPercent > 20}  <!-- Udelat oranzove -->
-<div class="read-mode without recap">
-  <div class="read-div">
-    <div class="title-recapitulation bad"><SVGIcon name="disgusted" size="32"/>{$_('recapitulation.score.bad')}</div>
-  </div>
-</div>
-{:else}
-<div class="read-mode without recap">
-  <div class="read-div">          <!-- Udelat cervene -->
-    <div class="title-recapitulation horrible"><SVGIcon name="dizzy-face" size="32"/>{$_('recapitulation.score.horrible')}</div>
-  </div>
-</div>
-{/if}
-  <div class="footer-container footer-singular">
-    <div class="footer-content">
-      <Button back class="page-button button-next">{$_('recapitulation.continue')}</Button>
+  <div class="score">
+    {#if successInPercent > 80}
+    <div data-stars="5">
+      <SVGIcon name="happy-sun" size="32"/><span>{$_('recapitulation.score.5')}</span>
     </div>
+    {:else if successInPercent > 60}
+    <div data-stars="4">
+      <SVGIcon name="wink-06" size="32"/><span>{$_('recapitulation.score.4')}</span>
+    </div>
+    {:else if successInPercent > 40}
+    <div data-stars="3">
+      <SVGIcon name="puzzled" size="32"/><span>{$_('recapitulation.score.3')}</span>
+    </div>
+    {:else if successInPercent > 20}
+    <div data-stars="2">
+      <SVGIcon name="disgusted" size="32"/><span>{$_('recapitulation.score.2')}</span>
+    </div>
+    {:else}
+    <div data-stars="1">
+      <SVGIcon name="dizzy-face" size="32"/><span>{$_('recapitulation.score.1')}</span>
+    </div>
+    {/if}
   </div>
-
-<div class="content-mode result">
-  <div class="row">
-    <div class="col rec-div right">
-      <span class="number">{info.known}</span>
-      <div>{$_('recapitulation.column.text')}</div>
+  <Row>
+    <Col class="known">
+      <span>{info.known}</span>
+      <span>{$_('recapitulation.column.text')}</span>
       <span>{$_('recapitulation.column.known')}</span>
-    </div>
-    <div class="col rec-div words">
-      <span class="number">{info.count}</span>
-      <div>{$_('recapitulation.column.text')}</div>
+    </Col>
+    <Col class="all">
+      <span>{info.count}</span>
+      <span>{$_('recapitulation.column.text')}</span>
       <span>{$_('recapitulation.column.all')}</span>
-    </div>
-    <div class="col rec-div wrong">
-      <span class="number">{info.unknown}</span>
-      <div>{$_('recapitulation.column.text')}</div>
+    </Col>
+    <Col class="unknown">
+      <span>{info.unknown}</span>
+      <span>{$_('recapitulation.column.text')}</span>
       <span>{$_('recapitulation.column.unknown')}</span>
-    </div>
+    </Col>
+  </Row>
+</div>
+<p class="recapitulation-text"> {$_('recapitulation.info_text.' + info.trainingMode)} <span>{info.known}</span> {$_('recapitulation.info_text_end')} </p>
+<p class="recapitulation-text"> 
+  {$_('recapitulation.info_text_description')} 
+  <span>{$_('recapitulation.' + remainingModes[0])}</span>
+  {$_('recapitulation.info_text_conjunction')} 
+  <span>{$_('recapitulation.' + remainingModes[1])}</span> 
+</p>
+<div class="footer-container footer-singular">
+  <div class="footer-content">
+    <Button back class="page-button button-next">{$_('recapitulation.continue')}</Button>
   </div>
 </div>
-
-
 <script>
   import { 
     Page,  

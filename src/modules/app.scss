@@ -903,26 +903,7 @@ input.translate {
   color: #FFF;
   border-radius: 15px 15px 0 0;
   padding: 1em;
-  &.horrible {
-    background: var(--app-recap-horrible);
-    box-shadow: 0 0 0.25em var(--app-recap-horrible);
-  }
-  &.bad {
-    background: var(--app-recap-bad);
-    box-shadow: 0 0 0.25em var(--app-recap-bad);
-  }
-  &.ok {
-    background: var(--app-recap-ok);
-    box-shadow: 0 0 0.25em var(--app-recap-ok);
-  }
-  &.good {
-    background: var(--app-recap-good);
-    box-shadow: 0 0 0.25em var(--app-recap-good);
-  }
-  &.great {
-    background: var(--app-recap-great);
-    box-shadow: 0 0 0.25em var(--app-recap-great);
-  }
+
   svg {
     display: block;
     margin: 0 auto 15px auto;
@@ -1271,5 +1252,113 @@ input:focus::placeholder {
     font-size: 10px;
     transition: all 350ms ease-in-out;
     font-weight: 600;
+  }
+}
+
+.recapitulation {
+
+  $recapitulation: (
+    "known": success, 
+    "all": primary, 
+    "unknown": error
+  );
+
+  $score: (
+    "5": recap-5,
+    "4": recap-4,
+    "3": recap-3,
+    "2": recap-2,
+    "1": recap-1
+  );
+
+  background: white;
+  border-bottom: 1px solid var(--app-border);
+  border-radius: 0 0 50px 50px;
+  text-align: center;
+  padding: 1em;
+  height: 45vh;
+  .title {
+    margin-bottom: 1em;
+    span:first-child {
+      display: block;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    span:last-child {
+      color: var(--app-text);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    &[data-mode="exam"] {
+      span:first-child {
+        color: var(--app-error);
+      }
+    }
+    &[data-mode="repetition"] {
+      span:first-child {
+        color: var(--app-warning);
+      }
+    }
+  }
+  .score {
+    @each $number, $color in $score {
+      div[data-stars="#{$number}"] {
+        background: var(--app-#{$color});
+        border-radius: 10px;
+        padding: 0.5em;
+        box-shadow: 0 0 5px var(--app-#{$color});
+        svg {
+          display: block;
+          margin: 0 auto;
+        }
+        span {
+          color: white;
+          font-size: 16px;
+          margin-top: 0.5em;
+          display: block;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .row {
+    border-radius: initial;
+    background: transparent;
+  }
+  .col {
+    span {
+      display: block;
+    }
+    @each $type, $color in $recapitulation {
+      &.#{$type} {
+        span:nth-child(1) {
+          font-size: 20px;
+          font-weight: 600;
+          color: var(--app-#{$color});
+        }
+        span:nth-child(2) {
+          font-size: 14px;
+          font-weight: 400;
+          color: var(--app-title);
+        }
+        span:nth-child(3) {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--app-#{$color});
+        }        
+      }
+    }
+  }
+}
+.recapitulation-text {
+  margin: 1em auto;
+  font-size: 14px;
+  color: var(--app-text);
+  padding: 0 1em;
+  text-align: center;
+  span {
+    font-weight: 600;
+    color: var(--app-title);
   }
 }
