@@ -390,4 +390,25 @@
       stroke: var(--app-primary);
     }
   }
+
+  &-reload {
+    path {
+      fill: var(--app-icon);
+      transition: all 350ms ease-in-out;
+    }
+  }
+
+  &-todo {
+    path, rect {
+      fill: var(--app-icon);
+      transition: all 350ms ease-in-out;
+    }
+  }
+
+  &-book-open-2 {
+    path, rect {
+      fill: var(--app-icon);
+      transition: all 350ms ease-in-out;
+    }
+  }
 }
