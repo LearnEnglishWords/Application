@@ -152,6 +152,7 @@
   function setupData(isTraining) {
     trainingData.set({ 
       mode: modeType, 
+      type: currentTestingMode, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
       words: currentWordStorage.getWords(wordsLimit),

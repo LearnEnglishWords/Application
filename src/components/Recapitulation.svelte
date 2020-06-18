@@ -1,6 +1,6 @@
 <div class="recapitulation">
-  <div class="title" data-mode="exam">
-    <span>{$_('recapitulation.large_title')}</span>
+  <div class="title" data-mode={info.trainingType}>
+    <span>{$_('recapitulation.' + info.trainingType + '.large_title')}</span>
     <span>{$_('recapitulation.' + info.trainingMode)}</span>
   </div>
   <div class="score">
@@ -44,13 +44,21 @@
     </Col>
   </Row>
 </div>
-<p class="recapitulation-text"> {$_('recapitulation.info_text.' + info.trainingMode)} <span>{info.known}</span> {$_('recapitulation.info_text_end')} </p>
-<p class="recapitulation-text"> 
-  {$_('recapitulation.info_text_description')} 
-  <span>{$_('recapitulation.' + remainingModes[0])}</span>
-  {$_('recapitulation.info_text_conjunction')} 
-  <span>{$_('recapitulation.' + remainingModes[1])}</span> 
-</p>
+
+{#if info.trainingType === 'exam'}
+  <p class="recapitulation-text"> {$_('recapitulation.exam.info_text.' + info.trainingMode)} <span>{info.known}</span> {$_('recapitulation.exam.info_text_end')} </p>
+  <p class="recapitulation-text"> 
+    {$_('recapitulation.exam.info_text_description')} 
+    <span>{$_('recapitulation.' + remainingModes[0])}</span>
+    {$_('recapitulation.exam.info_text_conjunction')} 
+    <span>{$_('recapitulation.' + remainingModes[1])}</span> 
+  </p>
+{:else if info.trainingType === 'repetition' && info.unknown > 0}
+  <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
+  <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
+{/if}
+
+
 <div class="footer-container footer-singular">
   <div class="footer-content">
     <Button back class="page-button button-next">{$_('recapitulation.continue')}</Button>
