@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container">
+  <div class="header-statistics header-container" on:click={() => currentTestingMode = null}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{$statisticsData.known}</div>
@@ -24,7 +24,7 @@
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-container view">
+  <div class="page-container view" on:click={() => currentTestingMode = null}>
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.training_title')}</div>
@@ -41,8 +41,6 @@
           </div>
         {/each}
       </div>
-      <!-- Title -->
-      <div class="page-title"></div>
       <!-- Stepper -->
       <List class="list-container list-stepper">
         <ListItem class="list-item" title="{$_('category.words_title')}">
@@ -62,18 +60,33 @@
         </ListItem>
       </List>
       <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
-      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-        <Button class="page-button button-repeat" on:click={() => goToTrainingView(false, true)}>{$_('category.buttons.start_repeat')}</Button>
-      {/if}
     </div>
   </div>
+
   <!-- Footer -->
-  <div class="footer-container footer-double">
-    <div class="footer-content">
-        <Button class="page-button button-training" on:click={() => goToTrainingView(true, false)}>{$_('category.buttons.start_training')}</Button>
-        <Button class="page-button button-practice" on:click={() => goToTrainingView(false, false)}>{$_('category.buttons.start_testing')}</Button>
-    </div>
-  </div> 
+  <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
+    <Row>
+      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
+      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode = 'repetition'}>
+        <SVGIcon element="navigation" name="reload" size="16" />
+        <span>{$_('category.buttons.repetition')}</span>
+      </Col>
+      {/if}
+      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
+        <SVGIcon element="navigation" name="book-open-2" size="16" />
+        <span>{$_('category.buttons.training')}</span>
+      </Col>
+      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode = 'exam'}>
+        <SVGIcon element="navigation" name="todo" size="16" />
+        <span>{$_('category.buttons.exam')}</span>
+      </Col>
+    </Row>
+    <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
+      <Col>
+        <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
+      </Col>
+    </Row>
+  </div>
 </Page>
 
 <script>
@@ -107,6 +120,7 @@
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
   let modeType = trainingModes[trainingModeIndex].value;
+  let currentTestingMode = null;
 
   trainingModes.forEach((mode, index) => {
     if (mode.checked) {
@@ -121,7 +135,6 @@
 
   statisticsData.set($categoryDetailData.statistics.stats);
   trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
-
 
   function changeTrainingMode(index) {
     trainingModeIndex = index;
@@ -159,9 +172,12 @@
     });
   }
 
-  function goToTrainingView(isTraining, repetition) {
+  function goToTrainingView() {
+    let isTraining = currentTestingMode === "training";  
+    let isRepetition = currentTestingMode === "repetition";
+
     f7.preloader.show();
-    currentWordStorage = $categoryDetailData.wordStorages[repetition ? "known" : modeType];
+    currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : modeType];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining);
@@ -170,7 +186,7 @@
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView(isTraining, repetition) }, 1000);
+      setTimeout(() => { goToTrainingView(isTraining, isRepetition) }, 1000);
     }
   }
 
