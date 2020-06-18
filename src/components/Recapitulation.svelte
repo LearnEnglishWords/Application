@@ -1,6 +1,6 @@
 <div class="recapitulation">
   <div class="title" data-mode={info.trainingType}>
-    <span>{$_('recapitulation.' + info.trainingType + '.large_title')}</span>
+    <span>{$_('recapitulation.' + info.trainingType + '.title')}</span>
     <span>{$_('recapitulation.' + info.trainingMode)}</span>
   </div>
   <div class="score">
