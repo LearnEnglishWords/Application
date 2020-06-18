@@ -1,3 +1,12 @@
+<h1> {$_('recapitulation.large_title')} {$_('recapitulation.' + info.trainingMode)}</h1>
+<p> {$_('recapitulation.info_text.' + info.trainingMode)} {info.known} {$_('recapitulation.info_text_end')} </p>
+<p> 
+  {$_('recapitulation.info_text_description')} 
+  {$_('recapitulation.' + remainingModes[0])} 
+  {$_('recapitulation.info_text_conjunction')} 
+  {$_('recapitulation.' + remainingModes[1])} 
+</p>
+
 {#if successInPercent > 80}    <!-- Udelat zelene -->
 <div class="read-mode without recap">
   <div class="read-div"> <!-- DEFAULT SVG: laugh-17 -->
@@ -39,18 +48,18 @@
   <div class="row">
     <div class="col rec-div right">
       <span class="number">{info.known}</span>
-      <div>Slov</div>
-      <span>Znám</span>
+      <div>{$_('recapitulation.column.text')}</div>
+      <span>{$_('recapitulation.column.known')}</span>
     </div>
     <div class="col rec-div words">
       <span class="number">{info.count}</span>
-      <div>Slov</div>
-      <span>Celkem</span>
+      <div>{$_('recapitulation.column.text')}</div>
+      <span>{$_('recapitulation.column.all')}</span>
     </div>
     <div class="col rec-div wrong">
       <span class="number">{info.unknown}</span>
-      <div>Slov</div>
-      <span>Neznám</span>
+      <div>{$_('recapitulation.column.text')}</div>
+      <span>{$_('recapitulation.column.unknown')}</span>
     </div>
   </div>
 </div>
@@ -65,6 +74,7 @@
   } from 'framework7-svelte';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
+  import { trainingModes } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
 
   export let info;
@@ -72,4 +82,6 @@
   let successInPercent = 100/info.count*info.known;
 
   let recapitulation = 'below-average';
+  
+  let remainingModes = trainingModes.map((mode) => mode.value).filter((value) => value !== info.trainingMode);
 </script>
