@@ -585,6 +585,13 @@ svg {
   }
 }
 
+.mode-read {
+  padding: 0 1em;
+  .read-icon {
+    text-align: right;
+  }
+}
+
 .other-mode {
   .word {
     font-size: 24px;
@@ -999,10 +1006,21 @@ input:focus::placeholder {
   color: var(--app-title);
 }
 .toolbar {
-  background: var(--app-secondary);
   .link {
     color: white;
     font-weight: 700;
+  }
+  .row {
+    background: var(--app-secondary);
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    border-radius: 0;
+    align-items: center;
+    .col:nth-child(2) {     
+      color: white;
+      font-weight: 700;
+    }
   }
 }
 
@@ -1360,5 +1378,19 @@ input:focus::placeholder {
   span {
     font-weight: 600;
     color: var(--app-title);
+  }
+}
+
+.volume-block {
+  float: right;
+  padding: 1em;
+  margin: 0 0 0 100%;
+  width: auto;
+}
+
+.mode-read {
+  .read-icon {
+    position: absolute;
+    right: 1em;
   }
 }

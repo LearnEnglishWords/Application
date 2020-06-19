@@ -17,13 +17,19 @@
     {/if}
 
     <Toolbar position={'bottom'}>
-      <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
-      {allWordsLength}/{allWordIds.length}
-      {#if removeWords.length > 0 || addWords.length > 0}
-        <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
-      {:else}
-        <Link></Link>
-      {/if}
+      <Row>
+        <Col>
+          <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
+        </Col>
+        <Col>
+          {allWordsLength}/{allWordIds.length}
+        </Col>
+        <Col>
+          {#if removeWords.length > 0 || addWords.length > 0}
+            <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
+          {/if}
+        </Col>
+      </Row>
     </Toolbar>
 
   <Popover class="filter-menu">

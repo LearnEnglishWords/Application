@@ -2,7 +2,7 @@
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
     <div class="word">{word.text}</div>
     <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-    <div> <SVGIcon name="volume" size="24"/> </div>
+    <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
   </div>
   <WordDetail {word}/>
 
@@ -35,6 +35,9 @@
     <div class="other-div">
       <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
       {#if result !== null}
+        <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+          <SVGIcon name="volume" size="24"/>
+        </div>
         {#if !result}
           <div class="result-div wrong">
             <span class="result">{$_('training.results.wrong')}</span>
@@ -47,11 +50,6 @@
             <span class="result">{$_('training.results.right')}</span>
           </div>
         {/if}
-
-        <br>
-        <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <SVGIcon name="volume" size="24"/>
-        </div>
       {/if}
     </div>
   </div>
