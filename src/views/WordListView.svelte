@@ -18,8 +18,11 @@
 
     <Toolbar position={'bottom'}>
       <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
+      {allWordsLength}/{allWordIds.length}
       {#if removeWords.length > 0 || addWords.length > 0}
         <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
+      {:else}
+        <Link></Link>
       {/if}
     </Toolbar>
 
