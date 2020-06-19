@@ -18,25 +18,25 @@
           "main_category_default": "Všechna slovíčka",
           "basic": {
               "title": "Basic",
-              "text": "(Obsahuje 1000 nejčastějších slov)",
+              "text": "(Obsahuje 1000 nejpoužívanějších slov)",
               "description": "Obsahuje všechna základní anglická slovíčka pro základní komunikaci a dorozumění.",
-              "main_category": "1000 nejčastějších slov"
+              "main_category": "1000 nejpoužívanějších slov"
           },
           "standard": {
               "title": "Intermediate",
-              "text": "(Obsahuje 3000 nejčastějších slov)",
+              "text": "(Obsahuje 3000 nejpoužívanějších slov)",
               "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace.",
-              "main_category": "3000 nejčastějších slov"
+              "main_category": "3000 nejpoužívanějších slov"
           },
           "advanced": {
               "title": "Advanced",
-              "text": "(Obsahuje 5000 nejčastějších slov)",
+              "text": "(Obsahuje 5000 nejpoužívanějších slov)",
               "description": "Se znalosti 5000 anglických slov dokážete porozumět 90% každodenní anglické konverzace, psaným novinám a časopisům.",
-              "main_category": "5000 nejčastějších slov"
+              "main_category": "5000 nejpoužívanějších slov"
           },
           "category": {
               "title": "Category",
-              "text": "(Slova v různých kategoriích)",
+              "text": "(Slova jsou v různých kategoriích)",
               "description": "Zde jsou slova rozřazená podle témat do různých kategorií.",
               "main_category": "Všechna slovíčka"
           },
@@ -74,7 +74,7 @@
       "words": "slov",
       "buttons": {
           "words_list": "Zobrazit seznam všech slov",
-          "exam": "Prozkoušet",
+          "exam": "Přezkoušet",
           "training": "Procvičovat",
           "repetition": "Opakovat",
           "start": "Spustit"

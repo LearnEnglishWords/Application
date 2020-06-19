@@ -72,13 +72,13 @@
         <span>{$_('category.buttons.repetition')}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
-        <SVGIcon element="navigation" name="book-open-2" size="16" />
-        <span>{$_('category.buttons.training')}</span>
-      </Col>
       <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode = 'exam'}>
         <SVGIcon element="navigation" name="todo" size="16" />
         <span>{$_('category.buttons.exam')}</span>
+      </Col>
+      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
+        <SVGIcon element="navigation" name="book-open-2" size="16" />
+        <span>{$_('category.buttons.training')}</span>
       </Col>
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">

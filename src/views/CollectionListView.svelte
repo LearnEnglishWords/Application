@@ -6,7 +6,7 @@
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
       {#if active}
-        <ListItem accordionItem accordionItemOpened={id === Collections.BASIC.id} title="{title}" text="{shortDescription}">
+        <ListItem accordionItem title="{title}" text="{shortDescription}">
           <AccordionContent>
             <Block>
               <p>
