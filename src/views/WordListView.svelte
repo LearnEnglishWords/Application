@@ -154,7 +154,7 @@
       if (!isKnown(word)) {
         let prevLearningState = {...word.learning};
         word.learning = {"read": true, "write": true, "listen": true};
-        word.knownStage = KnownStages.HARD_KNOWN;
+        word.knownStage = KnownStages.ALREADY_KNOWN;
         WordUpdater.update(word, prevLearningState).then(() =>
           progress++
         );

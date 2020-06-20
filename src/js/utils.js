@@ -126,9 +126,10 @@ export const Modes = {
 export const KnownStages = {
     UNKNOWN: 0,
     NOT_KNOWN: 0,
-    KNOWN: 3,
-    MEDIUM_KNOWN: 6,
-    HARD_KNOWN: 10
+    KNOWN: 4,
+    MEDIUM_KNOWN: 8,
+    HARD_KNOWN: 12,
+    ALREADY_KNOWN: 25
 }
 
 export const WordListFilter = {
