@@ -123,6 +123,12 @@ export const Modes = {
     LISTEN: 'listen'
 }
 
+export const TestingModes = {
+    TRAINING: 'training',
+    EXAM: 'exam',
+    REPETITION: 'repetition'
+}
+
 export const KnownStages = {
     UNKNOWN: 0,
     NOT_KNOWN: 0,
