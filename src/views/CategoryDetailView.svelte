@@ -67,16 +67,16 @@
   <div class="bottom-navigation">
     <Row noGap>
       {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-      <Col class="ripple mode-repetition" on:click={() => goToTrainingView(testingModes.REPETITION)}>
+      <Col class="ripple mode-repetition" on:click={() => goToTrainingView(TestingModes.REPETITION)}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.repetition')}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-exam" on:click={() => goToTrainingView(testingModes.EXAM)}>
+      <Col class="ripple mode-exam" on:click={() => goToTrainingView(TestingModes.EXAM)}>
         <SVGIcon element="navigation" name="todo" size="16" />
         <span>{$_('category.buttons.exam')}</span>
       </Col>
-      <Col class="ripple mode-training" on:click={() => goToTrainingView(testingModes.TRAINING)}>
+      <Col class="ripple mode-training" on:click={() => goToTrainingView(TestingModes.TRAINING)}>
         <SVGIcon element="navigation" name="book-open-2" size="16" />
         <span>{$_('category.buttons.training')}</span>
       </Col>
@@ -101,7 +101,7 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes as defaultTrainingModes, testingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
+  import { trainingModes as defaultTrainingModes, TestingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
@@ -147,8 +147,8 @@
     trainingData.set({ 
       mode: modeType, 
       type: testingMode, 
-      isTraining: testingMode === testingModes.TRAINING,
-      wallEnabled: !testingMode === testingModes.TRAINING,
+      isTraining: testingMode === TestingModes.TRAINING,
+      wallEnabled: !testingMode === TestingModes.TRAINING,
       words: currentWordStorage.getWords(wordsLimit),
       currentWordIndex: 0
     });
@@ -169,7 +169,7 @@
 
   function goToTrainingView(testingMode) {
     f7.preloader.show();
-    currentWordStorage = $categoryDetailData.wordStorages[testingMode === testingModes.REPETITION ? "known" : modeType];
+    currentWordStorage = $categoryDetailData.wordStorages[testingMode === TestingModes.REPETITION ? "known" : modeType];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(testingMode);
