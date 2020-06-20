@@ -343,13 +343,16 @@ svg {
   &[data-name="CategoryDetail"] {
 
     .#{$name}-content {$type: "content";
-      background-color: var(--app-element);
+      background-color: var(--app-secondary);
 
       .#{$name}-container {$element: "container";
         height: auto;
-        border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius) var(--#{$name}-#{$type}-#{$element}-border-radius) 0 0;
+        margin: 0 1em;
+        border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius) var(--#{$name}-#{$type}-#{$element}-border-radius) 20px 20px;
         background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
-        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height)), $right: 0, $bottom: calc(3em + var(--page-button-default-height)), $left: 0);
+        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height)), $right: 0, $bottom: 89px, $left: 0);
+        padding-bottom: 20px;
+        box-shadow: 0 0 0.25em white;
       }
     }
 
@@ -1189,30 +1192,25 @@ input:focus::placeholder {
     "exam": error
   );
 
-  $bottom-navigation-top-border-radius: 17px;
+  $bottom-navigation-border-radius: 10px;
 
-  background: white;
+  background-color: var(--app-primary);
+  padding-top: 20px;
+  @extend %-pattern;
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
-  z-index: 10000;
-  border-radius: $bottom-navigation-top-border-radius $bottom-navigation-top-border-radius 0 0;
   .row {
     padding: 0;
+    margin: 1em;
     text-align: center;
-    border-radius: inherit;
-    border-top: 1px solid var(--app-border);
+    border-radius: $bottom-navigation-border-radius;
+    box-shadow: 0 0 0.25em #FFFFFF;
   }
   .col {
     padding: 9px 0 9px;
-    z-index: 100000;
     --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    &:first-child {
-      border-radius: $bottom-navigation-top-border-radius 0 0 0;
-    }
-    &:last-child {
-      border-radius: 0 $bottom-navigation-top-border-radius 0 0;
-    }
+    z-index: 10000;
 
     @each $type, $color in $bottom-navigation {
       &.mode-#{$type} {
