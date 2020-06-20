@@ -3,7 +3,7 @@
 </div>
 <!-- List -->
 <List class="list-container list-categories">
-  {#each word.sense.slice(0,3) as sense, id}
+  {#each word.sense.slice(0,4) as sense, id}
     <ListItem class="list-item" title={sense.toLowerCase()}>
       <div slot="media" class="item-media">
         <SVGIcon name="translation" size="24" />
