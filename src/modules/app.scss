@@ -1190,52 +1190,19 @@ input:focus::placeholder {
   );
 
   $bottom-navigation-top-border-radius: 17px;
-  $bottom-navigation-bottom-border-radius: 5px;
 
   background: white;
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
-  margin-bottom: -55px;
   z-index: 10000;
   border-radius: $bottom-navigation-top-border-radius $bottom-navigation-top-border-radius 0 0;
-  transition: margin-bottom 350ms ease-in-out;
-  &.activated {
-    margin-bottom: 0;
-  }
   .row {
     padding: 0;
     text-align: center;
     border-radius: inherit;
     border-top: 1px solid var(--app-border);
-    &:last-child {
-      border-top: 1px solid var(--app-border);
-      border-radius: $bottom-navigation-bottom-border-radius $bottom-navigation-bottom-border-radius 0 0;
-      .col {
-        padding: 9px 0 0;
-        .button {
-          color: white;
-          font-size: 13px;
-          font-weight: 700;
-          height: 36px;
-          line-height: 36px;
-          border-radius: 10px;
-          transition: all 350ms ease-in-out;
-          margin: 0 auto 9px;
-          width: 50%;
-        }
-      }
-
-      @each $type, $color in $bottom-navigation {
-        &.#{$type} {
-          .button {
-            background: var(--app-#{$color});
-            box-shadow: 0 0 5px var(--app-#{$color});
-          }
-        }
-      }
-    }
   }
   .col {
-    padding: 9px 0;
+    padding: 9px 0 9px;
     z-index: 100000;
     --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
     position: relative;
@@ -1249,26 +1216,19 @@ input:focus::placeholder {
 
     @each $type, $color in $bottom-navigation {
       &.mode-#{$type} {
-        &.selected {
-          .navigation-icon {
-            --app-icon: var(--app-#{$color});
-          }
-          span {
-            color: var(--app-#{$color});
-          }
+        .navigation-icon {
+          --app-icon: var(--app-#{$color});
+        }
+        span {
+          color: var(--app-#{$color});
         }
       }
     }
   }
-  .navigation-icon {
-    --app-icon: #CDDAE2;
-  }
   span {
     display: block;
-    color: var(--app-text);
     text-transform: uppercase;
     font-size: 10px;
-    transition: all 350ms ease-in-out;
     font-weight: 600;
   }
 }

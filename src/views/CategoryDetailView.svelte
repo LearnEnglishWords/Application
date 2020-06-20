@@ -65,23 +65,22 @@
 
   <!-- Footer -->
   <div class="bottom-navigation">
-    <Row>
+    <Row noGap>
       {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-      <Col class="ripple mode-repetition selected" on:click={() => goToTrainingView(testingModes.REPETITION)}>
+      <Col class="ripple mode-repetition" on:click={() => goToTrainingView(testingModes.REPETITION)}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.repetition')}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-exam selected" on:click={() => goToTrainingView(testingModes.EXAM)}>
+      <Col class="ripple mode-exam" on:click={() => goToTrainingView(testingModes.EXAM)}>
         <SVGIcon element="navigation" name="todo" size="16" />
         <span>{$_('category.buttons.exam')}</span>
       </Col>
-      <Col class="ripple mode-training selected" on:click={() => goToTrainingView(testingModes.TRAINING)}>
+      <Col class="ripple mode-training" on:click={() => goToTrainingView(testingModes.TRAINING)}>
         <SVGIcon element="navigation" name="book-open-2" size="16" />
         <span>{$_('category.buttons.training')}</span>
       </Col>
     </Row>
-    <Row> <Col> </Col> </Row> 
   </div>
 </Page>
 
