@@ -83,23 +83,19 @@
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
-        {#if currentTestingMode === 'training'}
-          <p>
-            Slouží jenom k učení a procvičování samotných sloviček nanečisto. 
-            Výsledky se nezapočítávají do statistik.
-          </p>
-        {:else if currentTestingMode === 'exam'}
-          <p>
-            Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
-            Výsledky se započítávají do statistik a známá slovíčka se již v jednotlivých módech znovu nezobrazují.
-          </p>
-        {:else if currentTestingMode === 'repetition'}
-          <p>
-            Slouží ke kontrole, zda si již jednou naučená slovíčka stále pamatujete i o několik dní či týdnů později. 
-            Výsledky se zapocitavaji do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
-            Naopak slovíčka, která zodpovíte správně se zde již znovu nezobrazí. 
-          </p>
-        {/if}
+        <p class="{currentTestingMode === 'training' ? 'selected' : ''}">
+          Slouží jenom k učení a procvičování samotných sloviček nanečisto. 
+          Výsledky se nezapočítávají do statistik.
+        </p>
+        <p class="{currentTestingMode === 'exam' ? 'selected' : ''}">
+          Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
+          Výsledky se započítávají do statistik a známá slovíčka se již v jednotlivých módech znovu nezobrazují.
+        </p>
+        <p class="{currentTestingMode === 'repetition' ? 'selected' : ''}">
+          Slouží ke kontrole, zda si již jednou naučená slovíčka stále pamatujete i o několik dní či týdnů později. 
+          Výsledky se zapocitavaji do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
+          Naopak slovíčka, která zodpovíte správně se zde již znovu nezobrazí. 
+        </p>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
