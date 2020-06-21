@@ -1,7 +1,7 @@
 {#if type === "main"}
   <Navbar noShadow class="navbar-main"> 
     <NavLeft>
-      <Link class="back">
+      <Link on:click={() => f7.sheet.close()} class="back">
         <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
@@ -27,6 +27,7 @@
 
 <script>
   import {
+    f7,
     Navbar, NavLeft, NavRight, Link,
     Popover, Icon, 
     List, ListButton, 
