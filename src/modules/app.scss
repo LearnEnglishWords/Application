@@ -1222,6 +1222,11 @@ input:focus::placeholder {
           margin: 0 auto 9px;
           width: 50%;
         }
+        p {
+          font-size: 13px;
+          margin: 0;
+          color: var(--app-text);
+        }
       }
 
       @each $type, $color in $bottom-navigation {
@@ -1229,6 +1234,9 @@ input:focus::placeholder {
           .button {
             background: var(--app-#{$color});
             box-shadow: 0 0 5px var(--app-#{$color});
+          }
+          p.#{$type} {
+            padding: 1em;
           }
         }
       }
