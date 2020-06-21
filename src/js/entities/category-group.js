@@ -28,11 +28,12 @@ export default class CategoryGroup {
   }
 
   loadWordIds() {
-    this.categories.forEach((category) => {
+    this.categories.forEach((category, index) => {
       Object.keys(category.wordStorages).forEach((mode) => {
         let thisWordIds = this.mainCategory.wordStorages[mode].getWordIds();
         let categoryWordIds = category.wordStorages[mode].getWordIds();
-        this.mainCategory.wordStorages[mode].setWordIds(thisWordIds.concat(categoryWordIds));
+
+        this.mainCategory.wordStorages[mode].setWordIds(index === 0 ? categoryWordIds : this._zip(thisWordIds, categoryWordIds, index));
       });
     });
   }
@@ -63,8 +64,8 @@ export default class CategoryGroup {
     allNotKnownWordsData.updateData(mode, addWords, removeWords);
   }
 
-  push(categories) {
-    this.categories.push(categories);
+  push(category) {
+    this.categories.push(category);
   }
 
   concat(group) {
@@ -75,6 +76,26 @@ export default class CategoryGroup {
     this.categories.forEach((category) => { 
       category.updateKnownWordList(word);
     });
+  }
+
+  _zip(arr1, arr2, s = 1) {
+    let array = [];
+    let arrLength = 0;
+    if (arr1.length > arr2.length*s) {
+      arrLength = arr1.length;
+    } else {
+      arrLength = arr2.length*s;
+    }
+
+    for (let i = 0; i < arrLength; i++) {
+      if (arr1.length > i) {
+        array.push(arr1[i]);
+      }
+      if (arr2.length > i && i % s === 0) {
+        array.push(arr2[i/s]);
+      }
+    }
+    return array
   }
 }
 
