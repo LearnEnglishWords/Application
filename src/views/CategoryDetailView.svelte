@@ -67,22 +67,39 @@
   <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
     <Row>
       {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode = 'repetition'}>
+      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode === 'repetition' ? currentTestingMode = null : currentTestingMode = 'repetition'}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.repetition')}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode = 'exam'}>
+      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode === 'exam' ? currentTestingMode = null : currentTestingMode = 'exam'}>
         <SVGIcon element="navigation" name="todo" size="16" />
         <span>{$_('category.buttons.exam')}</span>
       </Col>
-      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
+      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode === 'training' ? currentTestingMode = null : currentTestingMode = 'training'}>
         <SVGIcon element="navigation" name="book-open-2" size="16" />
         <span>{$_('category.buttons.training')}</span>
       </Col>
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
+        {#if currentTestingMode === 'training'}
+          <p>
+            Slouží jenom k učení a procvičování samotných sloviček nanečisto. 
+            Výsledky se nezapočítávají do statistik.
+          </p>
+        {:else if currentTestingMode === 'exam'}
+          <p>
+            Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
+            Výsledky se započítávají do statistik a známá slovíčka se již v jednotlivých módech znovu nezobrazují.
+          </p>
+        {:else if currentTestingMode === 'repetition'}
+          <p>
+            Slouží ke kontrole, zda si již jednou naučená slovíčka stále pamatujete i o několik dní či týdnů později. 
+            Výsledky se zapocitavaji do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
+            Naopak slovíčka, která zodpovíte správně se zde již znovu nezobrazí. 
+          </p>
+        {/if}
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
