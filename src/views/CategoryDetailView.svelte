@@ -83,19 +83,23 @@
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
-        <p class="{currentTestingMode !== null ? currentTestingMode : ''}">
-          {#if currentTestingMode === 'training'}
+        {#if currentTestingMode === 'training'}
+          <p in:fade>
             Slouží jenom k učení a procvičování samotných sloviček nanečisto. 
             Výsledky se nezapočítávají do statistik.
-          {:else if currentTestingMode === 'exam'}
+          </p>
+        {:else if currentTestingMode === 'exam'}
+          <p in:fade>
             Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
             Výsledky se započítávají do statistik a známá slovíčka se již v jednotlivých módech znovu nezobrazují.
-          {:else if currentTestingMode === 'repetition'}
+          </p>
+        {:else if currentTestingMode === 'repetition'}
+          <p in:fade>
             Slouží ke kontrole, zda si již jednou naučená slovíčka stále pamatujete i o několik dní či týdnů později. 
             Výsledky se zapocitavaji do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
             Naopak slovíčka, která zodpovíte správně se zde již znovu nezobrazí. 
-          {/if} 
-        </p>
+          </p>
+        {/if} 
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
@@ -120,6 +124,7 @@
   } from '../js/store.js';
 
   import { trainingModes as defaultTrainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
+  import { fade } from 'svelte/transition';
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
