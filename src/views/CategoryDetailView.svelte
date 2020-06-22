@@ -86,19 +86,19 @@
         <div style="height: 120px">
         {#if currentTestingMode === 'training'}
           <p in:fade>
-            Slouží jenom k učení a procvičování samotných sloviček nanečisto. 
+            Slouží jenom k učení a procvičování slovíček nanečisto. 
             Výsledky se nezapočítávají do statistik.
           </p>
         {:else if currentTestingMode === 'exam'}
           <p in:fade>
             Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
-            Výsledky se započítávají do statistik a známá slovíčka se již v jednotlivých módech znovu nezobrazují.
+            Výsledky se započítávají do statistik a známá slovíčka se zde v přezkoušení již znovu nezobrazí.
           </p>
         {:else if currentTestingMode === 'repetition'}
           <p in:fade>
-            Slouží ke kontrole, zda si již jednou naučená slovíčka stále pamatujete i o několik dní či týdnů později. 
-            Výsledky se zapocitavaji do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
-            Naopak slovíčka, která zodpovíte správně se zde již znovu nezobrazí. 
+            Slouží ke kontrole, zda si již jednou naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech. 
+            Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
+            Naopak slovíčka která zodpovíte správně, se zde již znovu nezobrazí. 
           </p>
         {/if} 
         </div>
