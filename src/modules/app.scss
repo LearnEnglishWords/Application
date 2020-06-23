@@ -1224,23 +1224,19 @@ input:focus::placeholder {
         }
         p {
           font-size: 13px;
-          margin: 0;
+          margin: 0 auto;
           display: flex;
-          min-height: 0;
           transition: all 350ms ease-in-out;
           align-items: center;
-          padding: 1em 2em;
+          height: 0;
           color: var(--app-text);
           opacity: 0;
-          &:empty {
-            padding: 0;
+          width: calc(100% - 4em);
+          &.selected {
+            height: 100px;
+            padding: 1em 0;
+            opacity: 1;
           }
-        }
-      }
-      &.training, &.exam, &.repetition {
-        p {
-          min-height: 100px;
-          opacity: 1;
         }
       }
 
