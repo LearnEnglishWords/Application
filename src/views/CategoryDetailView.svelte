@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container" on:click={() => currentTestingMode = null}>
+  <div class="header-statistics header-container" on:click={() => currentLearningMode = null}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{$statisticsData.known}</div>
@@ -24,7 +24,7 @@
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-container view" on:click={() => currentTestingMode = null}>
+  <div class="page-container view" on:click={() => currentLearningMode = null}>
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.training_title')}</div>
@@ -64,37 +64,37 @@
   </div>
 
   <!-- Footer -->
-  <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
+  <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
       {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode === 'repetition' ? currentTestingMode = null : currentTestingMode = 'repetition'}>
+      <Col class="ripple mode-{LearningMode.REPETITION} {currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.REPETITION ? currentLearningMode = null : currentLearningMode = LearningMode.REPETITION}>
         <SVGIcon element="navigation" name="reload" size="16" />
-        <span>{$_('category.buttons.repetition')}</span>
+        <span>{$_('category.buttons.' + LearningMode.REPETITION)}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode === 'exam' ? currentTestingMode = null : currentTestingMode = 'exam'}>
+      <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
         <SVGIcon element="navigation" name="todo" size="16" />
-        <span>{$_('category.buttons.exam')}</span>
+        <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
       </Col>
-      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode === 'training' ? currentTestingMode = null : currentTestingMode = 'training'}>
+      <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
         <SVGIcon element="navigation" name="book-open-2" size="16" />
-        <span>{$_('category.buttons.training')}</span>
+        <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
       </Col>
     </Row>
-    <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
+    <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
-        <p class="{currentTestingMode === 'repetition' ? 'selected' : ''}">
-          {$_('category.testing_mode.repetition.text1')} <br /> 
-          {$_('category.testing_mode.repetition.text2')} <br />
-          {$_('category.testing_mode.repetition.text3')} 
+        <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} <br />
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text3`)} 
         </p>
-        <p class="{currentTestingMode === 'exam' ? 'selected' : ''}">
-          {$_('category.testing_mode.exam.text1')} <br /> 
-          {$_('category.testing_mode.exam.text2')}
+        <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
         </p>
-        <p class="{currentTestingMode === 'training' ? 'selected' : ''}">
-          {$_('category.testing_mode.training.text1')} <br /> 
-          {$_('category.testing_mode.training.text2')}
+        <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
         </p>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
@@ -119,7 +119,7 @@
     statisticsData, trainingModeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes as defaultTrainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
+  import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
@@ -133,7 +133,7 @@
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
   let modeType = trainingModes[trainingModeIndex].value;
-  let currentTestingMode = null;
+  let currentLearningMode = null;
 
   trainingModes.forEach((mode, index) => {
     if (mode.checked) {
@@ -165,7 +165,7 @@
   function setupData(isTraining) {
     trainingData.set({ 
       mode: modeType, 
-      type: currentTestingMode, 
+      type: currentLearningMode, 
       isTraining: isTraining,
       wallEnabled: !isTraining,
       words: currentWordStorage.getWords(wordsLimit),
@@ -187,8 +187,8 @@
   }
 
   function goToTrainingView() {
-    let isTraining = currentTestingMode === "training";  
-    let isRepetition = currentTestingMode === "repetition";
+    let isTraining = currentLearningMode === LearningMode.TRAINING;  
+    let isRepetition = currentLearningMode === LearningMode.REPETITION;
 
     f7.preloader.show();
     currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : modeType];

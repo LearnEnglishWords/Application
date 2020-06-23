@@ -138,6 +138,12 @@ export const WordListFilter = {
     UNKNOWN: "unknown"
 }
 
+export const LearningMode = {
+    TRAINING: "training",
+    EXAM: "exam",
+    REPETITION: "repetition"
+}
+
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
   LAST_ACTIVITY: "lastActivity",

@@ -79,7 +79,7 @@
           "repetition": "Opakovat",
           "start": "Spustit"
       },
-      "testing_mode": {
+      "learning_mode": {
           "repetition": {
               "text1": "Slouží ke kontrole, zda si naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech.",
               "text2": "Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.",
