@@ -85,17 +85,17 @@
       <Col>
         <div style="height: 120px">
         {#if currentTestingMode === 'training'}
-          <p in:fade>
+          <p>
             Slouží jenom k učení a procvičování slovíček nanečisto. 
             Výsledky se nezapočítávají do statistik.
           </p>
         {:else if currentTestingMode === 'exam'}
-          <p in:fade>
+          <p>
             Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
             Výsledky se započítávají do statistik a známá slovíčka se zde v přezkoušení již znovu nezobrazí.
           </p>
         {:else if currentTestingMode === 'repetition'}
-          <p in:fade>
+          <p>
             Slouží ke kontrole, zda si již jednou naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech. 
             Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
             Naopak slovíčka která zodpovíte správně, se zde již znovu nezobrazí. 
@@ -126,7 +126,6 @@
   } from '../js/store.js';
 
   import { trainingModes as defaultTrainingModes, WordsType, AppInfo, setActivity } from '../js/utils.js'
-  import { fade } from 'svelte/transition';
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
