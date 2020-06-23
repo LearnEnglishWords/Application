@@ -81,27 +81,21 @@
         <span>{$_('category.buttons.training')}</span>
       </Col>
     </Row>
-    <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
+    <Row noGap class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
-        {#if currentTestingMode === 'training'}
-          <p>
+        <p>
+          {#if currentTestingMode === 'training'}
             Slouží jenom k učení a procvičování slovíček nanečisto. 
             Výsledky se nezapočítávají do statistik.
-          </p>
-        {:else if currentTestingMode === 'exam'}
-          <p>
+          {:else if currentTestingMode === 'exam'}
             Slouží k otestování, zda daná slovíčka již umíte a opravdu si je pamatujete. 
             Výsledky se započítávají do statistik a známá slovíčka se zde v přezkoušení již znovu nezobrazí.
-          </p>
-        {:else if currentTestingMode === 'repetition'}
-          <p>
+          {:else if currentTestingMode === 'repetition'}
             Slouží ke kontrole, zda si již jednou naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech. 
             Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
             Naopak slovíčka která zodpovíte správně, se zde již znovu nezobrazí. 
-          </p>
-        {:else}
-          <p></p>
-        {/if} 
+          {/if}
+        </p> 
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
