@@ -67,22 +67,35 @@
   <div class="bottom-navigation {currentTestingMode !== null ? 'activated' : ''}">
     <Row>
       {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
-      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode = 'repetition'}>
+      <Col class="ripple mode-repetition {currentTestingMode === 'repetition' ? 'selected' : ''}" on:click={() => currentTestingMode === 'repetition' ? currentTestingMode = null : currentTestingMode = 'repetition'}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.repetition')}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode = 'exam'}>
+      <Col class="ripple mode-exam {currentTestingMode === 'exam' ? 'selected' : ''}" on:click={() => currentTestingMode === 'exam' ? currentTestingMode = null : currentTestingMode = 'exam'}>
         <SVGIcon element="navigation" name="todo" size="16" />
         <span>{$_('category.buttons.exam')}</span>
       </Col>
-      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode = 'training'}>
+      <Col class="ripple mode-training {currentTestingMode === 'training' ? 'selected' : ''}" on:click={() => currentTestingMode === 'training' ? currentTestingMode = null : currentTestingMode = 'training'}>
         <SVGIcon element="navigation" name="book-open-2" size="16" />
         <span>{$_('category.buttons.training')}</span>
       </Col>
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
+        <p class="{currentTestingMode === 'repetition' ? 'selected' : ''}">
+          {$_('category.testing_mode.repetition.text1')} <br /> 
+          {$_('category.testing_mode.repetition.text2')} <br />
+          {$_('category.testing_mode.repetition.text3')} 
+        </p>
+        <p class="{currentTestingMode === 'exam' ? 'selected' : ''}">
+          {$_('category.testing_mode.exam.text1')} <br /> 
+          {$_('category.testing_mode.exam.text2')}
+        </p>
+        <p class="{currentTestingMode === 'training' ? 'selected' : ''}">
+          {$_('category.testing_mode.training.text1')} <br /> 
+          {$_('category.testing_mode.training.text2')}
+        </p>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
