@@ -99,6 +99,8 @@
             Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.
             Naopak slovíčka která zodpovíte správně, se zde již znovu nezobrazí. 
           </p>
+        {:else}
+          <p></p>
         {/if} 
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
