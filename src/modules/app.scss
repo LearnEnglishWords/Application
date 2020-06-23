@@ -1225,7 +1225,16 @@ input:focus::placeholder {
         p {
           font-size: 13px;
           margin: 0;
+          display: flex;
+          min-height: 100px;
+          align-items: center;
+          padding: 1em 2em;
           color: var(--app-text);
+        }
+      }
+      &.training, &.exam, &.repetition {
+        p {
+          height: auto;
         }
       }
 

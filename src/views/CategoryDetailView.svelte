@@ -83,7 +83,6 @@
     </Row>
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
-        <div style="height: 120px">
         {#if currentTestingMode === 'training'}
           <p>
             Slouží jenom k učení a procvičování slovíček nanečisto. 
@@ -101,7 +100,6 @@
             Naopak slovíčka která zodpovíte správně, se zde již znovu nezobrazí. 
           </p>
         {/if} 
-        </div>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
