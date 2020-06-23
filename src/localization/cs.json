@@ -78,6 +78,21 @@
           "training": "Procvičovat",
           "repetition": "Opakovat",
           "start": "Spustit"
+      },
+      "testing_mode": {
+          "repetition": {
+              "text1": "Slouží ke kontrole, zda si naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech.",
+              "text2": "Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.",
+              "text3": "Naopak slovíčka, která zodpovíte správně, se zde již znovu nezobrazí."
+          },
+          "exam": {
+              "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již umíte a opravdu si je i pamatujete.",
+              "text2": "Výsledky se započítávají do statistik a známá slovíčka se zde v již znovu nezobrazí."
+          },
+          "training": {
+              "text1": "Slouží k učení a procvičování slovíček nanečisto.",
+              "text2": "Výsledky se nezapočítávají do statistik."
+          }
       }
   },
   "settings": {

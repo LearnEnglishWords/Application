@@ -84,17 +84,17 @@
     <Row class="{currentTestingMode !== null ? currentTestingMode : ''}">
       <Col>
         <p class="{currentTestingMode === 'repetition' ? 'selected' : ''}">
-          Slouží ke kontrole, zda si naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech. <br /> 
-          Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení. <br />
-          Naopak slovíčka, která zodpovíte správně, se zde již znovu nezobrazí. 
+          {$_('category.testing_mode.repetition.text1')} <br /> 
+          {$_('category.testing_mode.repetition.text2')} <br />
+          {$_('category.testing_mode.repetition.text3')} 
         </p>
         <p class="{currentTestingMode === 'exam' ? 'selected' : ''}">
-          Slouží k otestování, zda naučená slovíčka z procvičování již umíte a opravdu si je i pamatujete. <br /> 
-          Výsledky se započítávají do statistik a známá slovíčka se zde v již znovu nezobrazí. <br />
+          {$_('category.testing_mode.exam.text1')} <br /> 
+          {$_('category.testing_mode.exam.text2')}
         </p>
         <p class="{currentTestingMode === 'training' ? 'selected' : ''}">
-          Slouží k učení a procvičování slovíček nanečisto. <br /> 
-          Výsledky se nezapočítávají do statistik.
+          {$_('category.testing_mode.training.text1')} <br /> 
+          {$_('category.testing_mode.training.text2')}
         </p>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
