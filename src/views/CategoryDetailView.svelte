@@ -197,6 +197,7 @@
       setupData(isTraining);
       f7.preloader.hide();
       checkAndSetActivity();
+      setTimeout(() => currentLearningMode = null, 1000);
 
       f7router.navigate('/Training');
     } else {
