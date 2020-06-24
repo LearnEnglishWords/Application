@@ -4,7 +4,13 @@
     {#if showPronunciation}
       <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
     {/if}
+    {#if $trainingData.isTraining}
+      <div class="switch-icon" on:click={switchTrainingModeWall}>
+        <SVGIcon name="preview" size="24"/>
+      </div>
+    {/if}
     <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
+
   </div>
   <WordDetail {word}/>
 
@@ -67,9 +73,8 @@
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
   import SVGIcon from './SVGIcon.svelte';
-  import { statisticsData, settingsData } from '../js/store.js';
   import { playTextSound } from '../js/utils.js';
-  import { trainingData } from '../js/store.js';
+  import { trainingData, settingsData } from '../js/store.js';
 
   export let word;
   export let mode;
@@ -81,7 +86,6 @@
   let result = null;
   let placeholder = "";
   let resultColor = "black";
-
 
   if (mode === "write") {
     placeholder = $_('training.placeholders.write');
@@ -99,6 +103,11 @@
         dispatch('updateWord', {word: word, state: false});
       }
     }, 200);
+  }
+
+  function switchTrainingModeWall() {
+    $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
+    DS.saveSettings($settingsData);
   }
 
   function checkButton() {

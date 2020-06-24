@@ -196,7 +196,6 @@
       mode: modeType, 
       type: currentLearningMode, 
       isTraining: isTraining,
-      wallEnabled: !isTraining,
       words: currentWordStorage.getWords(wordsLimit),
       currentWordIndex: 0
     });
