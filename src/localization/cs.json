@@ -96,8 +96,7 @@
       }
   },
   "settings": {
-      "title": "Nastavení",
-      "subtitle": "Personalizace",
+      "subtitle": "Nastavení",
       "words_limit": "Výchozí počet slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "training_mode_wall": "Clona v trénink módu",
