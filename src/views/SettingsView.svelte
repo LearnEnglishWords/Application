@@ -48,6 +48,7 @@
           <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
         {/if}
       </ListItem>
+      <!--
       <ListItem>
         <div>
           {$_('settings.training_mode_wall')}
@@ -58,6 +59,7 @@
           <Toggle on:toggleChange={saveTrainingModeWall}></Toggle>
         {/if}
       </ListItem>
+      -->
       <ListItem style="display:none">
         <div>
           {$_('settings.night_theme')}
@@ -118,10 +120,12 @@
     DS.saveSettings($settingsData);
   }
 
+  /*
   function saveTrainingModeWall() {
     $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
     DS.saveSettings($settingsData);
   }
+  */
 
   function saveDarkMode() {
     $settingsData.enableDarkMode = !$settingsData.enableDarkMode;
