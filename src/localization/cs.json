@@ -182,6 +182,11 @@
           "info_text_end": "slov.",
           "info_text_description": "Daná slovíčka se tedy aktualizovala že je neumíte a budete se je muset zase opět naučit."
       },
+      "training": {
+          "title": "Procvičování:",
+          "info_text": "Máte špatně celkem",
+          "info_text_end": "slov."
+      },
       "continue": "Pokračovat",
       "read": "Čtení",
       "write": "Psaní",
