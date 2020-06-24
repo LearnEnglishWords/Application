@@ -148,6 +148,7 @@
   $categoryDetailData.loadWords("known"); 
 
   statisticsData.set($categoryDetailData.statistics.stats);
+  setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
   trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
 
   function changeTrainingMode(index) {
@@ -166,6 +167,28 @@
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
     DS.saveSettings($settingsData);
+  }
+
+  function setCorrectModeStats() {
+    let maxValue = 0;
+    // Fix number of unknown words when it is zero or negative
+    for (let modeType of trainingModes.map((mode) => mode.value)) {
+      let modeState = $categoryDetailData.statistics.modeStats[modeType];
+      if(modeState.unknown <= 0) {
+        modeState.unknown = $statisticsData.unknown;
+      }
+      if(maxValue < modeState.known) {
+        maxValue = modeState.known;
+      }
+    }
+
+    // Fix when user know more words than is saved in mode statistics. 
+    if(maxValue < ($statisticsData.known + $statisticsData.learning)) {
+      let diffValue = ($statisticsData.known + $statisticsData.learning) - maxValue;
+      for (let modeType of trainingModes.map((mode) => mode.value)) {
+        $categoryDetailData.statistics.modeStats[modeType].known += diffValue;
+      }
+    }
   }
 
   function setupData(isTraining) {
