@@ -1,4 +1,6 @@
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from '../utils.js'
+import { _ } from 'svelte-i18n';
+import { get } from 'svelte/store';
+import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes, Collections } from '../utils.js'
 import { isProduction, backendApiUrl } from '../config.js'
 import DS from './data.js';
 
@@ -33,6 +35,16 @@ export default class CollectionStorage {
       return [];
     } else {
       return result.payload
+    }
+  }
+
+  async downloadPersonalWords() {
+    const res = await fetch(`${backendApiUrl}/word/list?page=1&limit=3&state=CORRECT`);
+    var result = await res.json();
+    if (result.payload === undefined) {
+      return [];
+    } else {
+      return result.payload.words
     }
   }
  
@@ -125,6 +137,23 @@ export default class CollectionStorage {
         } 
       });
     });
+  }
+
+
+  createPersonalCollection() {
+    let newCategory = {
+      "name": "Example",
+      "czechName": get(_)(`collection.items.${Collections.PERSONAL.name}.main_category`),
+      "collectionId": Collections.PERSONAL.id,
+      "id": 10001
+    }
+    DS.saveCategoryList(Collections.PERSONAL.id, [ newCategory ]);
+
+    this.downloadPersonalWords().then((words) => {
+      if (words !== undefined) {
+        this.saveCategory(Collections.PERSONAL.id, newCategory, words, () => {});
+      } 
+    })
   }
 }
 

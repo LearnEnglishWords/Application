@@ -53,8 +53,10 @@
               "description": "Nejsnadnější a nejzábavnější formou učení se anglických slovíček je skrze seriály, filmy a knihy."
           },
           "personal": {
+              "title": "Personal",
               "text": "(Přidejte si vlastní slovíčka)",
-              "description": "Přidávejte si vlastní slovíčka a vytvářejte si své vlastní kategorie slovíček."
+              "description": "Přidávejte si vlastní slovíčka a vytvářejte si své vlastní kategorie slovíček.",
+              "main_category": "Můj seznam slovíček"
           }
       }
   },
