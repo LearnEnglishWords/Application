@@ -4,6 +4,10 @@
     {#if showPronunciation}
       <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
     {/if}
+    <div class="switch-icon">
+      <SVGIcon class="shown" name="preview" size="24"/>
+      <SVGIcon class="hidden" name="b-preview" size="24"/>
+    </div>
     <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
   </div>
   <WordDetail {word}/>

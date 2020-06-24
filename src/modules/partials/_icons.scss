@@ -11,6 +11,18 @@
     }
   }
 
+  &-preview {
+    path, circle {
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-b-preview {
+    path, circle, line {
+      stroke: var(--app-icon);
+    }
+  }
+
   &-menu-8 {
     line {
       fill: none;
