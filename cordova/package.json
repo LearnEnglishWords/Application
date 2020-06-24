@@ -1,7 +1,7 @@
 {
   "name": "eu.learn.english.words",
   "displayName": "LearnEnglishWords",
-  "version": "3.2.4",
+  "version": "3.2.5-devel",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
