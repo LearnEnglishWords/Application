@@ -9,16 +9,6 @@
     <!-- Title -->
     <div class="page-title">{$_('settings.subtitle')}</div>
     <List class="settings-list">
-      <!--
-      <ListItem>
-        <div>{$_('settings.words_limit')}</div>
-        <Stepper small fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
-            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-            on:stepperChange={saveWordLimit}
-        ></Stepper>
-      </ListItem>
-      -->
         <li class="accordion-item">
           <a href="#" class="item-content item-link">
             <div class="item-inner">
@@ -46,28 +36,6 @@
           <Toggle on:toggleChange={saveAutoPlaySound} checked></Toggle>
         {:else}
           <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
-        {/if}
-      </ListItem>
-      <!--
-      <ListItem>
-        <div>
-          {$_('settings.training_mode_wall')}
-        </div>
-        {#if enableTrainingModeWall}
-          <Toggle on:toggleChange={saveTrainingModeWall} checked></Toggle>
-        {:else}
-          <Toggle on:toggleChange={saveTrainingModeWall}></Toggle>
-        {/if}
-      </ListItem>
-      -->
-      <ListItem style="display:none">
-        <div>
-          {$_('settings.night_theme')}
-        </div>
-        {#if enableDarkMode}
-          <Toggle on:toggleChange={saveDarkMode} checked></Toggle>
-        {:else}
-          <Toggle on:toggleChange={saveDarkMode}></Toggle>
         {/if}
       </ListItem>
       <ListItem>
@@ -102,10 +70,7 @@
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
 
-  let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
-  let enableTrainingModeWall = $settingsData.enableTrainingModeWall;
-  let enableDarkMode = $settingsData.enableDarkMode;
   let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
 
@@ -120,29 +85,10 @@
     DS.saveSettings($settingsData);
   }
 
-  /*
-  function saveTrainingModeWall() {
-    $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
-    DS.saveSettings($settingsData);
-  }
-  */
-
-  function saveDarkMode() {
-    $settingsData.enableDarkMode = !$settingsData.enableDarkMode;
-    DS.saveSettings($settingsData);
-  }
-
   function savePronunciation(pronunciation) {
     $settingsData.pronunciation = pronunciation;
     DS.saveSettings($settingsData);
   }
-
-  /*
-  function saveWordLimit() {
-    $settingsData.wordsLimit = wordsLimit;
-    DS.saveSettings($settingsData);
-  }
-  */
 
   function saveSwiperTransitionSpeed(speed) {
     $settingsData.swiperTransitionSpeed = speed;
