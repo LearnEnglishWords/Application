@@ -1,7 +1,9 @@
 {#if mode==="read"}
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
     <div class="word">{word.text}</div>
-    <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
+    {#if showPronunciation}
+      <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
+    {/if}
     <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
   </div>
   <WordDetail {word}/>
@@ -71,6 +73,7 @@
 
   export let word;
   export let mode;
+  export let showPronunciation;
 
   const dispatch = createEventDispatcher();
 

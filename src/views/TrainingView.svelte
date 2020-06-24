@@ -10,7 +10,7 @@
         <div class="swiper-wrapper">
           {#each $trainingData.words as word, id}
             <div class="swiper-slide">
-              <WordSlide {word} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+              <WordSlide {word} showPronunciation={isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
             </div>
           {/each}
         </div>
