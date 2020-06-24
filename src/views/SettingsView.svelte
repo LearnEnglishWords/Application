@@ -9,6 +9,7 @@
     <!-- Title -->
     <div class="page-title">{$_('settings.subtitle')}</div>
     <List class="settings-list">
+      <!--
       <ListItem>
         <div>{$_('settings.words_limit')}</div>
         <Stepper small fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
@@ -17,6 +18,7 @@
             on:stepperChange={saveWordLimit}
         ></Stepper>
       </ListItem>
+      -->
         <li class="accordion-item">
           <a href="#" class="item-content item-link">
             <div class="item-inner">
@@ -131,10 +133,12 @@
     DS.saveSettings($settingsData);
   }
 
+  /*
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
     DS.saveSettings($settingsData);
   }
+  */
 
   function saveSwiperTransitionSpeed(speed) {
     $settingsData.swiperTransitionSpeed = speed;

@@ -55,6 +55,7 @@
             fill
             on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
             on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+            on:stepperChange={saveWordLimit}
           ></Stepper>
           </div>
         </ListItem>
@@ -160,6 +161,11 @@
     if (currentWordStorage.getWords(wordsLimit).length === 0) {
       currentWordStorage.loadIds(true);
     }
+  }
+
+  function saveWordLimit() {
+    $settingsData.wordsLimit = wordsLimit;
+    DS.saveSettings($settingsData);
   }
 
   function setupData(isTraining) {
