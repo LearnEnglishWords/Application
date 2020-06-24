@@ -171,11 +171,13 @@
 
   function setCorrectModeStats() {
     let maxValue = 0;
+    let wasNegative = false;
     // Fix number of unknown words when it is zero or negative
     for (let modeType of trainingModes.map((mode) => mode.value)) {
       let modeState = $categoryDetailData.statistics.modeStats[modeType];
       if(modeState.unknown <= 0) {
         modeState.unknown = $statisticsData.unknown;
+        wasNegative = true;
       }
       if(maxValue < modeState.known) {
         maxValue = modeState.known;
@@ -187,6 +189,9 @@
       let diffValue = ($statisticsData.known + $statisticsData.learning) - maxValue;
       for (let modeType of trainingModes.map((mode) => mode.value)) {
         $categoryDetailData.statistics.modeStats[modeType].known += diffValue;
+        if(!wasNegative) {
+          $categoryDetailData.statistics.modeStats[modeType].unknown -= diffValue;
+        }
       }
     }
   }
