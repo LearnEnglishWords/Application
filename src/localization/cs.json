@@ -25,7 +25,7 @@
           "standard": {
               "title": "Intermediate",
               "text": "(Obsahuje 3000 nejpoužívanějších slov)",
-              "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% anglické konverzace.",
+              "description": "Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% veškeré anglické konverzace.",
               "main_category": "3000 nejpoužívanějších slov"
           },
           "advanced": {
@@ -86,7 +86,7 @@
               "text3": "Naopak slovíčka, která zodpovíte správně, se zde již znovu nezobrazí."
           },
           "exam": {
-              "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již umíte a opravdu si je i pamatujete.",
+              "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již opravdu umíte a pamatujete si je.",
               "text2": "Výsledky se započítávají do statistik a známá slovíčka se zde v již znovu nezobrazí."
           },
           "training": {
@@ -163,21 +163,21 @@
   },
   "recapitulation": {
       "exam": {
-          "title": "Zkouška:",
+          "title": "Zkoušení:",
           "info_text": {
               "read": "Už umíte přečíst a poznat celkem",
               "write": "Už umíte napsat celkem",
               "listen": "Už umíte poslechově rozpoznat celkem"
           },
           "info_text_end": "nových slov.",
-          "info_text_description": "Pro úplné naučení těchto slovíček musíte i úspěšně projít přezkoušením pro:",
+          "info_text_description": "Pro úplné naučení těchto slovíček musíte úspěšně projít přezkoušením i pro:",
           "info_text_conjunction": "a"
       },
       "repetition": {
           "title": "Opakování:",
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov.",
-          "info_text_description": "Daná slovíčka se tedy aktualizovala že je neumíte a budete se je muset zase opět naučit."
+          "info_text_description": "Daná slovíčka se tedy aktualizovala že je neumíte a budete se je muset opět zase naučit."
       },
       "training": {
           "title": "Procvičování:",
