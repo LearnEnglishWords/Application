@@ -29,7 +29,7 @@
         </div> 
       {/if}
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={wallEnabled}>
+        <Sheet class="wall" backdrop={false} swipeToClose opened={!isTraining || $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -88,7 +88,6 @@
   export let f7router;
 
   let isTraining = $trainingData.isTraining;
-  let wallEnabled = !isTraining || $settingsData.enableTrainingModeWall;
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
@@ -151,7 +150,7 @@
   }
 
   function openWall() {
-    if (wallEnabled) {
+    if (!isTraining || $settingsData.enableTrainingModeWall) {
       f7.sheet.open(".wall", false);
     }
   }
