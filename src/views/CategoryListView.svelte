@@ -56,7 +56,7 @@
             <SVGIcon element="navigation" name="pen-01" size="16" />
             <span>Upravit</span>
           </Col>
-          <Col class="plus ripple">
+          <Col class="plus ripple" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
             <SVGIcon element="navigation" name="e-add" size="16" />
           </Col>
           <Col class="ripple">
@@ -64,7 +64,7 @@
             <span>Pokračovat</span>
           </Col>
         </Row>
-        <Row class="category-add">
+        <Row class="category-add {categoryDialogOpened ? "opened" : "closed"}">
           <span>Pojmenujte si novou kategorii</span>
           <input type="text" />
           <Button>zrušit</Button>
@@ -109,6 +109,7 @@
 
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
   let selectedCategories = [];
+  let categoryDialogOpened = false;
 
   setTimeout(() => { setupCategoryToggler() }, 200);
   $collectionData.categoryGroup.categories.forEach((category) => category.active = false);
