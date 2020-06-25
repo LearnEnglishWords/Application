@@ -1201,12 +1201,16 @@ input:focus::placeholder {
   &.activated {
     margin-bottom: 0;
   }
+  &.personal {
+    margin-bottom: 0;
+  }
   .row {
     padding: 0;
     text-align: center;
     border-radius: inherit;
     border-top: 1px solid var(--app-border);
-    &:last-child {
+
+    &.second {
       border-top: 1px solid var(--app-border);
       border-radius: $bottom-navigation-bottom-border-radius $bottom-navigation-bottom-border-radius 0 0;
       .col {
@@ -1265,6 +1269,23 @@ input:focus::placeholder {
     }
     &:last-child {
       border-radius: 0 $bottom-navigation-top-border-radius 0 0;
+    }
+    &.plus {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto 20px;
+      bottom: 0;
+      width: 64px;
+      height: 64px;
+      padding: 0 !important;
+      border-radius: 50%;
+      border: 8px solid var(--app-element);
+      svg {
+        padding: 16px;
+        background: var(--app-error);
+        --app-icon: white;
+      }
     }
 
     @each $type, $color in $bottom-navigation {

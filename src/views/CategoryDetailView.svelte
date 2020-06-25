@@ -82,7 +82,7 @@
         <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
       </Col>
     </Row>
-    <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
+    <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
         <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 

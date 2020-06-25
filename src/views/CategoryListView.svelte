@@ -50,13 +50,37 @@
     </div>
   {:else}
     {#if selectedCategories.length === 0}
-      <div class="footer-container footer-singular">
+      <div class="bottom-navigation personal">
+        <Row>
+          <Col class="ripple">
+            <SVGIcon element="navigation" name="pen-01" size="16" />
+            <span>Upravit</span>
+          </Col>
+          <Col class="plus ripple">
+            <SVGIcon element="navigation" name="e-add" size="16" />
+          </Col>
+          <Col class="ripple">
+            <SVGIcon element="navigation" name="event-confirm" size="16" />
+            <span>Pokračovat</span>
+          </Col>
+        </Row>
+        <Row class="category-add">
+          <span>Pojmenujte si novou kategorii</span>
+          <input type="text" />
+          <Button>zrušit</Button>
+          <Button>potvrdit</Button>
+        </Row>
+      </div>
+
+
+
+      <div style="display:none" class="footer-container footer-singular">
         <div class="footer-content">
           <Button class="page-button button-next" on:click={() => f7.dialog.prompt("Zadejte název nové kategorie:", "Nová kategorie", createNewCategory)}>{$_('category_list.buttons.add')}</Button>
         </div>
       </div>
     {:else}
-      <div class="footer-container footer-singular">
+      <div style="display:none" class="footer-container footer-singular">
         <div class="footer-content">
           <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.edit')}</Button>
           <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
