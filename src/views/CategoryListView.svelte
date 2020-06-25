@@ -78,7 +78,6 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
   import { defaultStatisticsData, Collections } from '../js/utils.js';
-  import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
