@@ -60,10 +60,16 @@
           }
       }
   },
+  "category_list": {
+      "buttons": {
+          "continue": "Pokračovat",
+          "edit": "Přidat slovíčka",
+          "add": "Přidat kategorii"
+      }
+  },
   "category": {
       "select_categories": "Vyberte si kategorie",
       "training_title": "Nastavení cvičení:",
-      "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": {
           "title": "Procvičit",

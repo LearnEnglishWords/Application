@@ -42,16 +42,33 @@
     </div>
   </div>
   <!-- Footer -->
-  <div class="footer-container footer-singular">
-    <div class="footer-content">
-      <Button class="page-button button-next" on:click={goToDetailView}>{$_('category.confirm')}</Button>
+  {#if $collectionData.id !== Collections.PERSONAL.id}
+    <div class="footer-container footer-singular">
+      <div class="footer-content">
+        <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
+      </div>
     </div>
-  </div>
+  {:else}
+    {#if selectedCategories.length === 0}
+      <div class="footer-container footer-singular">
+        <div class="footer-content">
+          <Button class="page-button button-next" on:click={() => f7.dialog.prompt("Zadejte název nové kategorie:", "Nová kategorie", createNewCategory)}>{$_('category_list.buttons.add')}</Button>
+        </div>
+      </div>
+    {:else}
+      <div class="footer-container footer-singular">
+        <div class="footer-content">
+          <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.edit')}</Button>
+          <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
+        </div>
+      </div>
+    {/if}
+  {/if}
 </Page>
 
 <script>
   import { 
-    Page, Button,
+    f7, Page, Button,
     Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
@@ -60,7 +77,7 @@
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
-  import { defaultStatisticsData } from '../js/utils.js';
+  import { defaultStatisticsData, Collections } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
@@ -122,5 +139,9 @@
         }
       }
     }
+  }
+
+  function createNewCategory(e) {
+    alert(JSON.stringify("Uživatel zadal hodnotu: " + e, null, 2))
   }
 </script>
