@@ -58,7 +58,7 @@
     {:else}
       <div class="footer-container footer-singular">
         <div class="footer-content">
-          <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.edit')}</Button>
+          <Button class="page-button button-next" on:click={() => f7router.navigate('/CategoryEdit')}>{$_('category_list.buttons.edit')}</Button>
           <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
         </div>
       </div>
