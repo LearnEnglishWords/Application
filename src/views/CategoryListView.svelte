@@ -49,22 +49,26 @@
       </div>
     </div>
   {:else}
-    {#if selectedCategories.length === 0}
-      <div class="bottom-navigation personal">
-        <Row>
-          <Col class="ripple">
+    {#if selectedCategories.length === 0} <!-- pokud je to personal stránka, zobrazit toto -->
+      <div class="personal-navigation">
+        <Row noGap>
+          {#if selectedCategories.length > 0} <!-- nevím zda toto je tu nutné -->
+          <Col class="ripple"> <!-- pokud není aktivní žádná kategorie, tak class "inactive", pokud je, tak "active" -->
             <SVGIcon element="navigation" name="pen-01" size="16" />
             <span>Upravit</span>
           </Col>
-          <Col class="plus ripple" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
+          {/if}
+          <div class="plus ripple" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
             <SVGIcon element="navigation" name="e-add" size="16" />
-          </Col>
-          <Col class="ripple">
+          </div>
+          {#if selectedCategories.length > 0} <!-- nevím zda toto je tu nutné -->
+          <Col class="ripple"> <!-- pokud není aktivní žádná kategorie, tak class "inactive", pokud je, tak "active" -->
             <SVGIcon element="navigation" name="event-confirm" size="16" />
             <span>Pokračovat</span>
           </Col>
+          {/if}
         </Row>
-        <Row class="category-add {categoryDialogOpened ? "opened" : "closed"}">
+        <Row noGap class="category-add {categoryDialogOpened ? "opened" : "closed"}"> <!-- tohle si udělám sám -->
           <span>Pojmenujte si novou kategorii</span>
           <input type="text" />
           <Button>zrušit</Button>
@@ -73,7 +77,7 @@
       </div>
 
 
-
+      <!-- tohle až na konec odstranit a ty "funkce" mi vlož do toho kodu nahoře jako je např to createNewCategory-->
       <div style="display:none" class="footer-container footer-singular">
         <div class="footer-content">
           <Button class="page-button button-next" on:click={() => f7.dialog.prompt("Zadejte název nové kategorie:", "Nová kategorie", createNewCategory)}>{$_('category_list.buttons.add')}</Button>

@@ -1201,16 +1201,12 @@ input:focus::placeholder {
   &.activated {
     margin-bottom: 0;
   }
-  &.personal {
-    margin-bottom: 0;
-  }
   .row {
     padding: 0;
     text-align: center;
     border-radius: inherit;
     border-top: 1px solid var(--app-border);
-
-    &.second {
+    &:last-child {
       border-top: 1px solid var(--app-border);
       border-radius: $bottom-navigation-bottom-border-radius $bottom-navigation-bottom-border-radius 0 0;
       .col {
@@ -1269,23 +1265,6 @@ input:focus::placeholder {
     }
     &:last-child {
       border-radius: 0 $bottom-navigation-top-border-radius 0 0;
-    }
-    &.plus {
-      position: absolute;
-      left: 0;
-      right: 0;
-      margin: 0 auto 20px;
-      bottom: 0;
-      width: 64px;
-      height: 64px;
-      padding: 0 !important;
-      border-radius: 50%;
-      border: 8px solid var(--app-element);
-      svg {
-        padding: 16px;
-        background: var(--app-error);
-        --app-icon: white;
-      }
     }
 
     @each $type, $color in $bottom-navigation {
@@ -1437,5 +1416,32 @@ input:focus::placeholder {
   .read-icon {
     position: absolute;
     right: 1em;
+  }
+}
+
+.personal-navigation {
+  background: white;
+  @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
+  margin-bottom: 0;
+  z-index: 10000;
+  border-radius: 17px 17px 0 0;
+  transition: margin-bottom 350ms ease-in-out;
+  .row {
+    text-align: center;
+    border-radius: inherit;
+    border-top: 1px solid var(--app-border);
+  }
+  .col {
+    padding: 9px 0;
+    z-index: 100000;
+    --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    &:first-child {
+      border-radius: 17px 0 0 0;
+    }
+    &:last-child {
+      border-radius: 0 17px 0 0;
+    }
   }
 }
