@@ -52,12 +52,10 @@
     <div class="personal-navigation {categoryDialogOpened ? "opened" : ""}">
       <Row noGap>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}>
-          <SVGIcon element="navigation" name="pen-01" size="16" />
-          <span>{$_('category_list.buttons.edit')}</span>
+          <Button class="edit">{$_('category_list.buttons.edit')}</Button>
         </Col>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}> 
-          <SVGIcon element="navigation" name="event-confirm" size="16" />
-          <span>{$_('category_list.buttons.continue')}</span>
+          <Button class="continue">{$_('category_list.buttons.continue')}</Button>
         </Col>
       </Row>
       <div class="category-add ripple {categoryDialogOpened ? "opened" : "closed"} {isSelectedOneCategory > 0 ? 'hidden' : 'shown'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
