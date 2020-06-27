@@ -1500,9 +1500,10 @@ input:focus::placeholder {
             float: left;
           }
           &:last-child {
-            background: var(--app-secondary);
+            background-color: var(--app-secondary);
             box-shadow: 0 0 0.25em var(--app-secondary);
             float: right;
+            @extend %-pattern;
           }
         }
       }
