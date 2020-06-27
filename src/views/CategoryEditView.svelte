@@ -6,9 +6,10 @@
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
-    <Button> Změnit název </Button>
-    <Button> Odstranit kategorii </Button>
-    <Button> Přidat slovíčka </Button>
+    <label for="name">Nazev:</label> <input id="name"> <Button> Ulozit nazev </Button>
+    <Button class="page-button button-show"> Odstranit kategorii </Button>
+    <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>
+    <Button class="page-button button-show"> Přidat slovíčko </Button>
     <Footer />
   </div>
 </Page>
@@ -20,4 +21,5 @@
   import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
 
+  export let f7router;
 </script>
