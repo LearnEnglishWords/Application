@@ -49,7 +49,7 @@
       </div>
     </div>
   {:else}
-    <div class="personal-navigation">
+    <div class="personal-navigation {categoryDialogOpened ? "opened" : ""}">
       <Row noGap>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}>
           <SVGIcon element="navigation" name="pen-01" size="16" />
@@ -60,7 +60,7 @@
           <span>{$_('category_list.buttons.continue')}</span>
         </Col>
       </Row>
-      <div class="category-add ripple {categoryDialogOpened ? "opened" : "closed"}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
+      <div class="category-add ripple {categoryDialogOpened ? "opened" : "closed"} {isSelectedOneCategory > 0 ? 'hidden' : 'shown'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
         <SVGIcon element="navigation" name="e-add" size="16" />
       </div>
       <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">

@@ -1426,6 +1426,25 @@ input:focus::placeholder {
   z-index: 10000;
   border-radius: 17px 17px 0 0;
   transition: margin-bottom 350ms ease-in-out;
+  &.opened {
+    .row:first-child {
+      height: 58px;
+      .col {
+        padding: 0;
+        visibility: hidden;
+        bottom: 0;
+        &.active {
+          bottom: -57px;
+        }
+        svg, span {
+          display: none;
+        }
+      }
+    }
+    .category-add.opened {
+      bottom: 0!important;
+    }
+  }
   .row {
     padding: 0;
     text-align: center;
@@ -1473,14 +1492,16 @@ input:focus::placeholder {
           transition: all 350ms ease-in-out;
           margin: 4.5px 0 0 0;
           width: calc((100% / 2) - 1em);
+          border: 1px solid transparent;
           &:first-child {
-            background: var(--app-dark);
-            box-shadow: 0 0 0.25em var(--app-dark);
+            background: transparent;
+            color: var(--app-secondary);
+            border: 1px solid var(--app-secondary);
             float: left;
           }
           &:last-child {
-            background: var(--app-error);
-            box-shadow: 0 0 0.25em var(--app-error);
+            background: var(--app-secondary);
+            box-shadow: 0 0 0.25em var(--app-secondary);
             float: right;
           }
         }
@@ -1492,27 +1513,24 @@ input:focus::placeholder {
     z-index: 100000;
     --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
     position: relative;
-    transition: all 350ms ease-in-out;
+    transition: visibility 0ms 350ms ease-in-out, bottom 350ms ease-in-out;
     overflow: hidden;
     &:first-child {
       border-radius: 17px 0 0 0;
       padding-right: 33px;
-      &.inactive {
-        left: -50vw;
-      }
-      &.active {
-        Left: 0;
-      }
     }
     &:last-child {
       border-radius: 0 17px 0 0;
       padding-left: 33px;
-      &.inactive {
-        right: -50vw;
-      }
-      &.active {
-        right: 0;
-      }
+    }
+    &.inactive {
+      bottom: -57px;
+    }
+    &.active {
+      bottom: 0;
+    }
+    svg {
+      --app-icon: var(--app-secondary);
     }
   }
   .category-add {
@@ -1521,22 +1539,24 @@ input:focus::placeholder {
     bottom: 0;
     left: 0;
     right: 0;
-    margin: 0 auto 26.5px;
+    margin: 0 auto 12.25px;
     width: 48px;
     height: 48px;
     background: var(--app-element);
     border-radius: 50%;
     padding: 8px;
-    border: 1px solid var(--app-border);
     transition: all 350ms ease-in-out;
     &.opened {
-      margin-bottom: calc(26.5px + 150px + 2em);
+      margin-bottom: calc(12.25px + 150px + 2em);
+    }
+    &.hidden {
+      bottom: -76px;
     }
     svg {
       padding: 16px;
       --app-icon: white;
       border-radius: 50%;
-      background: var(--app-error);
+      background: var(--app-secondary);
     }
   }
   span {
