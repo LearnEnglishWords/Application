@@ -55,19 +55,21 @@
           <SVGIcon element="navigation" name="pen-01" size="16" />
           <span>{$_('category_list.buttons.edit')}</span>
         </Col>
-        <div class="plus ripple" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
-          <SVGIcon element="navigation" name="e-add" size="16" />
-        </div>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}> 
           <SVGIcon element="navigation" name="event-confirm" size="16" />
           <span>{$_('category_list.buttons.continue')}</span>
         </Col>
       </Row>
-      <Row noGap class="category-add {categoryDialogOpened ? "opened" : "closed"}"> <!-- tohle si udělám sám -->
-        <span>Pojmenujte si novou kategorii</span>
-        <input type="text" />
-        <Button>zrušit</Button>
-        <Button>potvrdit</Button>
+      <div class="category-add ripple {categoryDialogOpened ? "opened" : "closed"}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
+        <SVGIcon element="navigation" name="e-add" size="16" />
+      </div>
+      <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">
+        <span class="category-name">Pojmenujte si novou kategorii</span>
+        <input type="text" autocomplete="off" placeholder="název"/>
+        <div class="wrapper">
+          <Button>zrušit</Button>
+          <Button>potvrdit</Button>
+        </div>
       </Row>
     </div>
   {/if}
