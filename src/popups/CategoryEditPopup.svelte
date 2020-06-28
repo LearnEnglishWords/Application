@@ -16,11 +16,50 @@
     <Button class="page-button button-show"> Přidat slovíčko </Button>
     <Footer />
   </div>
+      <div class="personal-edit">
+      <Row noGap>
+        <Col class="ripple first"> <!-- přepínat class active / inactive -->
+          <SVGIcon element="navigation" name="pen-01" size="16" />
+          <span>{$_('category_list.buttons.edit')}</span>
+        </Col>
+        <Col class="ripple second"> <!-- přepínat class active / inactive -->
+          <SVGIcon element="navigation" name="event-confirm" size="16" />
+          <span>{$_('category_list.buttons.continue')}</span>
+        </Col>
+      </Row>
+      <div class="category-add ripple third"> <!-- přepínat class active / inactive -->
+        <SVGIcon element="navigation" name="e-add" size="16" />
+      </div>
+      <Row noGap> <!-- Pokud .first je active, tak přidat class shown, pokud není, tak hidden -->
+        <span class="category-name">Odstranit kategorii</span>
+        <div class="wrapper">
+          <Button>zrušit</Button>
+          <Button>potvrdit</Button>
+        </div>
+      </Row>
+      <Row noGap> <!-- Pokud .second je active, tak přidat class shown, pokud není, tak hidden -->
+        <span class="category-name">nové slovíčko</span>
+        <input type="text" autocomplete="off" placeholder="název"/>
+        <div class="wrapper">
+          <Button>zrušit</Button>
+          <Button>potvrdit</Button>
+        </div>
+      </Row>
+      <Row noGap> <!-- Pokud .third je active, tak přidat class shown, pokud není, tak hidden -->
+        <span class="category-name">Přejmenovat kategorii</span>
+        <input type="text" autocomplete="off" placeholder="název"/>
+        <div class="wrapper">
+          <Button>zrušit</Button>
+          <Button>potvrdit</Button>
+        </div>
+      </Row>
+    </div>
 </Popup>
 
 <script>
-  import { Popup, Button, List, ListItem } from 'framework7-svelte';
+  import { Popup, Button, List, ListItem, Row, Col } from 'framework7-svelte';
   import DS from '../js/storages/data.js';
+  import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
