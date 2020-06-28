@@ -3,7 +3,7 @@
   <Header type="popup" popupName={name} title={category.title} />
   <!-- Header -->
   <div class="header statistics empty"></div>
-  <div class="view Settings" on:click={() => activeDialog = null} >
+  <div class="view" on:click={() => activeDialog = null} >
     <label for="name">Nazev:</label> <input id="name"> <Button> Ulozit nazev </Button>
     <Button class="page-button button-show"> Odstranit kategorii </Button>
 
