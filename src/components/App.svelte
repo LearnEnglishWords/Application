@@ -11,7 +11,6 @@
   import DS from '../js/storages/data.js';
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
-  import CategoryEditView from '../views/CategoryEditView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
@@ -142,10 +141,6 @@
       {
         path: '/CategoryList',
         component: CategoryListView
-      },
-      {
-        path: '/CategoryEdit',
-        component: CategoryEditView
       },
       {
         path: '/CategoryDetail',

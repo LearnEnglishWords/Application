@@ -51,11 +51,11 @@
   {:else}
     <div class="personal-navigation {categoryDialogOpened ? "opened" : ""}">
       <Row noGap>
-        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToEditCategoryView}>
-          <Button class="edit">{$_('category_list.buttons.edit')}</Button>
+        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}">
+          <Button class="edit" popupOpen=".category-edit">{$_('category_list.buttons.edit')}</Button>
         </Col>
-        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}> 
-          <Button class="continue">{$_('category_list.buttons.continue')}</Button>
+        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}"> 
+          <Button class="continue" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
         </Col>
       </Row>
       <Col class="ripple add-button {isSelectedOneCategory > 0 ? 'inactive' : 'active'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
@@ -70,6 +70,9 @@
         </div>
       </Row>
     </div>
+    {#if isSelectedOneCategory}
+      <CategoryEditPopup name="category-edit" category={selectedCategories[0]}/>
+    {/if}
   {/if}
 </Page>
 
@@ -83,6 +86,7 @@
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
+  import CategoryEditPopup from '../popups/CategoryEditPopup.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
   import { defaultStatisticsData, Collections } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
@@ -107,14 +111,6 @@
       categoryDetailData.set(categoryGroup.mainCategory);
 
       f7router.navigate('/CategoryDetail');
-    }
-  }
-
-  function goToEditCategoryView() {
-    if (selectedCategories.length === 1) {
-      categoryEditData.set(selectedCategories[0]);
-
-      f7router.navigate('/CategoryEdit');
     }
   }
 
