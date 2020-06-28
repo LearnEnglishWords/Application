@@ -58,7 +58,7 @@
     {:else}
       <div class="footer-container footer-singular">
         <div class="footer-content">
-          <Button class="page-button button-next" on:click={() => f7router.navigate('/CategoryEdit')}>{$_('category_list.buttons.edit')}</Button>
+          <Button class="page-button button-next" on:click={goToEditCategoryView}>{$_('category_list.buttons.edit')}</Button>
           <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
         </div>
       </div>
@@ -72,7 +72,7 @@
     Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoryGroupData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryGroupData, categoryDetailData, categoryEditData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
@@ -98,6 +98,14 @@
       categoryDetailData.set(categoryGroup.mainCategory);
 
       f7router.navigate('/CategoryDetail');
+    }
+  }
+
+  function goToEditCategoryView() {
+    if (selectedCategories.length === 1) {
+      categoryEditData.set(selectedCategories[0]);
+
+      f7router.navigate('/CategoryEdit');
     }
   }
 
