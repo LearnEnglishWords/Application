@@ -1607,10 +1607,11 @@ input:focus::placeholder {
     border-radius: inherit;
     border-top: 1px solid var(--app-border);
     transition: all 350ms ease-in-out;
-    &.closed {
+    background: white;
+    &.hidden {
       height: 0;
     }
-    &.opened {
+    &.shown {
       height: 150px;
       padding: 1em;
     }
@@ -1620,6 +1621,10 @@ input:focus::placeholder {
       justify-content: center;
       align-items: center;
       text-align: center;
+      height: 0;
+      &.active {
+        height: 150px;
+      }
       .category-name {
         width: 100%;
         font-size: 14px;
@@ -1672,21 +1677,17 @@ input:focus::placeholder {
     &:first-child {
       border-radius: 17px 0 0 0;
       padding-right: 33px;
-      &.inactive {
-        left: -50vw;
-      }
-      &.active {
-        Left: 0;
-      }
     }
     &:last-child {
       border-radius: 0 17px 0 0;
       padding-left: 33px;
-      &.inactive {
-        right: -50vw;
+    }
+    &.active {
+      svg {
+        --app-icon: var(--app-secondary);
       }
-      &.active {
-        right: 0;
+      span {
+        color: var(--app-secondary);
       }
     }
   }
@@ -1696,16 +1697,15 @@ input:focus::placeholder {
     bottom: 0;
     left: 0;
     right: 0;
-    margin: 0 auto 26.5px;
+    margin: 0 auto 12.25px;
     width: 48px;
     height: 48px;
     background: var(--app-element);
     border-radius: 50%;
     padding: 8px;
-    border: 1px solid var(--app-border);
     transition: all 350ms ease-in-out;
-    &.opened {
-      margin-bottom: calc(26.5px + 150px + 2em);
+    &.active {
+      margin-bottom: calc(12.25px + 150px + 2em);
     }
     svg {
       padding: 16px;
@@ -1724,5 +1724,6 @@ input:focus::placeholder {
   }
   .personal-icon {
     --app-icon: #CDDAE2;
+    transition: all 350ms ease-in-out;
   }
 }
