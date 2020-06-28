@@ -18,16 +18,16 @@
   </div>
       <div class="personal-edit">
       <Row noGap>
-        <Col class="ripple first {activeDialog === ActiveCategoryDialog.REMOVE ? 'active' : 'inactive'}" on:click={() => activeDialog = ActiveCategoryDialog.REMOVE}> <!-- přepínat class active / inactive -->
+        <Col class="ripple first {activeDialog === ActiveCategoryDialog.REMOVE ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.REMOVE ? ActiveCategoryDialog.REMOVE : null}> <!-- přepínat class active / inactive -->
           <SVGIcon element="navigation" name="pen-01" size="16" />
           <span>{$_('category_list.buttons.edit')}</span>
         </Col>
-        <Col class="ripple second {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = ActiveCategoryDialog.ADD_WORD}> <!-- přepínat class active / inactive -->
+        <Col class="ripple second {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.ADD_WORD ? ActiveCategoryDialog.ADD_WORD : null}> <!-- přepínat class active / inactive -->
           <SVGIcon element="navigation" name="event-confirm" size="16" />
           <span>{$_('category_list.buttons.continue')}</span>
         </Col>
       </Row>
-      <div class="category-add ripple third {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = ActiveCategoryDialog.EDIT}> <!-- přepínat class active / inactive -->
+      <div class="category-add ripple third {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}> <!-- přepínat class active / inactive -->
         <SVGIcon element="navigation" name="e-add" size="16" />
       </div>
       <Row noGap class="{activeDialog !== null ? 'active' : ''}"> <!-- Pokud .first je active, tak přidat class shown, pokud není, tak hidden -->
