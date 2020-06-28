@@ -47,10 +47,11 @@ function createAllLearningWordsData(type, startData) {
 
 
 export const trainingData = writable(0);
+export const downloadedCollections = writable([]);
 export const allCollectionsData = writable([]);
 export const collectionData = writable(0);
 export const categoryGroupData = writable(null);
-export const downloadedCollections = writable([]);
+export const categoryEditData = writable(0);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
 export const trainingModeStatisticsData = createModeStatisticsData({...getDefaultModeStatisticsData(100)});

@@ -60,7 +60,7 @@
           </div>
         </ListItem>
       </List>
-      <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
+      <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>
     </div>
   </div>
 
@@ -204,10 +204,6 @@
       words: currentWordStorage.getWords(wordsLimit),
       currentWordIndex: 0
     });
-  }
-
-  function goToWordListView(isTraining) {
-    f7router.navigate('/WordList');
   }
 
   function checkAndSetActivity() {

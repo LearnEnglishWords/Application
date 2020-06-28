@@ -51,7 +51,7 @@
   {:else}
     <div class="personal-navigation {categoryDialogOpened ? "opened" : ""}">
       <Row noGap>
-        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}>
+        <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToEditCategoryView}>
           <Button class="edit">{$_('category_list.buttons.edit')}</Button>
         </Col>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}" on:click={goToDetailView}> 
@@ -79,13 +79,12 @@
     Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoryGroupData, categoryDetailData } from '../js/store.js';
+  import { collectionData, categoryGroupData, categoryDetailData, categoryEditData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
   import { defaultStatisticsData, Collections } from '../js/utils.js';
-  import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
   export let f7router;
@@ -108,6 +107,14 @@
       categoryDetailData.set(categoryGroup.mainCategory);
 
       f7router.navigate('/CategoryDetail');
+    }
+  }
+
+  function goToEditCategoryView() {
+    if (selectedCategories.length === 1) {
+      categoryEditData.set(selectedCategories[0]);
+
+      f7router.navigate('/CategoryEdit');
     }
   }
 
@@ -149,9 +156,5 @@
         }
       }
     }
-  }
-
-  function createNewCategory(e) {
-    alert(JSON.stringify("Uživatel zadal hodnotu: " + e, null, 2))
   }
 </script>
