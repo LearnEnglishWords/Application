@@ -58,9 +58,9 @@
           <Button class="continue">{$_('category_list.buttons.continue')}</Button>
         </Col>
       </Row>
-      <div class="category-add ripple {categoryDialogOpened ? "opened" : "closed"} {isSelectedOneCategory > 0 ? 'hidden' : 'shown'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
-        <SVGIcon element="navigation" name="e-add" size="16" />
-      </div>
+      <Col class="ripple add-button {isSelectedOneCategory > 0 ? 'inactive' : 'active'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
+        <Button class="add">Přidat kategorii</Button>
+      </Col>
       <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">
         <span class="category-name">Pojmenujte si novou kategorii</span>
         <input type="text" autocomplete="off" placeholder="název"/>

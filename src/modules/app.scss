@@ -1424,9 +1424,12 @@ input:focus::placeholder {
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
   margin-bottom: 0;
   z-index: 10000;
-  border-radius: 17px 17px 0 0;
+  border-radius: 0;
   transition: margin-bottom 350ms ease-in-out;
   &.opened {
+    .col.add-button {
+      bottom: 186px;
+    }
     .row:first-child {
       height: 58px;
       .col {
@@ -1460,7 +1463,7 @@ input:focus::placeholder {
     }
     &:last-child {
       display: flex;
-      border-radius: 5px 5px 0 0;
+      border-radius: 0;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -1516,6 +1519,12 @@ input:focus::placeholder {
     position: relative;
     transition: visibility 0ms 350ms ease-in-out, bottom 350ms ease-in-out;
     overflow: hidden;
+    &.add-button {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 1em;
+    }
     &:first-child {
       border-radius: 17px 0 0 0;
       padding-right: 33px;
@@ -1556,32 +1565,12 @@ input:focus::placeholder {
         margin: 0 1em 0 2em;
         @extend %-pattern;
       }
-    }
-  }
-  .category-add {
-    z-index: 999999;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto 12.25px;
-    width: 48px;
-    height: 48px;
-    background: var(--app-element);
-    border-radius: 50%;
-    padding: 8px;
-    transition: all 350ms ease-in-out;
-    &.opened {
-      margin-bottom: calc(12.25px + 150px + 2em);
-    }
-    &.hidden {
-      bottom: -76px;
-    }
-    svg {
-      padding: 16px;
-      --app-icon: white;
-      border-radius: 50%;
-      background: var(--app-secondary);
+      &.add {
+        background-color: var(--app-secondary);
+        box-shadow: 0 0 0.25em var(--app-secondary);
+        margin: 0 auto;
+        @extend %-pattern;        
+      }
     }
   }
   span {
