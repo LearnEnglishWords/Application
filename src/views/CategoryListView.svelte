@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container">
+  <div class="header-statistics header-container" on:click={closeCategoryDialog}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{globalStatisticsData.known}</div>
@@ -24,7 +24,7 @@
     </Row>       
   </div>
   <!-- View -->
-  <div class="page-container view">
+  <div class="page-container view" on:click={closeCategoryDialog}>
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.select_categories')}</div>
@@ -65,8 +65,8 @@
         <span class="category-name">Pojmenujte si novou kategorii</span>
         <input type="text" autocomplete="off" placeholder="název"/>
         <div class="wrapper">
-          <Button>zrušit</Button>
-          <Button>potvrdit</Button>
+          <Button on:click={closeCategoryDialog}>zrušit</Button>
+          <Button on:click={closeCategoryDialog}>potvrdit</Button>
         </div>
       </Row>
     </div>
@@ -152,5 +152,9 @@
         }
       }
     }
+  }
+  
+  function closeCategoryDialog() {
+    categoryDialogOpened = false;
   }
 </script>
