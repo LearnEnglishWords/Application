@@ -1,6 +1,6 @@
 <Popup class={name}>
   <!-- Navbar -->
-  <Header type="popup" popupName={name} title={category.czechName} />
+  <Header type="popup" popupName={name} title={category.title} />
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
@@ -9,7 +9,7 @@
 
     <List simpleList>
       {#each category.wordStorages["all"].getWordIds() as item}
-        <ListItem title="{item}"></ListItem>
+        <ListItem title={item}></ListItem>
       {/each}
     </List>
 
@@ -27,4 +27,5 @@
 
   export let name;
   export let category;
+
 </script>
