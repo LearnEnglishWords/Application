@@ -1613,7 +1613,6 @@ input:focus::placeholder {
     }
     &.shown {
       height: 150px;
-      padding: 1em;
     }
     &:last-child {
       display: flex;
@@ -1621,9 +1620,13 @@ input:focus::placeholder {
       justify-content: center;
       align-items: center;
       text-align: center;
-      height: 0;
-      &.active {
-        height: 150px;
+      .category-dialog {
+        height: 0;
+        transition: all 350ms ease-in-out;
+        &.selected {
+          height: 150px;
+          padding: 1em;
+        }
       }
       .category-name {
         width: 100%;
@@ -1705,7 +1708,7 @@ input:focus::placeholder {
     padding: 8px;
     transition: all 350ms ease-in-out;
     &.active {
-      margin-bottom: calc(12.25px + 150px + 2em);
+      margin-bottom: calc(12.25px + 150px);
     }
     svg {
       padding: 16px;

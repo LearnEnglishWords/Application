@@ -30,28 +30,30 @@
       <div class="category-add ripple third {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}> <!-- přepínat class active / inactive -->
         <SVGIcon element="navigation" name="e-add" size="16" />
       </div>
-      <Row noGap class="{activeDialog !== null ? 'active' : ''}"> <!-- Pokud .first je active, tak přidat class shown, pokud není, tak hidden -->
-        {#if activeDialog === ActiveCategoryDialog.REMOVE}
-          <span class="category-name">Odstranit kategorii</span>
-          <div class="wrapper">
-            <Button>zrušit</Button>
-            <Button>potvrdit</Button>
+      <Row noGap class="{activeDialog !== null ? 'active' : ''}">
+          <div class="category-dialog {activeDialog === ActiveCategoryDialog.REMOVE ? 'selected' : ''}">
+            <span class="category-name">Opravdu chcete kategorii odstranit? Tuto akci nelze vrátit zpět.</span>
+            <div class="wrapper">
+              <Button>Ne</Button>
+              <Button>Ano</Button>
+            </div>
           </div>
-        {:else if activeDialog === ActiveCategoryDialog.ADD_WORD}
-          <span class="category-name">nové slovíčko</span>
-          <input type="text" autocomplete="off" placeholder="název"/>
-          <div class="wrapper">
-            <Button>zrušit</Button>
-            <Button>potvrdit</Button>
+          <div class="category-dialog {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
+            <span class="category-name">Přidat slovíčko</span>
+            <input type="text" autocomplete="off" placeholder="Zadejte slovíčko"/>
+            <div class="wrapper">
+              <Button>zrušit</Button>
+              <Button>potvrdit</Button>
+            </div>
           </div>
-        {:else if activeDialog === ActiveCategoryDialog.EDIT}   
-          <span class="category-name">Přejmenovat kategorii</span>
-          <input type="text" autocomplete="off" placeholder="název"/>
-          <div class="wrapper">
-            <Button>zrušit</Button>
-            <Button>potvrdit</Button>
-          </div>    
-        {/if}
+          <div class="category-dialog {activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
+            <span class="category-name">Přejmenovat kategorii</span>
+            <input type="text" autocomplete="off" placeholder="Nový název"/>
+            <div class="wrapper">
+              <Button>zrušit</Button>
+              <Button>potvrdit</Button>
+            </div>
+          </div>
       </Row>
     </div>
 </Popup>
