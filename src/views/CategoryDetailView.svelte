@@ -133,18 +133,16 @@
   let wordsLimit = $settingsData.wordsLimit;
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
-  let modeType = trainingModes[trainingModeIndex].value;
   let currentLearningMode = null;
 
   trainingModes.forEach((mode, index) => {
     if (mode.checked) {
       trainingModeIndex = index; 
-      modeType = mode.value;
     }
   });
 
-  let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
-  currentWordStorage.loadWords();
+  $categoryDetailData.loadWords("learning"); 
+  $categoryDetailData.loadWords("unknown"); 
   $categoryDetailData.loadWords("known"); 
 
   statisticsData.set($categoryDetailData.statistics.stats);
@@ -154,14 +152,9 @@
   function changeTrainingMode(index) {
     trainingModeIndex = index;
     modeType = trainingModes[index].value;
-    currentWordStorage = $categoryDetailData.wordStorages[modeType];
 
     trainingModes.forEach((mode) => mode.checked = false);
     trainingModes[index].checked = true;
-
-    if (currentWordStorage.getWords(wordsLimit).length === 0) {
-      currentWordStorage.loadIds(true);
-    }
   }
 
   function saveWordLimit() {
@@ -196,7 +189,7 @@
     }
   }
 
-  function setupData(isTraining) {
+  function setupData(isTraining, currentWordStorage) {
     trainingData.set({ 
       mode: modeType, 
       type: currentLearningMode, 
@@ -224,17 +217,17 @@
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
 
     f7.preloader.show();
-    currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : modeType];
+    let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : "learning"];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
-      setupData(isTraining);
+      setupData(isTraining, currentWordStorage);
       f7.preloader.hide();
       checkAndSetActivity();
       setTimeout(() => currentLearningMode = null, 1000);
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView(isTraining, isRepetition) }, 1000);
+      setTimeout(() => { goToTrainingView() }, 1000);
     }
   }
 

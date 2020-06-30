@@ -1,7 +1,7 @@
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
 import { statisticsData, trainingModeStatisticsData } from '../store.js';
-import { trainingModes, KnownStages } from '../utils.js';
+import { KnownStages } from '../utils.js';
 
 
 export default class Category {
@@ -14,10 +14,12 @@ export default class Category {
     this.active = false;
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, 'all', 100),
-      'read': new WordsStorage(collectionId, id, 'read', 100),
-      'write': new WordsStorage(collectionId, id, 'write', 100),
-      'listen': new WordsStorage(collectionId, id, 'listen', 100),
-      'known': new WordsStorage(collectionId, id, 'known', 10000)
+      //'read': new WordsStorage(collectionId, id, 'read', 100),
+      //'write': new WordsStorage(collectionId, id, 'write', 100),
+      //'listen': new WordsStorage(collectionId, id, 'listen', 100),
+      'known': new WordsStorage(collectionId, id, 'known', 100),
+      'learning': new WordsStorage(collectionId, id, 'learning', 100),
+      'unknown': new WordsStorage(collectionId, id, 'unknown', 100)
     };
     this.statistics = new Statistics(this.collectionId, this.id);
   }
@@ -25,9 +27,11 @@ export default class Category {
   loadWordIds() {
     this.wordStorages['all'].loadIds(false);
     this.wordStorages['known'].loadIds(false);
-    trainingModes.forEach((mode) => {
-      this.wordStorages[mode.value].loadIds(false);
-    });
+    this.wordStorages['learning'].loadIds(false);
+    this.wordStorages['unknown'].loadIds(false);
+    //trainingModes.forEach((mode) => {
+    //  this.wordStorages[mode.value].loadIds(false);
+    //});
   }
 
   loadWords(type) {
