@@ -1513,7 +1513,7 @@ input:focus::placeholder {
     }
   }
   .col {
-    padding: 9px 0;
+    padding: 1em 0;
     z-index: 100000;
     --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
     position: relative;
@@ -1527,7 +1527,6 @@ input:focus::placeholder {
       z-index: 9999999;
       background: white;
       margin: 0;
-      border-top: 1px solid var(--app-border);
     }
     &:first-child {
       border-radius: 17px 0 0 0;
