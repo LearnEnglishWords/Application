@@ -15,12 +15,12 @@
         <SVGIcon element="navigation" name="delete-forever" size="16" />
         <span>Smazat</span>
       </Col>
-      <Col class="ripple {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.ADD_WORD ? ActiveCategoryDialog.ADD_WORD : null}>
+      <Col class="ripple {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}>
         <SVGIcon element="navigation" name="pen-01" size="16" />
         <span>Přejmenovat</span>
       </Col>
     </Row>
-    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}>
+    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.ADD_WORD ? ActiveCategoryDialog.ADD_WORD : null}>
       <SVGIcon element="navigation" name="e-add" size="16" />
     </div>
     <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
