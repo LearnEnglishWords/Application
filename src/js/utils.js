@@ -35,10 +35,10 @@ export function getDefaultStatisticsData(count = 0) {
 //  }
 //}            
 
-export function isKnownForMode(word, mode) { 
-  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
-  if (word.learning[mode] === false) { return false } else { return true }
-}
+//export function isKnownForMode(word, mode) { 
+//  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
+//  if (word.learning[mode] === false) { return false } else { return true }
+//}
 
 export function isKnown(word) {
   if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
@@ -117,7 +117,7 @@ export const WordsType = {
 
 export const Modes = {
     ALL: 'all',
-    KNOWN: 'known',
+    //KNOWN: 'known',
     READ: 'read',
     WRITE: 'write',
     LISTEN: 'listen'
