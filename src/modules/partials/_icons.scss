@@ -4,6 +4,15 @@
 
 .icon-24 {
 
+  &-n-edit {
+    polyline {
+      stroke: var(--app-icon);
+    }
+    polygon {
+      stroke: var(--app-secondary);
+    }
+  }
+
   &-left-arrow {
     polyline {
       fill: none;

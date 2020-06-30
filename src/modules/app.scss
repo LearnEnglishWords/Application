@@ -1775,10 +1775,12 @@ input:focus::placeholder {
   }
   li {
     background: var(--app-element);
-    margin-bottom: 0.25em;
     margin: 0 1em 0.25em;
     border-radius: 10px;
     color: var(--app-text);
+    .edit-icon {
+      display: flex;
+    }
   }
 }
 
@@ -1791,4 +1793,7 @@ input:focus::placeholder {
   top: 56px;
   padding-top: 1em;
   height: auto;
+  .page-title {
+    color: var(--app-title);
+  }
 }

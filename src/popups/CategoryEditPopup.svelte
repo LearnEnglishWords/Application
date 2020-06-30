@@ -3,9 +3,14 @@
   <Header type="popup" popupName={name} title={category.title} />
   <!-- Header -->
   <div class="view personal-page" on:click={() => activeDialog = null} >
+    <div class="page-title">Seznam slovíček</div>
     <List simpleList class="personal-list">
       {#each category.wordStorages["all"].getWordIds() as item}
-        <ListItem title={item}></ListItem>
+        <ListItem title={item}>
+          <div class="edit-icon"> <!-- tu na DIV přidej onclick - tlačítko -->
+            <SVGIcon name="n-edit" size="24" />
+          </div>
+        </ListItem>
       {/each}
     </List>
   </div>
@@ -41,6 +46,7 @@
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
         <span>Přejmenovat kategorii</span>
+        <input type="text" autocomplete="off" placeholder="Nová kategorie"/>
         <div class="buttons">
           <Button class="cancel">Zrušit</Button>
           <Button class="confirm">Potvrdit</Button>
@@ -75,7 +81,7 @@
       activeDialog = null;
     } else {
       activeDialog = null;
-      setTimeout(() => { activeDialog = newActiveDialog }, 500);
+      setTimeout(() => { activeDialog = newActiveDialog }, 350);
     }
   }
 </script>
