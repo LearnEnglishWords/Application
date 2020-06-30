@@ -23,7 +23,11 @@ export default class CategoryGroup {
   loadStatistics() {
     this.mainCategory.statistics = new Statistics(this.collectionId, this.id);
     this.categories.forEach((category) => {
-      this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
+      //this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
+      this.mainCategory.statistics.count += category.statistics.count;
+      this.mainCategory.statistics.known += category.statistics.known;
+      this.mainCategory.statistics.unknown += category.statistics.unknown;
+      this.mainCategory.statistics.learning += category.statistics.learning;
     });
   }
 

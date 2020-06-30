@@ -1,7 +1,8 @@
 import WordsStorage from '../storages/words.js';
-import Statistics from './statistics.js';
+import DS from '../storages/data.js';
+//import Statistics from './statistics.js';
 import { statisticsData } from '../store.js';
-import { KnownStages } from '../utils.js';
+import { KnownStages, isKnown } from '../utils.js';
 
 
 export default class Category {
@@ -21,7 +22,7 @@ export default class Category {
       'learning': new WordsStorage(collectionId, id, 'learning', 100),
       'unknown': new WordsStorage(collectionId, id, 'unknown', 100)
     };
-    this.statistics = new Statistics(this.collectionId, this.id);
+    this.statistics = null;
   }
 
   loadWordIds() {
@@ -39,14 +40,24 @@ export default class Category {
   }
 
   loadStatistics() {
-    return this.statistics.load();
+    return new Promise((resolve) => {
+      DS.getCategoryStatistics(this.collectionId, this.categoryId).then((stats) => {
+        this.statistics = stats;
+        resolve()
+      });
+    });
   }
 
-  updateStatistics(word, prevLearningState) {
+  updateStatistics(word) {
     if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
-    this.statistics.update(word, prevLearningState);
-    statisticsData.updateData();
-    //trainingModeStatisticsData.updateData();
+
+    if (isKnown(word)) {
+      this.statistics.known += 1;
+      this.statistics.learning -= 1;
+      statisticsData.updateData();
+
+      DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
+    }
   }
 
   //updateWords(mode, addWords, removeWords) {
