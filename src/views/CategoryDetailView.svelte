@@ -35,9 +35,6 @@
             <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
             <SVGIcon element="mode" name="{icon}" size="24" />
             <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
-            <div class="mode-statistics">
-              <Statistics simple withoutLearning statistic={$trainingModeStatisticsData[value]} />
-            </div>
           </div>
         {/each}
       </div>
@@ -146,7 +143,7 @@
   $categoryDetailData.loadWords("known"); 
 
   statisticsData.set($categoryDetailData.statistics.stats);
-  setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
+  //setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
   trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
 
   function changeTrainingMode(index) {

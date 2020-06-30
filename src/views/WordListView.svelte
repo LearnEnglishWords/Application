@@ -58,8 +58,8 @@
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
-    statisticsData, trainingModeStatisticsData,
-    settingsData, allKnownWordsData, allNotKnownWordsData
+    statisticsData, settingsData,
+    allKnownWordsData, allNotKnownWordsData
   } from '../js/store.js';
 
   import { get } from 'svelte/store';

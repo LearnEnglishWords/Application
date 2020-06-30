@@ -27,13 +27,13 @@ export function getDefaultStatisticsData(count = 0) {
   }
 }            
 
-export function getDefaultModeStatisticsData(count = 0) {
-  return {
-    "read": { "known": 0, "unknown": count },
-    "write": { "known": 0, "unknown": count },
-    "listen": { "known": 0, "unknown": count },
-  }
-}            
+//export function getDefaultModeStatisticsData(count = 0) {
+//  return {
+//    "read": { "known": 0, "unknown": count },
+//    "write": { "known": 0, "unknown": count },
+//    "listen": { "known": 0, "unknown": count },
+//  }
+//}            
 
 export function isKnownForMode(word, mode) { 
   if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }

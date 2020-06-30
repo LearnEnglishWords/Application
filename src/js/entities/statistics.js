@@ -241,7 +241,7 @@ export default class Statistics {
 
   save() {
     DS.saveCategoryStatistics(this.collectionId, this.categoryId, this.stats.getData());
-    DS.saveCategoryModeStatistics(this.collectionId, this.categoryId, this.modeStats.getData());
+    //DS.saveCategoryModeStatistics(this.collectionId, this.categoryId, this.modeStats.getData());
   }
 
   static plus(stats1, stats2) {

@@ -1,6 +1,6 @@
 import WordsStorage from '../storages/words.js';
 import Statistics from './statistics.js';
-import { statisticsData, trainingModeStatisticsData } from '../store.js';
+import { statisticsData } from '../store.js';
 import { KnownStages } from '../utils.js';
 
 
@@ -46,7 +46,7 @@ export default class Category {
     if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
     this.statistics.update(word, prevLearningState);
     statisticsData.updateData();
-    trainingModeStatisticsData.updateData();
+    //trainingModeStatisticsData.updateData();
   }
 
   //updateWords(mode, addWords, removeWords) {

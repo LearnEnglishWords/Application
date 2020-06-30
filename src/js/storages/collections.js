@@ -69,7 +69,7 @@ export default class CollectionStorage {
 
   saveCategory(collectionId, category, words, progress) {
     DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
-    DS.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
+    //DS.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
     this.saveCategoryWords(collectionId, category.id, words, progress);
   }
 

@@ -71,7 +71,7 @@
   import { 
     collectionData, trainingData, settingsData,
     categoryGroupData, categoryDetailData,
-    statisticsData, trainingModeStatisticsData 
+    statisticsData 
   } from '../js/store.js';
   import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
