@@ -2,60 +2,52 @@
   <!-- Navbar -->
   <Header type="popup" popupName={name} title={category.title} />
   <!-- Header -->
-  <div class="header statistics empty"></div>
-  <div class="view" on:click={() => activeDialog = null} >
-    <label for="name">Nazev:</label> <input id="name"> <Button> Ulozit nazev </Button>
-    <Button class="page-button button-show"> Odstranit kategorii </Button>
-
-    <List simpleList>
+  <div class="view personal-page" on:click={() => activeDialog = null} >
+    <List simpleList class="personal-list">
       {#each category.wordStorages["all"].getWordIds() as item}
         <ListItem title={item}></ListItem>
       {/each}
     </List>
-
-    <Button class="page-button button-show"> Přidat slovíčko </Button>
-    <Footer />
   </div>
-      <div class="personal-edit">
-      <Row noGap>
-        <Col class="ripple first {activeDialog === ActiveCategoryDialog.REMOVE ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.REMOVE ? ActiveCategoryDialog.REMOVE : null}> <!-- přepínat class active / inactive -->
-          <SVGIcon element="navigation" name="pen-01" size="16" />
-          <span>{$_('category_list.buttons.edit')}</span>
-        </Col>
-        <Col class="ripple second {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.ADD_WORD ? ActiveCategoryDialog.ADD_WORD : null}> <!-- přepínat class active / inactive -->
-          <SVGIcon element="navigation" name="event-confirm" size="16" />
-          <span>{$_('category_list.buttons.continue')}</span>
-        </Col>
-      </Row>
-      <div class="category-add ripple third {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}> <!-- přepínat class active / inactive -->
-        <SVGIcon element="navigation" name="e-add" size="16" />
-      </div>
-      <Row noGap class="{activeDialog !== null ? 'active' : ''}">
-          <div class="category-dialog {activeDialog === ActiveCategoryDialog.REMOVE ? 'selected' : ''}">
-            <span class="category-name">Opravdu chcete kategorii odstranit? Tuto akci nelze vrátit zpět.</span>
-            <div class="wrapper">
-              <Button>Ne</Button>
-              <Button>Ano</Button>
-            </div>
-          </div>
-          <div class="category-dialog {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
-            <span class="category-name">Přidat slovíčko</span>
-            <input type="text" autocomplete="off" placeholder="Zadejte slovíčko"/>
-            <div class="wrapper">
-              <Button>zrušit</Button>
-              <Button>potvrdit</Button>
-            </div>
-          </div>
-          <div class="category-dialog {activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
-            <span class="category-name">Přejmenovat kategorii</span>
-            <input type="text" autocomplete="off" placeholder="Nový název"/>
-            <div class="wrapper">
-              <Button>zrušit</Button>
-              <Button>potvrdit</Button>
-            </div>
-          </div>
-      </Row>
+  <div class="personal-panel">
+    <Row noGap>
+      <Col class="ripple {activeDialog === ActiveCategoryDialog.REMOVE ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.REMOVE ? ActiveCategoryDialog.REMOVE : null}>
+        <SVGIcon element="navigation" name="delete-forever" size="16" />
+        <span>Smazat</span>
+      </Col>
+      <Col class="ripple {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.ADD_WORD ? ActiveCategoryDialog.ADD_WORD : null}>
+        <SVGIcon element="navigation" name="pen-01" size="16" />
+        <span>Přejmenovat</span>
+      </Col>
+    </Row>
+    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => activeDialog = activeDialog !== ActiveCategoryDialog.EDIT ? ActiveCategoryDialog.EDIT : null}>
+      <SVGIcon element="navigation" name="e-add" size="16" />
     </div>
+    <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
+      <Col class="{activeDialog === ActiveCategoryDialog.REMOVE ? 'selected' : ''}">
+        <span>Opravdu chcete kategorii odstranit? Tuto akci nelze vrátit zpět.</span>
+        <div class="buttons">
+          <Button class="cancel">Ne</Button>
+          <Button class="confirm">Ano</Button>
+        </div>
+      </Col>
+      <Col class="{activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
+        <span>Přidat slovíčko</span>
+        <input type="text" autocomplete="off" placeholder="Zadejte slovíčko"/>
+        <div class="buttons">
+          <Button class="cancel">Zrušit</Button>
+          <Button class="confirm">Potvrdit</Button>
+        </div>
+      </Col>
+      <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
+        <span>Přejmenovat kategorii</span>
+        <div class="buttons">
+          <Button class="cancel">Zrušit</Button>
+          <Button class="confirm">Potvrdit</Button>
+        </div>
+      </Col>
+    </Row>
+  </div>
 </Popup>
 
 <script>
@@ -63,7 +55,6 @@
   import DS from '../js/storages/data.js';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
-  import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
 
   export let name;

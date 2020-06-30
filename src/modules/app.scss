@@ -1594,7 +1594,7 @@ input:focus::placeholder {
   opacity: 1;
 }
 
-.personal-edit {
+.personal-panel {
   background: white;
   @include position($position: fixed, $right: 0, $bottom: 0, $left: 0);
   margin-bottom: 0;
@@ -1607,31 +1607,104 @@ input:focus::placeholder {
     border-radius: inherit;
     border-top: 1px solid var(--app-border);
     transition: all 350ms ease-in-out;
-    background: white;
-    &.hidden {
-      height: 0;
-    }
-    &.shown {
-      height: 150px;
-    }
     &:last-child {
-      display: flex;
-      border-radius: 5px 5px 0 0;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      .category-dialog {
-        height: 0;
-        transition: all 350ms ease-in-out;
-        &.selected {
-          height: 150px;
-          padding: 1em;
+      padding: 0;
+      height: 0;
+      &.opened {
+        height: 150px;
+        padding: 1em;
+        .col {
+          &.selected {
+            height: 150px;
+            opacity: 1;
+          }
         }
       }
-      .category-name {
+      .col {
+        height: 0;
+        opacity: 0;
         width: 100%;
-        font-size: 14px;
-        text-transform: unset;
+        padding: 0!important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        align-content: center;
+        transition: all 350ms ease-in-out;
+        span {
+          width: 100%;
+          font-size: 14px;
+          text-transform: unset;
+        }
+      }
+    }
+    .col {
+      padding: 9px 0;
+      z-index: 100000;
+      --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: all 350ms ease-in-out;
+      overflow: hidden;
+      &:first-child {
+        border-radius: 17px 0 0 0;
+        padding-right: 33px;
+        svg {
+          --app-icon: var(--app-error);
+        }
+      }
+      &:last-child {
+        border-radius: 0 17px 0 0;
+        padding-left: 33px;
+        svg {
+          --app-icon: var(--app-success);
+        }
+      }
+      &:nth-child(1) {
+        .button {
+          &:first-child {
+            background: transparent;
+            color: var(--app-error);
+            border: 1px solid var(--app-error);
+          }
+          &:last-child {
+            background-color: var(--app-error);
+            box-shadow: 0 0 0.25em var(--app-error);
+          }
+        }
+      }
+      &:nth-child(2) {
+        .button {
+          &:first-child {
+            background: transparent;
+            color: var(--app-secondary);
+            border: 1px solid var(--app-secondary);
+          }
+          &:last-child {
+            background-color: var(--app-secondary);
+            box-shadow: 0 0 0.25em var(--app-secondary);
+          }
+        }
+      }
+      &:nth-child(3) {
+        .button {
+          &:first-child {
+            background: transparent;
+            color: var(--app-success);
+            border: 1px solid var(--app-success);
+          }
+          &:last-child {
+            background-color: var(--app-success);
+            box-shadow: 0 0 0.25em var(--app-success);
+          }
+        }
+      }
+      span {
+        display: block;
+        color: var(--app-text);
+        text-transform: uppercase;
+        font-size: 10px;
+        transition: all 350ms ease-in-out;
+        font-weight: 600;
       }
       input {
         background: var(--app-element);
@@ -1643,8 +1716,11 @@ input:focus::placeholder {
         width: 75%;
         color: var(--app-title);
       }
-      .wrapper {
-        width: 100%;
+      .buttons {
+        position: absolute;
+        bottom: 0em;
+        width: calc(100% - 1em);
+        margin: 0 auto;
         .button {
           display: inline-block;
           color: white;
@@ -1656,46 +1732,18 @@ input:focus::placeholder {
           transition: all 350ms ease-in-out;
           margin: 4.5px 0 0 0;
           width: calc((100% / 2) - 1em);
-          &:first-child {
-            background: var(--app-dark);
-            box-shadow: 0 0 0.25em var(--app-dark);
+          &.cancel {
             float: left;
           }
-          &:last-child {
-            background: var(--app-error);
-            box-shadow: 0 0 0.25em var(--app-error);
+          &.confirm {
             float: right;
+            @extend %-pattern;
           }
-        }
+        }  
       }
     }
-  }
-  .col {
-    padding: 9px 0;
-    z-index: 100000;
-    --f7-touch-ripple-color: rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: all 350ms ease-in-out;
-    overflow: hidden;
-    &:first-child {
-      border-radius: 17px 0 0 0;
-      padding-right: 33px;
-    }
-    &:last-child {
-      border-radius: 0 17px 0 0;
-      padding-left: 33px;
-    }
-    &.active {
-      svg {
-        --app-icon: var(--app-secondary);
-      }
-      span {
-        color: var(--app-secondary);
-      }
-    }
-  }
-  .category-add {
-    z-index: 999999;
+  } 
+  .button-add {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1707,26 +1755,40 @@ input:focus::placeholder {
     border-radius: 50%;
     padding: 8px;
     transition: all 350ms ease-in-out;
+    z-index: 999999;
     &.active {
-      margin-bottom: calc(12.25px + 150px);
+      margin-bottom: calc(12.25px + 150px + 2em);
     }
     svg {
       padding: 16px;
       --app-icon: white;
       border-radius: 50%;
-      background: var(--app-error);
+      background: var(--app-secondary);
     }
   }
-  span {
-    display: block;
+}
+
+.personal-list {
+  margin: 0;
+  ul:before {
+    content: none;
+  }
+  li {
+    background: var(--app-element);
+    margin-bottom: 0.25em;
+    margin: 0 1em 0.25em;
+    border-radius: 10px;
     color: var(--app-text);
-    text-transform: uppercase;
-    font-size: 10px;
-    transition: all 350ms ease-in-out;
-    font-weight: 600;
   }
-  .personal-icon {
-    --app-icon: #CDDAE2;
-    transition: all 350ms ease-in-out;
-  }
+}
+
+.personal-page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 76px;
+  overflow: auto;
+  top: 56px;
+  padding-top: 1em;
+  height: auto;
 }
