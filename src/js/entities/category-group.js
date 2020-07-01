@@ -1,6 +1,7 @@
 import Category from '../entities/category.js';
-import Statistics from '../entities/statistics.js';
+import DS from '../storages/data.js';
 import { statisticsData, allKnownWordsData, allNotKnownWordsData } from '../store.js';
+import { getDefaultStatisticsData, coreCollections } from '../utils.js';
 
 
 export default class CategoryGroup {
@@ -21,14 +22,20 @@ export default class CategoryGroup {
   }
 
   loadStatistics() {
-    this.mainCategory.statistics = new Statistics(this.collectionId, this.id);
-    this.categories.forEach((category) => {
-      //this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
-      this.mainCategory.statistics.count += category.statistics.count;
-      this.mainCategory.statistics.known += category.statistics.known;
-      this.mainCategory.statistics.unknown += category.statistics.unknown;
-      this.mainCategory.statistics.learning += category.statistics.learning;
-    });
+    if (coreCollections.includes(this.collectionId)) {
+      DS.getCategoryStatistics(this.collectionId, `collection_${this.collectionId}`).then((stats) => {
+        this.mainCategory.statistics = stats;
+      });
+    } else {
+      this.mainCategory.statistics = getDefaultStatisticsData();
+      this.categories.forEach((category) => {
+        //this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
+        this.mainCategory.statistics.count += category.statistics.count;
+        this.mainCategory.statistics.known += category.statistics.known;
+        this.mainCategory.statistics.unknown += category.statistics.unknown;
+        this.mainCategory.statistics.learning += category.statistics.learning;
+      });
+    }
   }
 
   loadWordIds() {

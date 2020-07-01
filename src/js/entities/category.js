@@ -2,7 +2,7 @@ import WordsStorage from '../storages/words.js';
 import DS from '../storages/data.js';
 //import Statistics from './statistics.js';
 import { statisticsData } from '../store.js';
-import { KnownStages, WordsType, isKnown } from '../utils.js';
+import { KnownStages, WordsType, isKnown, getDefaultStatisticsData } from '../utils.js';
 
 
 export default class Category {
@@ -13,6 +13,7 @@ export default class Category {
     this.title = title;
     this.icon = icon;
     this.active = false;
+    this.statistics = getDefaultStatisticsData();
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, WordsType.ALL, 100),
       //'read': new WordsStorage(collectionId, id, 'read', 100),
@@ -22,7 +23,6 @@ export default class Category {
       'learning': new WordsStorage(collectionId, id, WordsType.LEARNING, 100),
       'unknown': new WordsStorage(collectionId, id, WordsType.UNKNOWN, 100)
     };
-    this.statistics = null;
   }
 
   loadWordIds() {

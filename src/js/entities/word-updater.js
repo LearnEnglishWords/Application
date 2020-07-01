@@ -37,11 +37,12 @@ export default class WordUpdater {
 
   static updateLearningWords(category) {
     return new Promise((resolve) => {
-      let learningWords = new LearningWordsUpdater(category);
-      learningWords.load();
-      learningWords.update(WordsType.KNOWN).then(() => {
-        learningWords.update(WordsType.NOT_KNOWN).then(resolve)
-      });
+      //let learningWords = new LearningWordsUpdater(category);
+      //learningWords.load();
+      //learningWords.update(WordsType.KNOWN).then(() => {
+      //  learningWords.update(WordsType.NOT_KNOWN).then(resolve)
+      //});
+      resolve();
     });
   }
 }

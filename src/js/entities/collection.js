@@ -32,10 +32,10 @@ export default class Collection {
     });
   }
 
-  isLoaded() {
-    let modeStats = this.categoryGroup.categories[0].statistics.modeStats;
-    return !(modeStats.read.known === 0 && modeStats.read.unknown === 0)
-  }
+  //isLoaded() {
+  //  let modeStats = this.categoryGroup.categories[0].statistics;
+  //  return !(modeStats.known === 0 && modeStats.unknown === 0)
+  //}
 
   updateLearningWords() {
     return new Promise((resolve) => {
