@@ -38,6 +38,8 @@ export default class Category {
   }
 
   updateWord(word, state, trainingType) {
+    if (!this.wordStorages[WordsType.ALL].getWordIds().includes(word.text)) { return }
+
     switch(trainingType) {
       case LearningMode.EXAM:
         if (state) {

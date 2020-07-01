@@ -101,7 +101,7 @@
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
-  if (!isTraining) {
+  if ($trainingData.type === LearningMode.EXAM) {
     $trainingData.words = shuffle($trainingData.words);
   }
   
@@ -173,6 +173,7 @@
     updateRecapitulation(state);
 
     if (!$trainingData.isTraining) { 
+      $categoryGroupData.updateWord(word, state, $trainingData.type) 
       $categoryDetailData.updateWord(word, state, $trainingData.type) 
       statisticsData.set($categoryDetailData.getStatistics());
     }

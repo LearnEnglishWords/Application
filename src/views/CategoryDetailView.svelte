@@ -57,8 +57,8 @@
           </div>
         </ListItem>
       </List>
-      <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
-        <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>Vyfiltrovat slovicka</Button>
+      <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
+      <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>Přesunout slovíčka do procesu učení</Button>
     </div>
   </div>
 
