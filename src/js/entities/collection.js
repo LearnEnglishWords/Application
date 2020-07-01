@@ -3,7 +3,7 @@ import { get } from 'svelte/store';
 import DS from '../storages/data.js';
 import CategoryGroup from './category-group.js';
 import Category from './category.js';
-import WordUpdater from './word-updater.js';
+//import WordUpdater from './word-updater.js';
 
 export default class Collection {
   constructor(id, name, active, parentCollection = null) {
@@ -37,17 +37,17 @@ export default class Collection {
   //  return !(modeStats.known === 0 && modeStats.unknown === 0)
   //}
 
-  updateLearningWords() {
-    return new Promise((resolve) => {
-      this.categoryGroup.categories.forEach((category, index) => {
-        WordUpdater.updateLearningWords(category).then(() => {
-          if(index+1 === this.categoryGroup.categories.length) {
-            resolve();
-          }
-        });
-      });
-    });
-  }
+  //updateLearningWords() {
+  //  return new Promise((resolve) => {
+  //    this.categoryGroup.categories.forEach((category, index) => {
+  //      WordUpdater.updateLearningWords(category).then(() => {
+  //        if(index+1 === this.categoryGroup.categories.length) {
+  //          resolve();
+  //        }
+  //      });
+  //    });
+  //  });
+  //}
 
   loadCategories() {
     let counter = 0;
@@ -56,12 +56,10 @@ export default class Collection {
         categories.forEach((cat) => {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName, cat.icon);
           category.loadWordIds();
-          category.loadStatistics().then(() => {
-            if (++counter === categories.length) {
-              resolve();
-            }
-          });
           this.categoryGroup.push(category);
+          if (++counter === categories.length) {
+            setTimeout(resolve, 100);
+          }
         });
       });
     });

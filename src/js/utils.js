@@ -141,7 +141,8 @@ export const WordListFilter = {
 export const LearningMode = {
     TRAINING: "training",
     EXAM: "exam",
-    REPETITION: "repetition"
+    REPETITION: "repetition",
+    FILTER: "filter"
 }
 
 export const AppInfo = {

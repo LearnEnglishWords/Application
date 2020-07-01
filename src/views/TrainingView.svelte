@@ -80,7 +80,7 @@
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
   import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnownForMode, getState, playTextSound, shuffle, WordsType } from '../js/utils.js'
+  import { isKnownForMode, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -163,36 +163,42 @@
     }
   }
 
-  function setDefaultLearning(word) {
-    if (word.learning === undefined) { 
-      word.learning = {"read": false, "write": false, "listen": false};
-    }
-  }
+  //function setDefaultLearning(word) {
+  //  if (word.learning === undefined) { 
+  //    word.learning = {"read": false, "write": false, "listen": false};
+  //  }
+  //}
 
   function updateWord({word, state}) {
     updateRecapitulation(state);
 
-    if ($trainingData.isTraining) { return }
-    setDefaultLearning(word);
-
-    // if is not same
-    if (word.learning[$trainingData.mode] !== state) {  
-      DS.getWord(word.text).then((word) => {
-        setDefaultLearning(word);
-
-        let prevLearningState = {...word.learning};
-        word.learning[$trainingData.mode] = state;
-
-        WordUpdater.update(word, prevLearningState);
-        WordUpdater.updateKnownWord(word);
-
-        let currentCategory = $categoryGroupData;
-        if (currentCategory === null) { currentCategory = $categoryDetailData }
-        currentCategory.updateWords($trainingData.mode, [], [word.text]);
-      });
-    } else {
-      WordUpdater.updateKnownWord(word);
+    if (!$trainingData.isTraining) { 
+      $categoryDetailData.updateWord(word, state, $trainingData.type) 
+      statisticsData.set($categoryDetailData.getStatistics());
     }
+
+
+    //setDefaultLearning(word);
+
+    //// if is not same
+    //if (word.learning[$trainingData.mode] !== state) {  
+    //  DS.getWord(word.text).then((word) => {
+    //    //setDefaultLearning(word);
+
+    //    //let prevLearningState = {...word.learning};
+    //    //word.learning[$trainingData.mode] = state;
+
+    //    WordUpdater.update(word);
+    //    //WordUpdater.updateKnownWord(word);
+
+    //    let currentCategory = $categoryGroupData;
+    //    if (currentCategory === null) { currentCategory = $categoryDetailData }
+    //    currentCategory.updateWords($trainingData.type === LearningMode.FILTER ? "learning" : "known", [], [word.text]);
+    //    currentCategory.updateWords($trainingData.type === LearningMode.FILTER ? "unknown" : "learning", [word.text], []);
+    //  });
+    //} else {
+    //  WordUpdater.updateKnownWord(word);
+    //}
   }
 
   function goToSlide(index) {

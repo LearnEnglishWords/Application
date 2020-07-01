@@ -1,7 +1,7 @@
 import Category from '../entities/category.js';
-import DS from '../storages/data.js';
-import { statisticsData, allKnownWordsData, allNotKnownWordsData } from '../store.js';
-import { getDefaultStatisticsData, coreCollections } from '../utils.js';
+//import DS from '../storages/data.js';
+//import { statisticsData } from '../store.js';
+//import { getDefaultStatisticsData } from '../utils.js';
 
 
 export default class CategoryGroup {
@@ -9,7 +9,7 @@ export default class CategoryGroup {
     this.collectionId = collectionId;
     this.categories = categories;
 
-    this.mainCategory = new Category(null, collectionId, null, null);
+    this.mainCategory = new Category(`collection_${collectionId}`, collectionId, null, null);
 
     if (this.categories.length > 0) {
       this.load();
@@ -17,25 +17,26 @@ export default class CategoryGroup {
   }
 
   load() {
-    this.loadStatistics();
+    //this.loadStatistics();
     this.loadWordIds();
   }
 
-  loadStatistics() {
-    if (coreCollections.includes(this.collectionId)) {
-      DS.getCategoryStatistics(this.collectionId, `collection_${this.collectionId}`).then((stats) => {
-        this.mainCategory.statistics = stats;
-      });
-    } else {
-      this.mainCategory.statistics = getDefaultStatisticsData();
+  getStatistics() {
+    //if (coreCollections.includes(this.collectionId)) {
+    //  DS.getCategoryStatistics(this.collectionId, `collection_${this.collectionId}`).then((stats) => {
+    //    this.mainCategory.statistics = stats;
+    //  });
+    //} else {
+      let stats = this.mainCategory.getStatistics();
       this.categories.forEach((category) => {
         //this.mainCategory.statistics = Statistics.plus(this.mainCategory.statistics, category.statistics);
-        this.mainCategory.statistics.count += category.statistics.count;
-        this.mainCategory.statistics.known += category.statistics.known;
-        this.mainCategory.statistics.unknown += category.statistics.unknown;
-        this.mainCategory.statistics.learning += category.statistics.learning;
+        stats.count += category.statistics.count;
+        stats.known += category.statistics.known;
+        stats.unknown += category.statistics.unknown;
+        stats.learning += category.statistics.learning;
       });
-    }
+      return stats
+    //}
   }
 
   loadWordIds() {
@@ -49,31 +50,43 @@ export default class CategoryGroup {
     });
   }
 
-  updateStatistics(word, prevLearningState) {
-    if (!this.mainCategory.wordStorages['all'].getWordIds().includes(word.text)) { return }
-
-    this.mainCategory.statistics.update(word, prevLearningState);
-    statisticsData.updateData();
-    //trainingModeStatisticsData.updateData();
-
+  updateWord(word, state, trainingType) {
     this.categories.forEach((category) => {
-      if (category.wordStorages['all'].getWordIds().includes(word.text)) {  
-        category.statistics.update(word, prevLearningState);
-      }
+      category.updateWord(word, state, trainingType);
     });
   }
 
-  updateWords(mode, addWords, removeWords) {
-    this.mainCategory.wordStorages[mode].update(addWords, removeWords);
-    this.categories.forEach((category) => { 
-      category.wordStorages[mode].update(
-        addWords.filter((wordId) => category.wordStorages['all'].getWordIds().includes(wordId)), 
-        removeWords
-      );
-    });
-    allKnownWordsData.updateData(mode, removeWords, []);
-    allNotKnownWordsData.updateData(mode, addWords, removeWords);
-  }
+  //updateStatistics(word) {
+  //  if (!this.mainCategory.wordStorages['all'].getWordIds().includes(word.text)) { return }
+
+  //  if (isKnown(word)) {
+  //    this.mainCategory.statistics.known += 1;
+  //    this.mainCategory.statistics.learning -= 1;
+  //  } else {
+  //    this.mainCategory.statistics.learning += 1;
+  //    this.mainCategory.statistics.unknown -= 1;
+  //  }
+  //  statisticsData.updateData();
+  //  //trainingModeStatisticsData.updateData();
+
+  //  this.categories.forEach((category) => {
+  //    if (category.wordStorages['all'].getWordIds().includes(word.text)) {  
+  //      category.updateStatistics(word);
+  //    }
+  //  });
+  //}
+
+  //updateWords(mode, addWords, removeWords) {
+  //  this.mainCategory.wordStorages[mode].update(addWords, removeWords);
+  //  this.categories.forEach((category) => { 
+  //    category.wordStorages[mode].update(
+  //      addWords.filter((wordId) => category.wordStorages['all'].getWordIds().includes(wordId)), 
+  //      removeWords
+  //    );
+  //  });
+  //  //allKnownWordsData.updateData(mode, removeWords, []);
+  //  //allNotKnownWordsData.updateData(mode, addWords, removeWords);
+  //}
 
   push(category) {
     this.categories.push(category);
@@ -83,11 +96,11 @@ export default class CategoryGroup {
     group.categories.forEach((category) => this.push(category));
   }
 
-  updateKnownWordList(word) {
-    this.categories.forEach((category) => { 
-      category.updateKnownWordList(word);
-    });
-  }
+  //updateKnownWordList(word) {
+  //  this.categories.forEach((category) => { 
+  //    category.updateKnownWordList(word);
+  //  });
+  //}
 
   _zip(arr1, arr2, s = 1) {
     let array = [];

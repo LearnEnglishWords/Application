@@ -53,7 +53,7 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import WordUpdater from '../js/entities/word-updater.js';
+  //import WordUpdater from '../js/entities/word-updater.js';
   import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordListFilter } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
@@ -155,9 +155,9 @@
         let prevLearningState = {...word.learning};
         word.learning = {"read": true, "write": true, "listen": true};
         word.knownStage = KnownStages.ALREADY_KNOWN;
-        WordUpdater.update(word, prevLearningState).then(() =>
-          progress++
-        );
+        //WordUpdater.update(word).then(() =>
+        //  progress++
+        //);
       }
     });
 
@@ -169,9 +169,9 @@
 
         word.learning = {"read": false, "write": false, "listen": false};
         word.knownStage = KnownStages.NOT_KNOWN;
-        WordUpdater.update(word, prevLearningState).then(() =>
-          progress++
-        );
+        //WordUpdater.update(word).then(() =>
+        //  progress++
+        //);
       }
     });
   }

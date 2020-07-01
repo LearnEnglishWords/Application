@@ -175,9 +175,9 @@
 
     //isLoading = false;
     collectionData.set(selectedCollection);
-    selectedCollection.updateLearningWords().then(() => {
+    //selectedCollection.updateLearningWords().then(() => {
       if (coreCollections.includes(selectedCollection.id)) {
-        selectedCollection.categoryGroup.loadStatistics();
+        //selectedCollection.categoryGroup.loadStatistics();
         categoryGroupData.set(selectedCollection.categoryGroup);
         categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
         f7router.navigate('/CategoryDetail');
@@ -185,7 +185,7 @@
         categoryGroupData.set(null);
         f7router.navigate('/CategoryList');
       }
-    });
+    //});
   }
 
   function loadCollection(collectionId) {

@@ -58,6 +58,7 @@
         </ListItem>
       </List>
       <Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>
+        <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>Vyfiltrovat slovicka</Button>
     </div>
   </div>
 
@@ -144,7 +145,7 @@
   $categoryDetailData.loadWords("unknown"); 
   $categoryDetailData.loadWords("known"); 
 
-  statisticsData.set($categoryDetailData.statistics);
+  statisticsData.set($categoryDetailData.getStatistics());
   //setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
   //trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
 
@@ -192,7 +193,7 @@
     trainingData.set({ 
       mode: modeType, 
       type: currentLearningMode, 
-      isTraining: isTraining,
+      isTraining: currentLearningMode === LearningMode.TRAINING,
       words: currentWordStorage.getWords(wordsLimit),
       currentWordIndex: 0
     });
@@ -212,11 +213,12 @@
   }
 
   function goToTrainingView() {
-    let isTraining = currentLearningMode === LearningMode.TRAINING;  
+    let isTraining = currentLearningMode === LearningMode.TRAINING && currentLearningMode !== LearningMode.FILTER;  
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
+    let isFiltering = currentLearningMode === LearningMode.FILTER;
 
     f7.preloader.show();
-    let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : "learning"];
+    let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
 
     if(currentWordStorage.isLoaded(wordsLimit)) {
       setupData(isTraining, currentWordStorage);
@@ -229,5 +231,4 @@
       setTimeout(() => { goToTrainingView() }, 1000);
     }
   }
-
 </script>

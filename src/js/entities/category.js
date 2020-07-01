@@ -1,8 +1,7 @@
 import WordsStorage from '../storages/words.js';
-import DS from '../storages/data.js';
+//import DS from '../storages/data.js';
 //import Statistics from './statistics.js';
-import { statisticsData } from '../store.js';
-import { KnownStages, WordsType, isKnown, getDefaultStatisticsData } from '../utils.js';
+import { WordsType, LearningMode } from '../utils.js';
 
 
 export default class Category {
@@ -13,7 +12,6 @@ export default class Category {
     this.title = title;
     this.icon = icon;
     this.active = false;
-    this.statistics = getDefaultStatisticsData();
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, WordsType.ALL, 100),
       //'read': new WordsStorage(collectionId, id, 'read', 100),
@@ -39,26 +37,67 @@ export default class Category {
     this.wordStorages[type].loadWords();
   }
 
-  loadStatistics() {
-    return new Promise((resolve) => {
-      DS.getCategoryStatistics(this.collectionId, this.categoryId).then((stats) => {
-        this.statistics = stats;
-        resolve()
-      });
-    });
+  updateWord(word, state, trainingType) {
+    switch(trainingType) {
+      case LearningMode.EXAM:
+        if (state) {
+          this.wordStorages[WordsType.UNKNOWN].removeWord(word)
+          //this.wordStorages[WordsType.NOT_KNOWN].removeWord(word)
+          this.wordStorages[WordsType.KNOWN].addWord(word)
+        } 
+        break;
+      case LearningMode.REPETITION:
+        if (!state) {
+          this.wordStorages[WordsType.NOT_KNOWN].addWord(word)
+          //this.wordStorages[WordsType.LEARNING].addWord(word)
+          this.wordStorages[WordsType.KNOWN].removeWord(word)
+        }
+        break;
+      case LearningMode.FILTER:
+        this.wordStorages[state === null ? WordsType.NOT_KNOWN : state ? WordsType.KNOWN : WordsType.LEARNING].addWord(word);
+        this.wordStorages[WordsType.UNKNOWN].removeWord(word)
+        break;
+    } 
   }
 
-  updateStatistics(word) {
-    if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
-
-    if (isKnown(word)) {
-      this.statistics.known += 1;
-      this.statistics.learning -= 1;
-      statisticsData.updateData();
-
-      DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
-    }
+  getStatistics() {
+    return {
+      "count": this.wordStorages[WordsType.ALL].getWordIds().length,
+      "known": this.wordStorages[WordsType.KNOWN].getWordIds().length,
+      "learning": this.wordStorages[WordsType.LEARNING].getWordIds().length,
+      "unknown": this.wordStorages[WordsType.UNKNOWN].getWordIds().length
+    };
   }
+
+  //loadStatistics() {
+  //  return new Promise((resolve) => {
+  //    //alert(this.collectionId)
+  //    //alert(this.id)
+  //    DS.getCategoryStatistics(this.collectionId, this.id).then((stats) => {
+  //      this.statistics = stats;
+	//			alert(JSON.stringify(this.statistics, null, 2))
+  //      resolve()
+  //    });
+  //  });
+  //}
+
+  //updateStatistics(word) {
+  //  if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
+
+  //  if (isKnown(word)) {
+  //    this.statistics.known += 1;
+  //    this.statistics.learning -= 1;
+  //    statisticsData.updateData();
+
+  //    DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
+  //  } else {
+  //    this.statistics.learning += 1;
+  //    this.statistics.unknown -= 1;
+  //    statisticsData.updateData();
+
+  //    DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
+  //  }
+  //}
 
   //updateWords(mode, addWords, removeWords) {
   //  this.wordStorages[mode].update(addWords, removeWords);
@@ -66,14 +105,14 @@ export default class Category {
   //  allNotKnownWordsData.updateData(mode, addWords, removeWords);
   //}
 
-  updateKnownWordList(word) {
-    if (word.knownStage === KnownStages.UNKNOWN || word.knownStage === KnownStages.NOT_KNOWN) {
-      this.wordStorages['known'].removeWord(word);
-    } else if (word.knownStage <= KnownStages.HARD_KNOWN) {
-      this.wordStorages['known'].addWord(word);
-    } else {
-      this.wordStorages['known'].removeWord(word);
-    }
-  }
+  //updateKnownWordList(word) {
+  //  if (word.knownStage === KnownStages.UNKNOWN || word.knownStage === KnownStages.NOT_KNOWN) {
+  //    this.wordStorages['known'].removeWord(word);
+  //  } else if (word.knownStage <= KnownStages.HARD_KNOWN) {
+  //    this.wordStorages['known'].addWord(word);
+  //  } else {
+  //    this.wordStorages['known'].removeWord(word);
+  //  }
+  //}
 }
 
