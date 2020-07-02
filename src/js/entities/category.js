@@ -1,7 +1,7 @@
 import WordsStorage from '../storages/words.js';
-//import DS from '../storages/data.js';
+import DS from '../storages/data.js';
 //import Statistics from './statistics.js';
-import { WordsType, LearningMode } from '../utils.js';
+import { WordsType, LearningMode, KnownStages, isKnown, isAlreadyKnown } from '../utils.js';
 
 
 export default class Category {
@@ -37,29 +37,59 @@ export default class Category {
     this.wordStorages[type].loadWords();
   }
 
-  updateWord(word, state, trainingType) {
+  updateWord(word, state, trainingType, trainingMode) {
     if (!this.wordStorages[WordsType.ALL].getWordIds().includes(word.text)) { return }
 
     switch(trainingType) {
       case LearningMode.EXAM:
         if (state) {
-          this.wordStorages[WordsType.UNKNOWN].removeWord(word)
-          //this.wordStorages[WordsType.NOT_KNOWN].removeWord(word)
-          this.wordStorages[WordsType.KNOWN].addWord(word)
+          word.learning[trainingMode] = true;
+          if(isKnown(word)) {
+            word.knownStage = KnownStages.KNOWN;
+            word.knownDate = Date.now();
+            this.wordStorages[WordsType.LEARNING].removeWord(word);
+            this.wordStorages[WordsType.KNOWN].addWord(word);
+          }
         } 
         break;
       case LearningMode.REPETITION:
         if (!state) {
-          this.wordStorages[WordsType.NOT_KNOWN].addWord(word)
-          //this.wordStorages[WordsType.LEARNING].addWord(word)
-          this.wordStorages[WordsType.KNOWN].removeWord(word)
+          word.knownStage = KnownStages.UNKNOWN;
+          word.learning[trainingMode] = false;
+          word.repetition = {"read": false, "write": false, "listen": false};
+          word.problem = true;
+          this.wordStorages[WordsType.LEARNING].addWord(word);
+          this.wordStorages[WordsType.KNOWN].removeWord(word);
+        } else {
+          word.repetition[trainingMode] = true;
+          if(isAlreadyKnown(word)) {
+            word.knownStage = KnownStages.ALREADY_KNOWN;
+          }
         }
         break;
       case LearningMode.FILTER:
-        this.wordStorages[state === null ? WordsType.NOT_KNOWN : state ? WordsType.KNOWN : WordsType.LEARNING].addWord(word);
-        this.wordStorages[WordsType.UNKNOWN].removeWord(word)
+        if (state === null) {
+          this.wordStorages[WordsType.KNOWN].addWord(word);
+          word.knownStage = KnownStages.KNOWN;
+          word.learning = {"read": true, "write": true, "listen": true};
+          word.repetition = {"read": false, "write": false, "listen": false};
+        } else if (state) {
+          this.wordStorages[WordsType.KNOWN].addWord(word);
+          word.knownStage = KnownStages.ALREADY_KNOWN;
+          word.learning = {"read": true, "write": true, "listen": true};
+          word.repetition = {"read": true, "write": true, "listen": true};
+        } else {
+          this.wordStorages[WordsType.LEARNING].addWord(word);
+          word.knownStage = KnownStages.UNKNOWN;
+          word.learning = {"read": false, "write": false, "listen": false};
+          word.repetition = {"read": false, "write": false, "listen": false};
+        }
+
+        word.problem = false;
+        this.wordStorages[WordsType.UNKNOWN].removeWord(word);
         break;
     } 
+    DS.saveWord(word.text, word);
   }
 
   getStatistics() {

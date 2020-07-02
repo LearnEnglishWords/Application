@@ -50,9 +50,9 @@ export default class CategoryGroup {
     });
   }
 
-  updateWord(word, state, trainingType) {
+  updateWord(word, state, trainingType, trainingMode) {
     this.categories.forEach((category) => {
-      category.updateWord(word, state, trainingType);
+      category.updateWord(word, state, trainingType, trainingMode);
     });
   }
 

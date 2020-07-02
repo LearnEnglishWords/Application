@@ -49,6 +49,15 @@ export function isKnown(word) {
   }
 }                   
 
+export function isAlreadyKnown(word) {
+  if (word.repetition === undefined || Object.keys(word.repetition).length === 0) { return false }
+  if (word.repetition.read !== false && word.repetition.write !== false && word.repetition.listen !== false) {
+    return true
+  } else {
+    return false
+  }
+}                   
+
 export function getState(word) {
   if (word.learning === undefined || Object.keys(word.learning).length === 0 || (word.learning.read === false && word.learning.write === false && word.learning.listen === false)) {
     return "unknown"

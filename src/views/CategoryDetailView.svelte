@@ -217,6 +217,11 @@
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
 
+    if (isFiltering) {
+      wordsLimit = 50;
+      modeType = "read";
+    }
+
     f7.preloader.show();
     let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
 

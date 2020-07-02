@@ -173,8 +173,9 @@
     updateRecapitulation(state);
 
     if (!$trainingData.isTraining) { 
-      $categoryGroupData.updateWord(word, state, $trainingData.type) 
-      $categoryDetailData.updateWord(word, state, $trainingData.type) 
+      //setDefaultLearning(word);
+      $categoryGroupData.updateWord(word, state, $trainingData.type, $trainingData.mode);
+      $categoryDetailData.updateWord(word, state, $trainingData.type, $trainingData.mode); 
       statisticsData.set($categoryDetailData.getStatistics());
     }
 
