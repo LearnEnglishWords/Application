@@ -202,7 +202,7 @@
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
 
-    if (isFiltering) {
+    if (isFiltering || isRepetition) {
       wordsLimit = 50;
       modeType = "read";
     }

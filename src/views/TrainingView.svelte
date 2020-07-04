@@ -27,7 +27,7 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={!isTraining || $settingsData.enableTrainingModeWall}>
+        <Sheet class="wall" backdrop={false} swipeToClose opened={canOpenWall()}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -88,6 +88,7 @@
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
+  let repetitionMode = "read";
   let recapitulationInfo = {
     count: $trainingData.words.length,
     known: 0,
@@ -137,11 +138,21 @@
   function getRandomMode(word) {
     let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
     let randomNumber = Math.floor(Math.random() * modes.length);
-    return modes[randomNumber]
+    let mode = modes[randomNumber];
+    repetitionMode = mode;
+    return mode
+  }
+
+  function canOpenWall() {
+    if (LearningMode.REPETITION) {
+      return repetitionMode === "read"
+    } else {
+      return !isTraining || $settingsData.enableTrainingModeWall
+    }
   }
 
   function openWall() {
-    if (!isTraining || $settingsData.enableTrainingModeWall) {
+    if (canOpenWall()) {
       f7.sheet.open(".wall", false);
     }
   }
