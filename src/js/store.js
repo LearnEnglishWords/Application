@@ -1,22 +1,22 @@
 import { writable } from 'svelte/store';
 import { 
   defaultSettingsData, 
-  getDefaultStatisticsData,
+  //getDefaultStatisticsData,
   //getDefaultModeStatisticsData,
   //WordsType
 } from './utils.js'
 //import DS from './storages/data.js';
 
-function createStatisticsData(startStatisticsData) {
-  const { subscribe, set, update } = writable({...startStatisticsData});
-  return {
-    subscribe, set,
-    updateData: () => update((data) => { return data }),
-    reset: () => {
-      set({...startStatisticsData});
-    }
-  };
-}
+//function createStatisticsData(startStatisticsData) {
+//  const { subscribe, set, update } = writable({...startStatisticsData});
+//  return {
+//    subscribe, set,
+//    updateData: () => update((data) => { return data }),
+//    reset: () => {
+//      set({...startStatisticsData});
+//    }
+//  };
+//}
 
 //function createModeStatisticsData(startStatisticsData) {
 //  const { subscribe, set, update } = writable({...startStatisticsData});
@@ -53,8 +53,8 @@ export const categoryGroupData = writable(null);
 export const downloadedCollections = writable([]);
 export const categoryDetailData = writable(0);
 export const settingsData = writable({...defaultSettingsData});
-//export const trainingModeStatisticsData = createModeStatisticsData({...getDefaultModeStatisticsData(100)});
-export const statisticsData = createStatisticsData({...getDefaultStatisticsData(100)});
+export const modeStatisticsData = writable(null);
+export const statisticsData = writable(null);
 export const deviceUUID = writable(null);
 //export const allKnownWordsData = createAllLearningWordsData(WordsType.KNOWN, {"read": [], "write": [], "listen": []});
 //export const allNotKnownWordsData = createAllLearningWordsData(WordsType.NOT_KNOWN, {"read": [], "write": [], "listen": []});

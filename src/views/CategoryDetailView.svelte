@@ -35,6 +35,10 @@
             <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
             <SVGIcon element="mode" name="{icon}" size="24" />
             <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+
+            <div class="mode-statistics">
+              <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
+            </div>
           </div>
         {/each}
       </div>
@@ -114,10 +118,10 @@
   import { 
     collectionData, categoryDetailData,
     trainingData, settingsData,
-    statisticsData, trainingModeStatisticsData
+    statisticsData, modeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity } from '../js/utils.js'
+  import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
@@ -146,7 +150,18 @@
 
   statisticsData.set($categoryDetailData.getStatistics());
   //setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
-  //trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
+  setupModeStatistics();
+
+  function setupModeStatistics() {
+    let modeStatistics = $categoryDetailData.getModeStatistics();
+    if (modeStatistics !== null) {
+      //alert(JSON.stringify(modeStatistics, null, 2))
+      modeStatisticsData.set(modeStatistics);
+    } else {
+      modeStatisticsData.set(getDefaultModeStatisticsData($statisticsData.learning));
+      setTimeout(setupModeStatistics, 100);
+    }
+  }
 
   function changeTrainingMode(index) {
     trainingModeIndex = index;

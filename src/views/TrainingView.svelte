@@ -82,7 +82,7 @@
   import { 
     collectionData, trainingData, settingsData,
     categoryGroupData, categoryDetailData,
-    statisticsData 
+    statisticsData, modeStatisticsData 
   } from '../js/store.js';
   import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
@@ -194,6 +194,7 @@
       $categoryGroupData.updateWord(word, state, $trainingData.type, $trainingData.mode);
       $categoryDetailData.updateWord(word, state, $trainingData.type, $trainingData.mode); 
       statisticsData.set($categoryDetailData.getStatistics());
+      modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
 
 

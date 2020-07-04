@@ -28,7 +28,7 @@ export default class Category {
     this.wordStorages[WordsType.ALL].loadIds(false);
     this.wordStorages[WordsType.ALREADY_KNOWN].loadIds(false);
     this.wordStorages[WordsType.KNOWN].loadIds(false);
-    this.wordStorages[WordsType.LEARNING].loadIds(false);
+    this.wordStorages[WordsType.LEARNING].loadIds(true);
     this.wordStorages[WordsType.UNKNOWN].loadIds(false);
     //trainingModes.forEach((mode) => {
     //  this.wordStorages[mode.value].loadIds(false);
@@ -103,6 +103,21 @@ export default class Category {
       "learning": this.wordStorages[WordsType.LEARNING].getWordIds().length,
       "unknown": this.wordStorages[WordsType.UNKNOWN].getWordIds().length
     };
+  }
+
+  getModeStatistics() {
+    let learningCount = this.wordStorages[WordsType.LEARNING].getWordIds().length;
+    let words = this.wordStorages[WordsType.LEARNING].getWords(learningCount);
+
+    if (learningCount !== words.length) { return null }
+
+    let getKnownWordsCount = (mode) => { return words.filter((word) => word.learning[mode] !== false).length }
+
+    return {
+      "read": { "known": getKnownWordsCount("read"), "unknown": learningCount },
+      "write": { "known": getKnownWordsCount("write"), "unknown": learningCount },
+      "listen": { "known": getKnownWordsCount("listen"), "unknown": learningCount },
+    }
   }
 
   //loadStatistics() {

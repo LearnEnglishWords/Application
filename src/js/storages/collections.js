@@ -1,4 +1,4 @@
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from '../utils.js'
+import { WordsType } from '../utils.js'
 import { isProduction, backendApiUrl } from '../config.js'
 import DS from './data.js';
 
@@ -68,7 +68,7 @@ export default class CollectionStorage {
   }
 
   saveCategory(collectionId, category, words, progress) {
-    DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
+    //DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
     //DS.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
     this.saveCategoryWords(collectionId, category.id, words, progress);
   }
