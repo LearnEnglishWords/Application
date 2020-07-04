@@ -194,7 +194,7 @@
 
   function setupData(isTraining, currentWordStorage, wordsCount) {
     trainingData.set({ 
-      mode: modeType, 
+      mode: [LearningMode.FILTER, LearningMode.REPETITION].includes(currentLearningMode) ? "read" : modeType, 
       type: currentLearningMode, 
       isTraining: currentLearningMode === LearningMode.TRAINING,
       words: currentWordStorage.getWords(wordsCount),
@@ -220,10 +220,6 @@
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
     let wordsCount = isFiltering ? numberFilteringWords : wordsLimit;
-
-    if (isFiltering || isRepetition) {
-      modeType = "read";
-    }
 
     f7.preloader.show();
     let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
