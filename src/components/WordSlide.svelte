@@ -1,4 +1,4 @@
-{#if mode==="read"}
+{#if mode === "read"}
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
     <div class="word">{word.text}</div>
     {#if showPronunciation}
@@ -13,6 +13,24 @@
 
   </div>
   <WordDetail {word}/>
+
+  {#if ($trainingData.type === LearningMode.EXAM || $trainingData.type === LearningMode.REPETITION)}
+    <div class="footer-container footer-double">
+      <div class="footer-content">
+        <Button class="page-button button-no" on:click={() => clickButton(false)}>{$_('training.question.unknow')}</Button>
+        <Button class="page-button button-yes" on:click={() => clickButton(true)}>{$_('training.question.know')}</Button>
+      </div>
+    </div> 
+  {:else if $trainingData.type === LearningMode.FILTER}
+    <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
+    <div class="footer-container footer-double">
+      <div class="footer-content">
+        <Button class="page-button button-no" on:click={() => clickButton(false)}>{$_('training.question.no')}</Button>
+        <Button class="page-button button-slightly" on:click={() => clickButton(null)}>{$_('training.question.slightly')}</Button>
+        <Button class="page-button button-yes" on:click={() => clickButton(true)}>{$_('training.question.yes')}</Button>
+      </div>
+    </div> 
+  {/if}
 
 {:else} 
   <div class="other-mode">
@@ -94,7 +112,7 @@
     let randomNumber = Math.floor(Math.random() * modes.length);
     //$trainingData.mode = modes[randomNumber];
     mode = modes[randomNumber];
-    //alert(mode);
+    alert(mode);
   }
 
   if (mode === "write") {
@@ -113,6 +131,11 @@
         dispatch('updateWord', {word: word, state: false, mode: mode});
       }
     }, 200);
+  }
+
+  function clickButton(state) {
+    dispatch('updateWord', {word: word, state: state, mode: mode});
+    dispatch('nextWord');
   }
 
   function switchTrainingModeWall() {

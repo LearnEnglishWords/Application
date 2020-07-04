@@ -20,25 +20,6 @@
         {/if}
       </div>  
 
-      {#if ($trainingData.type === LearningMode.EXAM || $trainingData.type === LearningMode.REPETITION) && $trainingData.mode === "read"}
-        <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-        <div class="footer-container footer-double">
-          <div class="footer-content">
-            <Button class="page-button button-no" on:click={noButton}>{$_('training.question.unknow')}</Button>
-            <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.know')}</Button>
-          </div>
-        </div> 
-      {:else if $trainingData.type === LearningMode.FILTER && $trainingData.mode === "read"}
-        <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
-        <div class="footer-container footer-double">
-          <div class="footer-content">
-            <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
-            <Button class="page-button button-slightly" on:click={slightlyButton}>{$_('training.question.slightly')}</Button>
-            <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
-          </div>
-        </div> 
-      {/if}
-
       {#if $trainingData.mode === "read"}
         <Sheet class="wall" backdrop={false} swipeToClose opened={!isTraining || $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
@@ -148,23 +129,23 @@
     swiperHeight = "52vh";
   }
 
-  function noButton() {
-    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: false, mode: $trainingData.mode});
-    nextWord();
-  }
+  //function noButton() {
+  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+  //  updateWord({word: currentWord, state: false, mode: $trainingData.mode});
+  //  nextWord();
+  //}
 
-  function slightlyButton() {
-    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: null, mode: $trainingData.mode});
-    nextWord();
-  }
+  //function slightlyButton() {
+  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+  //  updateWord({word: currentWord, state: null, mode: $trainingData.mode});
+  //  nextWord();
+  //}
 
-  function yesButton() {
-    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: true, mode: $trainingData.mode});
-    nextWord();
-  }
+  //function yesButton() {
+  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+  //  updateWord({word: currentWord, state: true, mode: $trainingData.mode});
+  //  nextWord();
+  //}
 
   function openWall() {
     if (!isTraining || $settingsData.enableTrainingModeWall) {
