@@ -466,6 +466,11 @@ svg {
       @include button($type: "show", $pattern: "true");
       margin: 1em 1em 0;
     }
+
+    &.#{$type}-start {
+      @include button($type: "start", $pattern: "true");
+      margin: 1em 1em 0;
+    }
     &.#{$type}-examples {
       @include button($type: "examples", $pattern: "true");
     }

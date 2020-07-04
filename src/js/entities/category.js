@@ -92,6 +92,7 @@ export default class Category {
   getStatistics() {
     return {
       "count": this.wordStorages[WordsType.ALL].getWordIds().length,
+      "alreadyKnown": this.wordStorages[WordsType.ALREADY_KNOWN].getWordIds().length,
       "known": this.wordStorages[WordsType.KNOWN].getWordIds().length + this.wordStorages[WordsType.ALREADY_KNOWN].getWordIds().length,
       "learning": this.wordStorages[WordsType.LEARNING].getWordIds().length,
       "unknown": this.wordStorages[WordsType.UNKNOWN].getWordIds().length

@@ -70,10 +70,11 @@
           "listen": "Poslech"
       },
       "words_limit": "Zvolte si počet slov",
-      "words_title": "Počet slov",
+      "words_title": "Limit slov",
       "words": "slov",
       "buttons": {
-          "filter_words": "Učit se další slovíčka",
+          "filter_words_normal": "Přidat další slovíčka",
+          "filter_words_start": "Spustit učení",
           "words_list": "Zobrazit seznam všech slov",
           "exam": "Přezkoušet",
           "training": "Procvičovat",

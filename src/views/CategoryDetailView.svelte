@@ -28,20 +28,23 @@
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.training_title')}</div>
-      <!-- Mode -->
-      <div class="page-mode">
-        {#each trainingModes as {value, checked, icon}, id}
-          <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
-            <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
-            <SVGIcon element="mode" name="{icon}" size="24" />
-            <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+      {#if $statisticsData.learning > 0}
+        <!-- Mode -->
+        <div class="page-mode">
+          {#each trainingModes as {value, checked, icon}, id}
+            <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
+              <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
+              <SVGIcon element="mode" name="{icon}" size="24" />
+              <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
 
-            <div class="mode-statistics">
-              <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
+              <div class="mode-statistics">
+                <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
+              </div>
             </div>
-          </div>
-        {/each}
-      </div>
+          {/each}
+        </div>
+      {/if}
+
       <!-- Stepper -->
       <List class="list-container list-stepper">
         <ListItem class="list-item" title="{$_('category.words_title')}">
@@ -61,28 +64,36 @@
           </div>
         </ListItem>
       </List>
+
       <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
-      <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words')}</Button>
+
+      {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
+        <Button class="page-button button-start" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_start')}</Button>
+      {:else if $statisticsData.learning <= wordsLimit}
+        <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
+      {/if}
     </div>
   </div>
 
   <!-- Footer -->
   <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
-      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
+      {#if ($statisticsData.known - $statisticsData.alreadyKnown) > 0}
       <Col class="ripple mode-{LearningMode.REPETITION} {currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.REPETITION ? currentLearningMode = null : currentLearningMode = LearningMode.REPETITION}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.' + LearningMode.REPETITION)}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
-        <SVGIcon element="navigation" name="todo" size="16" />
-        <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
-      </Col>
-      <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
-        <SVGIcon element="navigation" name="book-open-2" size="16" />
-        <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
-      </Col>
+      {#if $statisticsData.learning > 0}
+        <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
+          <SVGIcon element="navigation" name="todo" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
+        </Col>
+        <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
+          <SVGIcon element="navigation" name="book-open-2" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
+        </Col>
+      {/if}
     </Row>
     <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
@@ -150,6 +161,12 @@
 
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();
+
+
+  //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
+  //  currentLearningMode = LearningMode.FILTER;
+  //  goToTrainingView();
+  //}
 
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
