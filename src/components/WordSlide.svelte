@@ -73,11 +73,12 @@
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
   import SVGIcon from './SVGIcon.svelte';
-  import { playTextSound } from '../js/utils.js';
+  import { playTextSound, trainingModes, LearningMode } from '../js/utils.js';
   import { trainingData, settingsData } from '../js/store.js';
 
   export let word;
   export let mode;
+  export let type;
   export let showPronunciation;
 
   const dispatch = createEventDispatcher();
@@ -86,6 +87,15 @@
   let result = null;
   let placeholder = "";
   let resultColor = "black";
+
+  if (type === LearningMode.REPETITION) {
+    let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
+    //let allModes = trainingModes.map((mode) => mode.value);
+    let randomNumber = Math.floor(Math.random() * modes.length);
+    //$trainingData.mode = modes[randomNumber];
+    mode = modes[randomNumber];
+    //alert(mode);
+  }
 
   if (mode === "write") {
     placeholder = $_('training.placeholders.write');
@@ -97,10 +107,10 @@
     setTimeout(() => { 
       if (translatedText.toLowerCase() === word.text.toLowerCase()) {
         result = true;
-        dispatch('updateWord', {word: word, state: true});
+        dispatch('updateWord', {word: word, state: true, mode: mode});
       } else {
         result = false;
-        dispatch('updateWord', {word: word, state: false});
+        dispatch('updateWord', {word: word, state: false, mode: mode});
       }
     }, 200);
   }

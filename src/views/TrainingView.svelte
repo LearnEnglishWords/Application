@@ -10,7 +10,7 @@
         <div class="swiper-wrapper">
           {#each $trainingData.words as word, id}
             <div class="swiper-slide">
-              <WordSlide {word} showPronunciation={isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+              <WordSlide {word} showPronunciation={isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode={$trainingData.mode} type={$trainingData.type} />
             </div>
           {/each}
         </div>
@@ -150,19 +150,19 @@
 
   function noButton() {
     let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: false});
+    updateWord({word: currentWord, state: false, mode: $trainingData.mode});
     nextWord();
   }
 
   function slightlyButton() {
     let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: null});
+    updateWord({word: currentWord, state: null, mode: $trainingData.mode});
     nextWord();
   }
 
   function yesButton() {
     let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: true});
+    updateWord({word: currentWord, state: true, mode: $trainingData.mode});
     nextWord();
   }
 
@@ -186,13 +186,13 @@
   //  }
   //}
 
-  function updateWord({word, state}) {
+  function updateWord({word, state, mode}) {
     updateRecapitulation(state);
 
     if (!$trainingData.isTraining) { 
       //setDefaultLearning(word);
-      $categoryGroupData.updateWord(word, state, $trainingData.type, $trainingData.mode);
-      $categoryDetailData.updateWord(word, state, $trainingData.type, $trainingData.mode); 
+      $categoryGroupData.updateWord(word, state, $trainingData.type, mode);
+      $categoryDetailData.updateWord(word, state, $trainingData.type, mode); 
       statisticsData.set($categoryDetailData.getStatistics());
       modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
