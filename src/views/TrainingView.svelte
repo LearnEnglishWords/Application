@@ -10,7 +10,13 @@
         <div class="swiper-wrapper">
           {#each $trainingData.words as word, id}
             <div class="swiper-slide">
-              <WordSlide {word} showPronunciation={isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode={$trainingData.mode} type={$trainingData.type} />
+              <WordSlide {word} 
+                 showPronunciation={isTraining} 
+                 on:nextWord={nextWord}
+                 on:updateWord={(e) => updateWord(e.detail)} 
+                 mode={$trainingData.type === LearningMode.REPETITION ? getRandomMode(word) : $trainingData.mode}
+                 type={$trainingData.type} 
+               />
             </div>
           {/each}
         </div>
@@ -127,6 +133,14 @@
 
   if ($trainingData.mode === "read" && !$trainingData.isTraining) {
     swiperHeight = "52vh";
+  }
+
+  function getRandomMode(word) {
+    let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
+    //let allModes = trainingModes.map((mode) => mode.value);
+    let randomNumber = Math.floor(Math.random() * modes.length);
+    //$trainingData.mode = modes[randomNumber];
+    return modes[randomNumber]
   }
 
   //function noButton() {

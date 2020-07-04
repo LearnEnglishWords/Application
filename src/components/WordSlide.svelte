@@ -106,14 +106,6 @@
   let placeholder = "";
   let resultColor = "black";
 
-  if (type === LearningMode.REPETITION) {
-    let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
-    //let allModes = trainingModes.map((mode) => mode.value);
-    let randomNumber = Math.floor(Math.random() * modes.length);
-    //$trainingData.mode = modes[randomNumber];
-    mode = modes[randomNumber];
-    alert(mode);
-  }
 
   if (mode === "write") {
     placeholder = $_('training.placeholders.write');
