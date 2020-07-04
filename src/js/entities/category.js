@@ -1,6 +1,5 @@
 import WordsStorage from '../storages/words.js';
 import DS from '../storages/data.js';
-//import Statistics from './statistics.js';
 import { WordsType, LearningMode, KnownStages, isKnown, isAlreadyKnown } from '../utils.js';
 
 
@@ -14,9 +13,6 @@ export default class Category {
     this.active = false;
     this.wordStorages = {
       'all': new WordsStorage(collectionId, id, WordsType.ALL, 100),
-      //'read': new WordsStorage(collectionId, id, 'read', 100),
-      //'write': new WordsStorage(collectionId, id, 'write', 100),
-      //'listen': new WordsStorage(collectionId, id, 'listen', 100),
       'already_known': new WordsStorage(collectionId, id, WordsType.ALREADY_KNOWN, 100),
       'known': new WordsStorage(collectionId, id, WordsType.KNOWN, 100),
       'learning': new WordsStorage(collectionId, id, WordsType.LEARNING, 100),
@@ -30,9 +26,6 @@ export default class Category {
     this.wordStorages[WordsType.KNOWN].loadIds(false);
     this.wordStorages[WordsType.LEARNING].loadIds(true);
     this.wordStorages[WordsType.UNKNOWN].loadIds(false);
-    //trainingModes.forEach((mode) => {
-    //  this.wordStorages[mode.value].loadIds(false);
-    //});
   }
 
   loadWords(type) {
@@ -108,10 +101,11 @@ export default class Category {
   getModeStatistics() {
     let learningCount = this.wordStorages[WordsType.LEARNING].getWordIds().length;
     let words = this.wordStorages[WordsType.LEARNING].getWords(learningCount);
-
     if (learningCount !== words.length) { return null }
 
-    let getKnownWordsCount = (mode) => { return words.filter((word) => word.learning[mode] !== false).length }
+    let getKnownWordsCount = (mode) => { 
+      return words.filter((word) => word.learning[mode] !== false).length 
+    }
 
     return {
       "read": { "known": getKnownWordsCount("read"), "unknown": learningCount },
@@ -119,51 +113,5 @@ export default class Category {
       "listen": { "known": getKnownWordsCount("listen"), "unknown": learningCount },
     }
   }
-
-  //loadStatistics() {
-  //  return new Promise((resolve) => {
-  //    //alert(this.collectionId)
-  //    //alert(this.id)
-  //    DS.getCategoryStatistics(this.collectionId, this.id).then((stats) => {
-  //      this.statistics = stats;
-	//			alert(JSON.stringify(this.statistics, null, 2))
-  //      resolve()
-  //    });
-  //  });
-  //}
-
-  //updateStatistics(word) {
-  //  if (!this.wordStorages['all'].getWordIds().includes(word.text)) { return }
-
-  //  if (isKnown(word)) {
-  //    this.statistics.known += 1;
-  //    this.statistics.learning -= 1;
-  //    statisticsData.updateData();
-
-  //    DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
-  //  } else {
-  //    this.statistics.learning += 1;
-  //    this.statistics.unknown -= 1;
-  //    statisticsData.updateData();
-
-  //    DS.saveCategoryStatistics(this.collectionId, this.id, this.statistics);
-  //  }
-  //}
-
-  //updateWords(mode, addWords, removeWords) {
-  //  this.wordStorages[mode].update(addWords, removeWords);
-  //  allKnownWordsData.updateData(mode, removeWords, []);
-  //  allNotKnownWordsData.updateData(mode, addWords, removeWords);
-  //}
-
-  //updateKnownWordList(word) {
-  //  if (word.knownStage === KnownStages.UNKNOWN || word.knownStage === KnownStages.NOT_KNOWN) {
-  //    this.wordStorages['known'].removeWord(word);
-  //  } else if (word.knownStage <= KnownStages.HARD_KNOWN) {
-  //    this.wordStorages['known'].addWord(word);
-  //  } else {
-  //    this.wordStorages['known'].removeWord(word);
-  //  }
-  //}
 }
 

@@ -149,13 +149,11 @@
   $categoryDetailData.loadWords("known"); 
 
   statisticsData.set($categoryDetailData.getStatistics());
-  //setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
   setupModeStatistics();
 
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
     if (modeStatistics !== null) {
-      //alert(JSON.stringify(modeStatistics, null, 2))
       modeStatisticsData.set(modeStatistics);
     } else {
       modeStatisticsData.set(getDefaultModeStatisticsData($statisticsData.learning));
@@ -175,33 +173,6 @@
     $settingsData.wordsLimit = wordsLimit;
     DS.saveSettings($settingsData);
   }
-
-  //function setCorrectModeStats() {
-  //  let maxValue = 0;
-  //  let wasNegative = false;
-  //  // Fix number of unknown words when it is zero or negative
-  //  for (let modeType of trainingModes.map((mode) => mode.value)) {
-  //    let modeState = $categoryDetailData.statistics.modeStats[modeType];
-  //    if(modeState.unknown <= 0) {
-  //      modeState.unknown = $statisticsData.unknown;
-  //      wasNegative = true;
-  //    }
-  //    if(maxValue < modeState.known) {
-  //      maxValue = modeState.known;
-  //    }
-  //  }
-
-  //  // Fix when user know more words than is saved in mode statistics. 
-  //  if(maxValue < ($statisticsData.known + $statisticsData.learning)) {
-  //    let diffValue = ($statisticsData.known + $statisticsData.learning) - maxValue;
-  //    for (let modeType of trainingModes.map((mode) => mode.value)) {
-  //      $categoryDetailData.statistics.modeStats[modeType].known += diffValue;
-  //      if(!wasNegative) {
-  //        $categoryDetailData.statistics.modeStats[modeType].unknown -= diffValue;
-  //      }
-  //    }
-  //  }
-  //}
 
   function setupData(isTraining, currentWordStorage) {
     trainingData.set({ 

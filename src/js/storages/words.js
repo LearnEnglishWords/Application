@@ -79,6 +79,7 @@ export default class WordsStorage {
     this.allWordIds = [];
   }
 
+  // used only for save words from WordList
   //update(addWords, removeWords, loadWords = true) {
   //  var updateWordIds = this.allWordIds
   //    .concat(addWords)

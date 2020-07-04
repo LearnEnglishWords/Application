@@ -67,12 +67,6 @@ export default class CollectionStorage {
     });
   }
 
-  saveCategory(collectionId, category, words, progress) {
-    //DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
-    //DS.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
-    this.saveCategoryWords(collectionId, category.id, words, progress);
-  }
-
   saveCategoryWords(collectionId, categoryId, words, progress) {
     let wordIds = words.map((word) => word.text);
     DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.UNKNOWN);
@@ -105,7 +99,7 @@ export default class CollectionStorage {
             "wordsCount": words.length,
             "id": `collection_${collection.id}`
         }
-        this.saveCategory(collection.id, category, words, progress);
+        this.saveCategoryWords(collection.id, category.id, words, progress);
       }
 
       this.downloadAllCategories(collection.id).then((categories) => {
@@ -121,7 +115,7 @@ export default class CollectionStorage {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {
           setupProgress(words.length);
-          this.saveCategory(collectionId, category, words, progress);
+          this.saveCategoryWords(collectionId, category.id, words, progress);
         } 
       });
     });

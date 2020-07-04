@@ -54,15 +54,6 @@ export default class DataStorage {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:statistics`);
   }
 
-//  static saveCategoryModeStatistics(collectionId, categoryId, statistics) {
-//    if (categoryId === undefined || categoryId === null) { return }
-//    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`, statistics);
-//  }
-//
-//  static getCategoryModeStatistics(collectionId, categoryId) {
-//    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`);
-//  }
-
   static saveAppInfo(id, content) {
     return appStorage.setItem(`info:${id}`, content);
   }

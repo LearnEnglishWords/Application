@@ -77,7 +77,6 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import WordUpdater from '../js/entities/word-updater.js';
   import { isKnownForMode, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
@@ -137,29 +136,9 @@
 
   function getRandomMode(word) {
     let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
-    //let allModes = trainingModes.map((mode) => mode.value);
     let randomNumber = Math.floor(Math.random() * modes.length);
-    //$trainingData.mode = modes[randomNumber];
     return modes[randomNumber]
   }
-
-  //function noButton() {
-  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-  //  updateWord({word: currentWord, state: false, mode: $trainingData.mode});
-  //  nextWord();
-  //}
-
-  //function slightlyButton() {
-  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-  //  updateWord({word: currentWord, state: null, mode: $trainingData.mode});
-  //  nextWord();
-  //}
-
-  //function yesButton() {
-  //  let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-  //  updateWord({word: currentWord, state: true, mode: $trainingData.mode});
-  //  nextWord();
-  //}
 
   function openWall() {
     if (!isTraining || $settingsData.enableTrainingModeWall) {
@@ -175,45 +154,15 @@
     }
   }
 
-  //function setDefaultLearning(word) {
-  //  if (word.learning === undefined) { 
-  //    word.learning = {"read": false, "write": false, "listen": false};
-  //  }
-  //}
-
   function updateWord({word, state, mode}) {
     updateRecapitulation(state);
 
     if (!$trainingData.isTraining) { 
-      //setDefaultLearning(word);
       $categoryGroupData.updateWord(word, state, $trainingData.type, mode);
       $categoryDetailData.updateWord(word, state, $trainingData.type, mode); 
       statisticsData.set($categoryDetailData.getStatistics());
       modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
-
-
-    //setDefaultLearning(word);
-
-    //// if is not same
-    //if (word.learning[$trainingData.mode] !== state) {  
-    //  DS.getWord(word.text).then((word) => {
-    //    //setDefaultLearning(word);
-
-    //    //let prevLearningState = {...word.learning};
-    //    //word.learning[$trainingData.mode] = state;
-
-    //    WordUpdater.update(word);
-    //    //WordUpdater.updateKnownWord(word);
-
-    //    let currentCategory = $categoryGroupData;
-    //    if (currentCategory === null) { currentCategory = $categoryDetailData }
-    //    currentCategory.updateWords($trainingData.type === LearningMode.FILTER ? "learning" : "known", [], [word.text]);
-    //    currentCategory.updateWords($trainingData.type === LearningMode.FILTER ? "unknown" : "learning", [word.text], []);
-    //  });
-    //} else {
-    //  WordUpdater.updateKnownWord(word);
-    //}
   }
 
   function goToSlide(index) {

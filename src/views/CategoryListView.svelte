@@ -78,7 +78,6 @@
     if (selectedCategories.length > 0) {
       let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories);
 
-      //categoryGroup.loadStatistics();
       categoryGroupData.set(categoryGroup);
       categoryDetailData.set(categoryGroup.mainCategory);
 
