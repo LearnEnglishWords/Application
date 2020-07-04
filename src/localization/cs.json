@@ -114,9 +114,12 @@
       "sense_title": "Význam slova",
       "description_title": "Příklady použití",
       "question": {
-          "text": "Už umíš dané slovíčko?",
-          "yes": "Znám",
-          "no": "Neznám"
+          "text": "Umíš toto slovíčko?",
+          "know": "Znám",
+          "unknow": "Neznám",
+          "yes": "Ano",
+          "slightly": "Trochu",
+          "no": "Ne"
       },
       "toolbar": {
           "start": "Na začátek",

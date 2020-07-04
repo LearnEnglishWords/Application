@@ -472,6 +472,9 @@ svg {
     &.#{$type}-no {
       @include button($type: "no", $pattern: "true");
     } 
+    &.#{$type}-slightly {
+      @include button($type: "slightly", $pattern: "true");
+    } 
     &.#{$type}-yes {
       @include button($type: "yes", $pattern: "true");
     }   

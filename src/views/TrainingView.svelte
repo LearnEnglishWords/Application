@@ -19,15 +19,26 @@
           <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
         {/if}
       </div>  
-      {#if !isTraining && $trainingData.mode === "read"}
+
+      {#if ($trainingData.type === LearningMode.EXAM || $trainingData.type === LearningMode.REPETITION) && $trainingData.mode === "read"}
         <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
         <div class="footer-container footer-double">
           <div class="footer-content">
+            <Button class="page-button button-no" on:click={noButton}>{$_('training.question.unknow')}</Button>
+            <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.know')}</Button>
+          </div>
+        </div> 
+      {:else if $trainingData.type === LearningMode.FILTER && $trainingData.mode === "read"}
+        <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
+        <div class="footer-container footer-double">
+          <div class="footer-content">
             <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
+            <Button class="page-button button-slightly" on:click={slightlyButton}>{$_('training.question.slightly')}</Button>
             <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
           </div>
         </div> 
       {/if}
+
       {#if $trainingData.mode === "read"}
         <Sheet class="wall" backdrop={false} swipeToClose opened={!isTraining || $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
@@ -140,6 +151,12 @@
   function noButton() {
     let currentWord = $trainingData.words[$trainingData.currentWordIndex];
     updateWord({word: currentWord, state: false});
+    nextWord();
+  }
+
+  function slightlyButton() {
+    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+    updateWord({word: currentWord, state: null});
     nextWord();
   }
 
