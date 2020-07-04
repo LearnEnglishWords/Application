@@ -14,7 +14,7 @@
                  showPronunciation={isTraining} 
                  on:nextWord={nextWord}
                  on:updateWord={(e) => updateWord(e.detail)} 
-                 mode={$trainingData.type === LearningMode.REPETITION ? getRandomMode(word) : $trainingData.mode}
+                 mode={$trainingData.type === LearningMode.REPETITION ? randomModes[word.text] : $trainingData.mode}
                  type={$trainingData.type} 
                />
             </div>
@@ -27,7 +27,7 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={canOpenWall()}>
+        <Sheet class="wall" backdrop={false} swipeToClose opened={wallOpened}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -88,7 +88,6 @@
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
-  let repetitionMode = "read";
   let recapitulationInfo = {
     count: $trainingData.words.length,
     known: 0,
@@ -96,8 +95,16 @@
     trainingMode: $trainingData.mode,
     trainingType: $trainingData.type
   };
+  let randomModes = {};
+  let wallOpened = true;
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
+
+  if ($trainingData.type === LearningMode.REPETITION) {
+    for (let word of $trainingData.words) {
+      randomModes[word.text] = getRandomMode(word);
+    }
+  }
 
   if ($trainingData.type === LearningMode.EXAM) {
     $trainingData.words = shuffle($trainingData.words);
@@ -138,21 +145,21 @@
   function getRandomMode(word) {
     let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
     let randomNumber = Math.floor(Math.random() * modes.length);
-    let mode = modes[randomNumber];
-    repetitionMode = mode;
-    return mode
+    return modes[randomNumber];
   }
 
   function canOpenWall() {
-    if (LearningMode.REPETITION) {
-      return repetitionMode === "read"
+    if ($trainingData.type === LearningMode.REPETITION) {
+      let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+      return randomModes[currentWord.text] === "read";
     } else {
-      return !isTraining || $settingsData.enableTrainingModeWall
+      return !isTraining || $settingsData.enableTrainingModeWall;
     }
   }
 
   function openWall() {
-    if (canOpenWall()) {
+    wallOpened = canOpenWall();
+    if (wallOpened) {
       f7.sheet.open(".wall", false);
     }
   }
