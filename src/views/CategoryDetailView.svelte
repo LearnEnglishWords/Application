@@ -134,7 +134,7 @@
 
   import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
-  import { numberFilteringWords } from '../js/utils.js';
+  import { numberFilteringWords } from '../js/config.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
