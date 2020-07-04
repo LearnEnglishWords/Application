@@ -22,8 +22,8 @@
       </div>
     </div> 
   {:else if $trainingData.type === LearningMode.FILTER}
-    <BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>
     <div class="footer-container footer-triple">
+      <span>{$_('training.question.text')}</span>
       <div class="footer-content">
         <Button class="page-button button-no" on:click={() => clickButton(false)}>{$_('training.question.no')}</Button>
         <Button class="page-button button-slightly" on:click={() => clickButton(null)}>{$_('training.question.slightly')}</Button>

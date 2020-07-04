@@ -1428,6 +1428,11 @@ input:focus::placeholder {
   left: 1em;
   right: 1em;
   text-align: center;
+  span {
+    display: block;
+    color: var(--app-text);
+    margin-bottom: 1em;
+  }
   .button {
     width: calc(100% / 3 - 1em);
     display: inline-block;
