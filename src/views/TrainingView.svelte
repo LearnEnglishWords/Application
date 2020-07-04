@@ -27,7 +27,7 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={wallOpened}>
+        <Sheet class="wall" backdrop={false} swipeToClose opened={$trainingData.type === LearningMode.REPETITION ? wallOpened : !isTraining || $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
