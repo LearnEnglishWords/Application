@@ -61,9 +61,11 @@
     <div class="other-div">
       <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
       {#if result !== null}
-        <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <SVGIcon name="volume" size="24"/>
-        </div>
+        {#if mode === "write"}
+          <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+            <SVGIcon name="volume" size="24"/>
+          </div>
+        {/if}
         {#if !result}
           <div class="result-div wrong">
             <span class="result">{$_('training.results.wrong')}</span>
@@ -105,7 +107,6 @@
   let result = null;
   let placeholder = "";
   let resultColor = "black";
-
 
   if (mode === "write") {
     placeholder = $_('training.placeholders.write');

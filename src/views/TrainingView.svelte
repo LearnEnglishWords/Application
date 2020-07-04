@@ -224,7 +224,7 @@
   }
 
   function playAutoSound() {
-    if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
+    if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound && $trainingData.type !== LearningMode.REPETITION) {
       playTextSound($trainingData.words[$trainingData.currentWordIndex].text, $settingsData.pronunciation)
     }
   }
