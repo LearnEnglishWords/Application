@@ -1421,3 +1421,21 @@ input:focus::placeholder {
     right: 1em;
   }
 }
+
+.footer-triple {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  right: 1em;
+  text-align: center;
+  .button {
+    width: calc(100% / 3 - 1em);
+    display: inline-block;
+    &:nth-child(1) {
+      float: left;
+    }
+    &:nth-child(3) {
+      float: right;
+    }
+  }
+}
