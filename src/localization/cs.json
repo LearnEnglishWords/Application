@@ -189,6 +189,12 @@
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov."
       },
+      "filter": {
+          "title": "Úvodní projití slovíček:",
+          "info_text": "Máte dobře celkem",
+          "info_text_end": "slov.",
+          "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat."
+      },
       "continue": "Pokračovat",
       "read": "Čtení",
       "write": "Psaní",
@@ -200,6 +206,7 @@
           "all": "Celkem"
       },
       "score": {
+          "neutral": "Dobře",
           "5": "Skvělá práce",
           "4": "Dobré",
           "3": "Ujde to",
