@@ -1434,7 +1434,7 @@ input:focus::placeholder {
     margin-bottom: 1em;
   }
   .button {
-    width: calc(100% / 3 - 1em);
+    width: calc(100% / 3 - 0.5em);
     display: inline-block;
     &:nth-child(1) {
       float: left;
