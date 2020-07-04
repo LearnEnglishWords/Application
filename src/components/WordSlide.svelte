@@ -41,7 +41,7 @@
         {/each}
       {:else if mode==="listen"} 
         <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <div class="read-title">Klikněte pro poslechnutí slova</div>
+          <div class="read-title">{$_('training.listen_title')}</div>
           <SVGIcon name="volume" size="24"/>
         </div>
       {/if}
