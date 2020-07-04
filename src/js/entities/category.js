@@ -17,6 +17,7 @@ export default class Category {
       //'read': new WordsStorage(collectionId, id, 'read', 100),
       //'write': new WordsStorage(collectionId, id, 'write', 100),
       //'listen': new WordsStorage(collectionId, id, 'listen', 100),
+      'already_known': new WordsStorage(collectionId, id, WordsType.ALREADY_KNOWN, 100),
       'known': new WordsStorage(collectionId, id, WordsType.KNOWN, 100),
       'learning': new WordsStorage(collectionId, id, WordsType.LEARNING, 100),
       'unknown': new WordsStorage(collectionId, id, WordsType.UNKNOWN, 100)
@@ -25,6 +26,7 @@ export default class Category {
 
   loadWordIds() {
     this.wordStorages[WordsType.ALL].loadIds(false);
+    this.wordStorages[WordsType.ALREADY_KNOWN].loadIds(false);
     this.wordStorages[WordsType.KNOWN].loadIds(false);
     this.wordStorages[WordsType.LEARNING].loadIds(false);
     this.wordStorages[WordsType.UNKNOWN].loadIds(false);
@@ -64,6 +66,8 @@ export default class Category {
           word.repetition[trainingMode] = true;
           if(isAlreadyKnown(word)) {
             word.knownStage = KnownStages.ALREADY_KNOWN;
+            this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
+            this.wordStorages[WordsType.KNOWN].removeWord(word);
           }
         }
         break;
@@ -74,7 +78,7 @@ export default class Category {
           word.learning = {"read": true, "write": true, "listen": true};
           word.repetition = {"read": false, "write": false, "listen": false};
         } else if (state) {
-          this.wordStorages[WordsType.KNOWN].addWord(word);
+          this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
           word.knownStage = KnownStages.ALREADY_KNOWN;
           word.learning = {"read": true, "write": true, "listen": true};
           word.repetition = {"read": true, "write": true, "listen": true};
@@ -95,7 +99,7 @@ export default class Category {
   getStatistics() {
     return {
       "count": this.wordStorages[WordsType.ALL].getWordIds().length,
-      "known": this.wordStorages[WordsType.KNOWN].getWordIds().length,
+      "known": this.wordStorages[WordsType.KNOWN].getWordIds().length + this.wordStorages[WordsType.ALREADY_KNOWN].getWordIds().length,
       "learning": this.wordStorages[WordsType.LEARNING].getWordIds().length,
       "unknown": this.wordStorages[WordsType.UNKNOWN].getWordIds().length
     };

@@ -75,10 +75,10 @@ export default class CollectionStorage {
 
   saveCategoryWords(collectionId, categoryId, words, progress) {
     let wordIds = words.map((word) => word.text);
-    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.NOT_KNOWN);
     DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.UNKNOWN);
     DS.saveWordIdsList(collectionId, categoryId, [], WordsType.LEARNING);
     DS.saveWordIdsList(collectionId, categoryId, [], WordsType.KNOWN);
+    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.ALREADY_KNOWN);
 
     DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL).then(() => {
       words.forEach((word) => {

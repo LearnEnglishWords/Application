@@ -118,10 +118,10 @@ export function shuffle(array) {
 
 export const WordsType = {
     ALL: 'all',
+    ALREADY_KNOWN: 'already_known',
     KNOWN: 'known',
     LEARNING: 'learning',
-    UNKNOWN: 'unknown',
-    NOT_KNOWN: 'not_known'
+    UNKNOWN: 'unknown'
 }
 
 export const Modes = {
