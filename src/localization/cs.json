@@ -73,6 +73,7 @@
       "words_title": "Počet slov",
       "words": "slov",
       "buttons": {
+          "filter_words": "Učit nová slovíčka",
           "words_list": "Zobrazit seznam všech slov",
           "exam": "Přezkoušet",
           "training": "Procvičovat",
@@ -81,9 +82,8 @@
       },
       "learning_mode": {
           "repetition": {
-              "text1": "Slouží ke kontrole, zda si naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech.",
-              "text2": "Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.",
-              "text3": "Naopak slovíčka, která zodpovíte správně, se zde již znovu nezobrazí."
+              "text1": "Slouží ke kontrole, zda si již naučená slovíčka pamatujete i po několika dnech či týdnech.",
+              "text2": "Slovíčka, která ve čtení, psaní i poslechu zodpovíte správně, se zde již znovu nezobrazí. Naopak slovíčka, která zodpovíte špatně se vrací zpět do procesu učení."
           },
           "exam": {
               "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již opravdu umíte a pamatujete si je.",

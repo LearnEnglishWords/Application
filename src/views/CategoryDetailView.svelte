@@ -58,7 +58,7 @@
         </ListItem>
       </List>
       <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
-      <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>Přesunout slovíčka do procesu učení</Button>
+      <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words')}</Button>
     </div>
   </div>
 
@@ -84,8 +84,7 @@
       <Col>
         <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} <br />
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text3`)} 
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
         <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
