@@ -236,7 +236,11 @@
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView() }, 1000);
+      let tmpCurrentLearningMode = currentLearningMode;
+      setTimeout(() => { 
+        currentLearningMode = tmpCurrentLearningMode;
+        goToTrainingView();
+      }, 1000);
     }
   }
 </script>
