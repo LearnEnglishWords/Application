@@ -69,7 +69,7 @@
 
       {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
         <Button class="page-button button-start" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_start')}</Button>
-      {:else if $statisticsData.learning <= wordsLimit}
+      {:else if $statisticsData.learning < $settingsData.wordsLimit}
         <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
       {/if}
     </div>
@@ -134,6 +134,7 @@
 
   import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
+  import { numberFilteringWords } from '../js/utils.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
@@ -191,12 +192,12 @@
     DS.saveSettings($settingsData);
   }
 
-  function setupData(isTraining, currentWordStorage) {
+  function setupData(isTraining, currentWordStorage, wordsCount) {
     trainingData.set({ 
       mode: modeType, 
       type: currentLearningMode, 
       isTraining: currentLearningMode === LearningMode.TRAINING,
-      words: currentWordStorage.getWords(wordsLimit),
+      words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
   }
@@ -218,17 +219,17 @@
     let isTraining = currentLearningMode === LearningMode.TRAINING && currentLearningMode !== LearningMode.FILTER;  
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
+    let wordsCount = isFiltering ? numberFilteringWords : wordsLimit;
 
     if (isFiltering || isRepetition) {
-      wordsLimit = 50;
       modeType = "read";
     }
 
     f7.preloader.show();
     let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
 
-    if(currentWordStorage.isLoaded(wordsLimit)) {
-      setupData(isTraining, currentWordStorage);
+    if(currentWordStorage.isLoaded(wordsCount)) {
+      setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
       setTimeout(() => currentLearningMode = null, 1000);

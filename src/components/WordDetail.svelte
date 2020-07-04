@@ -1,6 +1,11 @@
 <div class="page-title">{$_('training.sense_title')}
-  <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
+  {#if $trainingData.type === LearningMode.FILTER}
+    <span>{$statisticsData.learning}/{$settingsData.wordsLimit}</span>
+  {:else}
+    <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
+  {/if}
 </div>
+
 <!-- List -->
 <List class="list-container list-categories">
   {#each word.sense.slice(0,4) as sense, id}
@@ -18,7 +23,8 @@
     Row, Col, Button
   } from 'framework7-svelte';
   import { _ } from 'svelte-i18n';
-  import { trainingData } from '../js/store.js';
+  import { trainingData, settingsData, statisticsData } from '../js/store.js';
+  import { LearningMode } from '../js/utils.js';
   import SVGIcon from '../components/SVGIcon.svelte';
 
   export let word;

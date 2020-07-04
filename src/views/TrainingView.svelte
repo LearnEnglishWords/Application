@@ -190,7 +190,10 @@
   }
 
   function nextWord() {
-    if ($trainingData.words.length === $trainingData.currentWordIndex+1) {
+    if ($trainingData.words.length === $trainingData.currentWordIndex + 1 || ($settingsData.wordsLimit === $statisticsData.learning && $trainingData.type === LearningMode.FILTER)) {
+      if ($trainingData.type === LearningMode.FILTER) {
+        recapitulationInfo.count = $trainingData.currentWordIndex + 1;
+      }
       showRecapitulation = true;
     } else {
       openWall();
