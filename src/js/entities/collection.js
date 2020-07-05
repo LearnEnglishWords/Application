@@ -40,7 +40,7 @@ export default class Collection {
           category.loadWordIds();
           this.categoryGroup.push(category);
           if (++counter === categories.length) {
-            setTimeout(resolve, 100);
+            setTimeout(resolve, 1000);
           }
         });
       });
