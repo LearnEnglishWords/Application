@@ -27,7 +27,7 @@ export default class Collection {
       if (this.parentCollection !== null) {
         this.categoryGroup.concat(this.parentCollection.categoryGroup);
       }
-      this.categoryGroup.load();
+      this.categoryGroup.loadWordIds(false);
     });
   }
 
@@ -37,7 +37,7 @@ export default class Collection {
       DS.getCategoryList(this.id).then((categories) => {
         categories.forEach((cat) => {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName, cat.icon);
-          category.loadWordIds();
+          category.loadWordIds(false);
           this.categoryGroup.push(category);
           if (++counter === categories.length) {
             setTimeout(resolve, 1000);

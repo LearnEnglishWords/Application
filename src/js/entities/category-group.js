@@ -2,19 +2,15 @@ import Category from '../entities/category.js';
 
 
 export default class CategoryGroup {
-  constructor(collectionId, categories = []) {
+  constructor(collectionId, categories = [], zipCategories = false) {
     this.collectionId = collectionId;
     this.categories = categories;
 
     this.mainCategory = new Category(`collection_${collectionId}`, collectionId, null, null);
 
     if (this.categories.length > 0) {
-      this.load();
+      this.loadWordIds(zipCategories);
     }
-  }
-
-  load() {
-    this.loadWordIds();
   }
 
   getStatistics() {
@@ -28,13 +24,17 @@ export default class CategoryGroup {
     return stats
   }
 
-  loadWordIds() {
+  loadWordIds(withZip = true) {
     this.categories.forEach((category, index) => {
       Object.keys(category.wordStorages).forEach((mode) => {
         let thisWordIds = this.mainCategory.wordStorages[mode].getWordIds();
         let categoryWordIds = category.wordStorages[mode].getWordIds();
 
-        this.mainCategory.wordStorages[mode].setWordIds(index === 0 ? categoryWordIds : this._zip(thisWordIds, categoryWordIds, index));
+        if (withZip) {
+          this.mainCategory.wordStorages[mode].setWordIds(index === 0 ? categoryWordIds : this._zip(thisWordIds, categoryWordIds, index));
+        } else {
+          this.mainCategory.wordStorages[mode].setWordIds(thisWordIds.concat(categoryWordIds));
+        }
       });
     });
   }

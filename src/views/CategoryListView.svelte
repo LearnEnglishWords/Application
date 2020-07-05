@@ -76,7 +76,7 @@
 
   function goToDetailView() {
     if (selectedCategories.length > 0) {
-      let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories);
+      let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories, true);
 
       categoryGroupData.set(categoryGroup);
       categoryDetailData.set(categoryGroup.mainCategory);
