@@ -59,14 +59,14 @@
         </Col>
       </Row>
       <Col class="ripple add-button {isSelectedOneCategory > 0 ? 'inactive' : 'active'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
-        <Button class="add">Přidat kategorii</Button>
+        <Button class="add">{$_('category_list.buttons.add')}</Button>
       </Col>
       <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">
-        <span class="category-name">Pojmenujte si novou kategorii</span>
-        <input type="text" autocomplete="off" placeholder="název"/>
+        <span class="category-name">{$_('category_list.new')}</span>
+        <input type="text" autocomplete="off" placeholder=""/>
         <div class="wrapper">
-          <Button on:click={closeCategoryDialog}>zrušit</Button>
-          <Button on:click={closeCategoryDialog}>potvrdit</Button>
+          <Button on:click={closeCategoryDialog}>{$_('category_list.buttons.cancel')}</Button>
+          <Button on:click={closeCategoryDialog}>{$_('category_list.buttons.confirm')}</Button>
         </div>
       </Row>
     </div>

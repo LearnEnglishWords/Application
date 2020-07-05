@@ -61,11 +61,45 @@
       }
   },
   "category_list": {
+      "new": "Pojmenujte si novou kategorii",
       "buttons": {
           "continue": "Pokračovat",
           "edit": "Upravit",
-          "add": "Přidat kategorii"
+          "add": "Přidat kategorii",
+          "cancel": "Zrušit",
+          "confirm": "Potvrdit"
       }
+  },
+  "category_edit": {
+      "words_list": "Seznam slovíček",
+      "actions": {
+          "remove": {
+              "button_text": "Odstranit",
+              "text": "Opravdu chcete tuto kategorii odstranit? Akci potom nelze vrátit zpět.",
+              "button": {
+                  "cancel": "Ne",
+                  "confirm": "Ano"
+              }
+          },
+          "rename": {
+              "button_text": "Přejmenovat",
+              "text": "Přejmenovat kategorii",
+              "placeholder": "Nová kategorie",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
+          },
+          "add_word": {
+              "text": "Přidat slovíčko",
+              "placeholder": "Zadejte slovíčko",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
+          }
+      }
+
   },
   "category": {
       "select_categories": "Vyberte si kategorie",

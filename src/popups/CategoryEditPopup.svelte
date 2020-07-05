@@ -3,7 +3,7 @@
   <Header type="popup" popupName={name} title={category.title} />
   <!-- Header -->
   <div class="view personal-page" on:click={() => activeDialog = null} >
-    <div class="page-title">Seznam slovíček</div>
+    <div class="page-title">{$_('category_edit.words_list')}</div>
     <List simpleList class="personal-list">
       {#each category.wordStorages["all"].getWordIds() as item}
         <ListItem title={item}>
@@ -18,11 +18,11 @@
     <Row noGap>
       <Col class="ripple {activeDialog === ActiveCategoryDialog.REMOVE ? 'active' : 'inactive'}" on:click={() => changeDialog(ActiveCategoryDialog.REMOVE)}>
         <SVGIcon element="navigation" name="delete-forever" size="16" />
-        <span>Smazat</span>
+        <span>{$_('category_edit.actions.remove.button_text')}</span>
       </Col>
       <Col class="ripple {activeDialog === ActiveCategoryDialog.ADD_WORD ? 'active' : 'inactive'}" on:click={() => changeDialog(ActiveCategoryDialog.EDIT)}>
         <SVGIcon element="navigation" name="pen-01" size="16" />
-        <span>Přejmenovat</span>
+        <span>{$_('category_edit.actions.rename.button_text')}</span>
       </Col>
     </Row>
     <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => changeDialog(ActiveCategoryDialog.ADD_WORD)}>
@@ -30,26 +30,26 @@
     </div>
     <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
       <Col class="{activeDialog === ActiveCategoryDialog.REMOVE ? 'selected' : ''}">
-        <span>Opravdu chcete kategorii odstranit? Tuto akci nelze vrátit zpět.</span>
+        <span>{$_('category_edit.actions.remove.text')}</span>
         <div class="buttons">
-          <Button class="cancel">Ne</Button>
-          <Button class="confirm">Ano</Button>
+          <Button class="cancel">{$_('category_edit.actions.remove.button.cancel')}</Button>
+          <Button class="confirm">{$_('category_edit.actions.remove.button.confirm')}</Button>
         </div>
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
-        <span>Přidat slovíčko</span>
-        <input type="text" autocomplete="off" placeholder="Zadejte slovíčko"/>
+        <span>{$_('category_edit.actions.add_word.text')}</span>
+        <input type="text" autocomplete="off" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
         <div class="buttons">
-          <Button class="cancel">Zrušit</Button>
-          <Button class="confirm">Potvrdit</Button>
+          <Button class="cancel">{$_('category_edit.actions.add_word.button.cancel')}</Button>
+          <Button class="confirm">{$_('category_edit.actions.add_word.button.confirm')}</Button>
         </div>
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
-        <span>Přejmenovat kategorii</span>
-        <input type="text" autocomplete="off" placeholder="Nová kategorie"/>
+        <span>{$_('category_edit.actions.rename.text')}</span>
+        <input type="text" autocomplete="off" placeholder="{$_('category_edit.actions.rename.placeholder')}"/>
         <div class="buttons">
-          <Button class="cancel">Zrušit</Button>
-          <Button class="confirm">Potvrdit</Button>
+          <Button class="cancel">{$_('category_edit.actions.rename.button.cancel')}</Button>
+          <Button class="confirm">{$_('category_edit.actions.rename.button.confirm')}</Button>
         </div>
       </Col>
     </Row>
