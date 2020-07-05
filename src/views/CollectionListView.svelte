@@ -13,9 +13,7 @@
                 {fullDescription}
               </p>
               <p id="collection-loader-{id}"></p>
-              {#if $downloadedCollections.includes(id) && isLoading}
-                <Button fill style="background-color: var(--app-success)">{$_('collection.button.loading')}</Button>
-              {:else if $downloadedCollections.includes(id)}
+              {#if $downloadedCollections.includes(id)}
                 <Button fill on:click={ () => continueButton(id) } style="background-color: var(--app-success)">{$_('collection.button.continue')}</Button>
               {:else if downloadingCollectionId === id && counter === 0}
                 <Button fill style="background-color: var(--app-warning)">{$_('collection.button.preparing')}</Button>
@@ -69,7 +67,6 @@
   let progressBarEl;
   let wordsAmount = 0;
   let downloadingCollectionId = null;
-  let isLoading = false;
   let sentLog = false;
 
 
@@ -166,28 +163,17 @@
   }
 
   function continueButton(collectionId){
-    isLoading = true;
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
-
-    if (!selectedCollection.isLoaded()) {
-      sentLog = true;
-      setTimeout(() => { continueButton(collectionId) }, 1000);
-      return
-    } 
-
-    isLoading = false;
     collectionData.set(selectedCollection);
-    selectedCollection.updateLearningWords().then(() => {
-      if (coreCollections.includes(selectedCollection.id)) {
-        selectedCollection.categoryGroup.loadStatistics();
-        categoryGroupData.set(selectedCollection.categoryGroup);
-        categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
-        f7router.navigate('/CategoryDetail');
-      } else {
-        categoryGroupData.set(null);
-        f7router.navigate('/CategoryList');
-      }
-    });
+
+    if (coreCollections.includes(selectedCollection.id)) {
+      categoryGroupData.set(selectedCollection.categoryGroup);
+      categoryDetailData.set(selectedCollection.categoryGroup.mainCategory);
+      f7router.navigate('/CategoryDetail');
+    } else {
+      categoryGroupData.set(null);
+      f7router.navigate('/CategoryList');
+    }
   }
 
   function loadCollection(collectionId) {

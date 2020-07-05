@@ -1,4 +1,4 @@
-{#if mode==="read"}
+{#if mode === "read"}
   <div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
     <div class="word">{word.text}</div>
     {#if showPronunciation}
@@ -14,6 +14,24 @@
   </div>
   <WordDetail {word}/>
 
+  {#if ($trainingData.type === LearningMode.EXAM || $trainingData.type === LearningMode.REPETITION)}
+    <div class="footer-container footer-double">
+      <div class="footer-content">
+        <Button class="page-button button-no" on:click={() => clickButton(false)}>{$_('training.question.unknow')}</Button>
+        <Button class="page-button button-yes" on:click={() => clickButton(true)}>{$_('training.question.know')}</Button>
+      </div>
+    </div> 
+  {:else if $trainingData.type === LearningMode.FILTER}
+    <div class="footer-container footer-triple">
+      <span>{$_('training.question.text')}</span>
+      <div class="footer-content">
+        <Button class="page-button button-no" on:click={() => clickButton(false)}>{$_('training.question.no')}</Button>
+        <Button class="page-button button-slightly" on:click={() => clickButton(null)}>{$_('training.question.slightly')}</Button>
+        <Button class="page-button button-yes" on:click={() => clickButton(true)}>{$_('training.question.yes')}</Button>
+      </div>
+    </div> 
+  {/if}
+
 {:else} 
   <div class="other-mode">
     <div class="other-div word">
@@ -23,7 +41,7 @@
         {/each}
       {:else if mode==="listen"} 
         <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <div class="read-title">Klikněte pro poslechnutí slova</div>
+          <div class="read-title">{$_('training.listen_title')}</div>
           <SVGIcon name="volume" size="24"/>
         </div>
       {/if}
@@ -43,9 +61,11 @@
     <div class="other-div">
       <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
       {#if result !== null}
-        <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <SVGIcon name="volume" size="24"/>
-        </div>
+        {#if mode === "write"}
+          <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+            <SVGIcon name="volume" size="24"/>
+          </div>
+        {/if}
         {#if !result}
           <div class="result-div wrong">
             <span class="result">{$_('training.results.wrong')}</span>
@@ -73,11 +93,12 @@
   import { _ } from 'svelte-i18n';
   import WordDetail from './WordDetail.svelte';
   import SVGIcon from './SVGIcon.svelte';
-  import { playTextSound } from '../js/utils.js';
+  import { playTextSound, trainingModes, LearningMode } from '../js/utils.js';
   import { trainingData, settingsData } from '../js/store.js';
 
   export let word;
   export let mode;
+  export let type;
   export let showPronunciation;
 
   const dispatch = createEventDispatcher();
@@ -97,12 +118,17 @@
     setTimeout(() => { 
       if (translatedText.toLowerCase() === word.text.toLowerCase()) {
         result = true;
-        dispatch('updateWord', {word: word, state: true});
+        dispatch('updateWord', {word: word, state: true, mode: mode});
       } else {
         result = false;
-        dispatch('updateWord', {word: word, state: false});
+        dispatch('updateWord', {word: word, state: false, mode: mode});
       }
     }, 200);
+  }
+
+  function clickButton(state) {
+    dispatch('updateWord', {word: word, state: state, mode: mode});
+    dispatch('nextWord');
   }
 
   function switchTrainingModeWall() {

@@ -12,21 +12,21 @@ export default class DataStorage {
     return appStorage.getItem(`collection:${collectionId}:categories`);
   }
 
-  static saveWordIdsList(collectionId, categoryId, words, type, mode) {
-    if (!Validator.isMode(mode) || !Validator.isWordsType(type)) {
-      alert(`WordIdsList cannot be saved with Mode: '${mode}' and WordType: '${type}'`)
+  static saveWordIdsList(collectionId, categoryId, words, type) {
+    if (!Validator.isWordsType(type)) {
+      alert(`WordIdsList cannot be saved with WordType: '${type}'`)
       return 
     }
     if (collectionId === undefined || categoryId === null) { return }
-    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`, words);
+    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:type:${type}:word:ids`, words);
   }
 
-  static getWordIdsList(collectionId, categoryId, type, mode) {
-    if (!Validator.isMode(mode) || !Validator.isWordsType(type)) {
-      alert(`WordIdsList cannot be loaded with Mode: '${mode}' and WordType: '${type}'`)
+  static getWordIdsList(collectionId, categoryId, type) {
+    if (!Validator.isWordsType(type)) {
+      alert(`WordIdsList cannot be loaded with WordType: '${type}'`)
       return 
     }
-    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:mode:${mode}:word:ids`);
+    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:word:ids`);
   }
 
   static saveAllLearningWords(type, mode, wordIds) {
@@ -52,15 +52,6 @@ export default class DataStorage {
 
   static getCategoryStatistics(collectionId, categoryId) {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:statistics`);
-  }
-
-  static saveCategoryModeStatistics(collectionId, categoryId, statistics) {
-    if (categoryId === undefined || categoryId === null) { return }
-    return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`, statistics);
-  }
-
-  static getCategoryModeStatistics(collectionId, categoryId) {
-    return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:mode_statistics`);
   }
 
   static saveAppInfo(id, content) {

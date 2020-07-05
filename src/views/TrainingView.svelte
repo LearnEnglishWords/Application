@@ -10,7 +10,13 @@
         <div class="swiper-wrapper">
           {#each $trainingData.words as word, id}
             <div class="swiper-slide">
-              <WordSlide {word} showPronunciation={isTraining} on:nextWord={nextWord} on:updateWord={(e) => updateWord(e.detail)} mode="{$trainingData.mode}"/>
+              <WordSlide {word} 
+                 showPronunciation={isTraining} 
+                 on:nextWord={nextWord}
+                 on:updateWord={(e) => updateWord(e.detail)} 
+                 mode={$trainingData.type === LearningMode.REPETITION ? randomModes[word.text] : $trainingData.mode}
+                 type={$trainingData.type} 
+               />
             </div>
           {/each}
         </div>
@@ -19,17 +25,9 @@
           <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
         {/if}
       </div>  
-      {#if !isTraining && $trainingData.mode === "read"}
-        <!--<BlockTitle><center>{$_('training.question.text')}</center></BlockTitle>-->
-        <div class="footer-container footer-double">
-          <div class="footer-content">
-            <Button class="page-button button-no" on:click={noButton}>{$_('training.question.no')}</Button>
-            <Button class="page-button button-yes" on:click={yesButton}>{$_('training.question.yes')}</Button>
-          </div>
-        </div> 
-      {/if}
+
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={!isTraining || $settingsData.enableTrainingModeWall}>
+        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={!isTraining ? wallOpened : $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -71,7 +69,7 @@
   import { 
     collectionData, trainingData, settingsData,
     categoryGroupData, categoryDetailData,
-    statisticsData, trainingModeStatisticsData 
+    statisticsData, modeStatisticsData 
   } from '../js/store.js';
   import Swiper from 'swiper';
   import WordSlide from '../components/WordSlide.svelte';
@@ -79,8 +77,7 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import WordUpdater from '../js/entities/word-updater.js';
-  import { isKnownForMode, getState, playTextSound, shuffle, WordsType } from '../js/utils.js'
+  import { isKnownForMode, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -98,10 +95,19 @@
     trainingMode: $trainingData.mode,
     trainingType: $trainingData.type
   };
+  let randomModes = {};
+  let wallOpened = true;
+  let wallSheet;
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
-  if (!isTraining) {
+  if ($trainingData.type === LearningMode.REPETITION) {
+    for (let word of $trainingData.words) {
+      randomModes[word.text] = getRandomMode(word);
+    }
+  }
+
+  if ($trainingData.type === LearningMode.EXAM) {
     $trainingData.words = shuffle($trainingData.words);
   }
   
@@ -137,21 +143,25 @@
     swiperHeight = "52vh";
   }
 
-  function noButton() {
-    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: false});
-    nextWord();
+  function getRandomMode(word) {
+    let modes = Object.keys(word.repetition).filter((key) => !word.repetition[key]);
+    let randomNumber = Math.floor(Math.random() * modes.length);
+    return modes[randomNumber];
   }
 
-  function yesButton() {
-    let currentWord = $trainingData.words[$trainingData.currentWordIndex];
-    updateWord({word: currentWord, state: true});
-    nextWord();
+  function canOpenWall() {
+    if ($trainingData.type === LearningMode.REPETITION) {
+      let currentWord = $trainingData.words[$trainingData.currentWordIndex];
+      return randomModes[currentWord.text] === "read";
+    } else {
+      return !isTraining || $settingsData.enableTrainingModeWall;
+    }
   }
 
   function openWall() {
-    if (!isTraining || $settingsData.enableTrainingModeWall) {
-      f7.sheet.open(".wall", false);
+    wallOpened = canOpenWall();
+    if (wallOpened && $trainingData.mode === "read") {
+      wallSheet.instance().open(false);
     }
   }
 
@@ -163,35 +173,14 @@
     }
   }
 
-  function setDefaultLearning(word) {
-    if (word.learning === undefined) { 
-      word.learning = {"read": false, "write": false, "listen": false};
-    }
-  }
-
-  function updateWord({word, state}) {
+  function updateWord({word, state, mode}) {
     updateRecapitulation(state);
 
-    if ($trainingData.isTraining) { return }
-    setDefaultLearning(word);
-
-    // if is not same
-    if (word.learning[$trainingData.mode] !== state) {  
-      DS.getWord(word.text).then((word) => {
-        setDefaultLearning(word);
-
-        let prevLearningState = {...word.learning};
-        word.learning[$trainingData.mode] = state;
-
-        WordUpdater.update(word, prevLearningState);
-        WordUpdater.updateKnownWord(word);
-
-        let currentCategory = $categoryGroupData;
-        if (currentCategory === null) { currentCategory = $categoryDetailData }
-        currentCategory.updateWords($trainingData.mode, [], [word.text]);
-      });
-    } else {
-      WordUpdater.updateKnownWord(word);
+    if (!$trainingData.isTraining) { 
+      $categoryGroupData.updateWord(word, state, $trainingData.type, mode);
+      $categoryDetailData.updateWord(word, state, $trainingData.type, mode); 
+      statisticsData.set($categoryDetailData.getStatistics());
+      modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
   }
 
@@ -203,13 +192,16 @@
   }
 
   function playAutoSound() {
-    if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound) {
+    if($trainingData.mode !== "write" && $settingsData.enableAutoPlaySound && $trainingData.type !== LearningMode.REPETITION) {
       playTextSound($trainingData.words[$trainingData.currentWordIndex].text, $settingsData.pronunciation)
     }
   }
 
   function nextWord() {
-    if ($trainingData.words.length === $trainingData.currentWordIndex+1) {
+    if ($trainingData.words.length === $trainingData.currentWordIndex + 1 || ($settingsData.wordsLimit === $statisticsData.learning && $trainingData.type === LearningMode.FILTER)) {
+      if ($trainingData.type === LearningMode.FILTER) {
+        recapitulationInfo.count = $trainingData.currentWordIndex + 1;
+      }
       showRecapitulation = true;
     } else {
       openWall();

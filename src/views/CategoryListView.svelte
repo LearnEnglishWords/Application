@@ -35,7 +35,7 @@
             <div slot="media" class="item-media">
               <SVGIcon element="item" name="{category.icon}" size="24" />
             </div>
-            <div slot="after"><Statistics simple statistic={category.statistics.stats} /></div>
+            <div slot="after"><Statistics simple statistic={category.getStatistics()} /></div>
           </ListItem>
         {/each}
       </List> 
@@ -67,6 +67,7 @@
   export let f7router;
 
   let globalStatisticsData = { "count": 0, "known": 0, "learning": 0, "unknown": 0 };
+
   let selectedCategories = [];
 
   setTimeout(() => { setupCategoryToggler() }, 200);
@@ -77,7 +78,6 @@
     if (selectedCategories.length > 0) {
       let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories);
 
-      categoryGroup.loadStatistics();
       categoryGroupData.set(categoryGroup);
       categoryDetailData.set(categoryGroup.mainCategory);
 
@@ -87,16 +87,17 @@
 
   function toggleCategory(category) {
     category.active = !category.active;
+    let categoryStats = category.getStatistics();
 
     if (category.active) {
-      globalStatisticsData.known += category.statistics.stats.known;
-      globalStatisticsData.learning += category.statistics.stats.learning;
-      globalStatisticsData.unknown += category.statistics.stats.unknown;
+      globalStatisticsData.known += categoryStats.known;
+      globalStatisticsData.learning += categoryStats.learning;
+      globalStatisticsData.unknown += categoryStats.unknown;
       selectedCategories.push(category);
     } else {
-      globalStatisticsData.known -= category.statistics.stats.known;
-      globalStatisticsData.learning -= category.statistics.stats.learning;
-      globalStatisticsData.unknown -= category.statistics.stats.unknown;
+      globalStatisticsData.known -= categoryStats.known;
+      globalStatisticsData.learning -= categoryStats.learning;
+      globalStatisticsData.unknown -= categoryStats.unknown;
       removeSelectedCategory(category);
     }
   }

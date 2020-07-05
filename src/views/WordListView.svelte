@@ -53,13 +53,12 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import WordUpdater from '../js/entities/word-updater.js';
   import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordListFilter } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
-    statisticsData, trainingModeStatisticsData,
-    settingsData, allKnownWordsData, allNotKnownWordsData
+    statisticsData, settingsData,
+    allKnownWordsData, allNotKnownWordsData
   } from '../js/store.js';
 
   import { get } from 'svelte/store';
@@ -148,43 +147,14 @@
     });
   }
 
-  function updateStatistics() {
-    removeWords.forEach((wordId) => {
-      let word = allWords.find((word) => word.text === wordId);
-      if (!isKnown(word)) {
-        let prevLearningState = {...word.learning};
-        word.learning = {"read": true, "write": true, "listen": true};
-        word.knownStage = KnownStages.ALREADY_KNOWN;
-        WordUpdater.update(word, prevLearningState).then(() =>
-          progress++
-        );
-      }
-    });
-
-    addWords.forEach((wordId) => {
-      let word = allWords.find((word) => word.text === wordId);
-
-      if (isKnown(word)) {
-        let prevLearningState = {...word.learning};
-
-        word.learning = {"read": false, "write": false, "listen": false};
-        word.knownStage = KnownStages.NOT_KNOWN;
-        WordUpdater.update(word, prevLearningState).then(() =>
-          progress++
-        );
-      }
-    });
-  }
-
   function saveWords() {
     progress = 0;
     fullProgress = removeWords.length + addWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
-    updateStatistics();
     trainingModes.forEach((mode) => {
       let currentCategory = $categoryGroupData;
       if (currentCategory === null) { currentCategory = $categoryDetailData }
-      currentCategory.updateWords(mode.value, addWords, removeWords);
+      currentCategory.updateWords(mode.value, addWords, removeWords); // updateWords from category was removed
     });
     updateProgress(dialog);
   }

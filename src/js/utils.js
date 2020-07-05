@@ -18,15 +18,6 @@ export const trainingModes = [
   { value: "listen", checked: false, icon: "volume" }
 ]; 
 
-export function getDefaultStatisticsData(count = 0) {
-  return {
-    "count": count,
-    "known": 0,
-    "learning": 0,
-    "unknown": count
-  }
-}            
-
 export function getDefaultModeStatisticsData(count = 0) {
   return {
     "read": { "known": 0, "unknown": count },
@@ -35,14 +26,18 @@ export function getDefaultModeStatisticsData(count = 0) {
   }
 }            
 
-export function isKnownForMode(word, mode) { 
-  if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
-  if (word.learning[mode] === false) { return false } else { return true }
-}
-
 export function isKnown(word) {
   if (word.learning === undefined || Object.keys(word.learning).length === 0) { return false }
   if (word.learning.read !== false && word.learning.write !== false && word.learning.listen !== false) {
+    return true
+  } else {
+    return false
+  }
+}                   
+
+export function isAlreadyKnown(word) {
+  if (word.repetition === undefined || Object.keys(word.repetition).length === 0) { return false }
+  if (word.repetition.read !== false && word.repetition.write !== false && word.repetition.listen !== false) {
     return true
   } else {
     return false
@@ -109,15 +104,15 @@ export function shuffle(array) {
 
 export const WordsType = {
     ALL: 'all',
+    ALREADY_KNOWN: 'already_known',
     KNOWN: 'known',
     LEARNING: 'learning',
-    UNKNOWN: 'unknown',
-    NOT_KNOWN: 'not_known'
+    UNKNOWN: 'unknown'
 }
 
 export const Modes = {
     ALL: 'all',
-    KNOWN: 'known',
+    //KNOWN: 'known',
     READ: 'read',
     WRITE: 'write',
     LISTEN: 'listen'
@@ -141,7 +136,8 @@ export const WordListFilter = {
 export const LearningMode = {
     TRAINING: "training",
     EXAM: "exam",
-    REPETITION: "repetition"
+    REPETITION: "repetition",
+    FILTER: "filter"
 }
 
 export const AppInfo = {

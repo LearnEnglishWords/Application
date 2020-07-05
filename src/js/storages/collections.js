@@ -1,4 +1,4 @@
-import { getDefaultStatisticsData, getDefaultModeStatisticsData, WordsType, Modes } from '../utils.js'
+import { WordsType } from '../utils.js'
 import { isProduction, backendApiUrl } from '../config.js'
 import DS from './data.js';
 
@@ -67,20 +67,14 @@ export default class CollectionStorage {
     });
   }
 
-  saveCategory(collectionId, category, words, progress) {
-    DS.saveCategoryStatistics(collectionId, category.id, getDefaultStatisticsData(words.length));
-    DS.saveCategoryModeStatistics(collectionId, category.id, getDefaultModeStatisticsData(words.length));
-    this.saveCategoryWords(collectionId, category.id, words, progress);
-  }
-
   saveCategoryWords(collectionId, categoryId, words, progress) {
     let wordIds = words.map((word) => word.text);
-    Object.values(Modes).forEach((value) => {
-      DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.NOT_KNOWN, value);
-    });
-    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.NOT_KNOWN, Modes.KNOWN);
+    DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.UNKNOWN);
+    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.LEARNING);
+    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.KNOWN);
+    DS.saveWordIdsList(collectionId, categoryId, [], WordsType.ALREADY_KNOWN);
 
-    DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL, Modes.ALL).then(() => {
+    DS.saveWordIdsList(collectionId, categoryId, wordIds, WordsType.ALL).then(() => {
       words.forEach((word) => {
         DS.getWord(word.text).then((savedWord) => {
           if (savedWord === null) {
@@ -105,7 +99,7 @@ export default class CollectionStorage {
             "wordsCount": words.length,
             "id": `collection_${collection.id}`
         }
-        this.saveCategory(collection.id, category, words, progress);
+        this.saveCategoryWords(collection.id, category.id, words, progress);
       }
 
       this.downloadAllCategories(collection.id).then((categories) => {
@@ -121,7 +115,7 @@ export default class CollectionStorage {
       this.downloadCategoryWords(category.id, collectionId).then((words) => {
         if (words !== undefined) {
           setupProgress(words.length);
-          this.saveCategory(collectionId, category, words, progress);
+          this.saveCategoryWords(collectionId, category.id, words, progress);
         } 
       });
     });
