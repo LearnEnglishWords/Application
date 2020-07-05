@@ -27,7 +27,7 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" backdrop={false} swipeToClose opened={$trainingData.type === LearningMode.REPETITION ? wallOpened : !isTraining || $settingsData.enableTrainingModeWall}>
+        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={!isTraining ? wallOpened : $settingsData.enableTrainingModeWall}>
           <div class="wrapper-mode">
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -97,6 +97,7 @@
   };
   let randomModes = {};
   let wallOpened = true;
+  let wallSheet;
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
@@ -159,8 +160,8 @@
 
   function openWall() {
     wallOpened = canOpenWall();
-    if (wallOpened) {
-      f7.sheet.open(".wall", false);
+    if (wallOpened && $trainingData.mode === "read") {
+      wallSheet.instance().open(false);
     }
   }
 
