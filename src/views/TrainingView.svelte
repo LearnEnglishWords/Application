@@ -96,8 +96,8 @@
     trainingType: $trainingData.type
   };
   let randomModes = {};
-  let wallOpened = true;
   let wallSheet;
+  let wallOpened;
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
@@ -105,11 +105,13 @@
     for (let word of $trainingData.words) {
       randomModes[word.text] = getRandomMode(word);
     }
+    wallOpened = canOpenWall();
   }
 
   if ($trainingData.type === LearningMode.EXAM) {
     $trainingData.words = shuffle($trainingData.words);
   }
+
   
   onMount(() => {
     swiper = new Swiper ('.swiper-container', {
