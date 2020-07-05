@@ -112,7 +112,6 @@ export const WordsType = {
 
 export const Modes = {
     ALL: 'all',
-    //KNOWN: 'known',
     READ: 'read',
     WRITE: 'write',
     LISTEN: 'listen'
@@ -120,7 +119,7 @@ export const Modes = {
 
 export const KnownStages = {
     UNKNOWN: 0,
-    NOT_KNOWN: 0,
+    LITTLE_KNOWN: 2,
     KNOWN: 4,
     MEDIUM_KNOWN: 8,
     HARD_KNOWN: 12,

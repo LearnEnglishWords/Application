@@ -60,6 +60,11 @@ export default class WordsStorage {
     this._pushWord(word);
   }
 
+  insertWord(word) {
+    this._unshiftWordId(word.text);
+    this._unshiftWord(word);
+  }
+
   removeWord(word) {
     this._pullWordId(word.text);
     this._pullWord(word);
@@ -93,11 +98,19 @@ export default class WordsStorage {
   //  }
   //  this.saveWordIds();
   //}
+    
+  _unshiftWordId(wordId) {
+    let index = this.allWordIds.findIndex((id) => id === wordId);
+    if (index === -1) { 
+      this.allWordIds.unshift(wordId);
+      DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, this.wordsType);
+    }
+  }
 
   _pushWordId(wordId) {
     let index = this.allWordIds.findIndex((id) => id === wordId);
     if (index === -1) { 
-      this.allWordIds.push(wordId) 
+      this.allWordIds.push(wordId); 
       DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, this.wordsType);
     }
   }
@@ -105,8 +118,16 @@ export default class WordsStorage {
   _pullWordId(wordId) {
     let index = this.allWordIds.findIndex((id) => id === wordId);
     if (index > -1) { 
-      this.allWordIds.splice(index, 1) 
+      this.allWordIds.splice(index, 1);
       DS.saveWordIdsList(this.collectionId, this.categoryId, this.allWordIds, this.wordsType);
+    }
+  }
+
+  _unshiftWord(word) {
+    let index = this._getWordIndex(word);
+    if (index === null) { 
+      this.allWords.unshift(word);
+      this.loadedWordsCounter++;
     }
   }
 

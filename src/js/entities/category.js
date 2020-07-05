@@ -66,9 +66,9 @@ export default class Category {
         break;
       case LearningMode.FILTER:
         if (state === null) {
-          this.wordStorages[WordsType.KNOWN].addWord(word);
-          word.knownStage = KnownStages.KNOWN;
-          word.learning = {"read": true, "write": true, "listen": true};
+          this.wordStorages[WordsType.LEARNING].insertWord(word);
+          word.knownStage = KnownStages.LITTLE_KNOWN;
+          word.learning = {"read": false, "write": false, "listen": false};
           word.repetition = {"read": false, "write": false, "listen": false};
         } else if (state) {
           this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
