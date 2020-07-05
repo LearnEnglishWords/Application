@@ -93,19 +93,6 @@
             downloadedCollections.set(data);
           }
         });
-
-        trainingModes.forEach((mode) => {
-          DS.getAllLearningWords(WordsType.KNOWN, mode.value).then((data) => { 
-            if (data !== null) {
-              $allKnownWordsData[mode.value] = data;
-            }
-          });
-          DS.getAllLearningWords(WordsType.NOT_KNOWN, mode.value).then((data) => { 
-            if (data !== null) {
-              $allNotKnownWordsData[mode.value] = data;
-            }
-          });
-        });
       });
     });
   })

@@ -78,9 +78,11 @@
           "listen": "Poslech"
       },
       "words_limit": "Zvolte si počet slov",
-      "words_title": "Počet slov",
+      "words_title": "Limit slov",
       "words": "slov",
       "buttons": {
+          "filter_words_normal": "Přidat další slovíčka",
+          "filter_words_start": "Spustit učení",
           "words_list": "Zobrazit seznam všech slov",
           "exam": "Přezkoušet",
           "training": "Procvičovat",
@@ -89,9 +91,8 @@
       },
       "learning_mode": {
           "repetition": {
-              "text1": "Slouží ke kontrole, zda si naučená slovíčka stále ještě pamatujete i po několika dnech či týdnech.",
-              "text2": "Výsledky se započítávají do statistik a slovíčka, která máte špatně se vrací zpátky do procesu učení.",
-              "text3": "Naopak slovíčka, která zodpovíte správně, se zde již znovu nezobrazí."
+              "text1": "Slouží ke kontrole, zda si již naučená slovíčka pamatujete i po několika dnech či týdnech.",
+              "text2": "Slovíčka, která ve čtení, psaní i poslechu zodpovíte správně, se zde již znovu nezobrazí. Naopak slovíčka, která zodpovíte špatně se vrací zpět do procesu učení."
           },
           "exam": {
               "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již opravdu umíte a pamatujete si je.",
@@ -121,10 +122,14 @@
       "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "sense_title": "Význam slova",
       "description_title": "Příklady použití",
+      "listen_title": "Klikněte pro poslechnutí slova",
       "question": {
-          "text": "Už umíš dané slovíčko?",
-          "yes": "Znám",
-          "no": "Neznám"
+          "text": "Umíš toto slovíčko?",
+          "know": "Znám",
+          "unknow": "Neznám",
+          "yes": "Ano",
+          "slightly": "Trochu",
+          "no": "Ne"
       },
       "toolbar": {
           "start": "Na začátek",
@@ -192,6 +197,12 @@
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov."
       },
+      "filter": {
+          "title": "Úvodní projití slovíček:",
+          "info_text": "Máte dobře celkem",
+          "info_text_end": "slov.",
+          "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat."
+      },
       "continue": "Pokračovat",
       "read": "Čtení",
       "write": "Psaní",
@@ -203,6 +214,7 @@
           "all": "Celkem"
       },
       "score": {
+          "neutral": "Dobře",
           "5": "Skvělá práce",
           "4": "Dobré",
           "3": "Ujde to",
@@ -220,7 +232,7 @@
       "title": "Statistika",
       "known": "naučených",
       "learning": "učících se",
-      "unknown": "nenaučených",
+      "unknown": "dostupných",
       "text": "Slov"
   },
   "words_list": {

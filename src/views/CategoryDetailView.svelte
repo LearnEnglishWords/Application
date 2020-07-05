@@ -28,19 +28,23 @@
     <div class="page-wrapper">
       <!-- Title -->
       <div class="page-title">{$_('category.training_title')}</div>
-      <!-- Mode -->
-      <div class="page-mode">
-        {#each trainingModes as {value, checked, icon}, id}
-          <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
-            <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
-            <SVGIcon element="mode" name="{icon}" size="24" />
-            <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
-            <div class="mode-statistics">
-              <Statistics simple withoutLearning statistic={$trainingModeStatisticsData[value]} />
+      {#if $statisticsData.learning > 0}
+        <!-- Mode -->
+        <div class="page-mode">
+          {#each trainingModes as {value, checked, icon}, id}
+            <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
+              <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
+              <SVGIcon element="mode" name="{icon}" size="24" />
+              <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+
+              <div class="mode-statistics">
+                <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
+              </div>
             </div>
-          </div>
-        {/each}
-      </div>
+          {/each}
+        </div>
+      {/if}
+
       <!-- Stepper -->
       <List class="list-container list-stepper">
         <ListItem class="list-item" title="{$_('category.words_title')}">
@@ -60,34 +64,42 @@
           </div>
         </ListItem>
       </List>
-      <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>
+
+      <!--<Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>-->
+
+      {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
+        <Button class="page-button button-start" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_start')}</Button>
+      {:else if $statisticsData.learning < $settingsData.wordsLimit}
+        <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
+      {/if}
     </div>
   </div>
 
   <!-- Footer -->
   <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
-      {#if $categoryDetailData.wordStorages["known"].getWordIds().length > 0}
+      {#if ($statisticsData.known - $statisticsData.alreadyKnown) > 0}
       <Col class="ripple mode-{LearningMode.REPETITION} {currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.REPETITION ? currentLearningMode = null : currentLearningMode = LearningMode.REPETITION}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.' + LearningMode.REPETITION)}</span>
       </Col>
       {/if}
-      <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
-        <SVGIcon element="navigation" name="todo" size="16" />
-        <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
-      </Col>
-      <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
-        <SVGIcon element="navigation" name="book-open-2" size="16" />
-        <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
-      </Col>
+      {#if $statisticsData.learning > 0}
+        <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
+          <SVGIcon element="navigation" name="todo" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
+        </Col>
+        <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
+          <SVGIcon element="navigation" name="book-open-2" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
+        </Col>
+      {/if}
     </Row>
     <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
         <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} <br />
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text3`)} 
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
         <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
@@ -117,11 +129,12 @@
   import { 
     collectionData, categoryDetailData,
     trainingData, settingsData,
-    statisticsData, trainingModeStatisticsData
+    statisticsData, modeStatisticsData
   } from '../js/store.js';
 
-  import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity } from '../js/utils.js'
+  import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
+  import { numberFilteringWords } from '../js/config.js';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
@@ -143,25 +156,35 @@
     }
   });
 
-  let currentWordStorage = $categoryDetailData.wordStorages[modeType]; 
-  currentWordStorage.loadWords();
+  $categoryDetailData.loadWords("learning"); 
+  $categoryDetailData.loadWords("unknown"); 
   $categoryDetailData.loadWords("known"); 
 
-  statisticsData.set($categoryDetailData.statistics.stats);
-  setCorrectModeStats(); // Sometimes modeStats are not loaded right. This function fix it.
-  trainingModeStatisticsData.set($categoryDetailData.statistics.modeStats);
+  statisticsData.set($categoryDetailData.getStatistics());
+  setupModeStatistics();
+
+
+  //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
+  //  currentLearningMode = LearningMode.FILTER;
+  //  goToTrainingView();
+  //}
+
+  function setupModeStatistics() {
+    let modeStatistics = $categoryDetailData.getModeStatistics();
+    if (modeStatistics !== null) {
+      modeStatisticsData.set(modeStatistics);
+    } else {
+      modeStatisticsData.set(getDefaultModeStatisticsData($statisticsData.learning));
+      setTimeout(setupModeStatistics, 100);
+    }
+  }
 
   function changeTrainingMode(index) {
     trainingModeIndex = index;
     modeType = trainingModes[index].value;
-    currentWordStorage = $categoryDetailData.wordStorages[modeType];
 
     trainingModes.forEach((mode) => mode.checked = false);
     trainingModes[index].checked = true;
-
-    if (currentWordStorage.getWords(wordsLimit).length === 0) {
-      currentWordStorage.loadIds(true);
-    }
   }
 
   function saveWordLimit() {
@@ -169,39 +192,12 @@
     DS.saveSettings($settingsData);
   }
 
-  function setCorrectModeStats() {
-    let maxValue = 0;
-    let wasNegative = false;
-    // Fix number of unknown words when it is zero or negative
-    for (let modeType of trainingModes.map((mode) => mode.value)) {
-      let modeState = $categoryDetailData.statistics.modeStats[modeType];
-      if(modeState.unknown <= 0) {
-        modeState.unknown = $statisticsData.unknown;
-        wasNegative = true;
-      }
-      if(maxValue < modeState.known) {
-        maxValue = modeState.known;
-      }
-    }
-
-    // Fix when user know more words than is saved in mode statistics. 
-    if(maxValue < ($statisticsData.known + $statisticsData.learning)) {
-      let diffValue = ($statisticsData.known + $statisticsData.learning) - maxValue;
-      for (let modeType of trainingModes.map((mode) => mode.value)) {
-        $categoryDetailData.statistics.modeStats[modeType].known += diffValue;
-        if(!wasNegative) {
-          $categoryDetailData.statistics.modeStats[modeType].unknown -= diffValue;
-        }
-      }
-    }
-  }
-
-  function setupData(isTraining) {
+  function setupData(isTraining, currentWordStorage, wordsCount) {
     trainingData.set({ 
-      mode: modeType, 
+      mode: [LearningMode.FILTER, LearningMode.REPETITION].includes(currentLearningMode) ? "read" : modeType, 
       type: currentLearningMode, 
-      isTraining: isTraining,
-      words: currentWordStorage.getWords(wordsLimit),
+      isTraining: currentLearningMode === LearningMode.TRAINING,
+      words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
   }
@@ -216,22 +212,27 @@
   }
 
   function goToTrainingView() {
-    let isTraining = currentLearningMode === LearningMode.TRAINING;  
+    let isTraining = currentLearningMode === LearningMode.TRAINING && currentLearningMode !== LearningMode.FILTER;  
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
+    let isFiltering = currentLearningMode === LearningMode.FILTER;
+    let wordsCount = isFiltering ? numberFilteringWords : wordsLimit;
 
     f7.preloader.show();
-    currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : modeType];
+    let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
 
-    if(currentWordStorage.isLoaded(wordsLimit)) {
-      setupData(isTraining);
+    if(currentWordStorage.isLoaded(wordsCount)) {
+      setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
       setTimeout(() => currentLearningMode = null, 1000);
 
       f7router.navigate('/Training');
     } else {
-      setTimeout(() => { goToTrainingView(isTraining, isRepetition) }, 1000);
+      let tmpCurrentLearningMode = currentLearningMode;
+      setTimeout(() => { 
+        currentLearningMode = tmpCurrentLearningMode;
+        goToTrainingView();
+      }, 1000);
     }
   }
-
 </script>

@@ -466,11 +466,19 @@ svg {
       @include button($type: "show", $pattern: "true");
       margin: 1em 1em 0;
     }
+
+    &.#{$type}-start {
+      @include button($type: "start", $pattern: "true");
+      margin: 1em 1em 0;
+    }
     &.#{$type}-examples {
       @include button($type: "examples", $pattern: "true");
     }
     &.#{$type}-no {
       @include button($type: "no", $pattern: "true");
+    } 
+    &.#{$type}-slightly {
+      @include button($type: "slightly", $pattern: "true");
     } 
     &.#{$type}-yes {
       @include button($type: "yes", $pattern: "true");
@@ -1799,4 +1807,35 @@ input:focus::placeholder {
   .page-title {
     color: var(--app-title);
   }
+}
+
+.footer-triple {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  right: 1em;
+  text-align: center;
+  span {
+    display: block;
+    color: var(--app-text);
+    margin-bottom: 1em;
+  }
+  .button {
+    width: calc(100% / 3 - 0.5em);
+    display: inline-block;
+    &:nth-child(1) {
+      float: left;
+    }
+    &:nth-child(3) {
+      float: right;
+    }
+  }
+}
+
+.button-start {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  right: 1em;
+  margin: 0;
 }
