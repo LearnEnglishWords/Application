@@ -174,9 +174,12 @@
               "write": "Už umíte napsat celkem",
               "listen": "Už umíte poslechově rozpoznat celkem"
           },
-          "info_text_end": "nových slov.",
+          "info_text_end": "nových slovíček.",
           "info_text_description": "Pro úplné naučení těchto slovíček musíte úspěšně projít přezkoušením i pro:",
-          "info_text_conjunction": "a"
+          "info_text_conjunction": "a",
+          "info_text_known1": "Blahopřeji!! Úspěšně již umíte",
+          "info_text_known2": "Tato slovíčka byla přesunuta mezi vaše ostatní již známá slovíčka.",
+          "info_text_known3": "Ty si můžete opětovně projít skrze opakování, aby jste je náhodou nezapomněli."
       },
       "repetition": {
           "title": "Opakování:",

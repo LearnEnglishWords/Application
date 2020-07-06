@@ -55,13 +55,21 @@
 </div>
 
 {#if info.trainingType === 'exam'}
-  <p class="recapitulation-text"> {$_('recapitulation.exam.info_text.' + info.trainingMode)} <span>{info.known}</span> {$_('recapitulation.exam.info_text_end')} </p>
-  <p class="recapitulation-text"> 
-    {$_('recapitulation.exam.info_text_description')} 
-    <span>{$_('recapitulation.' + remainingModes[0])}</span>
-    {$_('recapitulation.exam.info_text_conjunction')} 
-    <span>{$_('recapitulation.' + remainingModes[1])}</span> 
-  </p>
+  {#if info.alreadyKnown < 4}
+    <p class="recapitulation-text"> {$_('recapitulation.exam.info_text.' + info.trainingMode)} <span>{info.known}</span> {$_('recapitulation.exam.info_text_end')} </p>
+    <p class="recapitulation-text"> 
+      {$_('recapitulation.exam.info_text_description')} 
+      <span>{$_('recapitulation.' + remainingModes[0])}</span>
+      {$_('recapitulation.exam.info_text_conjunction')} 
+      <span>{$_('recapitulation.' + remainingModes[1])}</span> 
+    </p>
+  {:else}
+    <p class="recapitulation-text"> {$_('recapitulation.exam.info_text_known1')} <span>{info.alreadyKnown}</span> {$_('recapitulation.exam.info_text_end')} </p>
+    <p class="recapitulation-text"> 
+      {$_('recapitulation.exam.info_text_known2')} 
+      {$_('recapitulation.exam.info_text_known3')} 
+    </p>
+  {/if}
 {:else if info.trainingType === 'repetition' && info.unknown > 0}
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
