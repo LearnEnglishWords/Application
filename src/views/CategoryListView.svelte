@@ -58,8 +58,12 @@
           <Button class="continue" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
         </Col>
       </Row>
-      <Col class="ripple add-button {isSelectedOneCategory > 0 ? 'inactive' : 'active'}" on:click={() => categoryDialogOpened = !categoryDialogOpened}>
-        <Button class="add">{$_('category_list.buttons.add')}</Button>
+      <Col class="ripple add-button {isSelectedOneCategory > 0 ? 'inactive' : 'active'}" on:click={() => selectedCategories.length === 0 ? categoryDialogOpened = !categoryDialogOpened : null}>
+        {#if !isSelectedOneCategory && selectedCategories.length > 0}
+          <Button class="page-button button-next" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
+        {:else}
+          <Button class="add">{$_('category_list.buttons.add')}</Button>
+        {/if}
       </Col>
       <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">
         <span class="category-name">{$_('category_list.new')}</span>
