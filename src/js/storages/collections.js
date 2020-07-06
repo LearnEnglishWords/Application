@@ -159,14 +159,14 @@ export default class CollectionStorage {
     DS.getCategoryList(collectionId).then((categories) => {
       if (categories === null) {
         DS.saveCategoryList(collectionId, [ newCategory ]);
-        this.downloadPersonalWords().then((words) => {
-          if (words !== undefined) {
-            this.saveCategoryWords(collectionId, newCategory.id, words, () => {});
-          } 
+        this.downloadPersonalWords().then((w) => {
+          let words = w !== undefined ? w : [];
+          this.saveCategoryWords(collectionId, newCategory.id, words, () => {});
         })
       } else {
         categories.push(newCategory);
         DS.saveCategoryList(collectionId, categories);
+        this.saveCategoryWords(collectionId, newCategory.id, [], () => {});
       }
       resolve(newCategory);
     });

@@ -35,7 +35,7 @@
         <span>{$_('category_edit.actions.remove.text')}</span>
         <div class="buttons">
           <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.remove.button.cancel')}</Button>
-          <Button class="confirm">{$_('category_edit.actions.remove.button.confirm')}</Button>
+          <Button class="confirm" on:click={removeCategory}>{$_('category_edit.actions.remove.button.confirm')}</Button>
         </div>
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
@@ -61,6 +61,7 @@
 <script>
   import { Page, Button, List, ListItem, Row, Col } from 'framework7-svelte';
   import { collectionData, categoryDetailData } from '../js/store.js';
+  import { WordsType } from '../js/utils.js';
   import DS from '../js/storages/data.js';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
@@ -89,11 +90,7 @@
     }
   }
 
-  function renameCategory() {
-    if (newCategoryName === "") { return }
-    let selectedCategory = $collectionData.categoryGroup.categories.find((c) => c.id === category.id)
-    selectedCategory.title = newCategoryName;
-
+  function getCategoriesData() {
     let categories = []
     for (let cat of $collectionData.categoryGroup.categories) {
       categories.push({
@@ -103,8 +100,27 @@
           "id": cat.id
       });
     }
+    return categories
+  }
 
-    DS.saveCategoryList($collectionData.id, categories);
+  function renameCategory() {
+    if (newCategoryName === "") { return }
+    let selectedCategory = $collectionData.categoryGroup.categories.find((c) => c.id === category.id)
+    selectedCategory.title = newCategoryName;
+
+    DS.saveCategoryList($collectionData.id, getCategoriesData());
+
+    closeDialog();
+    f7router.back(f7router.previousRoute.url, { force: true })
+  }
+
+  function removeCategory() {
+    $collectionData.categoryGroup.categories = $collectionData.categoryGroup.categories.filter((c) => c.id !== category.id)
+    DS.saveCategoryList($collectionData.id, getCategoriesData());
+
+    Object.values(WordsType).forEach((type) => 
+      DS.removeWordIdsList($collectionData.id, category.id, type)
+    );
 
     closeDialog();
     f7router.back(f7router.previousRoute.url, { force: true })
