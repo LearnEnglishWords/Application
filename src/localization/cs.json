@@ -84,7 +84,6 @@
           "rename": {
               "button_text": "Přejmenovat",
               "text": "Přejmenovat kategorii",
-              "placeholder": "Nová kategorie",
               "button": {
                   "cancel": "Zrušit",
                   "confirm": "Potvrdit"
@@ -99,7 +98,6 @@
               }
           }
       }
-
   },
   "category": {
       "select_categories": "Vyberte si kategorie",

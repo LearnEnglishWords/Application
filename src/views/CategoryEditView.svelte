@@ -48,7 +48,7 @@
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
         <span>{$_('category_edit.actions.rename.text')}</span>
-        <input bind:value={newCategoryName} type="text" autocomplete="off" placeholder="{$_('category_edit.actions.rename.placeholder')}"/>
+        <input bind:value={newCategoryName} type="text" autocomplete="off" placeholder="{category.title}"/>
         <div class="buttons">
           <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.rename.button.cancel')}</Button>
           <Button class="confirm" on:click={renameCategory}>{$_('category_edit.actions.rename.button.confirm')}</Button>
@@ -107,10 +107,11 @@
     DS.saveCategoryList($collectionData.id, categories);
 
     closeDialog();
-    //setTimeout(() => { f7router.refreshPage() }, 500);
+    f7router.back(f7router.previousRoute.url, { force: true })
   }
 
   function closeDialog() {
+    newCategoryName = "";
     activeDialog = null;
   }
 </script>
