@@ -37,15 +37,13 @@ export default class Category {
 
     switch(trainingType) {
       case LearningMode.EXAM:
-        if (state) {
-          word.learning[trainingMode] = true;
-          if(isKnown(word)) {
-            word.knownStage = KnownStages.KNOWN;
-            word.knownDate = Date.now();
-            this.wordStorages[WordsType.LEARNING].removeWord(word);
-            this.wordStorages[WordsType.KNOWN].addWord(word);
-          }
-        } 
+        word.learning[trainingMode] = state;
+        if(isKnown(word)) {
+          word.knownStage = KnownStages.KNOWN;
+          word.knownDate = Date.now();
+          this.wordStorages[WordsType.LEARNING].removeWord(word);
+          this.wordStorages[WordsType.KNOWN].addWord(word);
+        }
         break;
       case LearningMode.REPETITION:
         if (!state) {
