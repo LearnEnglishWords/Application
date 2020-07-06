@@ -37,14 +37,6 @@ export default class DataStorage {
     return appStorage.getItem(`collection:${collectionId}:category:${categoryId}:type:${type}:word:ids`);
   }
 
-  static saveAllLearningWords(type, mode, wordIds) {
-    return DataStorage.saveWordIdsList('all', 'learningWords', wordIds, type, mode)
-  }
-
-  static getAllLearningWords(type, mode) {
-    return DataStorage.getWordIdsList('all', 'learningWords', type, mode)
-  }
-
   static saveWord(wordId, word) {
     return appStorage.setItem(`word:${wordId}`, word);
   }
