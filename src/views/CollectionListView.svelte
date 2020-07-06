@@ -72,6 +72,7 @@
 
   function preloadAllCollections() {
     if($allCollectionsData.length === 0) {
+      $downloadedCollections.sort();
       $downloadedCollections.forEach((id) => loadCollection(id)); 
     }
   }

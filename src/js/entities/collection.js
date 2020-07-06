@@ -31,6 +31,18 @@ export default class Collection {
     });
   }
 
+  checkCategory(category, counter, numberCategories, resolve) {
+    if (category.isLoaded()) {
+      if (++counter === numberCategories) {
+        resolve();
+      }
+    } else {
+      setTimeout(() => {
+        this.checkCategory(category, counter, numberCategories, resolve);
+      }, 500);
+    }
+  }
+
   loadCategories() {
     let counter = 0;
     return new Promise((resolve) => {
@@ -39,9 +51,7 @@ export default class Collection {
           let category = new Category(cat.id, this.id, cat.name, cat.czechName, cat.icon);
           category.loadWordIds(false);
           this.categoryGroup.push(category);
-          if (++counter === categories.length) {
-            setTimeout(resolve, 1000);
-          }
+          this.checkCategory(category, counter, categories.length, resolve);
         });
       });
     });

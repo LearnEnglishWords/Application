@@ -21,11 +21,15 @@ export default class Category {
   }
 
   loadWordIds() {
-    this.wordStorages[WordsType.ALL].loadIds(false);
     this.wordStorages[WordsType.ALREADY_KNOWN].loadIds(false);
     this.wordStorages[WordsType.KNOWN].loadIds(false);
     this.wordStorages[WordsType.LEARNING].loadIds(true);
     this.wordStorages[WordsType.UNKNOWN].loadIds(false);
+    this.wordStorages[WordsType.ALL].loadIds(false);
+  }
+
+  isLoaded() {
+    return this.wordStorages[WordsType.ALL].allWordIds.length > 0 
   }
 
   loadWords(type) {
@@ -37,15 +41,13 @@ export default class Category {
 
     switch(trainingType) {
       case LearningMode.EXAM:
-        if (state) {
-          word.learning[trainingMode] = true;
-          if(isKnown(word)) {
-            word.knownStage = KnownStages.KNOWN;
-            word.knownDate = Date.now();
-            this.wordStorages[WordsType.LEARNING].removeWord(word);
-            this.wordStorages[WordsType.KNOWN].addWord(word);
-          }
-        } 
+        word.learning[trainingMode] = state;
+        if(isKnown(word)) {
+          word.knownStage = KnownStages.KNOWN;
+          word.knownDate = Date.now();
+          this.wordStorages[WordsType.LEARNING].removeWord(word);
+          this.wordStorages[WordsType.KNOWN].addWord(word);
+        }
         break;
       case LearningMode.REPETITION:
         if (!state) {

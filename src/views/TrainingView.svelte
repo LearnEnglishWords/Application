@@ -77,7 +77,7 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import { isKnownForMode, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
+  import { isKnown, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -90,6 +90,7 @@
   let showRecapitulation = false;
   let recapitulationInfo = {
     count: $trainingData.words.length,
+    alreadyKnown: 0,
     known: 0,
     unknown: 0,
     trainingMode: $trainingData.mode,
@@ -167,23 +168,21 @@
     }
   }
 
-  function updateRecapitulation(state) {
-    if (state) {
-      recapitulationInfo.known += 1;
-    } else {
-      recapitulationInfo.unknown += 1;
-    }
+  function updateRecapitulation(state, known) {
+    recapitulationInfo.alreadyKnown += state && known ? 1 : 0;
+    recapitulationInfo.known += state ? 1 : 0;
+    recapitulationInfo.unknown += !state ? 1 : 0;
   }
 
   function updateWord({word, state, mode}) {
-    updateRecapitulation(state);
-
     if (!$trainingData.isTraining) { 
       $categoryGroupData.updateWord(word, state, $trainingData.type, mode);
       $categoryDetailData.updateWord(word, state, $trainingData.type, mode); 
       statisticsData.set($categoryDetailData.getStatistics());
       modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
+
+    updateRecapitulation(state, isKnown(word));
   }
 
   function goToSlide(index) {
