@@ -80,10 +80,12 @@
     List, ListItem 
   } from 'framework7-svelte';
   import { collectionData, categoryGroupData, categoryDetailData } from '../js/store.js';
+  import CollectionStorage from '../js/storages/collections.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
+  import Category from '../js/entities/category.js';
   import { defaultStatisticsData, Collections } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
                    
@@ -166,7 +168,11 @@
   function createCategory() {
     if (newCategoryText === "") { return }
 
-    $collectionData.createCategory(newCategoryText);
+    let collectionStorage = new CollectionStorage();
+    collectionStorage.createPersonalCategory(newCategoryText).then((cat) => {
+      let category = new Category(cat.id, cat.collectionId, cat.name, cat.czechName, cat.icon);  
+      $collectionData.categoryGroup.push(category);
+    })
 
     closeCategoryDialog();
 

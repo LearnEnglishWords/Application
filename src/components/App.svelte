@@ -87,7 +87,7 @@
             DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, $downloadedCollections);
             collectionStorage.createPersonalCollection();
           } else {
-            if (data.findIndex((col_id) => col_id === Collections.PERSONAL.id) === -1) {
+            if (data.findIndex((colId) => colId === Collections.PERSONAL.id) === -1) {
               collectionStorage.createPersonalCollection();
               data.push(Collections.PERSONAL.id);
             } 

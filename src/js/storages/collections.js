@@ -139,7 +139,7 @@ export default class CollectionStorage {
 
   createPersonalCategory(categoryName) {
     return new Promise((resolve) => {
-      DS.getAppInfo(AppInfo.NUMBER_OWN_CATEGORIES).then((data) => { 
+      DS.getAppInfo(AppInfo.NUMBER_PERSONAL_CATEGORIES).then((data) => { 
         let numberCategories = data === null ? 1 : data + 1;
 
         let newCategory = {
@@ -149,7 +149,7 @@ export default class CollectionStorage {
           "id": 10000 + numberCategories
         }
 
-        DS.saveAppInfo(AppInfo.NUMBER_OWN_CATEGORIES, numberCategories);
+        DS.saveAppInfo(AppInfo.NUMBER_PERSONAL_CATEGORIES, numberCategories);
         this.saveNewCategory(Collections.PERSONAL.id, newCategory, resolve);
       });
     });
@@ -159,8 +159,8 @@ export default class CollectionStorage {
     DS.getCategoryList(collectionId).then((categories) => {
       if (categories === null) {
         DS.saveCategoryList(collectionId, [ newCategory ]);
-        this.downloadPersonalWords().then((w) => {
-          let words = w !== undefined ? w : [];
+        this.downloadPersonalWords().then((data) => {
+          let words = data !== undefined ? data : [];
           this.saveCategoryWords(collectionId, newCategory.id, words, () => {});
         })
       } else {

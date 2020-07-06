@@ -143,7 +143,7 @@ export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
   LAST_ACTIVITY: "lastActivity",
   LAST_UPDATE: "lastUpdate",
-  NUMBER_OWN_CATEGORIES: "numberOwnCategories"
+  NUMBER_PERSONAL_CATEGORIES: "numberPersonalCategories"
 }
 
 export const Collections = {
