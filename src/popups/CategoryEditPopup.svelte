@@ -32,7 +32,7 @@
       <Col class="{activeDialog === ActiveCategoryDialog.REMOVE ? 'selected' : ''}">
         <span>{$_('category_edit.actions.remove.text')}</span>
         <div class="buttons">
-          <Button class="cancel">{$_('category_edit.actions.remove.button.cancel')}</Button>
+          <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.remove.button.cancel')}</Button>
           <Button class="confirm">{$_('category_edit.actions.remove.button.confirm')}</Button>
         </div>
       </Col>
@@ -40,16 +40,16 @@
         <span>{$_('category_edit.actions.add_word.text')}</span>
         <input type="text" autocomplete="off" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
         <div class="buttons">
-          <Button class="cancel">{$_('category_edit.actions.add_word.button.cancel')}</Button>
+          <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.add_word.button.cancel')}</Button>
           <Button class="confirm">{$_('category_edit.actions.add_word.button.confirm')}</Button>
         </div>
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
         <span>{$_('category_edit.actions.rename.text')}</span>
-        <input type="text" autocomplete="off" placeholder="{$_('category_edit.actions.rename.placeholder')}"/>
+        <input bind:value={newCategoryName} type="text" autocomplete="off" placeholder="{$_('category_edit.actions.rename.placeholder')}"/>
         <div class="buttons">
-          <Button class="cancel">{$_('category_edit.actions.rename.button.cancel')}</Button>
-          <Button class="confirm">{$_('category_edit.actions.rename.button.confirm')}</Button>
+          <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.rename.button.cancel')}</Button>
+          <Button class="confirm" on:click={renameCategory}>{$_('category_edit.actions.rename.button.confirm')}</Button>
         </div>
       </Col>
     </Row>
@@ -58,15 +58,18 @@
 
 <script>
   import { Popup, Button, List, ListItem, Row, Col } from 'framework7-svelte';
+  import { collectionData } from '../js/store.js';
   import DS from '../js/storages/data.js';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
+  export let f7router;
   export let name;
   export let category;
 
   let activeDialog = null;
+  let newCategoryName = "";
 
   const ActiveCategoryDialog = {
       EDIT: 'edit',
@@ -83,5 +86,30 @@
       activeDialog = null;
       setTimeout(() => { activeDialog = newActiveDialog }, 350);
     }
+  }
+
+  function renameCategory() {
+    if (newCategoryName === "") { return }
+    let selectedCategory = $collectionData.categoryGroup.categories.find((c) => c.id === category.id)
+    selectedCategory.title = newCategoryName;
+
+    let categories = []
+    for (let cat of $collectionData.categoryGroup.categories) {
+      categories.push({
+          "name": cat.name,
+          "czechName": cat.title,
+          "collectionId": cat.collectionId,
+          "id": cat.id
+      });
+    }
+
+    DS.saveCategoryList($collectionData.id, categories);
+
+    closeDialog();
+    //setTimeout(() => { f7router.refreshPage() }, 500);
+  }
+
+  function closeDialog() {
+    activeDialog = null;
   }
 </script>
