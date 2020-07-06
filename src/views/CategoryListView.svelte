@@ -52,7 +52,7 @@
     <div class="personal-navigation {categoryDialogOpened ? "opened" : ""}">
       <Row noGap>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}">
-          <Button class="edit" popupOpen=".category-edit">{$_('category_list.buttons.edit')}</Button>
+          <Button class="edit" on:click={goToEditView}>{$_('category_list.buttons.edit')}</Button>
         </Col>
         <Col class="ripple {isSelectedOneCategory > 0 ? 'active' : 'inactive'}"> 
           <Button class="continue" on:click={goToDetailView}>{$_('category_list.buttons.continue')}</Button>
@@ -70,9 +70,6 @@
         </div>
       </Row>
     </div>
-    {#if isSelectedOneCategory}
-      <CategoryEditPopup name="category-edit" category={selectedCategories[0]}/>
-    {/if}
   {/if}
 </Page>
 
@@ -86,7 +83,6 @@
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
-  import CategoryEditPopup from '../popups/CategoryEditPopup.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
   import { defaultStatisticsData, Collections } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
@@ -103,6 +99,12 @@
   setTimeout(() => { setupCategoryToggler() }, 200);
   $collectionData.categoryGroup.categories.forEach((category) => category.active = false);
 
+  function goToEditView() {
+    if (isSelectedOneCategory) {
+      categoryDetailData.set(selectedCategories[0]);
+      f7router.navigate('/CategoryEdit');
+    }
+  }
 
   function goToDetailView() {
     if (selectedCategories.length > 0) {

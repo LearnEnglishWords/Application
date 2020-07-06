@@ -1,6 +1,8 @@
-<Popup class={name}>
+<Page name="CategoryEdit">
   <!-- Navbar -->
-  <Header type="popup" popupName={name} title={category.title} />
+  <Header>
+    <div class="navbar-title title" slot="title">{category.title}</div>
+  </Header>
   <!-- Header -->
   <div class="view personal-page" on:click={() => activeDialog = null} >
     <div class="page-title">{$_('category_edit.words_list')}</div>
@@ -54,20 +56,19 @@
       </Col>
     </Row>
   </div>
-</Popup>
+</Page>
 
 <script>
-  import { Popup, Button, List, ListItem, Row, Col } from 'framework7-svelte';
-  import { collectionData } from '../js/store.js';
+  import { Page, Button, List, ListItem, Row, Col } from 'framework7-svelte';
+  import { collectionData, categoryDetailData } from '../js/store.js';
   import DS from '../js/storages/data.js';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  export let name;
-  export let category;
 
+  let category = $categoryDetailData;
   let activeDialog = null;
   let newCategoryName = "";
 

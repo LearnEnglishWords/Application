@@ -12,6 +12,7 @@
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
+  import CategoryEditView from '../views/CategoryEditView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
   import WordListView from '../views/WordListView.svelte';
@@ -132,6 +133,10 @@
       {
         path: '/CategoryDetail',
         component: CategoryDetailView
+      },
+      {
+        path: '/CategoryEdit',
+        component: CategoryEditView
       },
       {
         path: '/Training',
