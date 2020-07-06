@@ -170,8 +170,8 @@
 
   function updateRecapitulation(state, known) {
     recapitulationInfo.alreadyKnown += state && known ? 1 : 0;
-    recapitulationInfo.known += state && !known ? 1 : 0;
-    recapitulationInfo.unknown += !state && !known ? 1 : 0;
+    recapitulationInfo.known += state ? 1 : 0;
+    recapitulationInfo.unknown += !state ? 1 : 0;
   }
 
   function updateWord({word, state, mode}) {
