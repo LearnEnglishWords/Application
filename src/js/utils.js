@@ -142,7 +142,8 @@ export const LearningMode = {
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
   LAST_ACTIVITY: "lastActivity",
-  LAST_UPDATE: "lastUpdate"
+  LAST_UPDATE: "lastUpdate",
+  NUMBER_OWN_CATEGORIES: "numberOwnCategories"
 }
 
 export const Collections = {

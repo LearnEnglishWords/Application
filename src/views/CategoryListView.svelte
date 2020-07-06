@@ -63,10 +63,10 @@
       </Col>
       <Row noGap class="{categoryDialogOpened ? "opened" : "closed"}">
         <span class="category-name">{$_('category_list.new')}</span>
-        <input type="text" autocomplete="off" placeholder=""/>
+        <input bind:value={newCategoryText} type="text" autocomplete="off" placeholder=""/>
         <div class="wrapper">
           <Button on:click={closeCategoryDialog}>{$_('category_list.buttons.cancel')}</Button>
-          <Button on:click={closeCategoryDialog}>{$_('category_list.buttons.confirm')}</Button>
+          <Button on:click={createCategory}>{$_('category_list.buttons.confirm')}</Button>
         </div>
       </Row>
     </div>
@@ -98,6 +98,7 @@
   let selectedCategories = [];
   let categoryDialogOpened = false;
   let isSelectedOneCategory = false;
+  let newCategoryText = "";
 
   setTimeout(() => { setupCategoryToggler() }, 200);
   $collectionData.categoryGroup.categories.forEach((category) => category.active = false);
@@ -156,6 +157,17 @@
   }
   
   function closeCategoryDialog() {
+    newCategoryText = "";
     categoryDialogOpened = false;
+  }
+  
+  function createCategory() {
+    if (newCategoryText === "") { return }
+
+    $collectionData.createCategory(newCategoryText);
+
+    closeCategoryDialog();
+
+    setTimeout(() => { f7router.refreshPage() }, 500);
   }
 </script>

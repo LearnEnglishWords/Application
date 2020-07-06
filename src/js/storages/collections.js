@@ -1,6 +1,6 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
-import { WordsType, Collections } from '../utils.js'
+import { WordsType, Collections, AppInfo } from '../utils.js'
 import { isProduction, backendApiUrl } from '../config.js'
 import DS from './data.js';
 
@@ -133,21 +133,43 @@ export default class CollectionStorage {
     });
   }
 
-
   createPersonalCollection() {
-    let newCategory = {
-      "name": "Example",
-      "czechName": get(_)(`collection.items.${Collections.PERSONAL.name}.main_category`),
-      "collectionId": Collections.PERSONAL.id,
-      "id": 10001
-    }
-    DS.saveCategoryList(Collections.PERSONAL.id, [ newCategory ]);
+    this.createPersonalCategory(get(_)(`collection.items.${Collections.PERSONAL.name}.main_category`));
+  }
 
-    this.downloadPersonalWords().then((words) => {
-      if (words !== undefined) {
-        this.saveCategory(Collections.PERSONAL.id, newCategory, words, () => {});
-      } 
-    })
+  createPersonalCategory(categoryName) {
+    return new Promise((resolve) => {
+      DS.getAppInfo(AppInfo.NUMBER_OWN_CATEGORIES).then((data) => { 
+        let numberCategories = data === null ? 1 : data + 1;
+
+        let newCategory = {
+          "name": "PersonalCategory" + numberCategories,
+          "czechName": categoryName,
+          "collectionId": Collections.PERSONAL.id,
+          "id": 10000 + numberCategories
+        }
+
+        DS.saveAppInfo(AppInfo.NUMBER_OWN_CATEGORIES, numberCategories);
+        this.saveNewCategory(Collections.PERSONAL.id, newCategory, resolve);
+      });
+    });
+  }
+
+  saveNewCategory(collectionId, newCategory, resolve) {
+    DS.getCategoryList(collectionId).then((categories) => {
+      if (categories === null) {
+        DS.saveCategoryList(collectionId, [ newCategory ]);
+        this.downloadPersonalWords().then((words) => {
+          if (words !== undefined) {
+            this.saveCategoryWords(collectionId, newCategory.id, words, () => {});
+          } 
+        })
+      } else {
+        categories.push(newCategory);
+        DS.saveCategoryList(collectionId, categories);
+      }
+      resolve(newCategory);
+    });
   }
 }
 

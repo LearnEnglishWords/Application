@@ -1,6 +1,7 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import DS from '../storages/data.js';
+import CollectionStorage from '../storages/collections.js';
 import CategoryGroup from './category-group.js';
 import Category from './category.js';
 
@@ -45,5 +46,13 @@ export default class Collection {
         });
       });
     });
+  }
+
+  createCategory(name) {
+    var collectionStorage = new CollectionStorage();
+    collectionStorage.createPersonalCategory(name).then((cat) => {
+      let category = new Category(cat.id, cat.collectionId, cat.name, cat.czechName, cat.icon);  
+      this.categoryGroup.push(category);
+    })
   }
 }
