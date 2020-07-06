@@ -59,7 +59,7 @@
   <span class="count-word">{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
   <div class="content-mode">
     <div class="other-div">
-      <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="Přeložte do angličtiny" class="translate">
+      <input bind:value={translatedText} on:keydown={handleKeydown} placeholder="{$_('training.placeholders.write')}" class="translate">
       {#if result !== null}
         {#if mode === "write"}
           <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
