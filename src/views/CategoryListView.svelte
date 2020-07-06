@@ -82,7 +82,7 @@
     Row, Col,
     List, ListItem 
   } from 'framework7-svelte';
-  import { collectionData, categoryGroupData, categoryDetailData, categoryEditData } from '../js/store.js';
+  import { collectionData, categoryGroupData, categoryDetailData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
