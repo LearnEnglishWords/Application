@@ -147,14 +147,10 @@
       }
   },
   "training": {
-      "subtitle": {
-          "trenink": "Trénování slovíček",
-          "testing": "Procvičování slovíček"
-      },
-      "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "sense_title": "Význam slova",
       "description_title": "Příklady použití",
       "listen_title": "Klikněte pro poslechnutí slova",
+      "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "question": {
           "text": "Umíš toto slovíčko?",
           "know": "Znám",
