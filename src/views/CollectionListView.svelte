@@ -1,11 +1,5 @@
 <Page name="CollectionList">
-  <Header {f7router}>
-    {#if search === true}
-      <input class="header-search" type="text" autocomplete="off" placeholder="">
-    {:else}
-      <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-    {/if}
-  </Header>
+  <Header {f7router}> </Header>
   <div class="page-title"><!-- {$_('collection.title')}--></div>
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}

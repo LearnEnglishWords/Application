@@ -5,7 +5,15 @@
         <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
-    <slot name="title"></slot>
+
+    <div class="navbar-title title" slot="title">
+      {#if title === undefined}
+        <input class="header-search" type="text" autocomplete="off" placeholder="">
+      {:else}
+        {title}
+      {/if}
+    </div>
+
     <NavRight>
       <Link on:click={() => f7router.navigate('/Search')}>
         <SVGIcon element="navbar" name="magnifier" size="24" />
@@ -41,6 +49,6 @@
   export let f7router;
 
   export let type = "main";
-  export let title = appName;
+  export let title;
   export let popupName;
 </script>
