@@ -8,7 +8,7 @@
 
     <NavTitle>
       {#if title === undefined} 
-        <div class="{searchInput === "" ? "active" : ""}">{appName}</div>
+        <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
         <input bind:value={searchText} class="header-search {searchInput}" type="text" autocomplete="on" placeholder="Vyhledat...">
       {:else}
         {title}

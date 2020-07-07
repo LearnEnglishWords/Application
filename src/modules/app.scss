@@ -314,6 +314,16 @@ svg {
       text-align: var(--#{$name}-#{$type}-#{$element}-text-align);
       font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
       font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+      .text {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        line-height: 36px;
+        transition: all 350ms ease-in-out;
+        &.active {
+          opacity: 1;
+        }
+      }
     }
   }
 
