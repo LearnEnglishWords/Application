@@ -8,14 +8,14 @@
 
     <NavTitle>
       {#if title === undefined} 
-        <input class="header-search" type="text" autocomplete="off" placeholder="Vyhledat...">
+        <input bind:value={searchText} class="header-search {searchInput}" type="text" autocomplete="on" placeholder="Vyhledat...">
       {:else}
         {title}
       {/if}
     </NavTitle>
 
     <NavRight>
-      <Link on:click={() => f7router.navigate('/Search')}>
+      <Link on:click={searchButton}>
         <SVGIcon element="navbar" name="magnifier" size="24" />
       </Link>
       <Link popoverOpen=".popover-menu">
@@ -51,4 +51,16 @@
   export let type = "main";
   export let title;
   export let popupName;
+
+  let searchText = "";
+  let searchInput = "";
+
+  function searchButton() {
+    if (searchText === "") {
+      searchInput = "active";
+    } else {
+      f7router.navigate('/Search', {props: {query: searchText}});
+    }
+  }
+
 </script>

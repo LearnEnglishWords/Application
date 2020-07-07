@@ -49,17 +49,17 @@
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   
-  export let name;
+  export let query;
 
-  let searchInput = "hello";
+  //let searchInput = ;
   let found = null;
   let word = null;
   
   search();
 
   function search() {
-    if (searchInput === "") { return }
-    DS.getWord(searchInput).then((w) => { 
+    if (query === "") { return }
+    DS.getWord(query).then((w) => { 
       word = w;
       found = word !== null;
     })
