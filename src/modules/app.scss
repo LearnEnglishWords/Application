@@ -389,6 +389,12 @@ svg {
     }
   }
 
+  &[data-name="Search"] {
+    .page-content {
+      background: var(--app-element);
+    }
+  }
+
   &[data-name="CollectionList"] {
 
     .page-content {
@@ -1852,8 +1858,6 @@ input:focus::placeholder {
 }
 
 
-.search.popup {
-  background-color: var(--app-element);
   .search-text, .search-failed {
     color: var(--app-title);
     font-size: 15px;
@@ -1865,32 +1869,24 @@ input:focus::placeholder {
   .search-failed {
     color: var(--app-text);
   }
-  .search-button {
-    background: var(--app-secondary);
-    color: white;
-    width: calc(100% - 2em);
-    margin: 1em auto;
-    border-radius: 10px;
-    box-shadow: 0 0 0.25em var(--app-secondary);
-    @extend %-pattern;
-    font-size: 13px;
-    font-weight: 700;
-    height: 42px;
-    line-height: 42px;
-    border: 1px solid transparent;
-  }
   .word-info {
     position: absolute;
-    top: calc(192px + 2em);
+    top: 56px;
     bottom: 58px;
     overflow: auto;
     .list-container {
+      position: fixed;
+      top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh);
+      bottom: 58px;
+      width: calc(100vw - 2em);
+      overflow: auto;
+      padding: 0 1em;
+      margin: 1em 0;
       ul {
-        margin: 1em!important;
+        margin: 0!important;
       }
     }
   }
-}
 
 .search-bar {
   margin-bottom: 0;
