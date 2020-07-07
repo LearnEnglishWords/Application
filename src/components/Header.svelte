@@ -7,6 +7,9 @@
     </NavLeft>
     <slot name="title"></slot>
     <NavRight>
+      <Link popupOpen=".search">
+        <i class="icon icon-home"></i>
+      </Link>
       <Link popoverOpen=".popover-menu">
         <SVGIcon element="navbar" name="menu-8" size="24" />
       </Link>
@@ -14,6 +17,7 @@
   </Navbar>
   <!-- Popup -->
   <Menu name="popover-menu" />
+  <SearchPopup name="search" />
 
 {:else if type === "popup"}
   <Navbar {title} class="navbar-popup">
@@ -27,12 +31,11 @@
 
 <script>
   import {
-    f7,
-    Navbar, NavLeft, NavRight, Link,
-    Popover, Icon, 
-    List, ListButton, 
+    f7, Navbar, NavLeft, NavRight, Link,
+    Popover, List, ListButton, 
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';
+  import SearchPopup  from '../popups/SearchPopup.svelte';
   import { appName }  from '../js/config.js';
 
   import SVGIcon from '../components/SVGIcon.svelte';

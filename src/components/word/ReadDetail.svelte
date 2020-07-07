@@ -62,8 +62,8 @@
   export let word;
   export let mode;
   export let learnType;
-  export let showPronunciation;
-  export let enableWallButton;
+  export let showPronunciation = true;
+  export let enableWallButton = false;
 
   const dispatch = createEventDispatcher();
 
