@@ -1189,7 +1189,7 @@ input:focus::placeholder {
   }
 }
 
-.bottom-navigation {
+.bottom-navigation, .search-bar {
 
   $bottom-navigation: (
     "training": secondary,
@@ -1838,4 +1838,81 @@ input:focus::placeholder {
   left: 1em;
   right: 1em;
   margin: 0;
+}
+
+
+.search.popup {
+  background-color: var(--app-element);
+  .search-text, .search-failed {
+    color: var(--app-title);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+    padding: 1em;
+  }  
+  .search-failed {
+    color: var(--app-text);
+  }
+  input {
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    width: calc(100% - 2em);
+    margin: 0 auto;
+    padding: 0 1em;
+    background: white;
+    text-align: center;
+    color: var(--app-text);
+    font-weight: 500;
+    border-radius: 10px;
+    border: 1px solid var(--app-border);
+  }
+  .search-button {
+    background: var(--app-secondary);
+    color: white;
+    width: calc(100% - 2em);
+    margin: 1em auto;
+    border-radius: 10px;
+    box-shadow: 0 0 0.25em var(--app-secondary);
+    @extend %-pattern;
+    font-size: 13px;
+    font-weight: 700;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid transparent;
+  }
+  .word-info {
+    position: absolute;
+    top: calc(192px + 2em);
+    bottom: 58px;
+    overflow: auto;
+    .list-container {
+      ul {
+        margin: 1em!important;
+      }
+    }
+  }
+}
+
+.search-bar {
+  margin-bottom: 0;
+  .col {
+    padding: 9px 0!important;
+    &:nth-child(1) {
+      svg {
+        --app-icon: var(--app-secondary);
+      }
+    }
+    &:nth-child(2) {
+      svg {
+        --app-icon: var(--app-error);
+      }
+    }
+    &:nth-child(3) {
+      svg {
+        --app-icon: var(--app-success);
+      }
+    }
+  }
 }

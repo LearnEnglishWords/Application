@@ -8,7 +8,7 @@
     <slot name="title"></slot>
     <NavRight>
       <Link popupOpen=".search">
-        Hledani je tady ty vole :D Klikni sem nebo se koukni do kodu ;) Hlavne sem dej nejakou ikonku, ktera by se tu i zobrazovala a byla tak i videt.. xD
+        <SVGIcon element="navbar" name="magnifier" size="24" />
       </Link>
       <Link popoverOpen=".popover-menu">
         <SVGIcon element="navbar" name="menu-8" size="24" />
