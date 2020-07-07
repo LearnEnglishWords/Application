@@ -6,13 +6,13 @@
       </Link>
     </NavLeft>
 
-    <div class="navbar-title title" slot="title">
-      {#if title === undefined}
-        <input class="header-search" type="text" autocomplete="off" placeholder="">
+    <NavTitle>
+      {#if title === undefined} 
+        <input class="header-search" type="text" autocomplete="off" placeholder="Vyhledat...">
       {:else}
         {title}
       {/if}
-    </div>
+    </NavTitle>
 
     <NavRight>
       <Link on:click={() => f7router.navigate('/Search')}>
@@ -38,7 +38,7 @@
 
 <script>
   import {
-    f7, Navbar, NavLeft, NavRight, Link,
+    f7, Navbar, NavLeft, NavRight, NavTitle, Link,
     Popover, List, ListButton, 
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';

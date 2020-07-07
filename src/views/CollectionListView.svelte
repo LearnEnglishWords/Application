@@ -66,7 +66,6 @@
   let wordsAmount = 0;
   let downloadingCollectionId = null;
   let sentLog = false;
-  let search = true;
 
 
   function preloadAllCollections() {
