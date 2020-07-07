@@ -7,7 +7,7 @@
     </NavLeft>
     <slot name="title"></slot>
     <NavRight>
-      <Link popupOpen=".search">
+      <Link on:click={() => f7router.navigate('/Search')}>
         <SVGIcon element="navbar" name="magnifier" size="24" />
       </Link>
       <Link popoverOpen=".popover-menu">
@@ -17,7 +17,6 @@
   </Navbar>
   <!-- Popup -->
   <Menu name="popover-menu" />
-  <SearchPopup name="search" />
 
 {:else if type === "popup"}
   <Navbar {title} class="navbar-popup">
@@ -35,10 +34,11 @@
     Popover, List, ListButton, 
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';
-  import SearchPopup  from '../popups/SearchPopup.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
+  import SearchView  from '../views/SearchView.svelte';
   import { appName }  from '../js/config.js';
 
-  import SVGIcon from '../components/SVGIcon.svelte';
+  export let f7router;
 
   export let type = "main";
   export let title = appName;

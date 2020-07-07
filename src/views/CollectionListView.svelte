@@ -1,5 +1,5 @@
 <Page name="CollectionList">
-  <Header>
+  <Header {f7router}>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <div class="page-title"><!-- {$_('collection.title')}--></div>

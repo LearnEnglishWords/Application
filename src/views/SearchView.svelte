@@ -1,5 +1,10 @@
-<Popup class={name} animate={true}>
-  <Header type="popup" popupName={name} title="Vyhledávání" />
+<Page name="Search">
+  <!-- Navbar -->
+  <Header>
+    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
+  </Header>
+
+ <!--
   <span class="search-text">Zadejte anglické slovíčko, které si přejete vyhledat:</span>
 
 
@@ -7,6 +12,7 @@
     <Button class="search-button" on:click={search}>
       Vyhledat
     </Button>
+ -->
 
     {#if found === false}
       <span class="search-failed">Požadované slovíčko nebylo nalezeno</span>
@@ -32,12 +38,10 @@
         </Col>
       </Row>
     </div>
-</Popup>
+</Page>
 
 <script>
-  import {
-    Block, Popup, Button, Col, Row
-  } from 'framework7-svelte';
+  import { Page, Button, Col, Row } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
   import SVGIcon  from '../components/SVGIcon.svelte';
@@ -47,9 +51,11 @@
   
   export let name;
 
-  let searchInput = "";
+  let searchInput = "hello";
   let found = null;
   let word = null;
+  
+  search();
 
   function search() {
     if (searchInput === "") { return }
