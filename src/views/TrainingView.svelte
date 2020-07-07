@@ -12,10 +12,11 @@
             <div class="swiper-slide">
               <WordSlide {word} 
                  showPronunciation={isTraining} 
+                 enableWallButton={isTraining} 
                  on:nextWord={nextWord}
                  on:updateWord={(e) => updateWord(e.detail)} 
                  mode={$trainingData.type === LearningMode.REPETITION ? randomModes[word.text] : $trainingData.mode}
-                 type={$trainingData.type} 
+                 learnType={$trainingData.type} 
                />
             </div>
           {/each}
@@ -72,7 +73,7 @@
     statisticsData, modeStatisticsData 
   } from '../js/store.js';
   import Swiper from 'swiper';
-  import WordSlide from '../components/WordSlide.svelte';
+  import WordSlide from '../components/word/Slide.svelte';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
