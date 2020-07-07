@@ -9,7 +9,7 @@
     <NavTitle>
       {#if title === undefined} 
         <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
-        <input bind:value={searchText} class="header-search {searchInput}" type="text" autocomplete="on" placeholder="Vyhledat...">
+        <input bind:value={searchText} class="header-search {searchInput}" id="search" type="text" autocomplete="on" placeholder="Vyhledat...">
       {:else}
         {title}
       {/if}
@@ -59,6 +59,7 @@
   function searchButton() {
     if (searchInput === "") {
       searchInput = "active";
+      setTimeout(() => { document.getElementById("search").focus() }, 500);
     } else {
       searchText === "" ? searchInput = "" : f7router.navigate('/Search', { props: { query: searchText } });
     }
