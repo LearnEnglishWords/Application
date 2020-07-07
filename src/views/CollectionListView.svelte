@@ -1,5 +1,5 @@
 <Page name="CollectionList">
-  <Header {f7router}> </Header>
+  <Header {f7router} />
   <div class="page-title"><!-- {$_('collection.title')}--></div>
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}

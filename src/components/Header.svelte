@@ -9,7 +9,7 @@
     <NavTitle>
       {#if title === undefined} 
         <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
-        <input bind:value={searchText} on:keydown={handleKeydown} class="header-search {searchInput}" id="search-{id}" type="text" autocomplete="on" placeholder="Vyhledat...">
+        <input bind:value={searchText} on:keydown={handleKeydown} class="header-search {searchInput}" id="search-{id}" type="text" autocomplete="on" placeholder={searchPlaceholder}>
       {:else}
         {title}
       {/if}
@@ -46,29 +46,47 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import SearchView  from '../views/SearchView.svelte';
   import { appName }  from '../js/config.js';
+  import { createEventDispatcher } from 'svelte';
 
   export let f7router;
 
   export let type = "main";
+  export let searchOpened = false;
   export let title;
   export let popupName;
 
+  const dispatch = createEventDispatcher();
+
+  let searchPlaceholder = "Vyhledat...";
   let searchText = "";
-  let searchInput = "";
+  let searchInput = searchOpened ? "active" : "";
   let id = Date.now();
+
 
   function search() {
     if (searchInput === "") {
       searchInput = "active";
       setTimeout(() => { document.getElementById(`search-${id}`).focus() }, 500);
     } else {
-      searchText === "" ? searchInput = "" : f7router.navigate('/Search', { props: { query: searchText } });
+      if (searchText === "") {
+        searchInput = "";
+      } else {
+        dispatch('search', { query: searchText });
+        f7router.navigate('/Search', { props: { query: searchText } });
+        resetSearch();
+      }
     }
+  }
+
+  function resetSearch() {
+    searchPlaceholder = searchText;
+    searchText = "";
+    searchInput = searchOpened ? "active" : "";
+    document.activeElement.blur();
   }
 
   function handleKeydown(event) {
     if (event.key === "Enter") {
-      document.activeElement.blur()
       search();
     }
   }

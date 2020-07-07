@@ -1,8 +1,7 @@
 <Page name="CategoryList">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header {f7router} />
+
   <!-- Header -->
   <div class="header-statistics header-container" on:click={closeCategoryDialog}>
     <Row class="header-row">
