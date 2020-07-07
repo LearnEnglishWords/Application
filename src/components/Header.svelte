@@ -9,14 +9,14 @@
     <NavTitle>
       {#if title === undefined} 
         <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
-        <input bind:value={searchText} class="header-search {searchInput}" id="search" type="text" autocomplete="on" placeholder="Vyhledat...">
+        <input bind:value={searchText} on:keydown={handleKeydown} class="header-search {searchInput}" id="search" type="text" autocomplete="on" placeholder="Vyhledat...">
       {:else}
         {title}
       {/if}
     </NavTitle>
 
     <NavRight>
-      <Link on:click={searchButton}>
+      <Link on:click={search}>
         <SVGIcon element="navbar" name="magnifier" size="24" />
       </Link>
       <Link popoverOpen=".popover-menu">
@@ -56,12 +56,19 @@
   let searchText = "";
   let searchInput = "";
 
-  function searchButton() {
+  function search() {
     if (searchInput === "") {
       searchInput = "active";
       setTimeout(() => { document.getElementById("search").focus() }, 500);
     } else {
       searchText === "" ? searchInput = "" : f7router.navigate('/Search', { props: { query: searchText } });
+    }
+  }
+
+  function handleKeydown(event) {
+    if (event.key === "Enter") {
+      document.activeElement.blur()
+      search();
     }
   }
 </script>
