@@ -56,11 +56,10 @@
   let searchInput = "";
 
   function searchButton() {
-    if (searchText === "") {
+    if (searchInput === "") {
       searchInput = "active";
     } else {
-      f7router.navigate('/Search', {props: {query: searchText}});
+      searchText === "" ? searchInput = "" : f7router.navigate('/Search', { props: { query: searchText } });
     }
   }
-
 </script>
