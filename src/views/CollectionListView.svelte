@@ -1,6 +1,10 @@
 <Page name="CollectionList">
   <Header {f7router}>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
+    {#if search === true}
+      <input class="header-search" type="text" autocomplete="off" placeholder="">
+    {:else}
+      <div class="navbar-title title" slot="title">{$_('app_name')}</div>
+    {/if}
   </Header>
   <div class="page-title"><!-- {$_('collection.title')}--></div>
   <List accordionList mediaList class="collection-list">
@@ -68,6 +72,7 @@
   let wordsAmount = 0;
   let downloadingCollectionId = null;
   let sentLog = false;
+  let search = true;
 
 
   function preloadAllCollections() {

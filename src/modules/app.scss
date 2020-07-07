@@ -1854,20 +1854,6 @@ input:focus::placeholder {
   .search-failed {
     color: var(--app-text);
   }
-  input {
-    display: block;
-    height: 42px;
-    line-height: 42px;
-    width: calc(100% - 2em);
-    margin: 0 auto;
-    padding: 0 1em;
-    background: white;
-    text-align: center;
-    color: var(--app-text);
-    font-weight: 500;
-    border-radius: 10px;
-    border: 1px solid var(--app-border);
-  }
   .search-button {
     background: var(--app-secondary);
     color: white;
@@ -1915,4 +1901,19 @@ input:focus::placeholder {
       }
     }
   }
+}
+
+.header-search {
+  display: block;
+  height: 42px;
+  line-height: 42px;
+  width: calc(100% - 2em);
+  margin: 0 auto;
+  padding: 0 1em;
+  background: white;
+  text-align: center;
+  color: var(--app-text);
+  font-weight: 500;
+  border-radius: 10px;
+  border: 1px solid var(--app-border);
 }
