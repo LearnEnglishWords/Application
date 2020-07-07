@@ -7,14 +7,12 @@
       Vyhledat
     </Button>
 
-
     {#if found === false}
       zadne takove slovicko nebylo nalezeno
     {:else if found}
       bylo nalezeno nasledujici slovicko:
       <WordReadDetail {word} />
     {/if}
-
 
     <Footer />
 </Popup>
@@ -38,14 +36,9 @@
 
   function search() {
     if (searchInput === "") { return }
-    if (searchInput === "hello") {
-      DS.getWord(searchInput).then((w) => { 
-        word = w;
-        found = true;
-      })
-    } else {
-      found = false;
-    }
+    DS.getWord(searchInput).then((w) => { 
+      word = w;
+      found = word !== null;
+    })
   }
-
 </script>
