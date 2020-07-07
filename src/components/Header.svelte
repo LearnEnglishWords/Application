@@ -8,7 +8,8 @@
 
     <NavTitle>
       {#if title === undefined} 
-        <input bind:value={searchText} class="header-search {searchInput}" type="text" autocomplete="on" placeholder="Vyhledat...">
+        <div class="{!activeSearch ? "active" : ""}">{appName}</div>
+        <input bind:value={searchText} class="header-search {activeSearch ? "active" : ""}" type="text" autocomplete="on" placeholder="Vyhledat...">
       {:else}
         {title}
       {/if}
@@ -53,13 +54,13 @@
   export let popupName;
 
   let searchText = "";
-  let searchInput = "";
+  let activeSearch = false;
 
   function searchButton() {
     if (searchInput === "") {
-      searchInput = "active";
+      activeSearch = true;
     } else {
-      searchText === "" ? searchInput = "" : f7router.navigate('/Search', { props: { query: searchText } });
+      searchText === "" ? activeSearch = false : f7router.navigate('/Search', { props: { query: searchText } });
     }
   }
 </script>
