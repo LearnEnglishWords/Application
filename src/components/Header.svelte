@@ -45,6 +45,7 @@
   import Menu  from './Menu.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import SearchView  from '../views/SearchView.svelte';
+  import { _ } from 'svelte-i18n';
   import { appName }  from '../js/config.js';
   import { createEventDispatcher } from 'svelte';
 
@@ -57,7 +58,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let searchPlaceholder = "Vyhledat...";
+  let searchPlaceholder = $_('search.placeholder');
   let searchText = "";
   let searchInput = searchOpened ? "active" : "";
   let id = Date.now();

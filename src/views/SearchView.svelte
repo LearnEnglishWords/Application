@@ -3,7 +3,7 @@
   <Header {f7router} searchOpened={true} on:search={(e) => search(e.detail.query)} />
 
   {#if found === false}
-    <span class="search-failed">Požadované slovíčko nebylo nalezeno</span>
+    <span class="search-failed">{$_('search.not_found')}</span>
   {:else if found}
     <div class="word-info">
       <WordReadDetail {word} />
@@ -14,15 +14,15 @@
     <Row noGap>
       <Col class="ripple">
         <SVGIcon element="navigation" name="paper" size="16" />
-        <span>Příklady</span>
+        <span>{$_('search.buttons.examples')}</span>
       </Col>
       <Col class="ripple">
         <SVGIcon element="navigation" name="pen-01" size="16" />
-        <span>Upravit</span>
+        <span>{$_('search.buttons.edit')}</span>
       </Col>
       <Col class="ripple">
         <SVGIcon element="navigation" name="event-confirm" size="16" />
-        <span>Uložit</span>
+        <span>{$_('search.buttons.save')}</span>
       </Col>
     </Row>
   </div>
