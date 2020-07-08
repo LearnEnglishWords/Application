@@ -3,38 +3,23 @@
   <Header {f7router} searchOpened={true} />
 
   {#await search(query)}
-    <span class="search-failed">Probíhá vyhledávání..</span>
+    <span class="search-failed">{$_('search.in_progress')}</span>
   {:then word}
-    <WordReadDetail {word} />
-    <div class="search-bar">
-      <Row noGap>
-        <Col class="ripple">
-          <SVGIcon element="navigation" name="paper" size="16" />
-          <span>{$_('search.buttons.examples')}</span>
-        </Col>
-        <Col class="ripple">
-          <SVGIcon element="navigation" name="pen-01" size="16" />
-          <span>{$_('search.buttons.edit')}</span>
-        </Col>
-        <Col class="ripple">
-          <SVGIcon element="navigation" name="event-confirm" size="16" />
-          <span>{$_('search.buttons.save')}</span>
-        </Col>
-      </Row>
-    </div>
+    <WordReadDetail {word} learnType={LearningMode.SEARCH} />
   {:catch error}
     <span class="search-failed">{$_('search.not_found')}</span>
   {/await}
 </Page>
 
 <script>
-  import { Page, Button, Col, Row } from 'framework7-svelte';
+  import { Page, Button } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
   import SVGIcon  from '../components/SVGIcon.svelte';
   import WordReadDetail from '../components/word/ReadDetail.svelte';
   import DS from '../js/storages/data.js';
   import { backendApiUrl } from '../js/config.js'
+  import { LearningMode } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   
   export let f7router;

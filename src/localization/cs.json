@@ -253,8 +253,9 @@
           "1": "Hrůza"
       }
   },
-  "search": {
+  "search": {              
       "placeholder": "Vyhledat...",
+      "in_progress": "Probíhá vyhledávání..",
       "not_found": "Požadované slovíčko nebylo nalezeno",
       "buttons": {
           "examples": "Příklady",

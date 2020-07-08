@@ -12,7 +12,7 @@
   <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
 </div>
 
-{#if learnType !== undefined}
+{#if learnType !== LearningMode.SEARCH}
   <Counter />
 {/if}
 
@@ -44,13 +44,31 @@
       <Button class="page-button button-yes" on:click={() => clickButton(true)}>{$_('training.question.yes')}</Button>
     </div>
   </div> 
+{:else if learnType === LearningMode.SEARCH}
+  <div class="search-bar">
+    <Row noGap>
+      <Col class="ripple">
+        <SVGIcon element="navigation" name="paper" size="16" />
+        <span>{$_('search.buttons.examples')}</span>
+      </Col>
+      <Col class="ripple">
+        <SVGIcon element="navigation" name="pen-01" size="16" />
+        <span>{$_('search.buttons.edit')}</span>
+      </Col>
+      <Col class="ripple">
+        <SVGIcon element="navigation" name="event-confirm" size="16" />
+        <span>{$_('search.buttons.save')}</span>
+      </Col>
+    </Row>
+  </div>
 {/if}
     
 
 <script>
   import { 
     f7, Button, 
-    List, ListItem
+    List, ListItem,
+    Row, Col
   } from 'framework7-svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
