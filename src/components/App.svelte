@@ -15,6 +15,7 @@
   import CategoryEditView from '../views/CategoryEditView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
+  import SearchView from '../views/SearchView.svelte';
   import WordListView from '../views/WordListView.svelte';
   import { downloadedCollections } from '../js/store.js';
   import { f7, f7ready, App, Views, View } from 'framework7-svelte';
@@ -141,6 +142,10 @@
       {
         path: '/Training',
         component: TrainingView
+      },
+      {
+        path: '/Search',
+        component: SearchView
       },
       {
         path: '/Settings',

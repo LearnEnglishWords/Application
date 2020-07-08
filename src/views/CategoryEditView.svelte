@@ -1,8 +1,7 @@
 <Page name="CategoryEdit">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{category.title}</div>
-  </Header>
+  <Header {f7router} />
+
   <!-- Header -->
   <div class="view personal-page" on:click={() => activeDialog = null} >
     <div class="page-title">{$_('category_edit.words_list')}</div>

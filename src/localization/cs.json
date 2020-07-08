@@ -253,6 +253,15 @@
           "1": "Hrůza"
       }
   },
+  "search": {
+      "placeholder": "Vyhledat...",
+      "not_found": "Požadované slovíčko nebylo nalezeno",
+      "buttons": {
+          "examples": "Příklady",
+          "edit": "Upravit",
+          "save": "Uložit"
+      }
+  },
   "menu": {
       "feedback": "Zpětná vazba",
       "error_feedback": "Hlášení chyb",

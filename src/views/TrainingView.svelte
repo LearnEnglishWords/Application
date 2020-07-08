@@ -1,8 +1,7 @@
 <Page name="Training">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header {f7router} />
+
   <!-- View -->
   {#if !showRecapitulation}
     <div class="view">

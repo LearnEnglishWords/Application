@@ -1,8 +1,7 @@
 <Page name="Settings">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header {f7router} />
+
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
@@ -66,6 +65,8 @@
   import { _ } from 'svelte-i18n';
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
+
+  export let f7router;
 
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let pronunciation = $settingsData.pronunciation;

@@ -307,12 +307,23 @@ svg {
       --app-icon: var(--#{$name}-#{$type}-#{$element}-color);
     }
 
-    .#{$name}-title {$element: "title";
+    .title {$element: "title";
       width: 100%;
+      border-radius: 10px;
       color: var(--#{$name}-#{$type}-#{$element}-color);
       text-align: var(--#{$name}-#{$type}-#{$element}-text-align);
       font-size: var(--#{$name}-#{$type}-#{$element}-font-size);
       font-weight: var(--#{$name}-#{$type}-#{$element}-font-weight);
+      .text {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        line-height: 36px;
+        transition: all 350ms ease-in-out;
+        &.active {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -375,6 +386,12 @@ svg {
     .#{$name}-wrapper {
       overflow: auto;
       @include position($position: absolute, $top: calc(var(--page-content-container-border-radius) / 2), $right: 0, $bottom: 0, $left: 0);
+    }
+  }
+
+  &[data-name="Search"] {
+    .page-content {
+      background: var(--app-element);
     }
   }
 
@@ -1189,7 +1206,7 @@ input:focus::placeholder {
   }
 }
 
-.bottom-navigation {
+.bottom-navigation, .search-bar {
 
   $bottom-navigation: (
     "training": secondary,
@@ -1838,4 +1855,108 @@ input:focus::placeholder {
   left: 1em;
   right: 1em;
   margin: 0;
+}
+
+
+  .search-text, .search-failed {
+    color: var(--app-title);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+    padding: 1em;
+  }  
+  .search-failed {
+    color: var(--app-text);
+  }
+  .word-info {
+    position: absolute;
+    top: 56px;
+    bottom: 58px;
+    overflow: auto;
+    .list-container {
+      position: fixed;
+      top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top) + 25vh);
+      bottom: 58px;
+      width: calc(100vw - 2em);
+      overflow: auto;
+      padding: 0 1em;
+      margin: 1em 0;
+      ul {
+        margin: 0!important;
+      }
+    }
+  }
+
+.search-bar {
+  margin-bottom: 0;
+  .col {
+    padding: 9px 0!important;
+    &:nth-child(1) {
+      svg {
+        --app-icon: var(--app-secondary);
+      }
+    }
+    &:nth-child(2) {
+      svg {
+        --app-icon: var(--app-error);
+      }
+    }
+    &:nth-child(3) {
+      svg {
+        --app-icon: var(--app-success);
+      }
+    }
+  }
+}
+
+.header-search {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 1em !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+  color: white !important;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  border: 0!important;
+  transition: all 350ms ease-in-out;
+  .title & {
+    right: calc(-100vw + (56px * 3) + 1em);
+    position: relative;
+  }
+  &.active {
+    .title & {
+      right: 0;
+    }
+  }
+}
+
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+input:focus::-moz-placeholder {
+ opacity: 0;
+}
+
+input:focus:-ms-input-placeholder {
+  opacity: 0;
+}
+
+input:focus:-moz-placeholder {
+ opacity: 0;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #FFFFFF50;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #FFFFFF50;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #FFFFFF50;
 }
