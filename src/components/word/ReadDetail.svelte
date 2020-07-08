@@ -47,7 +47,7 @@
 {:else if learnType === LearningMode.SEARCH}
   <div class="search-bar">
     <Row noGap>
-      <Col class="ripple">
+      <Col class="ripple" on:click={() => { openedExamples = true }}>
         <SVGIcon element="navigation" name="paper" size="16" />
         <span>{$_('search.buttons.examples')}</span>
       </Col>
@@ -61,6 +61,7 @@
       </Col>
     </Row>
   </div>
+  <WordDescriptionPopup {word} popupName="examples" bind:opened={openedExamples} />
 {/if}
     
 
@@ -74,6 +75,7 @@
   import { _ } from 'svelte-i18n';
   import SVGIcon from '../SVGIcon.svelte';
   import Counter from './Counter.svelte';
+  import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
   import { settingsData } from '../../js/store.js';
 
@@ -84,6 +86,8 @@
   export let enableWallButton = false;
 
   const dispatch = createEventDispatcher();
+
+  let openedExamples = false;
 
 
   function clickButton(state) {

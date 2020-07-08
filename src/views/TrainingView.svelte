@@ -38,7 +38,7 @@
             <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
             <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
           </Toolbar>
-          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
+          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} popupName="description" />
         {/if}
       {/if}
     </div>
