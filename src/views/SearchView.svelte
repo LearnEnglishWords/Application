@@ -35,6 +35,7 @@
   import SVGIcon  from '../components/SVGIcon.svelte';
   import WordReadDetail from '../components/word/ReadDetail.svelte';
   import DS from '../js/storages/data.js';
+  import { backendApiUrl } from '../js/config.js'
   import { _ } from 'svelte-i18n';
   
   export let f7router;
@@ -45,11 +46,17 @@
   
   search(query);
 
+  async function searchOnline(query) {
+    const res = await fetch(`${backendApiUrl}/word/find?text=${query.replace(' ', '-')}`);
+    let result = await res.json();
+    return result.payload === undefined ? null : result.payload
+  }
+
   function search(query) {
     if (query === "") { return }
     DS.getWord(query).then((w) => { 
-      word = w;
-      found = word !== null;
+      let setWord = (w) => { word = w; found = word !== null; }
+      w === null ? searchOnline(query).then((w) => setWord(w)) : setWord(w);
     })
   }
 </script>
