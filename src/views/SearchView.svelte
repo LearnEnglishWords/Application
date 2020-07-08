@@ -6,26 +6,25 @@
     <span class="search-failed">Probíhá vyhledávání..</span>
   {:then word}
     <WordReadDetail {word} />
+    <div class="search-bar">
+      <Row noGap>
+        <Col class="ripple">
+          <SVGIcon element="navigation" name="paper" size="16" />
+          <span>{$_('search.buttons.examples')}</span>
+        </Col>
+        <Col class="ripple">
+          <SVGIcon element="navigation" name="pen-01" size="16" />
+          <span>{$_('search.buttons.edit')}</span>
+        </Col>
+        <Col class="ripple">
+          <SVGIcon element="navigation" name="event-confirm" size="16" />
+          <span>{$_('search.buttons.save')}</span>
+        </Col>
+      </Row>
+    </div>
   {:catch error}
     <span class="search-failed">{$_('search.not_found')}</span>
   {/await}
-
-  <div class="search-bar">
-    <Row noGap>
-      <Col class="ripple">
-        <SVGIcon element="navigation" name="paper" size="16" />
-        <span>{$_('search.buttons.examples')}</span>
-      </Col>
-      <Col class="ripple">
-        <SVGIcon element="navigation" name="pen-01" size="16" />
-        <span>{$_('search.buttons.edit')}</span>
-      </Col>
-      <Col class="ripple">
-        <SVGIcon element="navigation" name="event-confirm" size="16" />
-        <span>{$_('search.buttons.save')}</span>
-      </Col>
-    </Row>
-  </div>
 </Page>
 
 <script>
@@ -52,7 +51,7 @@
     return new Promise((success, error) => {
       if (query === "") { error() }
       DS.getWord(query).then((w) => { 
-        w === null ? searchOnline(query).then((w) => w === null ? error() : success(w)) : success(w);
+        w === null ? searchOnline(query).then((w) => { w === null ? error() : success(w) }) : success(w);
       });
     });
   }
