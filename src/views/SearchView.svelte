@@ -1,14 +1,14 @@
 <Page name="Search">
   <!-- Navbar -->
-  <Header {f7router} searchOpened={true} on:search={(e) => search(e.detail.query)} />
+  <Header {f7router} searchOpened={true} />
 
-  {#if found === false}
+  {#await search(query)}
+    <span class="search-failed">Probíhá vyhledávání..</span>
+  {:then word}
+    <WordReadDetail {word} />
+  {:catch error}
     <span class="search-failed">{$_('search.not_found')}</span>
-  {:else if found}
-    <div class="word-info">
-      <WordReadDetail {word} />
-    </div>
-  {/if}
+  {/await}
 
   <div class="search-bar">
     <Row noGap>
@@ -41,10 +41,6 @@
   export let f7router;
   export let query;
 
-  let found = null;
-  let word = null;
-  
-  search(query);
 
   async function searchOnline(query) {
     const res = await fetch(`${backendApiUrl}/word/find?text=${query.replace(' ', '-')}`);
@@ -53,10 +49,11 @@
   }
 
   function search(query) {
-    if (query === "") { return }
-    DS.getWord(query).then((w) => { 
-      let setWord = (w) => { word = w; found = word !== null; }
-      w === null ? searchOnline(query).then((w) => setWord(w)) : setWord(w);
-    })
+    return new Promise((success, error) => {
+      if (query === "") { error() }
+      DS.getWord(query).then((w) => { 
+        w === null ? searchOnline(query).then((w) => w === null ? error() : success(w)) : success(w);
+      });
+    });
   }
 </script>

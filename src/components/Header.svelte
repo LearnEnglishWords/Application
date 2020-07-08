@@ -47,7 +47,6 @@
   import SearchView  from '../views/SearchView.svelte';
   import { _ } from 'svelte-i18n';
   import { appName }  from '../js/config.js';
-  import { createEventDispatcher } from 'svelte';
 
   export let f7router;
 
@@ -55,8 +54,6 @@
   export let searchOpened = false;
   export let title;
   export let popupName;
-
-  const dispatch = createEventDispatcher();
 
   let searchPlaceholder = $_('search.placeholder');
   let searchText = "";
@@ -72,8 +69,7 @@
       if (searchText === "") {
         searchInput = "";
       } else {
-        dispatch('search', { query: searchText });
-        f7router.navigate('/Search', { props: { query: searchText } });
+        f7router.navigate('/Search', { reloadCurrent: searchOpened, props: { query: searchText } });
         resetSearch();
       }
     }
