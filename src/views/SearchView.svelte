@@ -5,7 +5,7 @@
   {#await search(query)}
     <span class="search-failed">{$_('search.in_progress')}</span>
   {:then word}
-    <WordReadDetail {word} learnType={LearningMode.SEARCH} />
+    <WordReadDetail {word} learnType={LearningMode.SEARCH} on:saveWord={saveWord} />
   {:catch error}
     <span class="search-failed">{$_('search.not_found')}</span>
   {/await}
@@ -18,6 +18,7 @@
   import SVGIcon  from '../components/SVGIcon.svelte';
   import WordReadDetail from '../components/word/ReadDetail.svelte';
   import DS from '../js/storages/data.js';
+  import { categoryDetailData } from '../js/store.js';
   import { backendApiUrl } from '../js/config.js'
   import { LearningMode } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
@@ -39,5 +40,15 @@
         w === null ? searchOnline(query).then((w) => { w === null ? error() : success(w) }) : success(w);
       });
     });
+  }
+  
+  function saveWord(e) {
+    let word = e.detail.word;
+    DS.saveWord(word.text, word);
+
+    if (f7router.previousRoute.url === "/CategoryEdit") {
+      $categoryDetailData.addWord(word); 
+      f7router.back(f7router.previousRoute.url, { force: true })
+    }
   }
 </script>

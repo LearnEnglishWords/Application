@@ -47,7 +47,7 @@
 {:else if learnType === LearningMode.SEARCH}
   <div class="search-bar">
     <Row noGap>
-      <Col class="ripple" on:click={() => { openedExamples = true }}>
+      <Col class="ripple" on:click={() => openedExamples = true}>
         <SVGIcon element="navigation" name="paper" size="16" />
         <span>{$_('search.buttons.examples')}</span>
       </Col>
@@ -55,7 +55,7 @@
         <SVGIcon element="navigation" name="pen-01" size="16" />
         <span>{$_('search.buttons.edit')}</span>
       </Col>
-      <Col class="ripple">
+      <Col class="ripple" on:click={() => dispatch('saveWord', { word: word })}>
         <SVGIcon element="navigation" name="event-confirm" size="16" />
         <span>{$_('search.buttons.save')}</span>
       </Col>
@@ -91,7 +91,7 @@
 
 
   function clickButton(state) {
-    dispatch('updateWord', {word: word, state: state, mode: mode});
+    dispatch('updateWord', { word: word, state: state, mode: mode });
     dispatch('nextWord');
   }
 
