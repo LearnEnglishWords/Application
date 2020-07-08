@@ -26,7 +26,7 @@
         <span>{$_('category_edit.actions.rename.button_text')}</span>
       </Col>
     </Row>
-    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => changeDialog(ActiveCategoryDialog.ADD_WORD)}>
+    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => { changeDialog(ActiveCategoryDialog.ADD_WORD); setTimeout(() => { document.getElementById(`add-word-input`).focus() }, 500) }}>
       <SVGIcon element="navigation" name="e-add" size="16" />
     </div>
     <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
@@ -39,10 +39,10 @@
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
         <span>{$_('category_edit.actions.add_word.text')}</span>
-        <input type="text" autocomplete="off" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
+        <input bind:value={findWordInput} on:keydown={(e) => e.key === "Enter" ? findWord() : null} id="add-word-input" type="text" autocomplete="on" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
         <div class="buttons">
           <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.add_word.button.cancel')}</Button>
-          <Button class="confirm">{$_('category_edit.actions.add_word.button.confirm')}</Button>
+          <Button class="confirm" on:click={findWord}>{$_('category_edit.actions.add_word.button.confirm')}</Button>
         </div>
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
@@ -71,6 +71,7 @@
   let category = $categoryDetailData;
   let activeDialog = null;
   let newCategoryName = "";
+  let findWordInput = "";
 
   const ActiveCategoryDialog = {
       EDIT: 'edit',
@@ -124,9 +125,18 @@
     closeDialog();
     f7router.back(f7router.previousRoute.url, { force: true })
   }
+  
+  function findWord() {
+    if (findWordInput !== "") {
+      f7router.navigate('/Search', { props: { query: findWordInput } });
+      closeDialog();
+    }
+  }
 
   function closeDialog() {
     newCategoryName = "";
     activeDialog = null;
+    findWordInput = "";
+    document.activeElement.blur();
   }
 </script>

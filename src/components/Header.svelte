@@ -9,7 +9,13 @@
     <NavTitle>
       {#if title === undefined} 
         <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
-        <input bind:value={searchText} on:keydown={handleKeydown} class="header-search {searchInput}" id="search-{id}" type="text" autocomplete="on" placeholder={searchPlaceholder}>
+        <input 
+           bind:value={searchText}
+           on:keydown={(e) => e.key === "Enter" ? search() : null}
+           class="header-search {searchInput}" id="search-{id}" 
+           type="text" autocomplete="on" 
+           placeholder={searchPlaceholder}
+        />
       {:else}
         {title}
       {/if}
@@ -80,11 +86,5 @@
     searchText = "";
     searchInput = searchOpened ? "active" : "";
     document.activeElement.blur();
-  }
-
-  function handleKeydown(event) {
-    if (event.key === "Enter") {
-      search();
-    }
   }
 </script>
