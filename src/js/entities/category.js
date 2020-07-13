@@ -91,6 +91,10 @@ export default class Category {
     DS.saveWord(word.text, word);
   }
 
+  getStatistic(wordType) {
+    return this.wordStorages[wordType].getWordIds().length
+  }
+
   getStatistics() {
     return {
       "count": this.wordStorages[WordsType.ALL].getWordIds().length,

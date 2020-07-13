@@ -60,7 +60,7 @@
   import Statistics from '../components/Statistics.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import CategoryGroup from '../js/entities/category-group.js';
-  import { defaultStatisticsData } from '../js/utils.js';
+  import { WordsType, defaultStatisticsData } from '../js/utils.js';
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
                    
@@ -72,6 +72,9 @@
 
   setTimeout(() => { setupCategoryToggler() }, 200);
   $collectionData.categoryGroup.categories.forEach((category) => category.active = false);
+  $collectionData.categoryGroup.categories.sort((a, b) => { 
+    return b.getStatistic(WordsType.LEARNING) - a.getStatistic(WordsType.LEARNING)
+  });
 
 
   function goToDetailView() {
