@@ -78,6 +78,8 @@ var cordovaApp = {
         e.preventDefault();
         return false;
       }
+
+      window.navigator.app.exitApp();
     }, false);
   },
   /*
