@@ -9,6 +9,15 @@
     <!-- Title -->
     <div class="page-title">{$_('settings.subtitle')}</div>
     <List class="settings-list">
+      <ListItem>
+        <div>{$_('settings.words_limit')}</div>
+        <Stepper small fill value={$settingsData.wordsLimit} min={10} max={100} step={10}
+            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
+            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
+            on:stepperChange={saveWordLimit}
+        ></Stepper>
+      </ListItem>
+
         <li class="accordion-item">
           <a href="#" class="item-content item-link">
             <div class="item-inner">
@@ -28,6 +37,7 @@
             </div>
           </div>
         </li>
+
       <ListItem>
         <div>
           {$_('settings.auto_sound')}
@@ -38,6 +48,7 @@
           <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
         {/if}
       </ListItem>
+
       <ListItem>
         <div>
           {$_('settings.swiper_transition')}
@@ -70,6 +81,7 @@
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
 
+  let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
@@ -92,6 +104,11 @@
 
   function saveSwiperTransitionSpeed(speed) {
     $settingsData.swiperTransitionSpeed = speed;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveWordLimit() {
+    $settingsData.wordsLimit = wordsLimit;
     DS.saveSettings($settingsData);
   }
 </script>

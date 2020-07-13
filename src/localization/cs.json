@@ -70,8 +70,6 @@
           "write": "Psaní",
           "listen": "Poslech"
       },
-      "words_limit": "Zvolte si počet slov",
-      "words_title": "Limit slov",
       "words": "slov",
       "buttons": {
           "filter_words_normal": "Přidat další slovíčka",
@@ -99,6 +97,7 @@
   },
   "settings": {
       "subtitle": "Nastavení",
+      "words_limit": "Limit učících se slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "swiper_transition": "Animované přechody slov",
       "pronunciation": {

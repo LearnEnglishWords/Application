@@ -45,26 +45,6 @@
         </div>
       {/if}
 
-      <!-- Stepper -->
-      <List class="list-container list-stepper">
-        <ListItem class="list-item" title="{$_('category.words_title')}">
-          <div slot="after"><Stepper
-            min={10}
-            max={100}
-            step={10}
-            value={$settingsData.wordsLimit}
-            autorepeat={true} 
-            autorepeatDynamic={true}
-            small
-            fill
-            on:stepperMinusClick={() => { if(wordsLimit > 10) { wordsLimit -= 10 } }}
-            on:stepperPlusClick={() => { if(wordsLimit < 100) { wordsLimit += 10 } }} 
-            on:stepperChange={saveWordLimit}
-          ></Stepper>
-          </div>
-        </ListItem>
-      </List>
-
       <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
 
       {#if $statisticsData.unknown > 0}
@@ -145,7 +125,6 @@
 
   export let f7router;            
 
-  let wordsLimit = $settingsData.wordsLimit;
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
   let modeType = trainingModes[trainingModeIndex].value;
@@ -189,11 +168,6 @@
     trainingModes[index].checked = true;
   }
 
-  function saveWordLimit() {
-    $settingsData.wordsLimit = wordsLimit;
-    DS.saveSettings($settingsData);
-  }
-
   function setupData(isTraining, currentWordStorage, wordsCount) {
     trainingData.set({ 
       mode: [LearningMode.FILTER, LearningMode.REPETITION].includes(currentLearningMode) ? "read" : modeType, 
@@ -221,7 +195,7 @@
     let isTraining = currentLearningMode === LearningMode.TRAINING && currentLearningMode !== LearningMode.FILTER;  
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
-    let wordsCount = isFiltering ? numberFilteringWords : wordsLimit;
+    let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
 
     f7.preloader.show();
     let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];
