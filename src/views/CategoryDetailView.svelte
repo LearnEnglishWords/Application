@@ -60,36 +60,36 @@
   <!-- Footer -->
   <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
+      {#if $statisticsData.learning > 0}
+        <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
+          <SVGIcon element="navigation" name="book-open-2" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
+        </Col>
+        <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
+          <SVGIcon element="navigation" name="todo" size="16" />
+          <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
+        </Col>
+      {/if}
       {#if ($statisticsData.known - $statisticsData.alreadyKnown) > 0}
       <Col class="ripple mode-{LearningMode.REPETITION} {currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.REPETITION ? currentLearningMode = null : currentLearningMode = LearningMode.REPETITION}>
         <SVGIcon element="navigation" name="reload" size="16" />
         <span>{$_('category.buttons.' + LearningMode.REPETITION)}</span>
       </Col>
       {/if}
-      {#if $statisticsData.learning > 0}
-        <Col class="ripple mode-{LearningMode.EXAM} {currentLearningMode === LearningMode.EXAM ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.EXAM ? currentLearningMode = null : currentLearningMode = LearningMode.EXAM}>
-          <SVGIcon element="navigation" name="todo" size="16" />
-          <span>{$_('category.buttons.' + LearningMode.EXAM)}</span>
-        </Col>
-        <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
-          <SVGIcon element="navigation" name="book-open-2" size="16" />
-          <span>{$_('category.buttons.' + LearningMode.TRAINING)}</span>
-        </Col>
-      {/if}
     </Row>
     <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
-        <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
+        <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
         </p>
         <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
         </p>
-        <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
-          {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
+        <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
