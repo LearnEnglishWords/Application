@@ -14,3 +14,4 @@ export const settingsData = writable({...defaultSettingsData});
 export const modeStatisticsData = writable(null);
 export const statisticsData = writable(null);
 export const deviceUUID = writable(null);
+export const lastCollectionId = writable(null);

@@ -26,7 +26,7 @@
   import cs from '../localization/cs.json';
   import { defaultSettingsData, AppInfo, setActivity, trainingModes, WordsType } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
-  import { settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
+  import { lastCollectionId, settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
 
 
   // internationalization init:
@@ -76,6 +76,9 @@
             DS.saveAppInfo(AppInfo.LAST_ACTIVITY, new Date().getDate()-1);
             setActivity($deviceUUID);
           } 
+        });
+        DS.getAppInfo(AppInfo.LAST_COLLECTION).then((collectionId) => {
+          lastCollectionId.set(collectionId);
         });
         DS.getAppInfo(AppInfo.DOWNLOADED_COLLECTIONS).then((data) => { 
           if (data === null) {

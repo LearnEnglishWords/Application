@@ -6,7 +6,7 @@
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
       {#if active}
-        <ListItem accordionItem title="{title}" text="{shortDescription}">
+        <ListItem accordionItem accordionItemOpened={id === $lastCollectionId} title="{title}" text="{shortDescription}">
           <AccordionContent>
             <Block>
               <p>
@@ -56,6 +56,7 @@
     categoryGroupData,
     categoryDetailData,
     downloadedCollections,
+    lastCollectionId,
     deviceUUID
   } from '../js/store.js';
 
@@ -166,6 +167,8 @@
   function continueButton(collectionId){
     let selectedCollection = $allCollectionsData.find((c) => c.id === collectionId);
     collectionData.set(selectedCollection);
+    DS.saveAppInfo(AppInfo.LAST_COLLECTION, collectionId);
+    lastCollectionId.set(collectionId);
 
     if (coreCollections.includes(selectedCollection.id)) {
       categoryGroupData.set(selectedCollection.categoryGroup);
