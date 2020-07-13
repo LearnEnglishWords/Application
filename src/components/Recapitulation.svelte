@@ -47,15 +47,15 @@
       <span>{$_('recapitulation.column.text')}</span>
       <span>{$_('recapitulation.column.known')}</span>
     </Col>
-    <Col class="all">
-      <span>{info.count}</span>
-      <span>{$_('recapitulation.column.text')}</span>
-      <span>{$_('recapitulation.column.all')}</span>
-    </Col>
     <Col class="unknown">
       <span>{info.unknown}</span>
       <span>{$_('recapitulation.column.text')}</span>
       <span>{$_('recapitulation.column.unknown')}</span>
+    </Col>
+    <Col class="all">
+      <span>{info.count}</span>
+      <span>{$_('recapitulation.column.text')}</span>
+      <span>{$_('recapitulation.column.all')}</span>
     </Col>
   </Row>
 </div>
