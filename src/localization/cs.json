@@ -53,15 +53,55 @@
               "description": "Nejsnadnější a nejzábavnější formou učení se anglických slovíček je skrze seriály, filmy a knihy."
           },
           "personal": {
-              "text": "(Přidejte si vlastní slovíčka)",
-              "description": "Přidávejte si vlastní slovíčka a vytvářejte si své vlastní kategorie slovíček."
+              "title": "Personal",
+              "text": "(Vytvářejte si vlastní seznamy slovíček)",
+              "description": "Přidávejte vlastní slovíčka a vytvářejte si tak své vlastní kategorie slovíček.",
+              "main_category": "Můj seznam slovíček"
+          }
+      }
+  },
+  "category_list": {
+      "new": "Pojmenujte si novou kategorii",
+      "buttons": {
+          "continue": "Pokračovat",
+          "edit": "Upravit",
+          "add": "Přidat kategorii",
+          "cancel": "Zrušit",
+          "confirm": "Potvrdit"
+      }
+  },
+  "category_edit": {
+      "words_list": "Seznam slovíček",
+      "actions": {
+          "remove": {
+              "button_text": "Odstranit",
+              "text": "Opravdu chcete tuto kategorii odstranit? Akci potom nelze vrátit zpět.",
+              "button": {
+                  "cancel": "Ne",
+                  "confirm": "Ano"
+              }
+          },
+          "rename": {
+              "button_text": "Přejmenovat",
+              "text": "Přejmenovat kategorii",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
+          },
+          "add_word": {
+              "text": "Přidat slovíčko",
+              "placeholder": "Zadejte slovíčko",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
           }
       }
   },
   "category": {
       "select_categories": "Vyberte si kategorie",
       "training_title": "Nastavení cvičení:",
-      "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": {
           "title": "Procvičit",
@@ -107,14 +147,10 @@
       }
   },
   "training": {
-      "subtitle": {
-          "trenink": "Trénování slovíček",
-          "testing": "Procvičování slovíček"
-      },
-      "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "sense_title": "Význam slova",
       "description_title": "Příklady použití",
       "listen_title": "Klikněte pro poslechnutí slova",
+      "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "question": {
           "text": "Umíš toto slovíčko?",
           "know": "Znám",

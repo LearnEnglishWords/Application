@@ -199,7 +199,7 @@
     new Collection("student", 'student', false),
     new Collection("native", 'native', false),
     new Collection("media", 'media', false),
-    new Collection("personal", 'personal', false),
+    new Collection(Collections.PERSONAL.id, Collections.PERSONAL.name, true),
   ];
   
   setTimeout(() => { updateWords().then(preloadAllCollections) }, 2000);
