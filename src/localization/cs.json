@@ -1,7 +1,7 @@
 {
   "app_name": "LearnEnglishWords", 
   "collection": {
-      "title": "Vyberte si kolekci slovíček:",
+      "title": "Zvolte kolekci slovíček:",
       "alert": {
           "dependency": "Vyžaduje mít nejdříve staženu {0} kolekci slovíček.",
           "downloading": "Již se stahuje jiná kolekce slovíček. Počkejte než se stáhne a pak můžete začít stahovat tuto."
@@ -60,8 +60,8 @@
       }
   },
   "category": {
-      "select_categories": "Vyberte si kategorie",
-      "training_title": "Nastavení cvičení:",
+      "select_categories": "Vyberte si kategorie:",
+      "training_title": "Zvolte typ cvičení:",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
       "training_mode": {
