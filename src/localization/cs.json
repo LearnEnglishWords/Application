@@ -3,7 +3,7 @@
   "collection": {
       "title": "Vyberte si kolekci slovíček:",
       "alert": {
-          "dependency": "Ještě nemáte staženu {0} kolekci. \nDoporučujeme si nejdříve stáhnout a projít slovíčka této kolekce, než budete pokračovat dále..",
+          "dependency": "Vyžaduje mít nejdříve staženu {0} kolekci slovíček.",
           "downloading": "Již se stahuje jiná kolekce slovíček. Počkejte než se stáhne a pak můžete začít stahovat tuto."
       },
       "update_progress": "Aktualizace slovíček...",
