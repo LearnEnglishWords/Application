@@ -368,7 +368,7 @@ svg {
         height: auto;
         border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius) var(--#{$name}-#{$type}-#{$element}-border-radius) 0 0;
         background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
-        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height)), $right: 0, $bottom: calc(3em + var(--page-button-default-height)), $left: 0);
+        @include position(absolute, $top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top))), $right: 0, $bottom: calc(3em + var(--page-button-default-height)), $left: 0);
       }
     }
 

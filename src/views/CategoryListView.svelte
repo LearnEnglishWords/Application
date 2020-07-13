@@ -3,26 +3,6 @@
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-  <!-- Header -->
-  <div class="header-statistics header-container">
-    <Row class="header-row">
-      <Col class="header-col header-known">
-        <div class="header-count">{globalStatisticsData.known}</div>
-        <div class="header-type">{$_('statistics.known')}</div>
-        <div class="header-subtitle">{$_('statistics.text')}</div>
-      </Col>
-      <Col class="header-col header-learning">
-        <div class="header-count">{globalStatisticsData.learning}</div>
-        <div class="header-type">{$_('statistics.learning')}</div>
-        <div class="header-subtitle">{$_('statistics.text')}</div>
-      </Col>
-      <Col class="header-col header-unknown">
-        <div class="header-count">{globalStatisticsData.unknown}</div>
-        <div class="header-type">{$_('statistics.unknown')}</div>
-        <div class="header-subtitle">{$_('statistics.text')}</div>
-      </Col>
-    </Row>       
-  </div>
   <!-- View -->
   <div class="page-container view">
     <div class="page-wrapper">
