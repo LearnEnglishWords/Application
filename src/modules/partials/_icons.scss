@@ -4,15 +4,6 @@
 
 .icon-24 {
 
-  &-n-edit {
-    polyline {
-      stroke: var(--app-icon);
-    }
-    polygon {
-      stroke: var(--app-secondary);
-    }
-  }
-
   &-left-arrow {
     polyline {
       fill: none;
@@ -409,30 +400,6 @@
     }
     path {
       stroke: var(--app-primary);
-    }
-  }
-
-  &-pen-01 {
-    line, polygon {
-      stroke: var(--app-icon);
-    }
-  }
-
-  &-delete-forever {
-    path, line, polyline {
-      stroke: var(--app-icon);
-    }
-  }
-
-  &-event-confirm {
-    line, path, polyline {
-      stroke: var(--app-icon);
-    }
-  }
-
-  &-e-add {
-    line {
-      stroke: var(--app-icon);
     }
   }
 

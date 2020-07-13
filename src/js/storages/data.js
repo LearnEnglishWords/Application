@@ -1,4 +1,5 @@
 import Validator from '../validator.js'
+import { WordsType } from '../utils.js'
 
 
 export default class DataStorage {
@@ -18,15 +19,6 @@ export default class DataStorage {
     }
     if (collectionId === undefined || categoryId === null) { return }
     return appStorage.setItem(`collection:${collectionId}:category:${categoryId}:type:${type}:word:ids`, words);
-  }
-
-  static removeWordIdsList(collectionId, categoryId, type) {
-    if (!Validator.isWordsType(type)) {
-      alert(`WordIdsList cannot be saved with WordType: '${type}'`)
-      return 
-    }
-    if (collectionId === undefined || categoryId === null) { return }
-    return appStorage.removeItem(`collection:${collectionId}:category:${categoryId}:type:${type}:word:ids`);
   }
 
   static getWordIdsList(collectionId, categoryId, type) {

@@ -65,7 +65,7 @@
         </ListItem>
       </List>
 
-      <!--<Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>-->
+      <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
 
       {#if $statisticsData.unknown > 0}
         {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
@@ -97,7 +97,7 @@
         </Col>
       {/if}
     </Row>
-    <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
+    <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
         <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
@@ -202,6 +202,10 @@
       words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
+  }
+
+  function goToWordListView(isTraining) {
+    f7router.navigate('/WordList');
   }
 
   function checkAndSetActivity() {
