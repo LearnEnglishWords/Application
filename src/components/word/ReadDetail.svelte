@@ -54,6 +54,7 @@
   } from 'framework7-svelte';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import DS from '../../js/storages/data.js';
   import SVGIcon from '../SVGIcon.svelte';
   import Counter from './Counter.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';

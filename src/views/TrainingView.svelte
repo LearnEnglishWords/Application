@@ -100,7 +100,7 @@
     trainingType: $trainingData.type
   };
   let randomModes = {};
-  let wallOpened = true;
+  let wallOpened = canOpenWall();
   let wallSheet;
 
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
