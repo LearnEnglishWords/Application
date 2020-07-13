@@ -28,6 +28,8 @@
   import { appName, appId} from '../js/config.js';
   import { lastCollectionId, settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
 
+  import { _ } from 'svelte-i18n';
+  import { get } from 'svelte/store';
 
   // internationalization init:
   export async function preload() {
@@ -111,6 +113,11 @@
       androidTextColor: "white",
       androidBackgroundColor: "#000000",
       iosBackgroundColor: "#000000",
+    },
+    dialog: {
+      title: get(_)('app_name'),
+      buttonOk: get(_)('dialog.yes'),
+      buttonCancel: get(_)('dialog.no'),
     },
     routes: [
       {

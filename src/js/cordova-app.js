@@ -1,3 +1,6 @@
+import { _ } from 'svelte-i18n';
+import { get } from 'svelte/store';
+
 var cordovaApp = {
   f7: null,
   /*
@@ -79,7 +82,7 @@ var cordovaApp = {
         return false;
       }
 
-      window.navigator.app.exitApp();
+      f7.dialog.confirm(get(_)('exit.text'), get(_)('exit.title'), () => window.navigator.app.exitApp());
     }, false);
   },
   /*

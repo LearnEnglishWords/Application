@@ -1,7 +1,7 @@
 {#if type === "main"}
   <Navbar noShadow class="navbar-main"> 
     <NavLeft>
-      <Link on:click={() => firstPage ? window.navigator.app.exitApp() : f7.sheet.close()} class="back">
+      <Link on:click={() => firstPage ? quit() : f7.sheet.close()} class="back">
         <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
@@ -34,6 +34,7 @@
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';
   import { appName }  from '../js/config.js';
+  import { _ } from 'svelte-i18n';
 
   import SVGIcon from '../components/SVGIcon.svelte';
 
@@ -41,4 +42,8 @@
   export let title = appName;
   export let popupName;
   export let firstPage;
+
+  function quit() {
+    f7.dialog.confirm($_('exit.text'), $_('exit.title'), () => window.navigator.app.exitApp())
+  }
 </script>

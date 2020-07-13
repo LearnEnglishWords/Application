@@ -1,5 +1,13 @@
 {
   "app_name": "LearnEnglishWords", 
+  "exit": {
+      "title": "Konec",
+      "text": "Opravdu si přejete aplikaci vypnout?"
+  },
+  "dialog": {
+      "yes": "Ano",
+      "no": "Ne"
+  },
   "collection": {
       "title": "Zvolte kolekci slovíček:",
       "alert": {
