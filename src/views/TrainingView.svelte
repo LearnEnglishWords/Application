@@ -1,7 +1,9 @@
 <Page name="Training">
   <!-- Navbar -->
   <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
+    <div class="navbar-title title" slot="title">
+      {$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""} 
+    </div>
   </Header>
   <!-- View -->
   {#if !showRecapitulation}

@@ -164,7 +164,7 @@
   },
   "recapitulation": {
       "exam": {
-          "title": "Zkoušení:",
+          "title": "Zkoušení",
           "info_text": {
               "read": "Už umíte přečíst a poznat celkem",
               "write": "Už umíte napsat celkem",
@@ -178,18 +178,18 @@
           "info_text_known3": "Ty si můžete opětovně projít skrze opakování, aby jste je náhodou nezapomněli."
       },
       "repetition": {
-          "title": "Opakování:",
+          "title": "Opakování",
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov.",
           "info_text_description": "Daná slovíčka se tedy aktualizovala že je neumíte a budete se je muset opět zase naučit."
       },
       "training": {
-          "title": "Procvičování:",
+          "title": "Procvičování",
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov."
       },
       "filter": {
-          "title": "Úvodní projití slovíček:",
+          "title": "Přidání dalších slovíček",
           "info_text": "Máte dobře celkem",
           "info_text_end": "slov.",
           "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat."
