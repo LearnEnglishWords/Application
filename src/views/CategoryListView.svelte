@@ -58,14 +58,13 @@
 
 
   function goToDetailView() {
-    if (selectedCategories.length > 0) {
-      let categoryGroup = new CategoryGroup(collectionData.id, selectedCategories, true);
+    let categories = selectedCategories.length > 0 ? selectedCategories : $collectionData.categoryGroup.categories
+    let categoryGroup = new CategoryGroup(collectionData.id, categories, true);
 
-      categoryGroupData.set(categoryGroup);
-      categoryDetailData.set(categoryGroup.mainCategory);
+    categoryGroupData.set(categoryGroup);
+    categoryDetailData.set(categoryGroup.mainCategory);
 
-      f7router.navigate('/CategoryDetail');
-    }
+    f7router.navigate('/CategoryDetail');
   }
 
   function toggleCategory(category) {
