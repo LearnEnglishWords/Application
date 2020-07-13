@@ -89,7 +89,7 @@
           },
           "exam": {
               "text1": "Slouží k otestování, zda naučená slovíčka z procvičování již opravdu umíte a pamatujete si je.",
-              "text2": "Výsledky se započítávají do statistik a známá slovíčka se zde v již znovu nezobrazí."
+              "text2": "Výsledky se započítávají do statistik a známá slovíčka se zde již znovu nezobrazí."
           },
           "training": {
               "text1": "Slouží k učení a procvičování slovíček nanečisto.",
@@ -108,7 +108,7 @@
       }
   },
   "training": {
-      "sense_title": "Význam slova",
+      "sense_title": "Významy slova",
       "description_title": "Příklady použití",
       "listen_title": "Klikněte pro poslechnutí slova",
       "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
