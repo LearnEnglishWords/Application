@@ -20,7 +20,7 @@
               {:else if downloadingCollectionId === id && counter > 0}
                 <Button fill style="background-color: var(--app-warning)">{$_('collection.button.downloading')}</Button>
               {:else}
-                <Button fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')}</Button>
+                <Button fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')} ({$_('collection.button.download_size')})</Button>
               {/if}
             </Block>
           </AccordionContent>

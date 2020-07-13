@@ -11,8 +11,9 @@
           "continue": "Pokračovat",
           "loading": "Načítání...",
           "download": "Stáhnout",
-          "preparing": "Příprava...",
-          "downloading": "Stahování..."
+          "download_size": "max. 1MB",
+          "preparing": "Stahování...",
+          "downloading": "Ukládání a tvorba datové struktury"
       },
       "items": {
           "main_category_default": "Všechna slovíčka",
