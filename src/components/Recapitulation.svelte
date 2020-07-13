@@ -6,7 +6,7 @@
     {/if}
   </div>
   <div class="score">
-    {#if info.trainingType !== 'filter'}
+    {#if info.trainingType !== LearningMode.FILTER && info.trainingType !== LearningMode.TRAINING}
       {#if successInPercent > 80}
       <div data-stars="5">
         <SVGIcon name="happy-sun" size="32"/><span>{$_('recapitulation.score.5')}</span>
@@ -30,7 +30,13 @@
       {/if}
     {:else}
       <div data-stars="4">
-        <SVGIcon name="wink-06" size="32"/><span>{$_('recapitulation.score.neutral')}</span>
+        <span>
+          {$_('recapitulation.score.neutral')} <br/>
+          {#if info.trainingType === LearningMode.TRAINING}
+            {$_('recapitulation.success')} {successInPercent}% 
+          {/if}
+        </span>
+
       </div>
     {/if}
   </div>
@@ -74,7 +80,9 @@
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
 {:else if info.trainingType === 'filter'}
+  <!--
   <p class="recapitulation-text"> {$_('recapitulation.filter.info_text')} <span>{info.known}</span> {$_('recapitulation.filter.info_text_end')} </p>
+  -->
   <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
 {/if}
 
@@ -93,7 +101,7 @@
   } from 'framework7-svelte';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
-  import { trainingModes } from '../js/utils.js';
+  import { trainingModes, LearningMode } from '../js/utils.js';
   import { _ } from 'svelte-i18n';
 
   export let info;
