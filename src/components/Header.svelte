@@ -1,7 +1,7 @@
 {#if type === "main"}
   <Navbar noShadow class="navbar-main"> 
     <NavLeft>
-      <Link on:click={() => f7.sheet.close()} class="back">
+      <Link on:click={() => firstPage ? window.navigator.app.exitApp() : f7.sheet.close()} class="back">
         <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
@@ -40,4 +40,5 @@
   export let type = "main";
   export let title = appName;
   export let popupName;
+  export let firstPage;
 </script>
