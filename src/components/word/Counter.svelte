@@ -1,9 +1,5 @@
 <div class="page-title">{$_('training.sense_title')}
-  {#if $trainingData.type === LearningMode.FILTER}
-    <span>{$statisticsData.learning}/{$settingsData.wordsLimit}</span>
-  {:else}
-    <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
-  {/if}
+  <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
 </div>
 
 
