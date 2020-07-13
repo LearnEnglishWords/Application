@@ -29,7 +29,7 @@
 
       {#if $trainingData.mode === "read"}
         <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={!isTraining ? wallOpened : $settingsData.enableTrainingModeWall}>
-          <div class="wrapper-mode">
+          <div class="wrapper-mode" on:click={() => { wallOpened = false; wallSheet.instance().close(true) }}>
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
           </div>
