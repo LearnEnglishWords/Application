@@ -26,25 +26,6 @@
   <!-- View -->
   <div class="page-container view" on:click={() => currentLearningMode = null}>
     <div class="page-wrapper">
-      <!-- Title -->
-      <div class="page-title">{$_('category.training_title')}</div>
-      {#if $statisticsData.learning > 0}
-        <!-- Mode -->
-        <div class="page-mode">
-          {#each trainingModes as {value, checked, icon}, id}
-            <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
-              <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
-              <SVGIcon element="mode" name="{icon}" size="24" />
-              <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
-
-              <div class="mode-statistics">
-                <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
-              </div>
-            </div>
-          {/each}
-        </div>
-      {/if}
-
       <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
 
       {#if $statisticsData.unknown > 0}
@@ -91,6 +72,22 @@
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
+              <!-- Title -->
+      <div class="page-title">{$_('category.training_title')}</div>
+        <!-- Mode -->
+        <div class="page-mode">
+          {#each trainingModes as {value, checked, icon}, id}
+            <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
+              <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
+              <SVGIcon element="mode" name="{icon}" size="24" />
+              <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+
+              <div class="mode-statistics">
+                <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
+              </div>
+            </div>
+          {/each}
+        </div>
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
