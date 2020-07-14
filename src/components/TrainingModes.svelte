@@ -1,4 +1,4 @@
-<div class="page-mode">
+<div class="page-mode {active ? "active" : ""}">
   {#each trainingModes as {value, checked, icon}, id}
     <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
       <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
@@ -21,6 +21,7 @@
 
   export let modeType;
   export let statistics;
+  export let active;
 
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  
