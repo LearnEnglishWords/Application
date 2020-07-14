@@ -102,6 +102,11 @@ export function shuffle(array) {
   return array;
 }
 
+export function deduplicate(array) {
+  return array.filter((item, index) => array.indexOf(item) === index)
+}
+
+
 export const WordsType = {
     ALL: 'all',
     ALREADY_KNOWN: 'already_known',

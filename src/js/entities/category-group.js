@@ -1,4 +1,5 @@
 import Category from '../entities/category.js';
+import { deduplicate } from '../utils.js';
 
 
 export default class CategoryGroup {
@@ -31,9 +32,9 @@ export default class CategoryGroup {
         let categoryWordIds = category.wordStorages[mode].getWordIds();
 
         if (withZip) {
-          this.mainCategory.wordStorages[mode].setWordIds(index === 0 ? categoryWordIds : this._zip(thisWordIds, categoryWordIds, index));
+          this.mainCategory.wordStorages[mode].setWordIds(index === 0 ? categoryWordIds : deduplicate(this._zip(thisWordIds, categoryWordIds, index)));
         } else {
-          this.mainCategory.wordStorages[mode].setWordIds(thisWordIds.concat(categoryWordIds));
+          this.mainCategory.wordStorages[mode].setWordIds(deduplicate(thisWordIds.concat(categoryWordIds)));
         }
       });
     });
