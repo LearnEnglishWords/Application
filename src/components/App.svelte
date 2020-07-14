@@ -91,6 +91,7 @@
             if (data.findIndex((colId) => colId === Collections.PERSONAL.id) === -1) {
               collectionStorage.createPersonalCollection();
               data.push(Collections.PERSONAL.id);
+              DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, data);
             } 
             downloadedCollections.set(data);
           }
