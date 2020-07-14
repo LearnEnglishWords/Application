@@ -39,7 +39,7 @@
   </div>
 
   <!-- Footer -->
-  <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
+  <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
       {#if $statisticsData.learning > 0}
         <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
@@ -60,6 +60,8 @@
     </Row>
     <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
       <Col>
+        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
+        <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
         <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
@@ -72,11 +74,14 @@
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
-        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
-        <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
   </div>
+  {#if currentLearningMode === null}
+    <Button class="start-button" on:click={goToTrainingView}>Přidat další slovíčka</Button>
+  {:else}
+    <Button class="start-button {currentLearningMode !== null ? currentLearningMode : ''}" on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
+  {/if}
 </Page>
 
 <script>

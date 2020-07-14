@@ -490,10 +490,17 @@ svg {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 0 1em 1em;
+    opacity: 0;
+    height: 0;
+    transition: all 350ms ease-in-out;
+    margin: 1.75em 1em 1em;
+    &.active {
+      height: 150px;
+      opacity: 1;
+    }
     
     .#{$type}-radio {$element: "radio";
-      background-color: var(--#{$name}-#{$type}-#{$element}-background-color);
+      background-color: var(--app-element);
       border-radius: var(--#{$name}-#{$type}-#{$element}-border-radius);
       width: calc(100% / 3);
       padding: 1em;
@@ -690,6 +697,7 @@ svg {
 }
 .page-title span {
   float: right;
+  color: var(--app-icon);
 
 }
 
@@ -1360,7 +1368,7 @@ input:focus::placeholder {
         }
         span {
           color: white;
-          font-size: 16px;
+          font-size: 20px;
           margin-top: 0.5em;
           display: block;
           font-weight: 600;
@@ -1456,4 +1464,117 @@ input:focus::placeholder {
   left: 1em;
   right: 1em;
   margin: 0;
+}
+
+.detail-nav {
+  top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + 210px - 5em);
+  display: flex;
+  flex-direction: column;
+  &.activated {
+    .row {
+      &:nth-child(2) {
+        background: white;
+      }
+    }
+  }
+  .row {
+    &:nth-child(2) {
+      flex: 1;
+      background: var(--app-element);
+      transition: all 350ms ease-in-out;
+    }
+  }
+}
+
+.exam-row {
+  top: 58px;
+  bottom: 0;
+  height: auto;
+}
+
+.start-button {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  right: 1em;
+  color: white;
+  z-index: 9999999;
+  background: var(--app-secondary);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  height: 42px;
+  line-height: 42px;
+  box-shadow: 0 0 0.25em var(--app-secondary);
+  @extend %-pattern;
+  &.training {
+    background: var(--app-secondary);
+    box-shadow: 0 0 0.25em var(--app-secondary);
+  }
+  &.exam {
+    background: var(--app-error);
+    box-shadow: 0 0 0.25em var(--app-error);
+  }
+  &.repetition {
+    background: var(--app-warning);
+    box-shadow: 0 0 0.25em var(--app-warning);
+  }
+}
+
+.button-collection {
+  font-weight: 600;
+  span {
+    font-weight: 400;
+    font-size: 12px;
+  }
+}
+
+.separator-modes {
+  background-color: var(--app-secondary);
+  margin: 2em auto 0;
+  width: 45px;
+  height: 0;
+  transition: all 350ms ease-in-out;
+  opacity: 0;
+  border-radius: 10px;
+  &.visible {
+    height: 3px;
+    opacity: 1;
+  }
+}
+
+.list-pronunciation {
+  ul {
+    &::after {
+      content: none;
+    }    
+  }
+  li {
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    &:first-child {
+      border-radius: 10px 10px 0 0 !important;
+      .list-item {
+        border-radius: 10px 10px 0 0 !important;
+      }
+    }
+    &:last-child {
+      border-radius: 0 0 10px 10px !important;
+      &::after {
+        content: none;
+      }
+      .list-item {
+        border-radius: 0 0 10px 10px !important;
+      }
+    }
+    &:only-of-type {
+      border-radius: 10px !important;
+      &::after {
+        content: none;
+      }
+      .list-item {
+        border-radius: 10px !important;
+      }
+    }
+  }
 }
