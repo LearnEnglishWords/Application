@@ -26,7 +26,7 @@
         <span>{$_('category_edit.actions.rename.button_text')}</span>
       </Col>
     </Row>
-    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => { changeDialog(ActiveCategoryDialog.ADD_WORD); setTimeout(() => { document.getElementById(`add-word-input`).focus() }, 500) }}>
+    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => { changeDialog(ActiveCategoryDialog.ADD_WORD); document.getElementById(`add-word-input`).focus() }}>
       <SVGIcon element="navigation" name="e-add" size="16" />
     </div>
     <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
