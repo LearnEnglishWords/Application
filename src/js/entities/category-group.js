@@ -56,18 +56,11 @@ export default class CategoryGroup {
 
   _zip(arr1, arr2, s = 1) {
     let array = [];
-    let arrLength = 0;
-    if (arr1.length > arr2.length*s) {
-      arrLength = arr1.length;
-    } else {
-      arrLength = arr2.length*s;
-    }
-
-    for (let i = 0; i < arrLength; i++) {
+    for (let i = 0; i < arr1.length + arr2.length*s; i++) {
       if (arr1.length > i) {
         array.push(arr1[i]);
       }
-      if (arr2.length > i && i % s === 0) {
+      if (arr2.length > i/s && i % s === 0) {
         array.push(arr2[i/s]);
       }
     }
