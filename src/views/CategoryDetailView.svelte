@@ -26,7 +26,7 @@
   <!-- View -->
   <div class="page-container view" on:click={() => currentLearningMode = null}>
     <div class="page-wrapper">
-      <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
+      <!--<Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>-->
 
       {#if $statisticsData.unknown > 0}
         {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
@@ -144,10 +144,6 @@
       words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
-  }
-
-  function goToWordListView(isTraining) {
-    f7router.navigate('/WordList');
   }
 
   function checkAndSetActivity() {
