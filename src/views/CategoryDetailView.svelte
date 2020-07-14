@@ -72,9 +72,7 @@
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
-
         <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} />
-
         <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
       </Col>
     </Row>
