@@ -36,7 +36,7 @@
           {/if}
           <span class="done-text">{$_('recapitulation.score.neutral')}</span>
           {#if info.trainingType === LearningMode.TRAINING}
-            {$_('recapitulation.success')} {successInPercent}% 
+            <span class="percent-text">{$_('recapitulation.success')} {successInPercent}%</span> 
           {/if}
         </span>
       </div>
