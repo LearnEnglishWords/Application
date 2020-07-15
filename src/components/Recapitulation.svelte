@@ -34,7 +34,7 @@
           {#if info.trainingType === LearningMode.FILTER}
             <SVGIcon name="wink-06" size="32"/>
           {/if}
-          <span>{$_('recapitulation.score.neutral')}</span>
+          <span class="done-text">{$_('recapitulation.score.neutral')}</span>
           {#if info.trainingType === LearningMode.TRAINING}
             {$_('recapitulation.success')} {successInPercent}% 
           {/if}
