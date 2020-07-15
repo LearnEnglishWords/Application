@@ -78,7 +78,7 @@
     </Row>
   </div>
   {#if currentLearningMode === null}
-    <Button class="start-button" on:click={goToTrainingView}>Přidat další slovíčka</Button>
+    <Button class="start-button" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
   {:else}
     <Button class="start-button {currentLearningMode !== null ? currentLearningMode : ''}" on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
   {/if}
