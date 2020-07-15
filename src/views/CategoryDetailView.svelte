@@ -113,7 +113,7 @@
 
   export let f7router;            
 
-  let currentLearningMode = null;
+  let currentLearningMode = LearningMode.TRAINING;
   let modeType = null;
 
   $categoryDetailData.loadWords("learning"); 
