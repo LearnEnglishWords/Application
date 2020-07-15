@@ -134,14 +134,13 @@
   let currentLearningMode = getDefaultLearningMode();
   let modeType = null;
 
-
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
   //  currentLearningMode = LearningMode.FILTER;
   //  goToTrainingView();
   //}
 
-  function getDefaultLearningMode() {
-    return $statisticsData.learning === 0 ? null : LearningMode.TRAINING
+  function getDefaultLearningMode(learningMode = LearningMode.TRAINING) {
+    return $statisticsData.learning === 0 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
   }
 
   function setupModeStatistics() {
@@ -186,7 +185,7 @@
       setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
-      setTimeout(() => currentLearningMode = getDefaultLearningMode(), 1000);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
 
       f7router.navigate('/Training');
     } else {
