@@ -124,9 +124,6 @@
 
   export let f7router;            
 
-  let currentLearningMode = LearningMode.TRAINING;
-  let modeType = null;
-
   $categoryDetailData.loadWords("learning"); 
   $categoryDetailData.loadWords("unknown"); 
   $categoryDetailData.loadWords("known"); 
@@ -134,11 +131,18 @@
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();
 
+  let currentLearningMode = getDefaultLearningMode();
+  let modeType = null;
+
 
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
   //  currentLearningMode = LearningMode.FILTER;
   //  goToTrainingView();
   //}
+
+  function getDefaultLearningMode() {
+    return $statisticsData.learning === 0 ? null : LearningMode.TRAINING
+  }
 
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
@@ -182,7 +186,7 @@
       setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
-      setTimeout(() => currentLearningMode = null, 1000);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(), 1000);
 
       f7router.navigate('/Training');
     } else {
