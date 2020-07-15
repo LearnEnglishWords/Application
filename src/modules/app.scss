@@ -697,8 +697,17 @@ svg {
 }
 .page-title span {
   float: right;
-  color: var(--app-icon);
+  color: #989a9c;
 
+}
+
+.done-text {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.percent-text {
+  margin-bottom: 0.5em;
 }
 
 .sheet-modal {

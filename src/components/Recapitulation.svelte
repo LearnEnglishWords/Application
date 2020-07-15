@@ -31,12 +31,14 @@
     {:else}
       <div data-stars="4">
         <span>
-          {$_('recapitulation.score.neutral')} <br/>
+          {#if info.trainingType === LearningMode.FILTER}
+            <SVGIcon name="wink-06" size="32"/>
+          {/if}
+          <span class="done-text">{$_('recapitulation.score.neutral')}</span>
           {#if info.trainingType === LearningMode.TRAINING}
-            {$_('recapitulation.success')} {successInPercent}% 
+            <span class="percent-text">{$_('recapitulation.success')} {successInPercent}%</span> 
           {/if}
         </span>
-
       </div>
     {/if}
   </div>
