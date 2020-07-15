@@ -26,26 +26,7 @@
   <!-- View -->
   <div class="page-container view" on:click={() => currentLearningMode = null}>
     <div class="page-wrapper">
-      <!-- Title -->
-      <div class="page-title">{$_('category.training_title')}</div>
-      {#if $statisticsData.learning > 0}
-        <!-- Mode -->
-        <div class="page-mode">
-          {#each trainingModes as {value, checked, icon}, id}
-            <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
-              <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
-              <SVGIcon element="mode" name="{icon}" size="24" />
-              <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
-
-              <div class="mode-statistics">
-                <Statistics simple withoutLearning statistic={$modeStatisticsData[value]} />
-              </div>
-            </div>
-          {/each}
-        </div>
-      {/if}
-
-      <!--<Button class="page-button button-show" on:click={goToWordListView}>{$_('category.buttons.words_list')}</Button>-->
+      <!--<Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>-->
 
       {#if $statisticsData.unknown > 0}
         {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
@@ -58,7 +39,7 @@
   </div>
 
   <!-- Footer -->
-  <div class="bottom-navigation {currentLearningMode !== null ? 'activated' : ''}">
+  <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''}">
     <Row>
       {#if $statisticsData.learning > 0}
         <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
@@ -77,24 +58,40 @@
       </Col>
       {/if}
     </Row>
-    <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
-      <Col>
-        <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
-          {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
-        </p>
-        <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
-          {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
-        </p>
-        <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
-          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
-        </p>
-        <Button on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
-      </Col>
-    </Row>
+    {#if currentLearningMode !== null}
+      <div transition:slide="{{ delay: 0, duration: 500 }}">
+        <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
+          <Col>
+            <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
+            <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
+            <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
+              {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
+              {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
+            </p>
+            <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
+              {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
+              {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
+            </p>
+            <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
+              {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
+              {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
+            </p>
+          </Col>
+        </Row>
+      </div>
+    {:else}
+      <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
+        <Col>
+        </Col>
+      </Row>
+    {/if}
   </div>
+
+  {#if currentLearningMode === null}
+    <Button class="start-button" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
+  {:else}
+    <Button class="start-button {currentLearningMode !== null ? currentLearningMode : ''}" on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
+  {/if}
 </Page>
 
 <script>
@@ -114,28 +111,18 @@
     statisticsData, modeStatisticsData
   } from '../js/store.js';
 
+  import { slide } from 'svelte/transition';
   import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import { numberFilteringWords } from '../js/config.js';
   import Statistics from '../components/Statistics.svelte';
+  import TrainingModes from '../components/TrainingModes.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
 
   export let f7router;            
-
-  let trainingModes = defaultTrainingModes;
-  let trainingModeIndex = 0;  
-  let modeType = trainingModes[trainingModeIndex].value;
-  let currentLearningMode = null;
-
-  trainingModes.forEach((mode, index) => {
-    if (mode.checked) {
-      trainingModeIndex = index; 
-      modeType = mode.value;
-    }
-  });
 
   $categoryDetailData.loadWords("learning"); 
   $categoryDetailData.loadWords("unknown"); 
@@ -144,11 +131,17 @@
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();
 
+  let currentLearningMode = getDefaultLearningMode();
+  let modeType = null;
 
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
   //  currentLearningMode = LearningMode.FILTER;
   //  goToTrainingView();
   //}
+
+  function getDefaultLearningMode(learningMode = LearningMode.TRAINING) {
+    return $statisticsData.learning === 0 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
+  }
 
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
@@ -160,14 +153,6 @@
     }
   }
 
-  function changeTrainingMode(index) {
-    trainingModeIndex = index;
-    modeType = trainingModes[index].value;
-
-    trainingModes.forEach((mode) => mode.checked = false);
-    trainingModes[index].checked = true;
-  }
-
   function setupData(isTraining, currentWordStorage, wordsCount) {
     trainingData.set({ 
       mode: [LearningMode.FILTER, LearningMode.REPETITION].includes(currentLearningMode) ? "read" : modeType, 
@@ -176,10 +161,6 @@
       words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
-  }
-
-  function goToWordListView(isTraining) {
-    f7router.navigate('/WordList');
   }
 
   function checkAndSetActivity() {
@@ -204,7 +185,7 @@
       setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
-      setTimeout(() => currentLearningMode = null, 1000);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
 
       f7router.navigate('/Training');
     } else {

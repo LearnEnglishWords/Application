@@ -17,7 +17,7 @@
 {/if}
 
 <!-- Sense -->
-<List class="list-container list-categories">
+<List class="list-container list-categories list-pronunciation">
   {#each word.sense.slice(0,4) as sense, id}
     <ListItem class="list-item" title={sense.toLowerCase()}>
       <div slot="media" class="item-media">

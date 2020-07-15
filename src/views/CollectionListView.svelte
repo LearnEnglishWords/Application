@@ -14,13 +14,13 @@
               </p>
               <p id="collection-loader-{id}"></p>
               {#if $downloadedCollections.includes(id)}
-                <Button fill on:click={ () => continueButton(id) } style="background-color: var(--app-success)">{$_('collection.button.continue')}</Button>
+                <Button class="button-collection" fill on:click={ () => continueButton(id) } style="background-color: var(--app-success)">{$_('collection.button.continue')}</Button>
               {:else if downloadingCollectionId === id && counter === 0}
-                <Button fill style="background-color: var(--app-warning)">{$_('collection.button.preparing')}</Button>
+                <Button class="button-collection" fill style="background-color: var(--app-warning)">{$_('collection.button.preparing')}</Button>
               {:else if downloadingCollectionId === id && counter > 0}
-                <Button fill style="background-color: var(--app-warning)">{$_('collection.button.downloading')}</Button>
+                <Button class="button-collection" fill style="background-color: var(--app-warning)">{$_('collection.button.downloading')}</Button>
               {:else}
-                <Button fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')} ({$_('collection.button.download_size')})</Button>
+                <Button class="button-collection" fill on:click={ () => download(id) } style="background-color: var(--app-error)">{$_('collection.button.download')} <span>({$_('collection.button.download_size')})</span></Button>
               {/if}
             </Block>
           </AccordionContent>
