@@ -12,9 +12,11 @@
   <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
 </div>
 
-{#if learnType !== undefined}
-  <Counter />
-{/if}
+<div class="page-title">{$_('training.sense_title')}
+  {#if learnType !== undefined}
+    <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
+  {/if}
+</div>
 
 <!-- Sense -->
 <List class="list-container list-categories list-pronunciation">
@@ -56,9 +58,8 @@
   import { _ } from 'svelte-i18n';
   import DS from '../../js/storages/data.js';
   import SVGIcon from '../SVGIcon.svelte';
-  import Counter from './Counter.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
-  import { settingsData } from '../../js/store.js';
+  import { trainingData, statisticsData, settingsData } from '../../js/store.js';
 
   export let word;
   export let mode;

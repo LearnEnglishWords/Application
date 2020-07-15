@@ -21,7 +21,10 @@
     </div>
   </div>
 </div>
-<Counter />
+
+<div class="page-title">
+  <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
+</div>
 
 <div class="content-mode">
   <div class="other-div">
@@ -54,9 +57,8 @@
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
   import SVGIcon from '../SVGIcon.svelte';
-  import Counter from './Counter.svelte';
-  import { playTextSound } from '../../js/utils.js';
-  import { settingsData } from '../../js/store.js';
+  import { playTextSound, LearningMode } from '../../js/utils.js';
+  import { trainingData, statisticsData, settingsData } from '../../js/store.js';
 
   export let word;
   export let mode;
