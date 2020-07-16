@@ -4,7 +4,7 @@ import { backendUrl, backendApiUrl} from './config.js';
 
 export const defaultSettingsData = {
   "enableDarkMode": false,
-  "wordsLimit": 20,
+  "wordsLimit": 10,
   "pronunciation": "uk",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
