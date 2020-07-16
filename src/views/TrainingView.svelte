@@ -202,7 +202,7 @@
   }
 
   function nextWord() {
-    if ($trainingData.words.length === $trainingData.currentWordIndex + 1 || ($settingsData.wordsLimit === $statisticsData.learning && $trainingData.type === LearningMode.FILTER)) {
+    if ($trainingData.words.length === $trainingData.currentWordIndex + 1 || ($settingsData.wordsLimit <= $statisticsData.learning && $trainingData.type === LearningMode.FILTER)) {
       if ($trainingData.type === LearningMode.FILTER) {
         recapitulationInfo.count = $trainingData.currentWordIndex + 1;
       }

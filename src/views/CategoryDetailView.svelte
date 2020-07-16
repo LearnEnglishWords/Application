@@ -122,7 +122,7 @@
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();
 
-  let currentLearningMode = getDefaultLearningMode();
+  let currentLearningMode = getDefaultLearningMode(LearningMode.TRAINING);
   let modeType = null;
 
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
@@ -130,8 +130,8 @@
   //  goToTrainingView();
   //}
 
-  function getDefaultLearningMode(learningMode = LearningMode.TRAINING) {
-    return $statisticsData.learning === 0 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
+  function getDefaultLearningMode(learningMode = null) {
+    return $statisticsData.learning <= 5 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
   }
 
   function setupModeStatistics() {
