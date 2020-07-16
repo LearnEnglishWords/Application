@@ -41,7 +41,7 @@
 
   <!-- Footer -->
   <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''}">
-    <Row>
+    <Row noGap>
       {#if $statisticsData.learning > 0}
         <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
           <SVGIcon element="navigation" name="book-open-2" size="16" />
@@ -59,33 +59,24 @@
       </Col>
       {/if}
     </Row>
-    {#if currentLearningMode !== null}
-      <div transition:slide="{{ delay: 0, duration: 500 }}">
-        <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
-          <Col>
-            <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
-            <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
-            <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
-              {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
-              {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
-            </p>
-            <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
-              {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
-              {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
-            </p>
-            <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
-              {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
-              {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
-            </p>
-          </Col>
-        </Row>
-      </div>
-    {:else}
-      <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
-        <Col>
-        </Col>
-      </Row>
-    {/if}
+    <Row class="second nav-content {currentLearningMode !== null ? "active " + currentLearningMode : ''}">
+      <Col>
+        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
+        <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
+        <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
+        </p>
+        <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
+        </p>
+        <p class="{currentLearningMode === LearningMode.REPETITION ? 'selected' : ''}">
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
+          {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
+        </p>
+      </Col>
+    </Row>
   </div>
 
   {#if currentLearningMode === null}
@@ -112,7 +103,6 @@
     statisticsData, modeStatisticsData
   } from '../js/store.js';
 
-  import { slide } from 'svelte/transition';
   import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import { numberFilteringWords } from '../js/config.js';

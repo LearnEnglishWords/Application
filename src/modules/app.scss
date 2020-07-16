@@ -1478,6 +1478,7 @@ input:focus::placeholder {
 .detail-nav {
   top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height));
   display: flex;
+  background: var(--app-element);
   flex-direction: column;
   &.activated {
     .row {
@@ -1487,16 +1488,32 @@ input:focus::placeholder {
     }
   }
   .row {
+    &:nth-child(1) {
+      z-index: 99999999999;
+      border-top: 0;
+      border-bottom: 1px solid var(--app-border);
+    }
     &:nth-child(2) {
       flex: 1;
+      border-top: 0;
       background: var(--app-element);
       transition: all 350ms ease-in-out;
     }
     &.second {
+      bottom: calc(100vh - (var(--f7-navbar-height) - var(--f7-safe-area-top) - var(--header-statistics-container-height) - 58px - (42px - 2em)));
       position: absolute;
-      top: 58px;
-      bottom: calc(2em + 42px);
+      transition: all 350ms ease-in-out;
+      padding-bottom: 0;
       overflow: auto;
+      bottom: 0;
+      background: transparent;
+      top: 0;
+      &.active {
+        top: 58px;
+        bottom: 0;
+        background: white;
+        padding-bottom: calc(2em + 42px);
+      }
       .col {
         padding: 0;
       }
