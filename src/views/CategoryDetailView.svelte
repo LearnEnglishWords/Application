@@ -40,7 +40,7 @@
   </div>
 
   <!-- Footer -->
-  <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''}">
+  <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''} {$statisticsData.learning === 0 ? 'inactive' : ''}">
     <Row noGap>
       {#if $statisticsData.learning > 0}
         <Col class="ripple mode-{LearningMode.TRAINING} {currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}" on:click={() => currentLearningMode === LearningMode.TRAINING ? currentLearningMode = null : currentLearningMode = LearningMode.TRAINING}>
