@@ -60,7 +60,6 @@
       {/if}
     </Row>
     {#if currentLearningMode !== null}
-      <div transition:slide="{{ delay: 0, duration: 500 }}">
         <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
           <Col>
             <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
@@ -79,7 +78,6 @@
             </p>
           </Col>
         </Row>
-      </div>
     {:else}
       <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
         <Col>
@@ -112,7 +110,6 @@
     statisticsData, modeStatisticsData
   } from '../js/store.js';
 
-  import { slide } from 'svelte/transition';
   import { trainingModes as defaultTrainingModes, WordsType, LearningMode, AppInfo, setActivity, getDefaultModeStatisticsData } from '../js/utils.js'
   import WordsStorage from '../js/storages/words.js';
   import { numberFilteringWords } from '../js/config.js';
