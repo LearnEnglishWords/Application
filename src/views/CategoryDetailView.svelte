@@ -61,7 +61,7 @@
     </Row>
     {#if currentLearningMode !== null}
       <div transition:slide="{{ delay: 0, duration: 500 }}">
-        <Row class="{currentLearningMode !== null ? currentLearningMode : ''}">
+        <Row class="second {currentLearningMode !== null ? currentLearningMode : ''}">
           <Col>
             <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
             <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>

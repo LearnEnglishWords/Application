@@ -493,7 +493,7 @@ svg {
     opacity: 0;
     height: 0;
     transition: all 350ms ease-in-out;
-    margin: 1.75em 1em 1em;
+    margin: 1em;
     &.active {
       height: 150px;
       opacity: 1;
@@ -1476,7 +1476,7 @@ input:focus::placeholder {
 }
 
 .detail-nav {
-  top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + 210px - 5em);
+  top: calc((var(--f7-navbar-height) + var(--f7-safe-area-top)) + var(--header-statistics-container-height));
   display: flex;
   flex-direction: column;
   &.activated {
@@ -1491,6 +1491,15 @@ input:focus::placeholder {
       flex: 1;
       background: var(--app-element);
       transition: all 350ms ease-in-out;
+    }
+    &.second {
+      position: absolute;
+      top: 58px;
+      bottom: calc(2em + 42px);
+      overflow: auto;
+      .col {
+        padding: 0;
+      }
     }
   }
 }
@@ -1540,7 +1549,7 @@ input:focus::placeholder {
 
 .separator-modes {
   background-color: var(--app-secondary);
-  margin: 2em auto 0;
+  margin: 0 auto 0;
   width: 45px;
   height: 0;
   transition: all 350ms ease-in-out;
