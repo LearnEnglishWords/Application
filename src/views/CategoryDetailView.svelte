@@ -61,7 +61,7 @@
     </Row>
     <Row class="second nav-content {currentLearningMode !== null ? "active " + currentLearningMode : ''}">
       <Col>
-        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null} />
+        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null && currentLearningMode !== LearningMode.REPETITION} />
         <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
         <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
