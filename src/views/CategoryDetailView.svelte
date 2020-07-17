@@ -79,6 +79,17 @@
     </Row>
   </div>
 
+  <!-- Potrebuju tady tento text zobrazovat ve chvili, 
+        kdy zrovna neni aktivni zadny Learning Mode a 
+        je videt pouze tlacitko pro pridani novych slovicek:
+
+        <p>{$_(`category.info.text_intro`)}</p>
+        <p>{$_(`category.info.text_stats_unknown`)}</p>
+        <p>{$_(`category.info.text_stats_learning`)}</p>
+        <p>{$_(`category.info.text_stats_known`)}</p>
+        <p>{$_(`category.info.text_filter`)}</p>
+  -->
+
   {#if currentLearningMode === null}
     <Button class="start-button" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
   {:else}

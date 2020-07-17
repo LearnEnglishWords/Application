@@ -81,7 +81,6 @@
       "words": "slov",
       "buttons": {
           "filter_words_normal": "Učit se nová slovíčka",
-          "filter_words_start": "Spustit učení",
           "words_list": "Zobrazit seznam všech slov",
           "exam": "Přezkoušet",
           "training": "Procvičovat",
@@ -101,6 +100,13 @@
               "text1": "Slouží k učení a procvičování slovíček nanečisto.",
               "text2": "Výsledky se nezapočítávají do statistik."
           }
+      },
+      "info": {
+          "text_intro": "Vítejte v LearnEnglishWords, aplikaci pro učení anglických slovíček.",
+          "text_stats_unknown": "Nahoře vidíte statistiky, kolik slovíček se zde celkem můžete naučit",
+          "text_stats_learning": "Kolik slovíček se momentálně učíte",
+          "text_stats_known": "A kolik slovíček už umíte",
+          "text_filter": "Pokud se ještě neučíte žádná slovíčka, tak níže po stisknutí na tlačítko \"Učit se nová slovíčka\" si začnete procházet slovíčka, která se zde nacházejí a zvolíte si, jestli je již znáte anebo neznáte. Všechna neznámá slovíčka se přesunou mezi učící se a ta která již znáte, se přesunou rovnou mezi již známá slovíčka."
       }
   },
   "settings": {
@@ -197,7 +203,7 @@
           "info_text_end": "slov."
       },
       "filter": {
-          "title": "Přidání dalších slovíček",
+          "title": "Přidání nových slovíček",
           "info_text": "Máte dobře celkem",
           "info_text_end": "slov.",
           "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat."
