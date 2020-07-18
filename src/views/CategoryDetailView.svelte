@@ -26,16 +26,7 @@
   <!-- View -->
   <div class="page-container view" on:click={() => currentLearningMode = null}>
     <div class="page-wrapper">
-      <!--<Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button>
-
-      {#if $statisticsData.unknown > 0}
-        {#if ($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0}
-          <Button class="page-button button-start" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_start')}</Button>
-        {:else if $statisticsData.learning < $settingsData.wordsLimit}
-          <Button class="page-button button-show" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
-        {/if}
-      {/if}
-      -->
+      <!-- <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button> -->
     </div>
   </div>
 
