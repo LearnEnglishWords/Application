@@ -28,7 +28,7 @@
 
 <div class="content-mode">
   <div class="other-div">
-    <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_('training.placeholders.write')}" class="translate">
+    <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_(`training.placeholders.${mode}`)}" class="translate">
     {#if result !== null}
       {#if mode === "write"}
         <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
@@ -67,13 +67,6 @@
 
   let translatedText = "";
   let result = null;
-  let placeholder = "";
-
-  if (mode === "write") {
-    placeholder = $_('training.placeholders.write');
-  } else if (mode === "listen") {
-    placeholder = $_('training.placeholders.listen');
-  }
 
   function check() {
     setTimeout(() => { 
