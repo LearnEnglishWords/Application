@@ -129,7 +129,7 @@
   //}
 
   function getDefaultLearningMode(learningMode = null) {
-    return $statisticsData.learning <= 5 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
+    return $statisticsData.learning <= 4 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
   }
 
   function setupModeStatistics() {
