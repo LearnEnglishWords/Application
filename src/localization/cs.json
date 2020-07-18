@@ -102,11 +102,9 @@
           }
       },
       "info": {
-          "text_intro": "Vítejte v LearnEnglishWords, aplikaci pro učení anglických slovíček.",
-          "text_stats_unknown": "Nahoře vidíte statistiky, kolik slovíček se zde celkem můžete naučit",
-          "text_stats_learning": "Kolik slovíček se momentálně učíte",
-          "text_stats_known": "A kolik slovíček už umíte",
-          "text_filter": "Pokud se ještě neučíte žádná slovíčka, tak níže po stisknutí na tlačítko \"Učit se nová slovíčka\" si začnete procházet slovíčka, která se zde nacházejí a zvolíte si, jestli je již znáte anebo neznáte. Všechna neznámá slovíčka se přesunou mezi učící se a ta která již znáte, se přesunou rovnou mezi již známá slovíčka."
+          "text_intro": "Vítejte v aplikaci LearnEnglishWords, která vám pomůže s učením anglických slovíček.",
+          "text_stats": "Nahoře vidíte údaje, kolik slovíček se zde celkem můžete naučit, kolik slovíček se momentálně učíte a kolik jich už umíte.",
+          "text_filter": "Pokud se ještě žádná slovíčka neučíte, tak níže po stisknutí na tlačítko \"Učit se nová slovíčka\" se spustí test, ve kterém zhodnotíte která slovíčka již umíte a která nikoliv. Všechna neznámá slovíčka se přesunou mezi učící se a ta která již znáte, se rovnou přesunou mezi již známá slovíčka."
       }
   },
   "settings": {

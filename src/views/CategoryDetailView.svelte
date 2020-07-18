@@ -80,9 +80,7 @@
     <Row class="text-learning {currentLearningMode === null ? 'active' : 'inactive'}">
       <Col>
         <p>{$_(`category.info.text_intro`)}</p>
-        <p>{$_(`category.info.text_stats_unknown`)}</p>
-        <p>{$_(`category.info.text_stats_learning`)}</p>
-        <p>{$_(`category.info.text_stats_known`)}</p>
+        <p>{$_(`category.info.text_stats`)}</p>
         <p>{$_(`category.info.text_filter`)}</p>
       </Col> 
     </Row>
