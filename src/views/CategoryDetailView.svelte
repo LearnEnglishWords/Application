@@ -79,11 +79,9 @@
     </Row>
     <Row class="text-learning {currentLearningMode === null ? 'active' : 'inactive'}">
       <Col>
-        {#if currentLearningMode === null}
-          <p>{$_(`category.info.text_intro`)}</p>
-          <p>{$_(`category.info.text_stats`)}</p>
-          <p>{$_(`category.info.text_filter`)}</p>
-        {/if}
+        <p>{$_(`category.info.text_intro`)}</p>
+        <p>{$_(`category.info.text_stats`)}</p>
+        <p>{$_(`category.info.text_filter`)}</p>
       </Col> 
     </Row>
   </div>
