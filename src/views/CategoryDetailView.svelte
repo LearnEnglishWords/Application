@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container" on:click={() => currentLearningMode = null}>
+  <div class="header-statistics header-container" on:click={() => f7router.navigate('/WordList')}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{$statisticsData.known}</div>
@@ -23,14 +23,8 @@
       </Col>
     </Row>       
   </div>
-  <!-- View -->
-  <div class="page-container view" on:click={() => currentLearningMode = null}>
-    <div class="page-wrapper">
-      <!-- <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button> -->
-    </div>
-  </div>
 
-  <!-- Footer -->
+  <!-- Content -->
   <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''} {$statisticsData.learning === 0 ? 'inactive' : ''}">
     <Row noGap>
       {#if $statisticsData.learning > 0}
