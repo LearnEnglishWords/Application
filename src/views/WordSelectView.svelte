@@ -1,48 +1,27 @@
-<Page name="WordList">
+<Page name="WordSelect">
   <!-- Navbar -->
   <Header>
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
-  <div class="page-title">{$_('words_list.info')}</div>
-    <List class="list-container virtual-list list-words">
-    
-    </List>
-    {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
-      <Button class="word-button button-next" on:click={loadNextWords}>
-        {$_('words_list.next_button')}
-      </Button>
-    {/if}
+  <div class="page-title">{$_('words_list.info_select')}</div>
+    <List class="list-container virtual-list list-words"></List>
+
     {#if allWordsLength === 0 && allWordIds.length > 0}
       {$_('words_list.loading')}
-    {/if}
-    {#if allWordIds.length === 0}
-      {$_('words_list.zero_words')}
     {/if}
 
     <Toolbar position={'bottom'}>
       <Row>
         <Col>
-          <Link popoverOpen=".filter-menu">{$_('words_list.filter.button')}</Link>
         </Col>
         <Col>
           {allWordsLength}/{allWordIds.length}
         </Col>
         <Col>
-          {#if knownWords.length > 0 || unknownWords.length > 0}
-            <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
-          {/if}
+          <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
         </Col>
       </Row>
     </Toolbar>
-
-  <Popover class="filter-menu">
-    <List class="filter-menu-list">
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.UNKNOWN) }} title={$_('words_list.filter.unknown')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.LEARNING) }} title={$_('words_list.filter.learning')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALL_KNOWN) }} title={$_('words_list.filter.known')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALL) }} title={$_('words_list.filter.all')} />
-    </List>
-  </Popover>
 </Page>
 
 <script>
@@ -52,19 +31,19 @@
     Row, Col,
     List, ListItem, ListButton,
     Button, Link,
-    Toolbar, Popover
+    Toolbar
   } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import { playTextSound, WordsType } from '../js/utils.js'
-  import { categoryGroupData, categoryDetailData, statisticsData, settingsData } from '../js/store.js';
+  import { playTextSound, WordsType, trainingModes } from '../js/utils.js'
+  import { categoryGroupData, categoryDetailData, settingsData, statisticsData, modeStatisticsData } from '../js/store.js';
 
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  export let filter = WordsType.ALL;
+  export let maxLimit = $settingsData.wordsLimit;
 	
   let knownWords = [];
   let unknownWords = [];
@@ -75,11 +54,9 @@
 
   let wordState = {};
   let allWords = [];
-  var allWordIds = getAllWordIds(filter);
+  var allWordIds = $categoryDetailData.wordStorages[WordsType.UNKNOWN].getWordIds().slice(0, 30);
 
   let virtualList = null; 
-  let allowInfinite = true;
-  let itemsPerLoad = 30;
 
 
   onMount(() => { 
@@ -123,38 +100,30 @@
       playTextSound(clickedWord.text, $settingsData.pronunciation);
     });
 
-    loadWords(0, itemsPerLoad);
+    loadWords();
   });
 
 
-  function loadNextWords() {
-    if (!allowInfinite) return;
-
-    allowInfinite = false;
-    loadWords(allWords.length, allWords.length + itemsPerLoad);
-  }
-
-  function loadWords(from, to) {
-    allWordIds.slice(from, to).forEach((wordId, index) => {
+  function loadWords() {
+    allWordIds.forEach((wordId, index) => {
       DS.getWord(wordId).then((word) => {
-        wordState[word.text] = [WordsType.ALREADY_KNOWN, WordsType.KNOWN].includes($categoryDetailData.getWordState(word));
+        wordState[word.text] = false;
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
         allWords.push(word);
+        unknownWords.push(word);
         allWordsLength++;
       });
-      if (index+1 === itemsPerLoad) {
-        allowInfinite = true;
-      }
     });
   }
 
   function saveWords() {
     progress = 0;
+    unknownWords = unknownWords.slice(0, maxLimit);
     fullProgress = knownWords.length + unknownWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
 
     $categoryGroupData.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
-    $categoryGroupData.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
+    $categoryGroupData.updateWordList(unknownWords, WordsType.LEARNING, () => progress += 1); 
 
     updateProgress(dialog);
   }
@@ -164,6 +133,7 @@
     setTimeout(() => {
       if (progress >= fullProgress) {
         statisticsData.set($categoryDetailData.getStatistics());
+        updateModeStatisticsData();
         dialog.close();
         knownWords = [];
         unknownWords = [];
@@ -172,6 +142,12 @@
         updateProgress(dialog);
       }
     }, 100);
+  }
+
+  function updateModeStatisticsData() {
+    trainingModes.map((mode) => mode.value).forEach((modeValue) => {
+      $modeStatisticsData[modeValue].unknown += unknownWords.length;
+    });
   }
 
   function setState(word, known) {
@@ -192,22 +168,4 @@
       unknownWords = [...unknownWords];
     }       
   }
-
-  function saveFilterAndReload(filter) {
-    allWordIds = getAllWordIds(filter);
-
-    allWords = [];
-    virtualList.deleteAllItems();
-
-    loadWords(0, itemsPerLoad);
-    allWordsLength = 0;
-  }
-
-  function getAllWordIds(filter) {
-    if (filter === WordsType.ALL_KNOWN) {
-      return $categoryDetailData.wordStorages[WordsType.KNOWN].getWordIds().concat($categoryDetailData.wordStorages[WordsType.ALREADY_KNOWN].getWordIds());
-    } else {
-      return $categoryDetailData.wordStorages[filter].getWordIds();
-    }
-	}
 </script>

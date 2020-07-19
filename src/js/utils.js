@@ -8,7 +8,8 @@ export const defaultSettingsData = {
   "pronunciation": "uk",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
-  "enableTrainingModeWall": false
+  "enableTrainingModeWall": false,
+  "advancedUser": null
 };            
 
 export const trainingModes = [
