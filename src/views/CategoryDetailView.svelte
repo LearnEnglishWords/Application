@@ -6,7 +6,7 @@
   <!-- Header -->
   <div class="header-statistics header-container">
     <Row class="header-row">
-      <Col class="header-col header-known" on:click={() => f7router.navigate('/WordList', { props: { filter: 'all_known' } })}>
+      <Col class="header-col header-known" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.ALL_KNOWN } })}>
         <div class="header-count">{$statisticsData.known}</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>

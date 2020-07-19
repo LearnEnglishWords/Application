@@ -8,8 +8,7 @@ export const defaultSettingsData = {
   "pronunciation": "uk",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
-  "enableTrainingModeWall": false,
-  "defaultWordListFilter": "all"
+  "enableTrainingModeWall": false
 };            
 
 export const trainingModes = [
@@ -109,6 +108,7 @@ export function deduplicate(array) {
 
 export const WordsType = {
     ALL: 'all',
+    ALL_KNOWN: 'all_known',
     ALREADY_KNOWN: 'already_known',
     KNOWN: 'known',
     LEARNING: 'learning',
@@ -129,12 +129,6 @@ export const KnownStages = {
     MEDIUM_KNOWN: 8,
     HARD_KNOWN: 12,
     ALREADY_KNOWN: 25
-}
-
-export const WordListFilter = {
-    ALL: "all",
-    KNOWN: "known",
-    UNKNOWN: "unknown"
 }
 
 export const LearningMode = {

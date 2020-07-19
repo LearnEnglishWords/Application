@@ -57,13 +57,8 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordsType, WordListFilter } from '../js/utils.js'
-  import { 
-    collectionData, categoryGroupData, 
-    categoryDetailData, trainingData,
-    statisticsData, settingsData,
-    allKnownWordsData, allNotKnownWordsData
-  } from '../js/store.js';
+  import { playTextSound, WordsType } from '../js/utils.js'
+  import { categoryGroupData, categoryDetailData, statisticsData, settingsData } from '../js/store.js';
 
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
@@ -199,8 +194,6 @@
   }
 
   function saveFilterAndReload(filter) {
-    //$settingsData.defaultWordListFilter = filter;
-    //DS.saveSettings($settingsData);
     allWordIds = getWordIds(filter);
 
     allWords = [];
@@ -211,7 +204,7 @@
   }
 
   function getWordIds(filter) {
-    if (filter === 'all_known') {
+    if (filter === WordsType.ALL_KNOWN) {
       return $categoryDetailData.wordStorages[WordsType.KNOWN].getWordIds().concat($categoryDetailData.wordStorages[WordsType.ALREADY_KNOWN].getWordIds());
     } else {
       return $categoryDetailData.wordStorages[filter].getWordIds();
