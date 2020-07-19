@@ -81,6 +81,7 @@
   let allowInfinite = true;
   let itemsPerLoad = 30;
 
+
   onMount(() => { 
     virtualList = f7.virtualList.create({
       el: '.virtual-list',
@@ -152,8 +153,11 @@
     fullProgress = knownWords.length + unknownWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
 
-    $categoryDetailData.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
-    $categoryDetailData.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
+    let currentCategory = $categoryDetailData;
+    if (currentCategory.collectionId === undefined) { currentCategory = $categoryGroupData }
+
+    currentCategory.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
+    currentCategory.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
 
     updateProgress(dialog);
   }
@@ -161,7 +165,7 @@
   function updateProgress(dialog) {
     dialog.setProgress(100/fullProgress*progress);
     setTimeout(() => {
-      if (progress === fullProgress) {
+      if (progress >= fullProgress) {
         statisticsData.set($categoryDetailData.getStatistics());
         dialog.close();
         knownWords = [];
