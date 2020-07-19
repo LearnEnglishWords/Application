@@ -39,7 +39,7 @@
     <List class="filter-menu-list">
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.UNKNOWN) }} title={$_('words_list.filter.unknown')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.LEARNING) }} title={$_('words_list.filter.learning')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload('all_known') }} title={$_('words_list.filter.known')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALL_KNOWN) }} title={$_('words_list.filter.known')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALL) }} title={$_('words_list.filter.all')} />
     </List>
   </Popover>
@@ -64,7 +64,7 @@
   import { _ } from 'svelte-i18n';
 
   export let f7router;
-  export let filter = 'all';
+  export let filter = WordsType.ALL;
 	
   let knownWords = [];
   let unknownWords = [];
