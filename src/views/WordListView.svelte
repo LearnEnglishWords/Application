@@ -177,10 +177,10 @@
   function setState(word, known) {
     wordState[word.text] = known;
 
-    var index = knownWords.indexOf(word.text);
+    let index = knownWords.findIndex((w) => w.text === word.text);
     if (index > -1) { knownWords.splice(index, 1) }
 
-    index = unknownWords.indexOf(word.text);
+    index = unknownWords.findIndex((w) => w.text === word.text);
     if (index > -1) { unknownWords.splice(index, 1) }
 
 
