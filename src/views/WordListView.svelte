@@ -39,8 +39,7 @@
     <List class="filter-menu-list">
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.UNKNOWN) }} title={$_('words_list.filter.unknown')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.LEARNING) }} title={$_('words_list.filter.learning')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.KNOWN) }} title={$_('words_list.filter.known')} />
-      <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALREADY_KNOWN) }} title={$_('words_list.filter.already_known')} />
+      <ListButton popoverClose on:click={() => { saveFilterAndReload('all_known') }} title={$_('words_list.filter.known')} />
       <ListButton popoverClose on:click={() => { saveFilterAndReload(WordsType.ALL) }} title={$_('words_list.filter.all')} />
     </List>
   </Popover>
@@ -77,11 +76,11 @@
   let progress = 0;
   let fullProgress = 0;
   let clickedWord = null;
+  let allWordsLength = 0;
 
   let wordState = {};
   let allWords = [];
-  var allWordIds = $categoryDetailData.wordStorages[filter].getWordIds();
-  let allWordsLength = 0;
+  var allWordIds = getWordIds(filter);
 
   let virtualList = null; 
   let allowInfinite = true;
@@ -202,7 +201,7 @@
   function saveFilterAndReload(filter) {
     //$settingsData.defaultWordListFilter = filter;
     //DS.saveSettings($settingsData);
-    allWordIds = $categoryDetailData.wordStorages[filter].getWordIds();
+    allWordIds = getWordIds(filter);
 
     allWords = [];
     virtualList.deleteAllItems();
@@ -210,5 +209,12 @@
     loadWords(0, itemsPerLoad);
     allWordsLength = 0;
   }
-  
+
+  function getWordIds(filter) {
+    if (filter === 'all_known') {
+      return $categoryDetailData.wordStorages[WordsType.KNOWN].getWordIds().concat($categoryDetailData.wordStorages[WordsType.ALREADY_KNOWN].getWordIds());
+    } else {
+      return $categoryDetailData.wordStorages[filter].getWordIds();
+    }
+	}
 </script>

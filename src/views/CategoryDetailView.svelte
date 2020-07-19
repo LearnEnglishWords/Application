@@ -4,19 +4,19 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container" on:click={() => f7router.navigate('/WordList', { reloadCurrent: false, props: { filter: 'all' } })}>
+  <div class="header-statistics header-container">
     <Row class="header-row">
-      <Col class="header-col header-known">
+      <Col class="header-col header-known" on:click={() => f7router.navigate('/WordList', { props: { filter: 'all_known' } })}>
         <div class="header-count">{$statisticsData.known}</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col header-learning">
+      <Col class="header-col header-learning" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.LEARNING } })}>
         <div class="header-count">{$statisticsData.learning}</div>
         <div class="header-type">{$_('statistics.learning')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col header-unknown">
+      <Col class="header-col header-unknown" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.UNKNOWN } })}>
         <div class="header-count">{$statisticsData.unknown}</div>
         <div class="header-type">{$_('statistics.unknown')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
