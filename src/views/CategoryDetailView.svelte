@@ -172,7 +172,7 @@
 
     if (isFiltering && $settingsData.advancedUser) {
       f7router.navigate('/WordSelect');
-      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 100);
       return
     }
 
@@ -183,7 +183,7 @@
       setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
-      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 100);
 
       f7router.navigate('/Training');
     } else {
