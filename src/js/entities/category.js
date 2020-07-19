@@ -101,6 +101,8 @@ export default class Category {
           word.repetition = {"read": true, "write": true, "listen": true};
 
           this.wordStorages[WordsType.UNKNOWN].removeWord(word);
+          this.wordStorages[WordsType.KNOWN].removeWord(word);
+          this.wordStorages[WordsType.LEARNING].removeWord(word);
 
           DS.saveWord(word.text, word).then(progress);
         }
