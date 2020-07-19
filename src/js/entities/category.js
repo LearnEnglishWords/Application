@@ -127,8 +127,8 @@ export default class Category {
         if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
           this.wordStorages[WordsType.LEARNING].addWord(word);
           word.knownStage = KnownStages.UNKNOWN;
-          //word.learning = {"read": false, "write": false, "listen": false};
-          //word.repetition = {"read": false, "write": false, "listen": false};
+          word.learning = {"read": false, "write": false, "listen": false};
+          word.repetition = {"read": false, "write": false, "listen": false};
 
           this.wordStorages[WordsType.ALREADY_KNOWN].removeWord(word);
           this.wordStorages[WordsType.KNOWN].removeWord(word);

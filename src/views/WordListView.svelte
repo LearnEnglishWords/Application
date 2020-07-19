@@ -58,7 +58,7 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import { playTextSound, WordsType } from '../js/utils.js'
-  import { categoryGroupData, categoryDetailData, statisticsData, settingsData } from '../js/store.js';
+  import { categoryGroupData, categoryDetailData, settingsData, statisticsData, modeStatisticsData } from '../js/store.js';
 
   import { get } from 'svelte/store';
   import { _ } from 'svelte-i18n';
@@ -164,6 +164,7 @@
     setTimeout(() => {
       if (progress >= fullProgress) {
         statisticsData.set($categoryDetailData.getStatistics());
+        modeStatisticsData.set($categoryDetailData.getModeStatistics());
         dialog.close();
         knownWords = [];
         unknownWords = [];

@@ -133,7 +133,7 @@
     setTimeout(() => {
       if (progress >= fullProgress) {
         statisticsData.set($categoryDetailData.getStatistics());
-        updateModeStatisticsData();
+        modeStatisticsData.set($categoryDetailData.getModeStatistics());
         dialog.close();
         knownWords = [];
         unknownWords = [];
@@ -142,12 +142,6 @@
         updateProgress(dialog);
       }
     }, 100);
-  }
-
-  function updateModeStatisticsData() {
-    trainingModes.map((mode) => mode.value).forEach((modeValue) => {
-      $modeStatisticsData[modeValue].unknown += unknownWords.length;
-    });
   }
 
   function setState(word, known) {
