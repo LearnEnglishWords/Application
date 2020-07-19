@@ -120,6 +120,14 @@ export default class Category {
     }
   }
 
+  getWordState(word) {
+    if (!this.wordStorages[WordsType.ALL].existsWordId(word.text)) { return null }
+
+    for (let wordType of [WordsType.LEARNING, WordsType.UNKNOWN, WordsType.ALREADY_KNOWN, WordsType.KNOWN]) {
+      if (this.wordStorages[wordType].existsWordId(word.text)) { return wordType }
+    }
+  }
+
   getStatistic(wordType) {
     return this.wordStorages[wordType].getWordIds().length
   }

@@ -29,6 +29,10 @@ export default class WordsStorage {
     return this.allWordIds
   }
 
+  existsWordId(wordText) {
+    return this.allWordIds.findIndex((id) => id === wordText) !== -1;
+  }
+
   loadIds(withWords, withoutIds = []) {
     DS.getWordIdsList(this.collectionId, this.categoryId, this.wordsType).then((wordIds) => {
       if (wordIds !== null) {
@@ -75,6 +79,10 @@ export default class WordsStorage {
       this.loadWords(this.loadedWordsCounter, this.maxAmount);
     }
     return this.allWords.slice(0, limit)
+  }
+
+  existsWord(word) {
+    return this._getWordIndex(word) !== null;
   }
 
   reset() {
