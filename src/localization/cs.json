@@ -7,6 +7,10 @@
           "title": "Jste pokročilý student?",
           "text": "Už máte nějakou větší slovní zásobu?"
       },
+      "learning_full": {
+          "title": "Limit je naplněn",
+          "text": "Už máte naplněno potřebné množství slovíček k učení."
+      },
       "exit": {
           "title": "Konec",
           "text": "Opravdu si přejete aplikaci vypnout?"

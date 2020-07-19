@@ -171,8 +171,19 @@
     let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
 
     if (isFiltering && $settingsData.advancedUser) {
-      f7router.navigate('/WordSelect');
       setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 100);
+
+      if ($categoryDetailData.getStatistic(WordsType.LEARNING) >= $settingsData.wordsLimit) {
+        let dialog = f7.dialog.create({
+          text: $_('dialog.learning_full.text'), 
+          title: $_('dialog.learning_full.title'),
+          buttons: [{ text: "Ok", bold: true }]
+        })
+        dialog.open();
+        return
+      }
+
+      f7router.navigate('/WordSelect');
       return
     }
 
