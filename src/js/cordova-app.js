@@ -82,7 +82,7 @@ var cordovaApp = {
         return false;
       }
 
-      f7.dialog.confirm(get(_)('exit.text'), get(_)('exit.title'), () => window.navigator.app.exitApp());
+      f7.dialog.confirm(get(_)('dialog.exit.text'), get(_)('dialog.exit.title'), () => window.navigator.app.exitApp());
     }, false);
   },
   /*

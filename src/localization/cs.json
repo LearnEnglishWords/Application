@@ -1,12 +1,16 @@
 {
   "app_name": "LearnEnglishWords", 
-  "exit": {
-      "title": "Konec",
-      "text": "Opravdu si přejete aplikaci vypnout?"
-  },
   "dialog": {
       "yes": "Ano",
-      "no": "Ne"
+      "no": "Ne",
+      "user_level_advanced": {
+          "title": "Jste pokročilý student?",
+          "text": "Už máte nějakou větší slovní zásobu?"
+      },
+      "exit": {
+          "title": "Konec",
+          "text": "Opravdu si přejete aplikaci vypnout?"
+      }
   },
   "collection": {
       "title": "Zvolte kolekci slovíček:",
@@ -111,6 +115,7 @@
       "words_limit": "Limit učících se slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "swiper_transition": "Animované přechody slov",
+      "user_level": "Pokročilý student",
       "pronunciation": {
           "text": "Výslovnost",
           "us": "Americká",
@@ -123,7 +128,7 @@
       "listen_title": "Klikněte pro poslechnutí slova",
       "wall_text": "Tipněte si význam slova a potáhněte směrem dolů pro zkontrolování",
       "question": {
-          "text": "Umíš toto slovíčko?",
+          "text": "Znáš už toto slovíčko?",
           "know": "Znám",
           "unknow": "Neznám",
           "yes": "Ano",

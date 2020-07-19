@@ -72,7 +72,7 @@
   </div>
 
   {#if currentLearningMode === null}
-    <Button class="start-button" on:click={() => { currentLearningMode = LearningMode.FILTER; goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
+    <Button class="start-button" on:click={() => { currentLearningMode = LearningMode.FILTER; $settingsData.advancedUser === null ? showUserLevelDialog() : goToTrainingView() }}>{$_('category.buttons.filter_words_normal')}</Button>
   {:else}
     <Button class="start-button {currentLearningMode !== null ? currentLearningMode : ''}" on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
   {/if}
@@ -126,6 +126,15 @@
     return $statisticsData.learning <= 4 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
   }
 
+  function showUserLevelDialog() {
+    f7.dialog.confirm(
+      $_('dialog.user_level_advanced.text'), 
+      $_('dialog.user_level_advanced.title'), 
+      () => { $settingsData.advancedUser = true; DS.saveSettings($settingsData); goToTrainingView() }, 
+      () => { $settingsData.advancedUser = false; DS.saveSettings($settingsData); goToTrainingView() }
+    )
+  }
+
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
     if (modeStatistics !== null) {
@@ -160,6 +169,11 @@
     let isRepetition = currentLearningMode === LearningMode.REPETITION;
     let isFiltering = currentLearningMode === LearningMode.FILTER;
     let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
+
+    if (isFiltering && $settingsData.advancedUser) {
+      f7router.navigate('/WordList');
+      return
+    }
 
     f7.preloader.show();
     let currentWordStorage = $categoryDetailData.wordStorages[isRepetition ? "known" : isFiltering ? "unknown" : "learning"];

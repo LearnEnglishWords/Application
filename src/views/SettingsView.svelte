@@ -59,6 +59,17 @@
           <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(300)} color="blue"></Toggle>
         {/if}
       </ListItem>
+
+      <ListItem>
+        <div>
+          {$_('settings.user_level')}
+        </div>
+        {#if advancedUser}
+          <Toggle on:toggleChange={saveUserLevel} checked></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveUserLevel}></Toggle>
+        {/if}
+      </ListItem>
     </List>
     <Footer />
   </div>
@@ -85,6 +96,7 @@
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
+  let advancedUser = $settingsData.advancedUser;
 
   const pronunciations = {
     "uk": $_('settings.pronunciation.uk'),
@@ -94,6 +106,11 @@
 
   function saveAutoPlaySound() {
     $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveUserLevel() {
+    $settingsData.advancedUser = !$settingsData.advancedUser;
     DS.saveSettings($settingsData);
   }
 

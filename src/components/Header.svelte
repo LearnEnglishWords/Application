@@ -44,6 +44,6 @@
   export let firstPage;
 
   function quit() {
-    f7.dialog.confirm($_('exit.text'), $_('exit.title'), () => window.navigator.app.exitApp())
+    f7.dialog.confirm($_('dialog.exit.text'), $_('dialog.exit.title'), () => window.navigator.app.exitApp())
   }
 </script>
