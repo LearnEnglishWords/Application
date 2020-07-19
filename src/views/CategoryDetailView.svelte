@@ -171,7 +171,7 @@
     let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
 
     if (isFiltering && $settingsData.advancedUser) {
-      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 100);
+      currentLearningMode = getDefaultLearningMode(currentLearningMode);
 
       if ($categoryDetailData.getStatistic(WordsType.LEARNING) >= $settingsData.wordsLimit) {
         let dialog = f7.dialog.create({
@@ -194,7 +194,7 @@
       setupData(isTraining, currentWordStorage, wordsCount);
       f7.preloader.hide();
       checkAndSetActivity();
-      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 100);
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
 
       f7router.navigate('/Training');
     } else {
