@@ -171,7 +171,8 @@
     let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
 
     if (isFiltering && $settingsData.advancedUser) {
-      f7router.navigate('/WordList');
+      f7router.navigate('/WordSelect');
+      setTimeout(() => currentLearningMode = getDefaultLearningMode(currentLearningMode), 1000);
       return
     }
 

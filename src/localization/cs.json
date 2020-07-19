@@ -248,6 +248,7 @@
       "title": "Seznam slov",
       "progress": "Ukládání...",
       "info": "Zde můžete označit slovíčka, která již znáte:",
+      "info_select": "Zde označte slovíčka, která již znáte:",
       "next_button": "Načíst další",
       "save_button": "Uložit",
       "loading": "Probíhá načítání...",
