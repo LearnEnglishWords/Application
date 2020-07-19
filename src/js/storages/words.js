@@ -91,21 +91,6 @@ export default class WordsStorage {
     this.allWords = [];
     this.allWordIds = [];
   }
-
-  // used only for save words from WordList
-  //update(addWords, removeWords, loadWords = true) {
-  //  var updateWordIds = this.allWordIds
-  //    .concat(addWords)
-  //    .filter(wordId => !removeWords.includes(wordId));
-
-  //  this.reset();
-  //  this.allWordIds = [...new Set(updateWordIds)];
-  //  this.allWords = [];
-  //  if (loadWords) { 
-  //    this.loadWords()
-  //  }
-  //  this.saveWordIds();
-  //}
     
   _unshiftWordId(wordId) {
     let index = this.allWordIds.findIndex((id) => id === wordId);

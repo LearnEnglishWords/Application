@@ -153,11 +153,8 @@
     fullProgress = knownWords.length + unknownWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
 
-    let currentCategory = $categoryDetailData;
-    if (currentCategory.collectionId === undefined) { currentCategory = $categoryGroupData }
-
-    currentCategory.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
-    currentCategory.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
+    $categoryGroupData.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
+    $categoryGroupData.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
 
     updateProgress(dialog);
   }
