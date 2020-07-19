@@ -183,7 +183,7 @@
         return
       }
 
-      f7router.navigate('/WordSelect');
+      f7router.navigate('/WordSelect', { props: { maxLimit: $settingsData.wordsLimit - $categoryDetailData.getStatistic(WordsType.LEARNING) } });
       return
     }
 

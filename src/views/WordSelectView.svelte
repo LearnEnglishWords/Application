@@ -43,6 +43,7 @@
   import { _ } from 'svelte-i18n';
 
   export let f7router;
+  export let maxLimit = $settingsData.wordsLimit;
 	
   let knownWords = [];
   let unknownWords = [];
@@ -117,7 +118,7 @@
 
   function saveWords() {
     progress = 0;
-    unknownWords = unknownWords.slice(0, $settingsData.wordsLimit);
+    unknownWords = unknownWords.slice(0, maxLimit);
     fullProgress = knownWords.length + unknownWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
 
