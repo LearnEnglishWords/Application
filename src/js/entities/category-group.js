@@ -46,12 +46,27 @@ export default class CategoryGroup {
     });
   }
 
+  updateWordList(wordList, setAs, progress) {
+    if (this._isCoreCollection()) {
+      this.mainCategory.updateWordList(wordList, setAs, progress);
+    } else {
+      this.categories.forEach((category) => {
+        category.updateWordList(wordList, setAs, progress);
+      });
+      this.mainCategory.updateWordList(wordList, setAs);
+    }
+  }
+
   push(category) {
     this.categories.push(category);
   }
 
   concat(group) {
     group.categories.forEach((category) => this.push(category));
+  }
+
+  _isCoreCollection() {
+    return this.collectionId !== undefined
   }
 
   _zip(arr1, arr2, s = 1) {

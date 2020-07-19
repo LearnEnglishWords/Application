@@ -37,7 +37,7 @@ export default class Category {
   }
 
   updateWord(word, state, trainingType, trainingMode) {
-    if (!this.wordStorages[WordsType.ALL].getWordIds().includes(word.text)) { return }
+    if (!this.wordStorages[WordsType.ALL].existsWordId(word.text)) { return }
 
     switch(trainingType) {
       case LearningMode.EXAM:
@@ -89,6 +89,48 @@ export default class Category {
         break;
     } 
     DS.saveWord(word.text, word);
+  }
+
+  updateWordList(wordList, setAs, progress) {
+    if (setAs === WordsType.ALREADY_KNOWN) {
+      wordList.forEach((word) => {
+        if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
+          this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
+          word.knownStage = KnownStages.ALREADY_KNOWN;
+          word.learning = {"read": true, "write": true, "listen": true};
+          word.repetition = {"read": true, "write": true, "listen": true};
+
+          this.wordStorages[WordsType.UNKNOWN].removeWord(word);
+          this.wordStorages[WordsType.KNOWN].removeWord(word);
+          this.wordStorages[WordsType.LEARNING].removeWord(word);
+
+          DS.saveWord(word.text, word).then(progress);
+        }
+      });
+    } else if (setAs === WordsType.UNKNOWN) {
+      wordList.forEach((word) => {
+        if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
+          this.wordStorages[WordsType.UNKNOWN].addWord(word);
+          word.knownStage = KnownStages.UNKNOWN;
+          word.learning = {"read": false, "write": false, "listen": false};
+          word.repetition = {"read": false, "write": false, "listen": false};
+
+          this.wordStorages[WordsType.ALREADY_KNOWN].removeWord(word);
+          this.wordStorages[WordsType.KNOWN].removeWord(word);
+          this.wordStorages[WordsType.LEARNING].removeWord(word);
+
+          DS.saveWord(word.text, word).then(progress);
+        }
+      });
+    }
+  }
+
+  getWordState(word) {
+    if (!this.wordStorages[WordsType.ALL].existsWordId(word.text)) { return null }
+
+    for (let wordType of [WordsType.LEARNING, WordsType.UNKNOWN, WordsType.ALREADY_KNOWN, WordsType.KNOWN]) {
+      if (this.wordStorages[wordType].existsWordId(word.text)) { return wordType }
+    }
   }
 
   getStatistic(wordType) {

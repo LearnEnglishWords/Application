@@ -4,33 +4,27 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container" on:click={() => currentLearningMode = null}>
+  <div class="header-statistics header-container">
     <Row class="header-row">
-      <Col class="header-col header-known">
+      <Col class="header-col header-known" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.ALL_KNOWN } })}>
         <div class="header-count">{$statisticsData.known}</div>
         <div class="header-type">{$_('statistics.known')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col header-learning">
+      <Col class="header-col header-learning" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.LEARNING } })}>
         <div class="header-count">{$statisticsData.learning}</div>
         <div class="header-type">{$_('statistics.learning')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
-      <Col class="header-col header-unknown">
+      <Col class="header-col header-unknown" on:click={() => f7router.navigate('/WordList', { props: { filter: WordsType.UNKNOWN } })}>
         <div class="header-count">{$statisticsData.unknown}</div>
         <div class="header-type">{$_('statistics.unknown')}</div>
         <div class="header-subtitle">{$_('statistics.text')}</div>
       </Col>
     </Row>       
   </div>
-  <!-- View -->
-  <div class="page-container view" on:click={() => currentLearningMode = null}>
-    <div class="page-wrapper">
-      <!-- <Button class="page-button button-show" on:click={() => f7router.navigate('/WordList')}>{$_('category.buttons.words_list')}</Button> -->
-    </div>
-  </div>
 
-  <!-- Footer -->
+  <!-- Content -->
   <div class="bottom-navigation detail-nav {currentLearningMode !== null ? 'activated' : ''} {$statisticsData.learning === 0 ? 'inactive' : ''}">
     <Row noGap>
       {#if $statisticsData.learning > 0}
@@ -113,9 +107,9 @@
 
   export let f7router;            
 
-  $categoryDetailData.loadWords("learning"); 
-  $categoryDetailData.loadWords("unknown"); 
-  $categoryDetailData.loadWords("known"); 
+  $categoryDetailData.loadWords(WordsType.LEARNING); 
+  $categoryDetailData.loadWords(WordsType.UNKNOWN); 
+  $categoryDetailData.loadWords(WordsType.KNOWN); 
 
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();
