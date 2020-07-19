@@ -10,4 +10,4 @@ export const errorEmail = "error@learn-english-words.eu";
 
 export const backendUrl = 'https://learn-english-words.eu';
 export const backendApiUrl = 'https://api.learn-english-words.eu';
-export const numberFilteringWords = 50;
+export const numberFilteringWords = 30;
