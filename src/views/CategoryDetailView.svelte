@@ -4,7 +4,7 @@
     <div class="navbar-title title" slot="title">{$_('app_name')}</div>
   </Header>
   <!-- Header -->
-  <div class="header-statistics header-container" on:click={() => f7router.navigate('/WordList')}>
+  <div class="header-statistics header-container" on:click={() => f7router.navigate('/WordList', { reloadCurrent: false, props: { filter: 'all' } })}>
     <Row class="header-row">
       <Col class="header-col header-known">
         <div class="header-count">{$statisticsData.known}</div>
@@ -107,9 +107,9 @@
 
   export let f7router;            
 
-  $categoryDetailData.loadWords("learning"); 
-  $categoryDetailData.loadWords("unknown"); 
-  $categoryDetailData.loadWords("known"); 
+  $categoryDetailData.loadWords(WordsType.LEARNING); 
+  $categoryDetailData.loadWords(WordsType.UNKNOWN); 
+  $categoryDetailData.loadWords(WordsType.KNOWN); 
 
   statisticsData.set($categoryDetailData.getStatistics());
   setupModeStatistics();

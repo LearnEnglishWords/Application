@@ -247,9 +247,12 @@
       "next_button": "Načíst další",
       "save_button": "Uložit",
       "loading": "Probíhá načítání...",
+      "zero_words": "Žádná slovíčka nejsou momentálně k dispozici.",
       "filter": {
           "button": "Filtrovat",
+          "already_known": "Již známá slovíčka",
           "known": "Naučená slovíčka",
+          "learning": "Učící se slovíčka",
           "unknown": "Nenaučená slovíčka",
           "all": "Všechna slovíčka"
       }
