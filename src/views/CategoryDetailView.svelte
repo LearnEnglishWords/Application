@@ -170,10 +170,9 @@
     let isFiltering = currentLearningMode === LearningMode.FILTER;
     let wordsCount = isFiltering ? numberFilteringWords : $settingsData.wordsLimit;
 
-    if (isFiltering && $settingsData.advancedUser) {
-      currentLearningMode = getDefaultLearningMode(currentLearningMode);
-
+    if (isFiltering) {
       if ($categoryDetailData.getStatistic(WordsType.LEARNING) >= $settingsData.wordsLimit) {
+        currentLearningMode = getDefaultLearningMode(currentLearningMode);
         let dialog = f7.dialog.create({
           text: $_('dialog.learning_full.text'), 
           title: $_('dialog.learning_full.title'),
@@ -183,8 +182,11 @@
         return
       }
 
-      f7router.navigate('/WordSelect', { props: { maxLimit: $settingsData.wordsLimit - $categoryDetailData.getStatistic(WordsType.LEARNING) } });
-      return
+      if ($settingsData.advancedUser) {
+        currentLearningMode = getDefaultLearningMode(currentLearningMode);
+        f7router.navigate('/WordSelect', { props: { maxLimit: $settingsData.wordsLimit - $categoryDetailData.getStatistic(WordsType.LEARNING) } });
+        return
+      }
     }
 
     f7.preloader.show();
