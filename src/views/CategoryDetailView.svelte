@@ -138,8 +138,7 @@
       () => { // no
         $settingsData.advancedUser = false;
         DS.saveSettings($settingsData);
-        currentLearningMode = LearningMode.FILTER;
-        goToTrainingView(); 
+        goToFilteringView() 
       }
     )
   }
