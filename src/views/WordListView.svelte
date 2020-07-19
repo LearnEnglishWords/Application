@@ -25,7 +25,7 @@
           {allWordsLength}/{allWordIds.length}
         </Col>
         <Col>
-          {#if removeWords.length > 0 || addWords.length > 0}
+          {#if knownWords.length > 0 || unknownWords.length > 0}
             <Link on:click={saveWords}>{$_('words_list.save_button')}</Link>
           {/if}
         </Col>
@@ -53,7 +53,7 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordListFilter } from '../js/utils.js'
+  import { isKnown, getState, trainingModes, playTextSound, KnownStages, WordsType, WordListFilter } from '../js/utils.js'
   import { 
     collectionData, categoryGroupData, 
     categoryDetailData, trainingData,
@@ -66,15 +66,15 @@
 
   export let f7router;
 	
-  let addWords = [];
-  let removeWords = [];
+  let knownWords = [];
+  let unknownWords = [];
   let progress = 0;
   let fullProgress = 0;
   let clickedWord = null;
 
   let wordState = {};
   let allWords = [];
-  var allWordIds = getWordIds($settingsData["defaultWordListFilter"]);
+  var allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
   let allWordsLength = 0;
 
   let virtualList = null; 
@@ -149,13 +149,12 @@
 
   function saveWords() {
     progress = 0;
-    fullProgress = removeWords.length + addWords.length;
+    fullProgress = knownWords.length + unknownWords.length;
     let dialog = f7.dialog.progress($_('words_list.progress'), 0);
-    trainingModes.forEach((mode) => {
-      let currentCategory = $categoryGroupData;
-      if (currentCategory === null) { currentCategory = $categoryDetailData }
-      currentCategory.updateWords(mode.value, addWords, removeWords); // updateWords from category was removed
-    });
+
+    $categoryDetailData.updateWordList(knownWords, WordsType.ALREADY_KNOWN, () => progress += 1); 
+    $categoryDetailData.updateWordList(unknownWords, WordsType.UNKNOWN, () => progress += 1); 
+
     updateProgress(dialog);
   }
 
@@ -163,9 +162,10 @@
     dialog.setProgress(100/fullProgress*progress);
     setTimeout(() => {
       if (progress === fullProgress) {
+        statisticsData.set($categoryDetailData.getStatistics());
         dialog.close();
-        addWords = [];
-        removeWords = [];
+        knownWords = [];
+        unknownWords = [];
         f7router.back();
       } else {
         updateProgress(dialog);
@@ -176,60 +176,20 @@
   function setState(word, known) {
     wordState[word.text] = known;
 
-    if (isKnown(word) === known) {
-      var index = addWords.indexOf(word.text);
-      if (index > -1) { addWords.splice(index, 1) }
+    var index = knownWords.indexOf(word.text);
+    if (index > -1) { knownWords.splice(index, 1) }
 
-      index = removeWords.indexOf(word.text);
-      if (index > -1) { removeWords.splice(index, 1) }
-      return
-    }
+    index = unknownWords.indexOf(word.text);
+    if (index > -1) { unknownWords.splice(index, 1) }
+
 
     if (known) {
-      removeWords.push(word.text);
-      removeWords = [...removeWords];
+      knownWords.push(word);
+      knownWords = [...knownWords];
     } else {
-      addWords.push(word.text);
-      addWords = [...addWords];
+      unknownWords.push(word);
+      unknownWords = [...unknownWords];
     }       
   }
-
-  function saveFilterAndReload(filter) {
-    $settingsData.defaultWordListFilter = filter;
-    DS.saveSettings($settingsData);
-    allWordIds = getWordIds(filter);
-
-    allWords = [];
-    virtualList.deleteAllItems();
-
-    loadWords(0, itemsPerLoad);
-    allWordsLength = 0;
-  }
-
-  function getWordIds(filter = "all") {
-    let allWordIds = $categoryDetailData.wordStorages['all'].getWordIds();
-    if (filter === WordListFilter.UNKNOWN || filter === WordListFilter.KNOWN) {
-      let allKnownWords = {...$allKnownWordsData};
-      allKnownWords["all"] = [];
-      for (let wordId of allKnownWords["read"]) {
-        if (allKnownWords["write"].includes(wordId) && allKnownWords["listen"].includes(wordId)) {
-          if (
-            !$allNotKnownWordsData["read"].includes(wordId) || 
-            !$allNotKnownWordsData["write"].includes(wordId) || 
-            !$allNotKnownWordsData["listen"].includes(wordId)
-          ) {
-            allKnownWords["all"].push(wordId);
-          }
-        }
-      }
-
-      if (filter === WordListFilter.UNKNOWN) {
-        return allWordIds.filter((wordId) => !allKnownWords["all"].includes(wordId));
-      } else {
-        return allWordIds.filter((wordId) => allKnownWords["all"].includes(wordId));
-      }
-    } else {
-      return allWordIds
-    }
-  }
+  
 </script>

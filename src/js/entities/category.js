@@ -91,6 +91,35 @@ export default class Category {
     DS.saveWord(word.text, word);
   }
 
+  updateWordList(wordList, setAs, progress) {
+
+    if (setAs === WordsType.ALREADY_KNOWN) {
+      wordList.forEach((word) => {
+        this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
+        word.knownStage = KnownStages.ALREADY_KNOWN;
+        word.learning = {"read": true, "write": true, "listen": true};
+        word.repetition = {"read": true, "write": true, "listen": true};
+
+        this.wordStorages[WordsType.UNKNOWN].removeWord(word);
+
+        DS.saveWord(word.text, word).then(progress);
+      });
+    } else if (setAs === WordsType.UNKNOWN) {
+      wordList.forEach((word) => {
+        this.wordStorages[WordsType.UNKNOWN].addWord(word);
+        word.knownStage = KnownStages.UNKNOWN;
+        word.learning = {"read": false, "write": false, "listen": false};
+        word.repetition = {"read": false, "write": false, "listen": false};
+
+        this.wordStorages[WordsType.ALREADY_KNOWN].removeWord(word);
+        this.wordStorages[WordsType.KNOWN].removeWord(word);
+        this.wordStorages[WordsType.LEARNING].removeWord(word);
+
+        DS.saveWord(word.text, word).then(progress);
+      });
+    }
+  }
+
   getStatistic(wordType) {
     return this.wordStorages[wordType].getWordIds().length
   }

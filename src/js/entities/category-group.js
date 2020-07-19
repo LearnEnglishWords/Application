@@ -46,6 +46,12 @@ export default class CategoryGroup {
     });
   }
 
+  updateWordList(wordList, setAs, progress) {
+    this.categories.forEach((category) => {
+      category.updateWordList(wordList, setAs, progress);
+    });
+  }
+
   push(category) {
     this.categories.push(category);
   }
