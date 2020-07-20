@@ -14,7 +14,7 @@
             <div class="swiper-slide">
               <WordSlide {word} 
                  showPronunciation={isTraining} 
-                 enableWallButton={isTraining} 
+                 enableWallButton={isTraining || isFiltering} 
                  on:nextWord={nextWord}
                  on:updateWord={(e) => updateWord(e.detail)} 
                  mode={$trainingData.type === LearningMode.REPETITION ? randomModes[word.text] : $trainingData.mode}
@@ -30,7 +30,7 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={!isTraining ? wallOpened : $settingsData.enableTrainingModeWall}>
+        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={isTraining || isFiltering ? $settingsData.enableTrainingModeWall : wallOpened }>
           <div class="wrapper-mode" on:click={() => { wallOpened = false; wallSheet.instance().close(true) }}>
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
@@ -88,6 +88,7 @@
   export let f7router;
 
   let isTraining = $trainingData.isTraining;
+  let isFiltering = $trainingData.isFiltering;
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
@@ -159,6 +160,8 @@
     if ($trainingData.type === LearningMode.REPETITION) {
       let currentWord = $trainingData.words[$trainingData.currentWordIndex];
       return randomModes[currentWord.text] === "read";
+    } else if($trainingData.isFiltering) {
+      return $settingsData.enableTrainingModeWall
     } else {
       return !isTraining || $settingsData.enableTrainingModeWall;
     }

@@ -158,6 +158,7 @@
       mode: [LearningMode.FILTER, LearningMode.REPETITION].includes(currentLearningMode) ? "read" : modeType, 
       type: currentLearningMode, 
       isTraining: currentLearningMode === LearningMode.TRAINING,
+      isFiltering: currentLearningMode === LearningMode.FILTER,
       words: currentWordStorage.getWords(wordsCount),
       currentWordIndex: 0
     });
