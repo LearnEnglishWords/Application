@@ -53,10 +53,12 @@
         <SVGIcon element="navigation" name="paper" size="16" />
         <span>{$_('search.buttons.examples')}</span>
       </Col>
+      <!--
       <Col class="ripple">
         <SVGIcon element="navigation" name="pen-01" size="16" />
         <span>{$_('search.buttons.edit')}</span>
       </Col>
+      -->
       <Col class="ripple" on:click={() => dispatch('saveWord', { word: word })}>
         <SVGIcon element="navigation" name="event-confirm" size="16" />
         <span>{$_('search.buttons.save')}</span>
