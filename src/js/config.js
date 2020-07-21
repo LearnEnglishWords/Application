@@ -1,6 +1,6 @@
 export const appName = "LearnEnglishWords";
 export const appId = "'com.learnenglishwords'";
-export const version = "3.3.3";
+export const version = "3.3.4-beta";
 
 export const isProduction = true;
 
