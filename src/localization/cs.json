@@ -11,6 +11,10 @@
           "title": "Limit je naplněn",
           "text": "Už máte naplněno potřebné množství slovíček k učení. Celkový limit můžete změnit v nastavení."
       },
+      "unknown_empty": {
+          "title": "Žádná slovíčka k dispozici",
+          "text": "Už nemáte žádná další volná slovíčka pro přidání."
+      },
       "exit": {
           "title": "Konec",
           "text": "Opravdu si přejete aplikaci vypnout?"
