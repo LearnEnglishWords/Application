@@ -79,11 +79,19 @@
   function getCollection(id) {
     return collectionItems.find((c) => c.id === id);
   }
+  
+  function openDialog(text) {
+    let dialog = f7.dialog.create({
+      text: text, 
+      buttons: [{ text: "Ok", bold: true }]
+    });
+    dialog.open();
+  }
 
   function checkDependency(currentCollectionId, collectionId, requireCollectionId) {
     if (currentCollectionId === collectionId && !$downloadedCollections.includes(requireCollectionId)) {
       let collection = getCollection(requireCollectionId);
-      alert($_('collection.alert.dependency').replace("{0}", collection.title));
+      openDialog($_('collection.alert.dependency').replace("{0}", collection.title));
       return false
     }
     return true
@@ -91,7 +99,7 @@
 
   function download(collectionId, withoutProgress = false) {
     if (downloadingCollectionId != null) {
-      alert($_('collection.alert.downloading'));
+      openDialog($_('collection.alert.downloading'));
       return
     }
     if (!checkDependency(collectionId, Collections.ADVANCED.id, Collections.INTERMEDIATE.id)) { return }

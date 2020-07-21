@@ -171,15 +171,24 @@
       }
     });
   }
+  
+  function openDialog(name) {
+    let dialog = f7.dialog.create({
+      text: $_(`dialog.${name}.text`), 
+      title: $_(`dialog.${name}.title`),
+      buttons: [{ text: "Ok", bold: true }]
+    });
+    dialog.open();
+  }
 
   function goToFilteringView() {
     if ($categoryDetailData.getStatistic(WordsType.LEARNING) >= $settingsData.wordsLimit) {
-      let dialog = f7.dialog.create({
-        text: $_('dialog.learning_full.text'), 
-        title: $_('dialog.learning_full.title'),
-        buttons: [{ text: "Ok", bold: true }]
-      })
-      dialog.open();
+      let dialog = openDialog('learning_full');
+      return
+    }
+
+    if ($categoryDetailData.getStatistic(WordsType.UNKNOWN) === 0) {
+      let dialog = openDialog('unknown_empty');
       return
     }
 

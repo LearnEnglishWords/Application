@@ -20,7 +20,7 @@
             </div>
           {/each}
         </div>
-        {#if $trainingData.isTraining}
+        {#if $trainingData.isTraining && $trainingData.mode === 'read'}
           <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="ctrl-left" size="24"/></div>
           <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
         {/if}
@@ -43,7 +43,7 @@
       {/if}
     </div>
   {:else}
-    <Recapitulation info={recapitulationInfo} />
+    <Recapitulation info={recapitulationInfo} {f7router} />
   {/if}
   <!-- Footer -->
   <div class="footer-container footer-singular arrows">
