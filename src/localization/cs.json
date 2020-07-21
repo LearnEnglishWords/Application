@@ -23,7 +23,7 @@
   "collection": {
       "title": "Zvolte kolekci slovíček:",
       "alert": {
-          "dependency": "Vyžaduje mít nejdříve staženu {0} kolekci slovíček.",
+          "dependency": "Tato kolekce vyžaduje mít nejdříve staženu: {0} kolekci slovíček.",
           "downloading": "Již se stahuje jiná kolekce slovíček. Počkejte než se stáhne a pak můžete začít stahovat tuto."
       },
       "update_progress": "Aktualizace slovíček...",
