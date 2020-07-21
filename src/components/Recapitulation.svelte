@@ -91,7 +91,7 @@
 
 <div class="footer-container footer-singular">
   <div class="footer-content">
-    <Button back class="page-button button-next">{$_('recapitulation.continue')}</Button>
+    <Button on:click={() => f7router.back(f7router.previousRoute.url, { force: true })} class="page-button button-next">{$_('recapitulation.continue')}</Button>
   </div>
 </div>
 <script>
@@ -108,6 +108,8 @@
 
   export let info;
   export let open;
+  export let f7router;
+
   let successInPercent = 100/info.count*info.known;
 
   let recapitulation = 'below-average';

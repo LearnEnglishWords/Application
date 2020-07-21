@@ -46,7 +46,7 @@
       {/if}
     </div>
   {:else}
-    <Recapitulation info={recapitulationInfo} />
+    <Recapitulation info={recapitulationInfo} {f7router} />
   {/if}
   <!-- Footer -->
   <div class="footer-container footer-singular arrows">
