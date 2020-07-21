@@ -1,10 +1,7 @@
 <Page name="Training">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">
-      {$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""} 
-    </div>
-  </Header>
+  <Header {f7router} title="{$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""}"/>
+
   <!-- View -->
   {#if !showRecapitulation}
     <div class="view">
@@ -41,7 +38,7 @@
             <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
             <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
           </Toolbar>
-          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
+          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} popupName="description" />
         {/if}
       {/if}
     </div>

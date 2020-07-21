@@ -136,7 +136,8 @@ export const LearningMode = {
     TRAINING: "training",
     EXAM: "exam",
     REPETITION: "repetition",
-    FILTER: "filter"
+    FILTER: "filter",
+    SEARCH: "search"
 }
 
 export const AppInfo = {

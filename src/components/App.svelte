@@ -15,6 +15,7 @@
   import CategoryEditView from '../views/CategoryEditView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
+  import SearchView from '../views/SearchView.svelte';
   import WordListView from '../views/WordListView.svelte';
   import WordSelectView from '../views/WordSelectView.svelte';
   import { downloadedCollections } from '../js/store.js';
@@ -95,6 +96,7 @@
             if (data.findIndex((colId) => colId === Collections.PERSONAL.id) === -1) {
               collectionStorage.createPersonalCollection();
               data.push(Collections.PERSONAL.id);
+              DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, data);
             } 
             downloadedCollections.set(data);
           }
@@ -151,6 +153,10 @@
       {
         path: '/Training',
         component: TrainingView
+      },
+      {
+        path: '/Search',
+        component: SearchView
       },
       {
         path: '/Settings',

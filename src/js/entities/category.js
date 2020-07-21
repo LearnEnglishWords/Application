@@ -177,5 +177,18 @@ export default class Category {
       "listen": { "known": getKnownWordsCount("listen"), "unknown": learningCount },
     }
   }
+
+  addWord(word) {
+    if (!this.wordStorages[WordsType.ALL].contain(word.text)) {
+      this.wordStorages[WordsType.ALL].addWord(word);
+      if (isAlreadyKnown(word)) {
+        this.wordStorages[WordsType.KNOWN].addWord(word);
+      } else if (isKnown(word)) {
+        this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
+      } else {
+        this.wordStorages[WordsType.UNKNOWN].addWord(word);
+      }
+    }
+  }
 }
 

@@ -1,4 +1,4 @@
-<Sheet class="description" opened={false}>
+<Sheet class="{popupName}" {opened} on:sheetClosed={() => opened = false }>
   <div class="sheet-title">
     <span>{$_('training.description_title')}</span>
     <div class="sheet-link" on:click={() => f7.sheet.close()}>
@@ -29,4 +29,5 @@
 
   export let word;
   export let popupName;
+  export let opened = false;
 </script>
