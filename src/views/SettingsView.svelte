@@ -77,14 +77,11 @@
 
 <script>
   import { 
-    f7, Page, Link, Navbar, Button,
+    f7, Page, Button,
     Block, BlockTitle, 
     List, ListItem, 
-    Toggle, Stepper,
-    Menu, MenuItem, 
-    MenuDropdown, MenuDropdownItem
+    Toggle
   } from 'framework7-svelte';
-  import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';

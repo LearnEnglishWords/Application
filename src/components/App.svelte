@@ -12,6 +12,7 @@
   import CollectionListView from '../views/CollectionListView.svelte';
   import CategoryListView from '../views/CategoryListView.svelte';
   import CategoryDetailView from '../views/CategoryDetailView.svelte';
+  import CategoryEditView from '../views/CategoryEditView.svelte';
   import TrainingView from '../views/TrainingView.svelte';
   import SettingsView from '../views/SettingsView.svelte';
   import WordListView from '../views/WordListView.svelte';
@@ -25,9 +26,10 @@
   import { waitLocale, addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
-  import { defaultSettingsData, AppInfo, setActivity, trainingModes, WordsType } from '../js/utils.js';
+  import { defaultSettingsData, AppInfo, Collections, setActivity, trainingModes, WordsType } from '../js/utils.js';
   import { appName, appId} from '../js/config.js';
   import { lastCollectionId, settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
+  import CollectionStorage from '../js/storages/collections.js';
 
   import { _ } from 'svelte-i18n';
   import { get } from 'svelte/store';
@@ -84,11 +86,16 @@
           lastCollectionId.set(collectionId);
         });
         DS.getAppInfo(AppInfo.DOWNLOADED_COLLECTIONS).then((data) => { 
+          var collectionStorage = new CollectionStorage();
           if (data === null) {
-            //downloadedCollections.set([ "personal" ]);
-            downloadedCollections.set([]);
+            downloadedCollections.set([ Collections.PERSONAL.id ]);
             DS.saveAppInfo(AppInfo.DOWNLOADED_COLLECTIONS, $downloadedCollections);
+            collectionStorage.createPersonalCollection();
           } else {
+            if (data.findIndex((colId) => colId === Collections.PERSONAL.id) === -1) {
+              collectionStorage.createPersonalCollection();
+              data.push(Collections.PERSONAL.id);
+            } 
             downloadedCollections.set(data);
           }
         });
@@ -136,6 +143,10 @@
       {
         path: '/CategoryDetail',
         component: CategoryDetailView
+      },
+      {
+        path: '/CategoryEdit',
+        component: CategoryEditView
       },
       {
         path: '/Training',
