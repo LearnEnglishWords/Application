@@ -12,7 +12,7 @@
 </Page>
 
 <script>
-  import { Page, Button } from 'framework7-svelte';
+  import { f7, Page, Button } from 'framework7-svelte';
   import Header  from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
   import SVGIcon  from '../components/SVGIcon.svelte';

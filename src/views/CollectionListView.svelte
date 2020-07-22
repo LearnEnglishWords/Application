@@ -43,7 +43,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo, Collections, coreCollections, log } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections, coreCollections, log, openDialog } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
@@ -79,19 +79,11 @@
   function getCollection(id) {
     return collectionItems.find((c) => c.id === id);
   }
-  
-  function openDialog(text) {
-    let dialog = f7.dialog.create({
-      text: text, 
-      buttons: [{ text: "Ok", bold: true }]
-    });
-    dialog.open();
-  }
 
   function checkDependency(currentCollectionId, collectionId, requireCollectionId) {
     if (currentCollectionId === collectionId && !$downloadedCollections.includes(requireCollectionId)) {
       let collection = getCollection(requireCollectionId);
-      openDialog($_('collection.alert.dependency').replace("{0}", collection.title));
+      openDialog(f7, $_('collection.alert.dependency').replace("{0}", collection.title));
       return false
     }
     return true

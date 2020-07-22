@@ -286,6 +286,7 @@
       "placeholder": "Vyhledat...",
       "in_progress": "Probíhá vyhledávání..",
       "not_found": "Požadované slovíčko nebylo nalezeno",
+      "save_text": "Slovíčko bylo uloženo.",
       "buttons": {
           "examples": "Příklady",
           "edit": "Upravit",

@@ -106,6 +106,13 @@ export function deduplicate(array) {
   return array.filter((item, index) => array.indexOf(item) === index)
 }
 
+export function openDialog(f7, text) {
+  let dialog = f7.dialog.create({
+    text: text, 
+    buttons: [{ text: "Ok", bold: true }]
+  });
+  dialog.open();
+}
 
 export const WordsType = {
     ALL: 'all',

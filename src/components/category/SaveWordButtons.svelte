@@ -12,8 +12,9 @@
 </div>
 
 <script>
-  import { Button, Col, Row } from 'framework7-svelte';
+  import { f7, Button, Col, Row } from 'framework7-svelte';
   import { categoryData } from '../../js/store.js';
+  import { openDialog } from '../../js/utils.js';
   import CreateButton from './CreateButton.svelte';
   import { _ } from 'svelte-i18n';
 
@@ -25,6 +26,7 @@
     for (let category of $categoryData.selectedCategories) {
       category.addWord(saveWord); 
     }
+    openDialog(f7, $_('search.save_text'));
     f7router.back();
   }
 </script>
