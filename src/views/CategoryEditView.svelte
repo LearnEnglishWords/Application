@@ -47,7 +47,7 @@
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.EDIT ? 'selected' : ''}">
         <span>{$_('category_edit.actions.rename.text')}</span>
-        <input bind:value={newCategoryName} type="text" autocomplete="off" />
+        <input bind:value={newCategoryName} on:keydown={(e) => e.key === "Enter" ? renameCategory() : null} type="text" autocomplete="off" />
         <div class="buttons">
           <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.rename.button.cancel')}</Button>
           <Button class="confirm" on:click={renameCategory}>{$_('category_edit.actions.rename.button.confirm')}</Button>
@@ -105,25 +105,23 @@
 
   function renameCategory() {
     if (newCategoryName === "") { return }
-    let selectedCategory = $collectionData.categoryGroup.categories.find((c) => c.id === category.id)
+    let selectedCategory = $collectionData.categoryGroup.categories.find((c) => c.id === category.id);
     selectedCategory.title = newCategoryName;
 
     DS.saveCategoryList($collectionData.id, getCategoriesData());
 
     closeDialog();
-    f7router.back(f7router.previousRoute.url, { force: true })
+    f7router.back(f7router.history[f7router.history.length-2], { force: true });
   }
 
   function removeCategory() {
-    $collectionData.categoryGroup.categories = $collectionData.categoryGroup.categories.filter((c) => c.id !== category.id)
+    $collectionData.categoryGroup.categories = $collectionData.categoryGroup.categories.filter((c) => c.id !== category.id);
     DS.saveCategoryList($collectionData.id, getCategoriesData());
 
-    Object.values(WordsType).forEach((type) => 
-      DS.removeWordIdsList($collectionData.id, category.id, type)
-    );
+    Object.values(WordsType).forEach((type) => DS.removeWordIdsList($collectionData.id, category.id, type));
 
     closeDialog();
-    f7router.back(f7router.previousRoute.url, { force: true })
+    f7router.back(f7router.history[f7router.history.length-2], { force: true });
   }
   
   function findWord() {

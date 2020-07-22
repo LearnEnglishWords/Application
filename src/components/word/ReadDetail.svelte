@@ -59,7 +59,7 @@
         <span>{$_('search.buttons.edit')}</span>
       </Col>
       -->
-      <Col class="ripple" on:click={() => dispatch('saveWord', { word: word })}>
+      <Col class="ripple" on:click={saveWord}>
         <SVGIcon element="navigation" name="event-confirm" size="16" />
         <span>{$_('search.buttons.save')}</span>
       </Col>
@@ -102,5 +102,10 @@
   function switchTrainingModeWall() {
     $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
     DS.saveSettings($settingsData);
+  }
+  
+  function saveWord() {
+    //f7router.navigate('/Search', { reloadCurrent: searchOpened, props: { query: searchText } });
+    dispatch('saveWord', { word: word })
   }
 </script>

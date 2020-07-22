@@ -82,11 +82,12 @@
       }
   },
   "category_list": {
-      "new": "Pojmenujte si novou kategorii",
+      "new": "Pojmenujte novou kategorii:",
       "buttons": {
           "continue": "Pokračovat",
           "edit": "Upravit",
           "add": "Přidat kategorii",
+          "save": "Uložit",
           "cancel": "Zrušit",
           "confirm": "Potvrdit"
       }
