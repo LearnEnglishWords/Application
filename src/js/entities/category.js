@@ -190,5 +190,11 @@ export default class Category {
       }
     }
   }
+
+  removeWord(word) {
+    Object.values(this.wordStorages).forEach((wordStorage) => {
+      wordStorage.removeWord(word);
+    });
+  }
 }
 

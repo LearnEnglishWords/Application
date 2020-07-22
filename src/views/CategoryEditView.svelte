@@ -8,7 +8,7 @@
     <List simpleList class="personal-list">
       {#each category.wordStorages["all"].getWordIds() as item}
         <ListItem title={item}>
-          <div class="edit-icon"> <!-- tu na DIV přidej onclick - tlačítko -->
+          <div class="edit-icon" on:click={() => removeWord(item)}> 
             <SVGIcon name="n-edit" size="24" />
           </div>
         </ListItem>
@@ -88,6 +88,13 @@
       activeDialog = null;
       setTimeout(() => { activeDialog = newActiveDialog }, 350);
     }
+  }
+
+  function removeWord(wordText) {
+    DS.getWord(wordText).then((word) => {
+      $categoryDetailData.removeWord(word);
+      f7router.refreshPage();
+    });
   }
 
   function getCategoriesData() {
