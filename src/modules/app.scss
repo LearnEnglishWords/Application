@@ -1914,6 +1914,7 @@ input:focus::placeholder {
       transition: all 350ms ease-in-out;
       padding-bottom: 0;
       overflow: auto;
+      width: 100%;
       bottom: 0;
       background: transparent;
       top: 0;
@@ -2151,4 +2152,10 @@ input:focus:-moz-placeholder {
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #FFFFFF50;
+}
+
+.sheet-modal.wall {
+  .sheet-modal-inner {
+    margin: 0 auto;
+  }
 }
