@@ -8,7 +8,7 @@
 
     <NavTitle>
       {#if title === undefined} 
-        <div class="text {searchInput === "" ? "active" : ""}">{appName}</div>
+        <div on:click={search} class="text {searchInput === "" ? "active" : ""}">{appName}</div>
         <input 
            bind:value={searchText}
            on:keydown={(e) => e.key === "Enter" ? search() : null}
