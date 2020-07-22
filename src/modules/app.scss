@@ -1815,7 +1815,7 @@ input:focus::placeholder {
 
 .personal-list {
   margin: 0;
-  ul:before {
+  ul::before, ul::after {
     content: none;
   }
   li {
@@ -1823,6 +1823,9 @@ input:focus::placeholder {
     margin: 0 1em 0.25em;
     border-radius: 10px;
     color: var(--app-text);
+    &::after {
+      content: none;
+    }
     .edit-icon {
       display: flex;
     }

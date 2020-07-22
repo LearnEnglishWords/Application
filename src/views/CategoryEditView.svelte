@@ -9,7 +9,7 @@
       {#each category.wordStorages["all"].getWordIds() as item}
         <ListItem title={item}>
           <div class="edit-icon" on:click={() => removeWord(item)}> 
-            <SVGIcon name="n-edit" size="24" />
+            <SVGIcon name="i-remove" size="24" />
           </div>
         </ListItem>
       {/each}

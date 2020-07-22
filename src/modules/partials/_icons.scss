@@ -13,6 +13,12 @@
     }
   }
 
+  &-i-remove {
+    line {
+      stroke: var(--app-icon);
+    }
+  }
+
   &-n-edit {
     polyline {
       stroke: var(--app-icon);
