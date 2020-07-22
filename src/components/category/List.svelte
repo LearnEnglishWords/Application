@@ -1,6 +1,6 @@
 <div class="page-wrapper">
   <!-- Title -->
-  <div class="page-title">{$_('category.select_categories')}</div>
+  <div class="page-title">{title}</div>
   <!-- List -->
   <List class="list-container list-categories">
     {#each categories as category, id}
@@ -22,6 +22,7 @@
   import { _ } from 'svelte-i18n';
 
   export let categories;
+  export let title;
 
   setTimeout(() => { setupCategoryToggler() }, 200);
 

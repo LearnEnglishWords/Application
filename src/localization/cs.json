@@ -93,7 +93,7 @@
       }
   },
   "category_edit": {
-      "words_list": "Seznam slovíček",
+      "words_list": "Seznam slovíček:",
       "actions": {
           "remove": {
               "button_text": "Odstranit",
@@ -123,6 +123,7 @@
   },
   "category": {
       "select_categories": "Vyberte si kategorie:",
+      "select_categories_for_save": "Vyberte si, kam chcete slovíčko uložit:",
       "training_title": "Zvolte typ cvičení:",
       "confirm": "Pokračovat",
       "statistics": "Statistika",

@@ -49,6 +49,8 @@
     if (f7router.previousRoute.url === "/CategoryEdit") {
       $categoryDetailData.addWord(word); 
       f7router.back(f7router.history[f7router.history.length-2], { force: true });
+    } else {
+      f7router.navigate('/CategoryList', { props: { saveWord: word } });
     }
   }
 </script>
