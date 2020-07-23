@@ -2,7 +2,7 @@
   <SaveWordButtons {f7router} saveWord={saveWord} />
 {:else}
   {#if $collectionData.id === Collections.PERSONAL.id}
-    <PersonalButtons on:continueClick on:editClick />
+    <PersonalButtons {f7router} on:continueClick on:editClick />
   {:else}
     <div class="footer-container footer-singular">
       <div class="footer-content">

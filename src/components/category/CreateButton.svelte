@@ -24,9 +24,9 @@
     collectionStorage.createPersonalCategory($categoryData.newCategoryText).then((cat) => {
       let category = new Category(cat.id, cat.collectionId, cat.name, cat.czechName, cat.icon);  
       $collectionData.categoryGroup.push(category);
+      f7router.refreshPage();
     })
 
-    setTimeout(() => { f7router.refreshPage() }, 500);
   }        
 
   function closeCategoryDialog() {
