@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import axios from 'axios';
-import { backendUrl, backendApiUrl} from './config.js';
+import { backendUrl, backendApiUrl, isProduction } from './config.js';
 
 export const defaultSettingsData = {
   "enableDarkMode": false,
@@ -82,9 +82,11 @@ export function playExampleSound(example, pronunciation) {
 }
 
 export function setActivity(uuid) {
-  axios.post(`${backendApiUrl}/activity/`, {
-    uuid: uuid
-  });
+  if(isProduction) {
+    axios.post(`${backendApiUrl}/activity/`, {
+      uuid: uuid
+    });
+  }
 }
 
 export function log(uuid, message) {
