@@ -59,6 +59,11 @@ export default class WordsStorage {
     return this.loadedWordsCounter === this.allWordIds.length || this.loadedWordsCounter >= amount
   }
 
+  contain(wordId) {
+    let index = this.allWordIds.findIndex((id) => id === wordId);
+    return index !== -1
+  }
+
   addWord(word) {
     this._pushWordId(word.text);
     this._pushWord(word);

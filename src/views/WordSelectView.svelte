@@ -137,7 +137,7 @@
         dialog.close();
         knownWords = [];
         unknownWords = [];
-        f7router.back(f7router.previousRoute.url, { force: true })
+        f7router.back(f7router.history[f7router.history.length-2], { force: true });
       } else {
         updateProgress(dialog);
       }

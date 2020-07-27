@@ -91,7 +91,7 @@
 
 <div class="footer-container footer-singular">
   <div class="footer-content">
-    <Button on:click={() => f7router.back(f7router.previousRoute.url, { force: true })} class="page-button button-next">{$_('recapitulation.continue')}</Button>
+    <Button on:click={() => f7router.back(f7router.history[f7router.history.length-2], { force: true })} class="page-button button-next">{$_('recapitulation.continue')}</Button>
   </div>
 </div>
 <script>

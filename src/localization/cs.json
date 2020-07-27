@@ -74,13 +74,56 @@
               "description": "Nejsnadnější a nejzábavnější formou učení se anglických slovíček je skrze seriály, filmy a knihy."
           },
           "personal": {
-              "text": "(Přidejte si vlastní slovíčka)",
-              "description": "Přidávejte si vlastní slovíčka a vytvářejte si své vlastní kategorie slovíček."
+              "title": "Personal",
+              "text": "(Vytvářejte si vlastní seznamy slovíček)",
+              "description": "Přidávejte vlastní slovíčka a vytvářejte si tak své vlastní kategorie slovíček.",
+              "main_category": "Můj seznam slovíček"
+          }
+      }
+  },
+  "category_list": {
+      "new": "Pojmenujte novou kategorii:",
+      "buttons": {
+          "continue": "Pokračovat",
+          "edit": "Upravit",
+          "add": "Přidat kategorii",
+          "save": "Uložit",
+          "cancel": "Zrušit",
+          "confirm": "Potvrdit"
+      }
+  },
+  "category_edit": {
+      "words_list": "Seznam slovíček:",
+      "actions": {
+          "remove": {
+              "button_text": "Odstranit",
+              "text": "Opravdu chcete tuto kategorii odstranit? Akci potom nelze vrátit zpět.",
+              "button": {
+                  "cancel": "Ne",
+                  "confirm": "Ano"
+              }
+          },
+          "rename": {
+              "button_text": "Přejmenovat",
+              "text": "Přejmenovat kategorii",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
+          },
+          "add_word": {
+              "text": "Přidat slovíčko",
+              "placeholder": "Zadejte slovíčko",
+              "button": {
+                  "cancel": "Zrušit",
+                  "confirm": "Potvrdit"
+              }
           }
       }
   },
   "category": {
       "select_categories": "Vyberte si kategorie:",
+      "select_categories_for_save": "Vyberte si, kam chcete slovíčko uložit:",
       "training_title": "Zvolte typ cvičení:",
       "confirm": "Pokračovat",
       "statistics": "Statistika",
@@ -123,7 +166,7 @@
       "words_limit": "Limit učících se slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "swiper_transition": "Animované přechody slov",
-      "user_level": "Pokročilý student angličtiny",
+      "user_level": "Jsem pokročilý student angličtiny",
       "pronunciation": {
           "text": "Výslovnost",
           "us": "Americká",
@@ -237,6 +280,17 @@
           "3": "Ujde to",
           "2": "To je špatné",
           "1": "Hrůza"
+      }
+  },
+  "search": {              
+      "placeholder": "Vyhledat...",
+      "in_progress": "Probíhá vyhledávání..",
+      "not_found": "Požadované slovíčko nebylo nalezeno",
+      "save_text": "Slovíčko bylo uloženo.",
+      "buttons": {
+          "examples": "Příklady",
+          "edit": "Upravit",
+          "save": "Uložit"
       }
   },
   "menu": {

@@ -46,3 +46,6 @@ cordova/www/
 
 # Production build
 www/
+
+# Local config
+src/js/local-config.js
