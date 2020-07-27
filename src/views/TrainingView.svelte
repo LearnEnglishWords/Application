@@ -1,10 +1,7 @@
 <Page name="Training">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">
-      {$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""} 
-    </div>
-  </Header>
+  <Header {f7router} title="{$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""}"/>
+
   <!-- View -->
   {#if !showRecapitulation}
     <div class="view">
@@ -23,7 +20,7 @@
             </div>
           {/each}
         </div>
-        {#if $trainingData.isTraining}
+        {#if $trainingData.isTraining && $trainingData.mode === 'read'}
           <div class="swiper-button-prev" on:click={swiper.slidePrev}><SVGIcon name="ctrl-left" size="24"/></div>
           <div class="swiper-button-next" on:click={swiper.slideNext}><SVGIcon name="ctrl-right" size="24"/></div>
         {/if}
@@ -41,12 +38,12 @@
             <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
             <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
           </Toolbar>
-          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} />
+          <WordDescriptionPopup word={$trainingData.words[$trainingData.currentWordIndex]} popupName="description" />
         {/if}
       {/if}
     </div>
   {:else}
-    <Recapitulation info={recapitulationInfo} />
+    <Recapitulation info={recapitulationInfo} {f7router} />
   {/if}
   <!-- Footer -->
   <div class="footer-container footer-singular arrows">

@@ -4,6 +4,30 @@
 
 .icon-24 {
 
+  &-magnifier {
+    polyline, circle {
+      stroke: var(--app-icon);
+    }
+    path {
+      fill: var(--app-icon);
+    }
+  }
+
+  &-i-remove {
+    line {
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-n-edit {
+    polyline {
+      stroke: var(--app-icon);
+    }
+    polygon {
+      stroke: var(--app-secondary);
+    }
+  }
+
   &-left-arrow {
     polyline {
       fill: none;
@@ -394,12 +418,42 @@
 }
 
 .icon-16 {
+  &-paper {
+    line, path {
+      stroke: var(--app-icon);
+    }
+  }
+
   &-sound {
     polygon {
       stroke: var(--app-icon);
     }
     path {
       stroke: var(--app-primary);
+    }
+  }
+
+  &-pen-01 {
+    line, polygon {
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-delete-forever {
+    path, line, polyline {
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-event-confirm {
+    line, path, polyline {
+      stroke: var(--app-icon);
+    }
+  }
+
+  &-e-add {
+    line {
+      stroke: var(--app-icon);
     }
   }
 

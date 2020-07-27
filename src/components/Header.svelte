@@ -5,8 +5,28 @@
         <SVGIcon element="navbar" name="left-arrow" size="24" />
       </Link>
     </NavLeft>
-    <slot name="title"></slot>
+
+    <NavTitle>
+      {#if title === undefined} 
+        <div on:click={search} class="text {searchInput === "" ? "active" : ""}">{appName}</div>
+        <input 
+           bind:value={searchText}
+           on:keydown={(e) => e.key === "Enter" ? search() : null}
+           class="header-search {searchInput}" id="search-{id}" 
+           type="text" autocomplete="on" 
+           placeholder={searchPlaceholder}
+        />
+      {:else}
+        {title}
+      {/if}
+    </NavTitle>
+
     <NavRight>
+      {#if title === undefined} 
+        <Link on:click={search}>
+          <SVGIcon element="navbar" name="magnifier" size="24" />
+        </Link>
+      {/if}
       <Link popoverOpen=".popover-menu">
         <SVGIcon element="navbar" name="menu-8" size="24" />
       </Link>
@@ -27,21 +47,49 @@
 
 <script>
   import {
-    f7,
-    Navbar, NavLeft, NavRight, Link,
-    Popover, Icon, 
-    List, ListButton, 
+    f7, Navbar, NavLeft, NavRight, NavTitle, Link,
+    Popover, List, ListButton, 
   } from 'framework7-svelte';
   import Menu  from './Menu.svelte';
+  import SVGIcon from '../components/SVGIcon.svelte';
+  import SearchView  from '../views/SearchView.svelte';
   import { appName }  from '../js/config.js';
   import { _ } from 'svelte-i18n';
 
-  import SVGIcon from '../components/SVGIcon.svelte';
+  export let f7router;
 
   export let type = "main";
-  export let title = appName;
+  export let searchOpened = false;
+  export let title;
   export let popupName;
   export let firstPage;
+
+  let searchPlaceholder = $_('search.placeholder');
+  let searchText = "";
+  let searchInput = searchOpened ? "active" : "";
+  let id = Date.now();
+
+
+  function search() {
+    if (searchInput === "") {
+      searchInput = "active";
+      setTimeout(() => { document.getElementById(`search-${id}`).focus() }, 500);
+    } else {
+      if (searchText === "") {
+        searchInput = "";
+      } else {
+        f7router.navigate('/Search', { reloadCurrent: searchOpened, props: { query: searchText } });
+        resetSearch();
+      }
+    }
+  }
+
+  function resetSearch() {
+    searchPlaceholder = searchText;
+    searchText = "";
+    searchInput = searchOpened ? "active" : "";
+    document.activeElement.blur();
+  }
 
   function quit() {
     f7.dialog.confirm($_('dialog.exit.text'), $_('dialog.exit.title'), () => window.navigator.app.exitApp())

@@ -1,8 +1,7 @@
 <Page name="WordList">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header {f7router} />
+
   <div class="page-title">{$_('words_list.info')}</div>
     <List class="list-container virtual-list list-words">
     

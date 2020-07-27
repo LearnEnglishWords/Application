@@ -1,7 +1,5 @@
 <Page name="CollectionList">
-  <Header firstPage>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header firstPage {f7router} />
   <div class="page-title">{$_('collection.title')}</div>
   <List accordionList mediaList class="collection-list">
     {#each collectionItems as {id, title, shortDescription, fullDescription, active}}
@@ -45,7 +43,7 @@
   import { onMount } from 'svelte';
   import CollectionStorage from '../js/storages/collections.js';
   import DS from '../js/storages/data.js';
-  import { WordsType, Modes, AppInfo, Collections, coreCollections, log } from '../js/utils.js'
+  import { WordsType, Modes, AppInfo, Collections, coreCollections, log, openDialog } from '../js/utils.js'
   import Collection from '../js/entities/collection.js'
   import Header from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
@@ -85,7 +83,7 @@
   function checkDependency(currentCollectionId, collectionId, requireCollectionId) {
     if (currentCollectionId === collectionId && !$downloadedCollections.includes(requireCollectionId)) {
       let collection = getCollection(requireCollectionId);
-      alert($_('collection.alert.dependency').replace("{0}", collection.title));
+      openDialog(f7, $_('collection.alert.dependency').replace("{0}", collection.title));
       return false
     }
     return true
@@ -93,7 +91,7 @@
 
   function download(collectionId, withoutProgress = false) {
     if (downloadingCollectionId != null) {
-      alert($_('collection.alert.downloading'));
+      openDialog(f7, $_('collection.alert.downloading'));
       return
     }
     if (!checkDependency(collectionId, Collections.ADVANCED.id, Collections.INTERMEDIATE.id)) { return }
@@ -202,7 +200,7 @@
     new Collection("student", 'student', false),
     new Collection("native", 'native', false),
     new Collection("media", 'media', false),
-    new Collection("personal", 'personal', false),
+    new Collection(Collections.PERSONAL.id, Collections.PERSONAL.name, true),
   ];
   
   setTimeout(() => { updateWords().then(preloadAllCollections) }, 2000);

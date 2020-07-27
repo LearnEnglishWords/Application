@@ -1,8 +1,7 @@
 <Page name="Settings">
   <!-- Navbar -->
-  <Header>
-    <div class="navbar-title title" slot="title">{$_('app_name')}</div>
-  </Header>
+  <Header {f7router} />
+
   <!-- Header -->
   <div class="header statistics empty"></div>
   <div class="view Settings">
@@ -77,20 +76,19 @@
 
 <script>
   import { 
-    f7, Page, Link, Navbar, Button,
+    f7, Page, Button,
     Block, BlockTitle, 
     List, ListItem, 
-    Toggle, Stepper,
-    Menu, MenuItem, 
-    MenuDropdown, MenuDropdownItem
+    Toggle, Stepper
   } from 'framework7-svelte';
-  import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import Footer  from '../components/Footer.svelte';
   import { _ } from 'svelte-i18n';
   import { defaultSettingsData } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
+
+  export let f7router;
 
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;

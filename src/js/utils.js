@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import axios from 'axios';
-import { backendUrl, backendApiUrl} from './config.js';
+import { backendUrl, backendApiUrl, isProduction } from './config.js';
 
 export const defaultSettingsData = {
   "enableDarkMode": false,
@@ -82,9 +82,11 @@ export function playExampleSound(example, pronunciation) {
 }
 
 export function setActivity(uuid) {
-  axios.post(`${backendApiUrl}/activity/`, {
-    uuid: uuid
-  });
+  if(isProduction) {
+    axios.post(`${backendApiUrl}/activity/`, {
+      uuid: uuid
+    });
+  }
 }
 
 export function log(uuid, message) {
@@ -106,6 +108,13 @@ export function deduplicate(array) {
   return array.filter((item, index) => array.indexOf(item) === index)
 }
 
+export function openDialog(f7, text) {
+  let dialog = f7.dialog.create({
+    text: text, 
+    buttons: [{ text: "Ok", bold: true }]
+  });
+  dialog.open();
+}
 
 export const WordsType = {
     ALL: 'all',
@@ -136,13 +145,15 @@ export const LearningMode = {
     TRAINING: "training",
     EXAM: "exam",
     REPETITION: "repetition",
-    FILTER: "filter"
+    FILTER: "filter",
+    SEARCH: "search"
 }
 
 export const AppInfo = {
   DOWNLOADED_COLLECTIONS: "downloadedCollections",
   LAST_ACTIVITY: "lastActivity",
-  LAST_UPDATE: "lastUpdate"
+  LAST_UPDATE: "lastUpdate",
+  NUMBER_PERSONAL_CATEGORIES: "numberPersonalCategories"
 }
 
 export const Collections = {
