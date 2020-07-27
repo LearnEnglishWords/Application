@@ -105,7 +105,6 @@
   }
   
   function saveWord() {
-    //f7router.navigate('/Search', { reloadCurrent: searchOpened, props: { query: searchText } });
     dispatch('saveWord', { word: word })
   }
 </script>

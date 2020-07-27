@@ -91,7 +91,7 @@
 
   function download(collectionId, withoutProgress = false) {
     if (downloadingCollectionId != null) {
-      openDialog($_('collection.alert.downloading'));
+      openDialog(f7, $_('collection.alert.downloading'));
       return
     }
     if (!checkDependency(collectionId, Collections.ADVANCED.id, Collections.INTERMEDIATE.id)) { return }
