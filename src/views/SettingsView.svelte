@@ -79,7 +79,7 @@
     f7, Page, Button,
     Block, BlockTitle, 
     List, ListItem, 
-    Toggle
+    Toggle, Stepper
   } from 'framework7-svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
