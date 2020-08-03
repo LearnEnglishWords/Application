@@ -14,6 +14,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cordova-android": "^8.1.0",
+    "cordova-annotated-plugin-android": "1.0.4",
     "cordova-plugin-app-exit": "0.0.1",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-file": "^6.0.2",
@@ -22,6 +23,7 @@
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-keyboard": "^1.2.0",
     "cordova-plugin-network-information": "^2.0.2",
+    "cordova-plugin-purchases": "1.2.0",
     "cordova-plugin-splashscreen": "^5.0.3",
     "cordova-plugin-statusbar": "^2.4.3",
     "cordova-plugin-wkwebview-engine": "^1.2.1",
@@ -38,7 +40,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-app-exit": {}
+      "cordova-plugin-app-exit": {},
+      "cordova-plugin-purchases": {}
     },
     "platforms": [
       "android"
