@@ -43,6 +43,7 @@ Thumbs.db
 cordova/platforms/
 cordova/plugins/
 cordova/www/
+cordova/package-lock.json
 
 # Production build
 www/
