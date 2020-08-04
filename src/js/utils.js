@@ -82,7 +82,7 @@ export function playExampleSound(example, pronunciation) {
 }
 
 export function setActivity(uuid) {
-  if(isProduction) {
+  if(isProduction && uuid !== null) {
     axios.post(`${backendApiUrl}/activity/`, {
       uuid: uuid
     });
