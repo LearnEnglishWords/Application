@@ -67,7 +67,7 @@
           ]
         });               
         deviceUUID.set(device.uuid);
-                                    
+
         // App basic setup
         DS.getSettings().then((data) => { 
           if (data === null) {

@@ -38,7 +38,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-app-exit": {}
+      "cordova-plugin-app-exit": {},
+      "cordova-plugin-network-information": {}
     },
     "platforms": [
       "android"

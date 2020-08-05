@@ -148,7 +148,11 @@
             dialog.close();
             resolve();
           } else {
-            downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
+            if (navigator.connection.type === "wifi") {
+              downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
+            } else {
+              resolve();
+            }
           }
         } else {
           resolve();
