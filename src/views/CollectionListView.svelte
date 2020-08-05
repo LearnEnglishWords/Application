@@ -126,9 +126,7 @@
   }
 
   function downloadUpdatesProgress(lastUpdateDate, dialog, resolve) {
-    let numWords = 0;
     collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
-      if (numWords !== 0) { alert(numberWords); numWords = numberWords; }
       dialog.setProgress(100/numberWords*counter);
       if (numberWords === counter) {
         saveCurrentDate();
