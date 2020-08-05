@@ -1,7 +1,7 @@
 <div class="other-mode">
   <div class="other-div word">
     {#if mode==="write"} 
-      {#each word.sense as sense, id}
+      {#each word.sense.slice(0,4) as sense, id}
         {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
       {/each}
     {:else if mode==="listen"} 
