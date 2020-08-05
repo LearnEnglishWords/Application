@@ -125,7 +125,7 @@ export default class Category {
     } else if (setAs === WordsType.LEARNING) {
       wordList.forEach((word) => {
         if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
-          this.wordStorages[WordsType.LEARNING].addWord(word);
+          this.wordStorages[WordsType.LEARNING].insertWord(word);
           word.knownStage = KnownStages.UNKNOWN;
           word.learning = {"read": false, "write": false, "listen": false};
           word.repetition = {"read": false, "write": false, "listen": false};
