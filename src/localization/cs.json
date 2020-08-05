@@ -248,7 +248,7 @@
           "title": "Opakování",
           "info_text": "Máte špatně celkem",
           "info_text_end": "slov.",
-          "info_text_description": "Daná slovíčka byla tedy označena, jako že je neumíte a budete se je muset zase opět naučit."
+          "info_text_description": "Daná slovíčka byla tedy označena, jako že je neumíte a vrácena zpět do procesu učení."
       },
       "training": {
           "title": "Procvičování",
