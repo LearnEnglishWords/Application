@@ -193,6 +193,7 @@
       "buttons": {
           "examples": "Příklady",
           "check": "Zkontrolovat",
+          "unknown": "Nevím",
           "continue": "Pokračovat"
       },
       "placeholders": {

@@ -14,7 +14,11 @@
   <div class="footer-container footer-singular arrows">
     <div class="footer-content arrows">
       {#if result === null}
-        <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
+        {#if translatedText.length === 0 && $trainingData.isTraining}
+          <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.unknown')}</Button>
+        {:else}
+          <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
+        {/if}
       {:else}
         <Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
       {/if}
@@ -36,12 +40,18 @@
         </div>
       {/if}
       {#if !result}
-        <div class="result-div wrong">
-          <span class="result">{$_('training.results.wrong')}</span>
-          <div>{$_('training.results.result_word')}
-            <span class="this-word">{word.text}</span>
+        {#if translatedText.length === 0 && $trainingData.isTraining}
+          <div class="result-div wrong">
+            <div>{$_('training.results.result_word')} <br/> {word.text} </div>
           </div>
-        </div>
+        {:else}
+          <div class="result-div wrong">
+            <span class="result">{$_('training.results.wrong')}</span>
+            <div>{$_('training.results.result_word')}
+              <span class="this-word">{word.text}</span>
+            </div>
+          </div>
+        {/if}
       {:else if result}
         <div class="result-div right">
           <span class="result">{$_('training.results.right')}</span>
