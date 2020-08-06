@@ -110,7 +110,7 @@
   export let open;
   export let f7router;
 
-  let successInPercent = 100/info.count*info.known;
+  let successInPercent = Math.round(100/info.count)*info.known;
 
   let recapitulation = 'below-average';
   
