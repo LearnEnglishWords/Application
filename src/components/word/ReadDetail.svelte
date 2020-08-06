@@ -19,15 +19,7 @@
 </div>
 
 <!-- Sense -->
-<List class="list-container list-categories list-pronunciation">
-  {#each word.sense.slice(0,4) as sense, id}
-    <ListItem class="list-item" title={sense.toLowerCase()}>
-      <div slot="media" class="item-media">
-        <SVGIcon name="translation" size="24" />
-      </div>
-    </ListItem>
-  {/each}
-</List>
+<SenseList {word} />
 
 <!-- Bottom panel -->
 {#if (learnType === LearningMode.EXAM || learnType === LearningMode.REPETITION)}
@@ -79,6 +71,7 @@
   import { _ } from 'svelte-i18n';
   import DS from '../../js/storages/data.js';
   import SVGIcon from '../SVGIcon.svelte';
+  import SenseList from './SenseList.svelte';
   import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
   import { trainingData, statisticsData, settingsData } from '../../js/store.js';
