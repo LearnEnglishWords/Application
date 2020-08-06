@@ -146,7 +146,7 @@
             dialog.close();
             resolve();
           } else {
-            if (navigator.connection.type === "wifi") {
+            if (navigator.connection.type === "wifi" || device.platform === "browser") {
               downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
             } else {
               resolve();
