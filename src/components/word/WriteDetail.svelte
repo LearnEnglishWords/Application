@@ -1,10 +1,10 @@
 <div class="other-mode">
   <div class="other-div word">
-    {#if mode==="write"} 
+    {#if mode === "write"} 
       {#each word.sense.slice(0,4) as sense, id}
         {sense.toLowerCase()}{#if id + 1 !== word.sense.length},{/if} <br/>
       {/each}
-    {:else if mode==="listen"} 
+    {:else if mode === "listen"} 
       <div class="read-mode" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
         <div class="read-title">{$_('training.listen_title')}</div>
         <SVGIcon name="volume" size="24"/>
@@ -14,12 +14,13 @@
   <div class="footer-container footer-singular arrows">
     <div class="footer-content arrows">
       {#if result === null}
-        {#if translatedText.length === 0 && $trainingData.isTraining}
-          <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.unknown')}</Button>
-        {:else}
-          <Button class="page-button button-examples" on:click={checkButton}>{$_('training.buttons.check')}</Button>
-        {/if}
+        <Button class="page-button button-examples" on:click={checkButton}>
+          {translatedText.length === 0 && $trainingData.isTraining ? $_('training.buttons.unknown') : $_('training.buttons.check')}
+        </Button>
       {:else}
+        {#if !showSense && mode === "listen"}
+          <Button class="page-button button-examples" on:click={() => showSense = true }>{$_('training.buttons.show_sense')}</Button>
+        {/if}
         <Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
       {/if}
     </div>
@@ -27,39 +28,44 @@
 </div>
 
 <div class="page-title">
+  {showSense ? $_('training.sense_title') : ""}
   <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
 </div>
 
-<div class="content-mode">
-  <div class="other-div">
-    <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_(`training.placeholders.${mode}`)}" class="translate">
-    {#if result !== null}
-      {#if mode === "write"}
-        <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
-          <SVGIcon name="volume" size="24"/>
-        </div>
-      {/if}
-      {#if !result}
-        {#if translatedText.length === 0 && $trainingData.isTraining}
-          <div class="result-div wrong">
-            <div>{$_('training.results.result_word')} <br/> {word.text} </div>
-          </div>
-        {:else}
-          <div class="result-div wrong">
-            <span class="result">{$_('training.results.wrong')}</span>
-            <div>{$_('training.results.result_word')}
-              <span class="this-word">{word.text}</span>
-            </div>
+{#if showSense}
+  <SenseList {word} />
+{:else}
+  <div class="content-mode">
+    <div class="other-div">
+      <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_(`training.placeholders.${mode}`)}" class="translate">
+      {#if result !== null}
+        {#if mode === "write"}
+          <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+            <SVGIcon name="volume" size="24"/>
           </div>
         {/if}
-      {:else if result}
-        <div class="result-div right">
-          <span class="result">{$_('training.results.right')}</span>
-        </div>
+        {#if !result}
+          {#if translatedText.length === 0 && $trainingData.isTraining}
+            <div class="result-div wrong">
+              <div>{$_('training.results.result_word')} <br/> {word.text} </div>
+            </div>
+          {:else}
+            <div class="result-div wrong">
+              <span class="result">{$_('training.results.wrong')}</span>
+              <div>{$_('training.results.result_word')}
+                <span class="this-word">{word.text}</span>
+              </div>
+            </div>
+          {/if}
+        {:else if result}
+          <div class="result-div right">
+            <span class="result">{$_('training.results.right')}</span>
+          </div>
+        {/if}
       {/if}
-    {/if}
+    </div>
   </div>
-</div>
+{/if}
     
 
 <script>
@@ -67,6 +73,7 @@
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
   import SVGIcon from '../SVGIcon.svelte';
+  import SenseList from './SenseList.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
   import { trainingData, statisticsData, settingsData } from '../../js/store.js';
 
@@ -77,6 +84,7 @@
 
   let translatedText = "";
   let result = null;
+  let showSense = false;
 
   function check() {
     setTimeout(() => { 
