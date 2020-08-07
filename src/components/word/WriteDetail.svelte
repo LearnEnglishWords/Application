@@ -51,7 +51,7 @@
   import SenseList from './SenseList.svelte';
   import ReadWord from './ReadWord.svelte';
   import WriteInput from './WriteInput.svelte';
-  import { playTextSound, LearningMode } from '../../js/utils.js';
+  import { playTextSound } from '../../js/utils.js';
   import { trainingData, settingsData } from '../../js/store.js';
 
   export let word;
