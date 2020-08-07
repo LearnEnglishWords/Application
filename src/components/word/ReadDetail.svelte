@@ -1,35 +1,17 @@
 <!-- Word window -->
-<div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
-  <div class="word">{word.text}</div>
-  {#if showPronunciation}
-    <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-  {/if}
-  {#if enableWallButton}
-    <div class="switch-icon" on:click={switchTrainingModeWall}>
-      <SVGIcon name="preview" size="24"/>
-    </div>
-  {/if}
-  <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
-</div>
+<ReadWord {word} {showPronunciation} {enableWallButton} />
 
+<!-- Counter -->
 <div class="page-title">{$_('training.sense_title')}
   {#if learnType !== LearningMode.SEARCH}
     <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
   {/if}
 </div>
 
-<!-- Sense -->
-<List class="list-container list-categories list-pronunciation">
-  {#each word.sense.slice(0,4) as sense, id}
-    <ListItem class="list-item" title={sense.toLowerCase()}>
-      <div slot="media" class="item-media">
-        <SVGIcon name="translation" size="24" />
-      </div>
-    </ListItem>
-  {/each}
-</List>
+<!-- Middle window -->
+<SenseList {word} />
 
-<!-- Bottom panel -->
+<!-- Bottom control panel -->
 {#if (learnType === LearningMode.EXAM || learnType === LearningMode.REPETITION)}
   <div class="footer-container footer-double">
     <div class="footer-content">
@@ -79,9 +61,11 @@
   import { _ } from 'svelte-i18n';
   import DS from '../../js/storages/data.js';
   import SVGIcon from '../SVGIcon.svelte';
+  import SenseList from './SenseList.svelte';
+  import ReadWord from './ReadWord.svelte';
   import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
-  import { trainingData, statisticsData, settingsData } from '../../js/store.js';
+  import { trainingData, statisticsData } from '../../js/store.js';
 
   export let word;
   export let mode;
@@ -97,11 +81,6 @@
   function clickButton(state) {
     dispatch('updateWord', { word: word, state: state, mode: mode });
     dispatch('nextWord');
-  }
-
-  function switchTrainingModeWall() {
-    $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
-    DS.saveSettings($settingsData);
   }
   
   function saveWord() {
