@@ -1,16 +1,5 @@
 <!-- Word window -->
-<div class="mode-read" on:click="{() => playTextSound(word.text, $settingsData.pronunciation)}">
-  <div class="word">{word.text}</div>
-  {#if showPronunciation}
-    <div class="pronunciation">[ {word.pronunciation[$settingsData.pronunciation]} ]</div>
-  {/if}
-  {#if enableWallButton}
-    <div class="switch-icon" on:click={switchTrainingModeWall}>
-      <SVGIcon name="preview" size="24"/>
-    </div>
-  {/if}
-  <div class="read-icon"> <SVGIcon name="volume" size="24"/> </div>
-</div>
+<ReadWord {word} {showPronunciation} {enableWallButton} />
 
 <div class="page-title">{$_('training.sense_title')}
   {#if learnType !== LearningMode.SEARCH}
@@ -72,9 +61,10 @@
   import DS from '../../js/storages/data.js';
   import SVGIcon from '../SVGIcon.svelte';
   import SenseList from './SenseList.svelte';
+  import ReadWord from './ReadWord.svelte';
   import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
-  import { trainingData, statisticsData, settingsData } from '../../js/store.js';
+  import { trainingData, statisticsData } from '../../js/store.js';
 
   export let word;
   export let mode;
@@ -90,11 +80,6 @@
   function clickButton(state) {
     dispatch('updateWord', { word: word, state: state, mode: mode });
     dispatch('nextWord');
-  }
-
-  function switchTrainingModeWall() {
-    $settingsData.enableTrainingModeWall = !$settingsData.enableTrainingModeWall;
-    DS.saveSettings($settingsData);
   }
   
   function saveWord() {
