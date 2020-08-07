@@ -9,8 +9,8 @@
       {/if}
       {#if !result}
         {#if translatedText.length === 0 && $trainingData.isTraining}
-          <div class="result-div wrong">
-            <div>{$_('training.results.result_word')} <br/> {word.text} </div>
+          <div class="result-div clean">
+            <div>{$_('training.results.result_word')}<span>{word.text}</span></div>
           </div>
         {:else}
           <div class="result-div wrong">

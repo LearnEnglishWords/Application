@@ -806,6 +806,9 @@ input.translate {
   text-align: center;
   font-size: 16px;
   color: var(--app-text);
+  &::placeholder {
+    color: #00000050 !important;
+  }
 }
 
 .page-button {
@@ -829,7 +832,8 @@ input.translate {
 
 .result-div {
   text-align: center;
-  margin-top: 2em;
+  margin-top: 54px;
+  height: 120px;
   color: var(--app-title);
   font-size: 16px;
   font-weight: 500;
@@ -846,11 +850,19 @@ input.translate {
     }
   }
   &.right {
+    padding-top: 20px;
     .result {
       color: var(--app-success);
       font-size: 20px;
       font-weight: 700;
     }
+  }
+  &.clean {
+    padding-top: 15px;
+  }
+  span {
+    font-size: 20px;
+    display: block;
   }
 }
 
@@ -1444,10 +1456,9 @@ input:focus::placeholder {
 }
 
 .volume-block {
-  float: right;
+  position: absolute;
+  right: 0;
   padding: 1em;
-  margin: 0 0 0 100%;
-  width: auto;
 }
 
 .mode-read {
