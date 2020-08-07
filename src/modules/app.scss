@@ -2170,3 +2170,10 @@ input:focus:-moz-placeholder {
     margin: 0 auto;
   }
 }
+
+.button-sense {
+  background: white !important;
+  box-shadow: none !important;
+  border: 1px solid var(--app-secondary) !important;
+  color: var(--app-secondary) !important;
+}

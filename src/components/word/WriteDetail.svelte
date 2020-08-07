@@ -33,10 +33,10 @@
     
 <!-- Bottom control panel -->
 {#if isChecked}
-  <div class="footer-container footer-singular arrows">
+  <div class="footer-container footer-double arrows">
     <div class="footer-content arrows">
       {#if !showSense && mode === "listen"}
-        <Button class="page-button button-examples" on:click={() => { showSense = true; autoPlaySound() } }> {$_('training.buttons.show_sense')} </Button>
+        <Button outline class="page-button button-examples button-sense" on:click={() => { showSense = true; autoPlaySound() } }> {$_('training.buttons.show_sense')} </Button>
       {/if}
       <Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
     </div>
