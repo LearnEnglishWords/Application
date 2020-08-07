@@ -1,16 +1,17 @@
 <!-- Word window -->
 <ReadWord {word} {showPronunciation} {enableWallButton} />
 
+<!-- Counter -->
 <div class="page-title">{$_('training.sense_title')}
   {#if learnType !== LearningMode.SEARCH}
     <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
   {/if}
 </div>
 
-<!-- Sense -->
+<!-- Middle window -->
 <SenseList {word} />
 
-<!-- Bottom panel -->
+<!-- Bottom control panel -->
 {#if (learnType === LearningMode.EXAM || learnType === LearningMode.REPETITION)}
   <div class="footer-container footer-double">
     <div class="footer-content">

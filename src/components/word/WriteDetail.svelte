@@ -1,3 +1,4 @@
+<!-- Word window -->
 {#if showSense}
   <ReadWord {word} />
 {:else}
@@ -17,17 +18,20 @@
   </div>
 {/if}
 
+<!-- Counter -->
 <div class="page-title">
   {showSense ? $_('training.sense_title') : ""}
   <span>{$trainingData.currentWordIndex+1}/{$trainingData.words.length}</span>
 </div>
 
+<!-- Middle window -->
 {#if showSense}
   <SenseList {word} />
 {:else}
   <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
 {/if}
     
+<!-- Bottom control panel -->
 {#if isChecked}
   <div class="footer-container footer-singular arrows">
     <div class="footer-content arrows">
