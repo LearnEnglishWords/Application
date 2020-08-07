@@ -34,12 +34,7 @@ svg {
 
     &.#{$name}-container {$element: "container";
       padding: 1em 0;
-      border-top: 1px solid var(--#{$name}-#{$type}-#{$element}-border);
       @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
-
-      &.arrows {
-        border-top: 0;
-      }
     }
 
     .#{$name}-content {
@@ -48,22 +43,19 @@ svg {
 
       &.arrows {
         width: calc((100% - 4em) - (24px * 2));
-
-    z-index: 16166646464;
-    position: fixed;
-    bottom: 1em;
-    left: calc(2em + 24px);
-
+        z-index: 16166646464;
+        position: fixed;
+        bottom: 1em;
+        left: calc(2em + 24px);
       }
     }
-
   }
 
-  &-double {$type: "double";
+  &-double {
+    $type: "double";
 
     &.#{$name}-container {$element: "container";
       padding: 1em 0;
-      border-top: 1px solid var(--#{$name}-#{$type}-#{$element}-border);
       @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
     }
 
