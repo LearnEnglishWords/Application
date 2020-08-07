@@ -61,7 +61,11 @@
     setTimeout(() => { 
       result = text.toLowerCase() === word.text.toLowerCase();
       isChecked = true;
-      dispatch('check', { isRight: result });
+      dispatch('check', { isRight: result });         
+
+      if ($settingsData.enableAutoPlaySound && mode === "write") {
+        playTextSound(word.text, $settingsData.pronunciation);
+      }
     }, 200);
   }
 
