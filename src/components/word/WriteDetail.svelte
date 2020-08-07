@@ -32,7 +32,7 @@
   <div class="footer-container footer-singular arrows">
     <div class="footer-content arrows">
       {#if !showSense && mode === "listen"}
-        <Button class="page-button button-examples" on:click={() => showSense = true }>{$_('training.buttons.show_sense')}</Button>
+        <Button class="page-button button-examples" on:click={() => { showSense = true; autoPlaySound() } }> {$_('training.buttons.show_sense')} </Button>
       {/if}
       <Button class="page-button button-examples" on:click={() => dispatch('nextWord')}>{$_('training.buttons.continue')}</Button>
     </div>
@@ -57,4 +57,10 @@
 
   let showSense = false;
   let isChecked = false;
+
+  function autoPlaySound() {
+    if ($settingsData.enableAutoPlaySound) {
+      playTextSound(word.text, $settingsData.pronunciation);
+    }
+  }
 </script>
