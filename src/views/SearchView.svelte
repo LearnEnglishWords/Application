@@ -18,15 +18,14 @@
   import SVGIcon  from '../components/SVGIcon.svelte';
   import WordReadDetail from '../components/word/ReadDetail.svelte';
   import DS from '../js/storages/data.js';
-  import { categoryDetailData } from '../js/store.js';
+  import { categoryDetailData, settingsData } from '../js/store.js';
   import { backendApiUrl } from '../js/config.js'
-  import { LearningMode } from '../js/utils.js'
+  import { playTextSound, LearningMode } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   
   export let f7router;
   export let query;
   export let saveAnywhere = false;
-
 
   async function searchOnline(query) {
     const res = await fetch(`${backendApiUrl}/word/find?text=${query.replace(' ', '-')}`);
@@ -34,11 +33,23 @@
     return result.payload === undefined ? null : result.payload
   }
 
+  function playSound(w) {
+    if ($settingsData.enableAutoPlaySound) {
+      playTextSound(w.text, $settingsData.pronunciation);
+    }
+    return true
+  }
+
   function search(query) {
     return new Promise((success, error) => {
       if (query === "") { error() }
       DS.getWord(query).then((w) => { 
-        w === null ? searchOnline(query).then((w) => { w === null ? error() : success(w) }) : success(w);
+        if (w === null) {
+          searchOnline(query).then((w) => { w === null ? error() : playSound(w) && success(w) })
+        } else {
+          success(w);
+          playSound(w);
+        }
       });
     });
   }
