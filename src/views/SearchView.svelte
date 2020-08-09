@@ -25,6 +25,7 @@
   
   export let f7router;
   export let query;
+  export let saveAnywhere = false;
 
 
   async function searchOnline(query) {
@@ -46,7 +47,7 @@
     let word = e.detail.word;
     DS.saveWord(word.text, word);
 
-    if (f7router.previousRoute.url === "/CategoryEdit") {
+    if (f7router.previousRoute.url === "/CategoryEdit" && !saveAnywhere) {
       $categoryDetailData.addWord(word); 
       f7router.back(f7router.history[f7router.history.length-2], { force: true });
     } else {

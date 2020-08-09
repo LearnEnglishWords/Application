@@ -6,9 +6,9 @@
   <div class="view personal-page" on:click={() => activeDialog = null} >
     <div class="page-title">{$_('category_edit.words_list')}</div>
     <List simpleList class="personal-list">
-      {#each category.wordStorages["all"].getWordIds() as item}
-        <ListItem title={item}>
-          <div class="edit-icon" on:click={() => removeWord(item)}> 
+      {#each category.wordStorages["all"].getWordIds() as wordText}
+        <ListItem title={wordText} on:click={() => f7router.navigate('/Search', { props: { query: wordText, saveAnywhere: true } })}>
+          <div class="edit-icon" on:click|stopPropagation={() => removeWord(wordText)}> 
             <SVGIcon name="i-remove" size="24" />
           </div>
         </ListItem>
