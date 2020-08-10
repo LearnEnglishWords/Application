@@ -2169,3 +2169,12 @@ input:focus:-moz-placeholder {
   border: 1px solid var(--app-secondary) !important;
   color: var(--app-secondary) !important;
 }
+
+.button-gray {
+  background: #90969a !important;
+  box-shadow: 0 0 0.25em #90969a !important;
+}
+
+.button-trans {
+  transition: all 350ms ease-in-out;
+}

@@ -15,6 +15,10 @@
           "title": "Žádná slovíčka k dispozici",
           "text": "Už nemáte žádná další volná slovíčka pro přidání."
       },
+      "unselected_category": {
+          "title": "Nebyla vybrána žádná kategorie",
+          "text": "Musíte nejdříve vybrat kategorii, kam si chcete dané slovíčko uložit."
+      },
       "exit": {
           "title": "Konec",
           "text": "Opravdu si přejete aplikaci vypnout?"
