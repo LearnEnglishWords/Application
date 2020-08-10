@@ -1,6 +1,6 @@
 <Page name="Training">
   <!-- Navbar -->
-  <Header {f7router} title="{$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""}"/>
+  <Header {f7router} showMenu={false} title="{$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""}"/>
 
   <!-- View -->
   {#if !showRecapitulation}

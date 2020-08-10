@@ -27,9 +27,13 @@
           <SVGIcon element="navbar" name="magnifier" size="24" />
         </Link>
       {/if}
-      <Link popoverOpen=".popover-menu">
-        <SVGIcon element="navbar" name="menu-8" size="24" />
-      </Link>
+      {#if showMenu} 
+        <Link popoverOpen=".popover-menu">
+          <SVGIcon element="navbar" name="menu-8" size="24" />
+        </Link>
+      {:else}
+        <Link></Link>
+      {/if}
     </NavRight>
   </Navbar>
   <!-- Popup -->
@@ -63,6 +67,7 @@
   export let title;
   export let popupName;
   export let firstPage;
+  export let showMenu = true;
 
   let searchPlaceholder = $_('search.placeholder');
   let searchText = "";
