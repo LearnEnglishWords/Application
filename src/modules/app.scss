@@ -2170,6 +2170,21 @@ input:focus:-moz-placeholder {
   color: var(--app-secondary) !important;
 }
 
+.shuffle-toggle {
+  transition: all 350ms ease-in-out;
+  height: 24px;
+  opacity: 1;
+  margin-bottom: 1.5em;
+  label {
+    margin-right: 1em;
+  }
+  &.disabled {
+    margin-bottom: 0;
+    height: 0;
+    opacity: 0 !important;
+  }
+}
+
 .button-gray {
   background: #90969a !important;
   box-shadow: 0 0 0.25em #90969a !important;

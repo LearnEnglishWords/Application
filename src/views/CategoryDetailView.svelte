@@ -46,6 +46,10 @@
     <Row class="second nav-content {currentLearningMode !== null ? "active " + currentLearningMode : ''}">
       <Col>
         <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null && currentLearningMode !== LearningMode.REPETITION} />
+        <div class="shuffle-toggle {currentLearningMode === LearningMode.TRAINING ? "" : "disabled"}">
+          <Toggle on:toggleChange={() => shuffleWordsEnabled = !shuffleWordsEnabled} checked={shuffleWordsEnabled}></Toggle>
+          {$_('category.shuffle_toggler')}
+        </div>
         <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
         <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
@@ -59,7 +63,7 @@
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.REPETITION}.text2`)} 
         </p>
-      </Col>
+      </Col> 
     </Row>
     <Row class="text-learning {currentLearningMode === null ? 'active' : 'inactive'}">
       <Col>
@@ -84,7 +88,7 @@
     BlockTitle, Block, BlockHeader,
     List, ListItem,
     AccordionContent,
-    Stepper, Gauge,
+    Stepper, Gauge, Toggle,
     Row, Col, 
     Link, Button
   } from 'framework7-svelte';
@@ -115,6 +119,7 @@
 
   let currentLearningMode = getDefaultLearningMode(LearningMode.TRAINING);
   let modeType = null;
+  let shuffleWordsEnabled = false;
 
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
   //  currentLearningMode = LearningMode.FILTER;
@@ -159,6 +164,7 @@
       isTraining: currentLearningMode === LearningMode.TRAINING,
       isFiltering: currentLearningMode === LearningMode.FILTER,
       words: currentWordStorage.getWords(wordsCount),
+      shuffleWords: $trainingData.type === LearningMode.EXAM ? true : shuffleWordsEnabled,
       currentWordIndex: 0
     });
   }

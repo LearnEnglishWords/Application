@@ -110,7 +110,7 @@
     wallOpened = canOpenWall();
   }
 
-  if ($trainingData.type === LearningMode.EXAM) {
+  if ($trainingData.shuffleWords) {
     $trainingData.words = shuffle($trainingData.words);
   }
 
