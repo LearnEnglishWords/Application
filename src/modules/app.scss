@@ -1280,7 +1280,7 @@ input:focus::placeholder {
           opacity: 0;
           width: calc(100% - 4em);
           &.selected {
-            height: 100px;
+            height: 65px;
             padding: 1em 0;
             opacity: 1;
           }

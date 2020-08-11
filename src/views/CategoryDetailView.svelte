@@ -50,12 +50,15 @@
           <Toggle on:toggleChange={() => shuffleWordsEnabled = !shuffleWordsEnabled} checked={shuffleWordsEnabled}></Toggle>
           {$_('category.shuffle_toggler')}
         </div>
-        <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
+        {#if currentLearningMode === LearningMode.EXAM || currentLearningMode === LearningMode.TRAINING}
+          <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
+        {/if}
         <p class="{currentLearningMode === LearningMode.TRAINING ? 'selected' : ''}">
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.TRAINING}.text2`)}
         </p>
         <p class="{currentLearningMode === LearningMode.EXAM ? 'selected' : ''}">
+          <br/>
           {$_(`category.learning_mode.${LearningMode.EXAM}.text1`)} <br /> 
           {$_(`category.learning_mode.${LearningMode.EXAM}.text2`)}
         </p>
