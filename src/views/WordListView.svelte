@@ -57,6 +57,7 @@
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
   import { playTextSound, WordsType } from '../js/utils.js'
+  import { numberLoadedWordsPerLoad } from '../js/config.js'
   import { categoryGroupData, categoryDetailData, settingsData, statisticsData, modeStatisticsData } from '../js/store.js';
 
   import { get } from 'svelte/store';
@@ -78,7 +79,7 @@
 
   let virtualList = null; 
   let allowInfinite = true;
-  let itemsPerLoad = 30;
+  let itemsPerLoad = numberLoadedWordsPerLoad;
 
 
   onMount(() => { 
