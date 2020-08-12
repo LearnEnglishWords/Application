@@ -48,6 +48,10 @@
   function goToDetailView() {
     let categories = $categoryData.selectedCategories.length > 0 ? $categoryData.selectedCategories : $collectionData.categoryGroup.categories
     let categoryGroup = new CategoryGroup(collectionData.id, categories, true);
+    if (categoryGroup.mainCategory.getStatistic(WordsType.ALL) === 0) {
+      goToEditView();
+      return
+    }
 
     categoryGroupData.set(categoryGroup);
     categoryDetailData.set(categoryGroup.mainCategory);

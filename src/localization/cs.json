@@ -15,6 +15,10 @@
           "title": "Žádná slovíčka k dispozici",
           "text": "Už nemáte žádná další volná slovíčka pro přidání."
       },
+      "empty_category": {
+          "title": "Žádná slovíčka k dispozici",
+          "text": "Žádná slovíčka zde nejsou ještě k dispozici. Slovíčka sem můžete vkládat pomocí tlačítka (+) umístěného dole na spodním panelu."
+      },
       "unselected_category": {
           "title": "Nebyla vybrána žádná kategorie",
           "text": "Musíte nejdříve vybrat kategorii, kam si chcete dané slovíčko uložit."

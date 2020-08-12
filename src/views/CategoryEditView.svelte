@@ -58,9 +58,9 @@
 </Page>
 
 <script>
-  import { Page, Button, List, ListItem, Row, Col } from 'framework7-svelte';
+  import { f7, Page, Button, List, ListItem, Row, Col } from 'framework7-svelte';
   import { collectionData, categoryDetailData } from '../js/store.js';
-  import { WordsType } from '../js/utils.js';
+  import { WordsType, openDialog } from '../js/utils.js';
   import DS from '../js/storages/data.js';
   import SVGIcon from '../components/SVGIcon.svelte';
   import Header from '../components/Header.svelte';
@@ -77,6 +77,10 @@
       EDIT: 'edit',
       ADD_WORD: 'add_word',
       REMOVE: 'remove'
+  }
+
+  if (category.getStatistic(WordsType.ALL) === 0) {
+    openDialog(f7, $_("dialog.empty_category.text"));
   }
   
   function changeDialog(newActiveDialog) {
