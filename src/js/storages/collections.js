@@ -37,16 +37,6 @@ export default class CollectionStorage {
       return result.payload
     }
   }
-
-  async downloadPersonalWords() {
-    const res = await fetch(`${backendApiUrl}/word/list?page=1&limit=3&state=CORRECT`);
-    var result = await res.json();
-    if (result.payload === undefined) {
-      return [];
-    } else {
-      return result.payload.words
-    }
-  }
  
   async downloadUpdates(fromDate, progress) {
     const res = await fetch(`${backendApiUrl}/word/updated?from=${fromDate}`);
@@ -159,15 +149,11 @@ export default class CollectionStorage {
     DS.getCategoryList(collectionId).then((categories) => {
       if (categories === null) {
         DS.saveCategoryList(collectionId, [ newCategory ]);
-        this.downloadPersonalWords().then((data) => {
-          let words = data !== undefined ? data : [];
-          this.saveCategoryWords(collectionId, newCategory.id, words, () => {});
-        })
       } else {
         categories.push(newCategory);
         DS.saveCategoryList(collectionId, categories);
-        this.saveCategoryWords(collectionId, newCategory.id, [], () => {});
       }
+      this.saveCategoryWords(collectionId, newCategory.id, [], () => {});
       resolve(newCategory);
     });
   }
