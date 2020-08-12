@@ -6,6 +6,12 @@
   <div class="page-title">{$_('words_list.info_select')}</div>
     <List class="list-container virtual-list list-words"></List>
 
+    {#if allWordsLength > 0 && allWordsLength < allWordIds.length && unknownWords.length < $settingsData.wordsLimit}
+      <Button class="word-button button-next" on:click={loadNextWords}>
+        {$_('words_list.next_button')}
+      </Button>
+    {/if}
+
     {#if allWordsLength === 0 && allWordIds.length > 0}
       {$_('words_list.loading')}
     {/if}
@@ -54,9 +60,11 @@
 
   let wordState = {};
   let allWords = [];
-  var allWordIds = $categoryDetailData.wordStorages[WordsType.UNKNOWN].getWordIds().slice(0, 30);
+  var allWordIds = $categoryDetailData.wordStorages[WordsType.UNKNOWN].getWordIds();
 
   let virtualList = null; 
+  let allowInfinite = true;
+  let itemsPerLoad = 30;
 
 
   onMount(() => { 
@@ -100,12 +108,19 @@
       playTextSound(clickedWord.text, $settingsData.pronunciation);
     });
 
-    loadWords();
+    loadWords(0, itemsPerLoad);
   });
 
 
-  function loadWords() {
-    allWordIds.forEach((wordId, index) => {
+  function loadNextWords() {
+    if (!allowInfinite) return;
+
+    allowInfinite = false;
+    loadWords(allWords.length, allWords.length + itemsPerLoad);
+  }
+
+  function loadWords(from, to) {
+    allWordIds.slice(from, to).forEach((wordId, index) => {
       DS.getWord(wordId).then((word) => {
         wordState[word.text] = false;
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
@@ -113,6 +128,9 @@
         unknownWords.push(word);
         allWordsLength++;
       });
+      if (index+1 === itemsPerLoad) {
+        allowInfinite = true;
+      }
     });
   }
 
@@ -156,10 +174,10 @@
 
     if (known) {
       knownWords.push(word);
-      knownWords = [...knownWords];
     } else {
       unknownWords.push(word);
-      unknownWords = [...unknownWords];
     }       
+    knownWords = [...knownWords];
+    unknownWords = [...unknownWords];
   }
 </script>

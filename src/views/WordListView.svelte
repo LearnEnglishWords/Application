@@ -3,14 +3,14 @@
   <Header {f7router} />
 
   <div class="page-title">{$_('words_list.info')}</div>
-    <List class="list-container virtual-list list-words">
-    
-    </List>
+    <List class="list-container virtual-list list-words"> </List>
+
     {#if allWordsLength > 0 && allWordsLength < allWordIds.length}
       <Button class="word-button button-next" on:click={loadNextWords}>
         {$_('words_list.next_button')}
       </Button>
     {/if}
+
     {#if allWordsLength === 0 && allWordIds.length > 0}
       {$_('words_list.loading')}
     {/if}
