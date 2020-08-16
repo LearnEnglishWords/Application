@@ -1,7 +1,7 @@
 {#if mode === "read"}
   <ReadDetail {word} {mode} {learnType} {showPronunciation} {enableWallButton} on:nextWord on:updateWord />
 {:else} 
-  <WriteDetail {word} {mode} on:nextWord on:updateWord />
+  <WriteDetail {word} {mode} {learnType} on:nextWord on:updateWord />
 {/if}
     
 <script>

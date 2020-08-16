@@ -140,7 +140,8 @@
           "title": "Procvičit",
           "read": "Čtení",
           "write": "Psaní",
-          "listen": "Poslech"
+          "listen": "Poslech",
+          "quiz": "Kvíz"
       },
       "words": "slov",
       "buttons": {
@@ -176,6 +177,7 @@
       "auto_sound": "Automatické přehrávání zvuku",
       "swiper_transition": "Animované přechody slov",
       "user_level": "Jsem pokročilý student angličtiny",
+      "quiz": "Do procvičování přidat kvíz",
       "pronunciation": {
           "text": "Výslovnost",
           "us": "Americká",

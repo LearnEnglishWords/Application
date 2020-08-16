@@ -3,7 +3,13 @@
     <div class="mode-radio {checked ? "active" : ""}" on:click={() => changeTrainingMode(id)}>
       <input type="radio" name="training-mode" class="mode-input" value={value} id={value} checked/>
       <SVGIcon element="mode" name="{icon}" size="24" />
-      <label class="mode-label" for={value}>{$_(`category.training_mode.${value}`)}</label>
+      <label class="mode-label" for={value}>
+        {#if enableQuiz && value === "write"} 
+          {$_(`category.training_mode.quiz`)}
+        {:else}
+          {$_(`category.training_mode.${value}`)}
+        {/if}
+      </label>
 
       <div class="mode-statistics">
         <Statistics simple withoutLearning statistic={statistics[value]} />
@@ -22,6 +28,7 @@
   export let modeType;
   export let statistics;
   export let active;
+  export let enableQuiz;
 
   let trainingModes = defaultTrainingModes;
   let trainingModeIndex = 0;  

@@ -1,7 +1,8 @@
 <div class="content-mode">
   <div class="other-div">
-    <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_(`training.placeholders.${mode}`)}" class="translate">
-    {#if result !== null}
+    {#if result === null}
+      <input bind:value={translatedText} on:keydown={handleKeydown} autocomplete="off" placeholder="{$_(`training.placeholders.${mode}`)}" class="translate">
+    {:else}
       {#if mode === "write"}
         <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
           <SVGIcon name="volume" size="24"/>
@@ -23,6 +24,9 @@
       {:else if result}
         <div class="result-div right">
           <span class="result">{$_('training.results.right')}</span>
+          <div>{$_('training.results.result_word')}
+            <span class="this-word">{word.text}</span>
+          </div>
         </div>
       {/if}
     {/if}

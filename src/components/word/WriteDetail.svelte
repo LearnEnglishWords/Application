@@ -28,7 +28,11 @@
 {#if showSense}
   <SenseList {word} />
 {:else}
-  <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
+  {#if $settingsData.enableQuiz && mode === "write" && learnType === LearningMode.TRAINING}
+    <SelectInput {word} wordList={[...$categoryDetailData.wordStorages[WordsType.ALL].allWordIds]} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
+  {:else}
+    <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
+  {/if}
 {/if}
     
 <!-- Bottom control panel -->
@@ -51,11 +55,13 @@
   import SenseList from './SenseList.svelte';
   import ReadWord from './ReadWord.svelte';
   import WriteInput from './WriteInput.svelte';
-  import { playTextSound } from '../../js/utils.js';
-  import { trainingData, settingsData } from '../../js/store.js';
+  import SelectInput from './SelectInput.svelte';
+  import { playTextSound, LearningMode, WordsType } from '../../js/utils.js';
+  import { trainingData, categoryDetailData, settingsData } from '../../js/store.js';
 
   export let word;
   export let mode;
+  export let learnType;
 
   const dispatch = createEventDispatcher();
 

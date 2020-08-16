@@ -2193,3 +2193,24 @@ input:focus:-moz-placeholder {
 .button-trans {
   transition: all 350ms ease-in-out;
 }
+
+.button-select {
+  @extend %-pattern;
+
+  background-color: var(--app-primary);
+  color: white;
+  font-weight: 700;
+  width: calc(100% - 8em);
+  margin: 0 auto 1em;
+  height: 42px;
+  line-height: 42px;
+  border-radius: 7px;
+  box-shadow: 0 0 0.25em var(--app-primary);
+  &:last-child {
+    margin: 0 auto;
+  }
+}
+
+.result-div.right .this-word {
+  color: var(--app-success);
+}

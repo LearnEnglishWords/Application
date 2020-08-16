@@ -69,6 +69,17 @@
           <Toggle on:toggleChange={saveUserLevel}></Toggle>
         {/if}
       </ListItem>
+
+      <ListItem>
+        <div>
+          {$_('settings.quiz')}
+        </div>
+        {#if enableQuiz}
+          <Toggle on:toggleChange={saveQuiz} checked></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveQuiz}></Toggle>
+        {/if}
+      </ListItem>
     </List>
     <Footer />
   </div>
@@ -95,6 +106,7 @@
   let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
   let advancedUser = $settingsData.advancedUser;
+  let enableQuiz = $settingsData.enableQuiz;
 
   const pronunciations = {
     "uk": $_('settings.pronunciation.uk'),
@@ -124,6 +136,11 @@
 
   function saveWordLimit() {
     $settingsData.wordsLimit = wordsLimit;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveQuiz() {
+    $settingsData.enableQuiz = !$settingsData.enableQuiz;
     DS.saveSettings($settingsData);
   }
 </script>

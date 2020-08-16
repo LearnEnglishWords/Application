@@ -45,7 +45,11 @@
     </Row>
     <Row class="second nav-content {currentLearningMode !== null ? "active " + currentLearningMode : ''}">
       <Col>
-        <TrainingModes bind:modeType={modeType} statistics={$modeStatisticsData} active={currentLearningMode !== null && currentLearningMode !== LearningMode.REPETITION} />
+        <TrainingModes bind:modeType={modeType} 
+             enableQuiz={$settingsData.enableQuiz && currentLearningMode === LearningMode.TRAINING} 
+             statistics={$modeStatisticsData} 
+             active={currentLearningMode !== null && currentLearningMode !== LearningMode.REPETITION} 
+         />
         <div class="shuffle-toggle {currentLearningMode === LearningMode.TRAINING ? "" : "disabled"}">
           <Toggle on:toggleChange={() => shuffleWordsEnabled = !shuffleWordsEnabled} checked={shuffleWordsEnabled}></Toggle>
           {$_('category.shuffle_toggler')}
