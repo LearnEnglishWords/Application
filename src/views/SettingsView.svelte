@@ -17,25 +17,45 @@
         ></Stepper>
       </ListItem>
 
-        <li class="accordion-item">
-          <a href="#" class="item-content item-link">
-            <div class="item-inner">
-              <div class="item-title">{$_('settings.pronunciation.text')}:  {pronunciations[$settingsData.pronunciation]}</div>
-            </div>
-          </a>
-          <div class="accordion-item-content" on:click={() => f7.accordion.close(".accordion-item")}>
-            <div on:click={() => savePronunciation("uk")}>
-              <ListItem>
-                <Button class="settings_button">{$_('settings.pronunciation.uk')}</Button>
-              </ListItem>
-            </div>
-            <div on:click={() => savePronunciation("us")}>
-              <ListItem>
-                <Button class="settings_button">{$_('settings.pronunciation.us')}</Button>
-              </ListItem>
-            </div>
+      <li class="accordion-item accordion-pronunciation-item">
+        <a href="#" class="item-content item-link">
+          <div class="item-inner">
+            <div class="item-title">{$_('settings.pronunciation.text')}:  {pronunciations[$settingsData.pronunciation]}</div>
           </div>
-        </li>
+        </a>
+        <div class="accordion-item-content" on:click={() => f7.accordion.close(".accordion-pronunciation-item")}>
+          <div on:click={() => savePronunciation("uk")}>
+            <ListItem>
+              <Button class="settings_button">{$_('settings.pronunciation.uk')}</Button>
+            </ListItem>
+          </div>
+          <div on:click={() => savePronunciation("us")}>
+            <ListItem>
+              <Button class="settings_button">{$_('settings.pronunciation.us')}</Button>
+            </ListItem>
+          </div>
+        </div>
+      </li>
+
+      <li class="accordion-item accordion-translator-item">
+        <a href="#" class="item-content item-link">
+          <div class="item-inner">
+            <div class="item-title">{$_('settings.translator.text')}:  {translatorEngines[$settingsData.translator === undefined ? "google" : $settingsData.translator]}</div>
+          </div>
+        </a>
+        <div class="accordion-item-content" on:click={() => f7.accordion.close(".accordion-translator-item")}>
+          <div on:click={() => saveTranslator("google")}>
+            <ListItem>
+              <Button class="settings_button">{$_('settings.translator.google')}</Button>
+            </ListItem>
+          </div>
+          <div on:click={() => saveTranslator("microsoft")}>
+            <ListItem>
+              <Button class="settings_button">{$_('settings.translator.microsoft')}</Button>
+            </ListItem>
+          </div>
+        </div>
+      </li>
 
       <ListItem>
         <div>
@@ -103,7 +123,6 @@
 
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
-  let pronunciation = $settingsData.pronunciation;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
   let advancedUser = $settingsData.advancedUser;
   let enableQuiz = $settingsData.enableQuiz;
@@ -111,6 +130,11 @@
   const pronunciations = {
     "uk": $_('settings.pronunciation.uk'),
     "us": $_('settings.pronunciation.us')
+  }
+
+  const translatorEngines = {
+    "google": $_('settings.translator.google'),
+    "microsoft": $_('settings.translator.microsoft')
   }
 
 
@@ -126,6 +150,11 @@
 
   function savePronunciation(pronunciation) {
     $settingsData.pronunciation = pronunciation;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveTranslator(translator) {
+    $settingsData.translator = translator;
     DS.saveSettings($settingsData);
   }
 

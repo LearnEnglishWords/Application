@@ -47,7 +47,7 @@
 
   function translateText(text, id) {
     if (translatedExamples[id] === "") {
-      translate(text).then((data) => translatedExamples[id] = data);
+      translate(text, $settingsData.translator).then((data) => translatedExamples[id] = data);
     } 
     showTranslate[id] = !showTranslate[id];
   }

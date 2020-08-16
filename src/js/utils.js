@@ -6,6 +6,7 @@ export const defaultSettingsData = {
   "enableDarkMode": false,
   "wordsLimit": 20,
   "pronunciation": "uk",
+  "translator": "google",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
   "enableTrainingModeWall": false,
