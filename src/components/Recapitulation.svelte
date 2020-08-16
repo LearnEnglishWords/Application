@@ -2,7 +2,7 @@
   <div class="title" data-mode={info.trainingType}>
     <span>{$_('recapitulation.title')}:</span>
     {#if info.trainingType !== 'filter'}
-      <span>{$_('recapitulation.' + info.trainingMode)}</span>
+      <span>{$_(`recapitulation.${$settingsData.enableQuiz && info.trainingType === LearningMode.TRAINING && info.trainingMode === 'write' ? 'quiz' : info.trainingMode}`)}</span>
     {/if}
   </div>
   <div class="score">
@@ -104,6 +104,7 @@
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
   import { trainingModes, LearningMode } from '../js/utils.js';
+  import { settingsData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
   export let info;

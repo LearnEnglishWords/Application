@@ -284,6 +284,7 @@
       "read": "Čtení",
       "write": "Psaní",
       "listen": "Poslech",
+      "quiz": "Kvíz",
       "column": {
           "text": "Slov",
           "known": "Znám",
