@@ -1,15 +1,26 @@
-<Sheet class="{popupName}" {opened} on:sheetClosed={() => opened = false }>
+<Sheet class="{popupName}" {opened} on:sheetClosed={() => close()}>
   <div class="sheet-title">
-    <span>{$_('training.description_title')}</span>
+    <span>{$_('training.examples.title')}</span>
     <div class="sheet-link" on:click={() => f7.sheet.close()}>
       <SVGIcon name="e-remove" size="24"/>
     </div>
   </div>
   <List class="list-container list-categories">
+    {$_('training.examples.text')} 
     {#each word.examples as example, id}
-      <ListItem class="list-item" on:click={playExampleSound(example, $settingsData.pronunciation)}>
-        {example}
-        <div slot="media" class="item-media"><SVGIcon name="volume" size="24"/></div>
+      <ListItem class="list-item">
+        <div slot="media" class="item-media">
+          <div on:click={playExampleSound(example, $settingsData.pronunciation)}>
+            <SVGIcon name="volume" size="24"/>
+          </div>
+        </div>
+        <div on:click={() => translateText(example, id)}>
+          {#if showTranslate[id]}
+            {translatedExamples[id] === "" ? $_('training.examples.translate') : translatedExamples[id]}
+          {:else}
+            {example}
+          {/if}
+        </div>
       </ListItem>
     {/each}
   </List>
@@ -24,10 +35,26 @@
   import { _ } from 'svelte-i18n';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
-  import { playExampleSound } from '../js/utils.js'
+  import { playExampleSound, translate } from '../js/utils.js'
   import { settingsData } from '../js/store.js'
 
   export let word;
   export let popupName;
   export let opened = false;
+
+  let translatedExamples = word.examples.map(() => "");
+  let showTranslate = word.examples.map(() => false);
+
+  function translateText(text, id) {
+    if (translatedExamples[id] === "") {
+      translate(text).then((data) => translatedExamples[id] = data);
+    } 
+    showTranslate[id] = !showTranslate[id];
+  }
+  
+  function close() {
+    opened = false;
+    translatedExamples = word.examples.map(() => "");
+    showTranslate = word.examples.map(() => false);
+  }
 </script>

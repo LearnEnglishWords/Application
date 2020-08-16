@@ -97,6 +97,17 @@ export function log(uuid, message) {
   });
 }
 
+export function translate(text, engine="google") {
+  return new Promise((resolve) => {
+    axios.post(`${backendApiUrl}/translate`, `text=${text}&engine=${engine}`)
+      .then(function (response) {
+        resolve(response.data.result)
+      }).catch(function (error) {
+        resolve(`ERROR: ${error}`)
+      });
+  });
+}
+
 export function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
