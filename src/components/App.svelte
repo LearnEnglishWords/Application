@@ -74,6 +74,11 @@
             DS.saveSettings(defaultSettingsData);
             settingsData.set(defaultSettingsData);
           } else { 
+            if (data.advancedUser !== undefined) {
+              data.fastSelectingWords = data.advancedUser;
+              data.advancedUser = undefined;
+              DS.saveSettings(data);
+            }
             settingsData.set(data);
           }
         });

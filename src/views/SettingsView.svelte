@@ -81,12 +81,12 @@
 
       <ListItem>
         <div>
-          {$_('settings.user_level')}
+          {$_('settings.advanced_mode')}
         </div>
-        {#if advancedUser}
-          <Toggle on:toggleChange={saveUserLevel} checked></Toggle>
+        {#if fastSelectingWords}
+          <Toggle on:toggleChange={saveFastSelectingWords} checked></Toggle>
         {:else}
-          <Toggle on:toggleChange={saveUserLevel}></Toggle>
+          <Toggle on:toggleChange={saveFastSelectingWords}></Toggle>
         {/if}
       </ListItem>
 
@@ -124,7 +124,7 @@
   let wordsLimit = $settingsData.wordsLimit;
   let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
   let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
-  let advancedUser = $settingsData.advancedUser;
+  let fastSelectingWords = $settingsData.fastSelectingWords;
   let enableQuiz = $settingsData.enableQuiz;
 
   const pronunciations = {
@@ -143,8 +143,8 @@
     DS.saveSettings($settingsData);
   }
 
-  function saveUserLevel() {
-    $settingsData.advancedUser = !$settingsData.advancedUser;
+  function saveFastSelectingWords() {
+    $settingsData.fastSelectingWords = !$settingsData.fastSelectingWords;
     DS.saveSettings($settingsData);
   }
 

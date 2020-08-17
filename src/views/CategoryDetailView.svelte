@@ -82,7 +82,7 @@
   </div>
 
   {#if currentLearningMode === null}
-    <Button class="start-button" on:click={() => { $settingsData.advancedUser === null ? showUserLevelDialog() : goToFilteringView() }}>{$_('category.buttons.filter_words_normal')}</Button>
+    <Button class="start-button" on:click={goToFilteringView}>{$_('category.buttons.filter_words_normal')}</Button>
   {:else}
     <Button class="start-button {currentLearningMode !== null ? currentLearningMode : ''}" on:click={goToTrainingView}>{$_('category.buttons.start')}</Button>
   {/if}
@@ -137,23 +137,6 @@
     return $statisticsData.learning <= 4 ? null : learningMode === LearningMode.FILTER ? LearningMode.TRAINING : learningMode
   }
 
-  function showUserLevelDialog() {
-    f7.dialog.confirm(
-      $_('dialog.user_level_advanced.text'), 
-      $_('dialog.user_level_advanced.title'), 
-      () => { // yes
-        $settingsData.advancedUser = true; 
-        DS.saveSettings($settingsData); 
-        goToFilteringView() 
-      }, 
-      () => { // no
-        $settingsData.advancedUser = false;
-        DS.saveSettings($settingsData);
-        goToFilteringView() 
-      }
-    )
-  }
-
   function setupModeStatistics() {
     let modeStatistics = $categoryDetailData.getModeStatistics();
     if (modeStatistics !== null) {
@@ -205,7 +188,7 @@
       return
     }
 
-    if ($settingsData.advancedUser) {
+    if ($settingsData.fastSelectingWords) {
       let maxLimitLearningWords = $settingsData.wordsLimit - $categoryDetailData.getStatistic(WordsType.LEARNING);
       f7router.navigate('/WordSelect', { props: { maxLimit: maxLimitLearningWords } });
     } else {

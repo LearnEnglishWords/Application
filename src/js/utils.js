@@ -11,7 +11,7 @@ export const defaultSettingsData = {
   "swiperTransitionSpeed": 0,
   "enableTrainingModeWall": false,
   "enableQuiz": false,
-  "advancedUser": null
+  "fastSelectingWords": false
 };            
 
 export const trainingModes = [

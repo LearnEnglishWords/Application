@@ -3,10 +3,6 @@
   "dialog": {
       "yes": "Ano",
       "no": "Ne",
-      "user_level_advanced": {
-          "title": "Jste pokročilý student angličtiny?",
-          "text": "Jestli už máte nějakou větší slovní zásobu, tak vám dám možnost některá slovíčka přeskočit a vložit je rovnou mezi naučené."
-      },
       "learning_full": {
           "title": "Limit je naplněn",
           "text": "Už máte naplněno potřebné množství slovíček k učení. Celkový limit můžete změnit v nastavení."
@@ -18,6 +14,9 @@
       "empty_category": {
           "title": "Žádná slovíčka k dispozici",
           "text": "Žádná slovíčka zde nejsou ještě k dispozici. Slovíčka sem můžete vkládat pomocí tlačítka (+) umístěného dole na spodním panelu."
+      },
+      "enable_advanced_mode": {
+          "text": "Byl jste přepnut do pokročilého módu. Nyní si můžete vybírat slovíčka, která již umíte, mnohem rychleji."
       },
       "unselected_category": {
           "title": "Nebyla vybrána žádná kategorie",
@@ -176,7 +175,7 @@
       "words_limit": "Limit učících se slov",
       "auto_sound": "Automatické přehrávání zvuku",
       "swiper_transition": "Animované přechody slov",
-      "user_level": "Jsem pokročilý student angličtiny",
+      "advanced_mode": "Pokročilý výber slovíček",
       "quiz": "Do procvičování přidat kvíz",
       "pronunciation": {
           "text": "Výslovnost",
@@ -279,9 +278,12 @@
       },
       "filter": {
           "title": "Přidání nových slovíček",
-          "info_text": "Máte dobře celkem",
-          "info_text_end": "slov.",
-          "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat."
+          "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat.",
+          "advanced_mode": {
+              "question": "Většinu slovíček jste určili, že již umíte. Nechcete se přepnout do pokročilého módu, ve kterém budete moci daleko rychleji zhodnocovat, která slovíčka již umíte a která ještě neumíte?",
+              "enable": "Přepnout",
+              "disable": "Nepřepínat"
+          }
       },
       "success": "Úspěšnost:",
       "continue": "Pokračovat",

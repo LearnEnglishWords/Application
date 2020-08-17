@@ -82,28 +82,38 @@
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
 {:else if info.trainingType === 'filter'}
-  <!--
-  <p class="recapitulation-text"> {$_('recapitulation.filter.info_text')} <span>{info.known}</span> {$_('recapitulation.filter.info_text_end')} </p>
-  -->
-  <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
+  {#if info.unknown <= 4}
+    <p class="recapitulation-text"> 
+      {$_('recapitulation.filter.advanced_mode.question')}
+    </p>
+    <div class="footer-container footer-double">
+      <div class="footer-content">
+        <Button on:click={goBack} outline class="page-button button-next button-outline">{$_('recapitulation.filter.advanced_mode.disable')}</Button>
+          <Button on:click={() => { setAdvancedMode(true); goBack() }} class="page-button button-next">{$_('recapitulation.filter.advanced_mode.enable')}</Button>
+      </div>
+    </div>
+  {:else}
+    <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
+    <div class="footer-container footer-singular">
+      <div class="footer-content">
+        <Button on:click={goBack} class="page-button button-next">{$_('recapitulation.continue')}</Button>
+      </div>
+    </div>
+  {/if}
 {/if}
 
 
-<div class="footer-container footer-singular">
-  <div class="footer-content">
-    <Button on:click={() => f7router.back(f7router.history[f7router.history.length-2], { force: true })} class="page-button button-next">{$_('recapitulation.continue')}</Button>
-  </div>
-</div>
 <script>
   import { 
-    Page,  
+    f7, Page,  
     BlockTitle, Block,
     Row, Col, 
     Button
   } from 'framework7-svelte';
   import Header from '../components/Header.svelte';
   import SVGIcon from '../components/SVGIcon.svelte';
-  import { trainingModes, LearningMode } from '../js/utils.js';
+  import DS from '../js/storages/data.js';
+  import { trainingModes, LearningMode, openDialog } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
@@ -116,4 +126,16 @@
   let recapitulation = 'below-average';
   
   let remainingModes = trainingModes.map((mode) => mode.value).filter((value) => value !== info.trainingMode);
+
+  function goBack() {
+    f7router.back(f7router.history[f7router.history.length-2], { force: true }); 
+  }
+
+  function setAdvancedMode(enable) {
+    if (enable) {
+      $settingsData.fastSelectingWords = true; 
+      DS.saveSettings($settingsData);
+      openDialog(f7, $_('dialog.enable_advanced_mode.text'));
+    }
+  }
 </script>
