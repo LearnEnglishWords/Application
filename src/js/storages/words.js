@@ -47,7 +47,7 @@ export default class WordsStorage {
   loadWords(from = 0, to = this.maxAmount) {
     this.allWordIds.slice(from, to).forEach((wordId) => {
       DS.getWord(wordId).then((word) => {
-        if (this._getWordIndex(word) === null && (word.knownStage <= KnownStages.HARD_KNOWN || word.knownStage === undefined)) {
+        if (this._getWordIndex(word) === null) {
           this._pushWord(word);
         }
       });
