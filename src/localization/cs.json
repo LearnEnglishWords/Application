@@ -27,6 +27,11 @@
           "text": "Opravdu si přejete aplikaci vypnout?"
       }
   },
+  "buttons": {
+    "cancel": "Zrušit",
+    "done": "Hotovo",
+    "add_word_sense": "Přidat význam"
+  },
   "collection": {
       "title": "Zvolte kolekci slovíček:",
       "alert": {

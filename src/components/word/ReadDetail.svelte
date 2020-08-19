@@ -9,7 +9,7 @@
 </div>
 
 <!-- Middle window -->
-<SenseList {word} />
+<SenseList {word} edit={editWord}/>
 
 <!-- Bottom control panel -->
 {#if (learnType === LearningMode.EXAM || learnType === LearningMode.REPETITION)}
@@ -29,24 +29,32 @@
     </div>
   </div> 
 {:else if learnType === LearningMode.SEARCH}
-  <div class="search-bar">
-    <Row noGap>
-      <Col class="ripple" on:click={() => openedExamples = true}>
-        <SVGIcon element="navigation" name="paper" size="16" />
-        <span>{$_('search.buttons.examples')}</span>
-      </Col>
-      <!--
-      <Col class="ripple">
-        <SVGIcon element="navigation" name="pen-01" size="16" />
-        <span>{$_('search.buttons.edit')}</span>
-      </Col>
-      -->
-      <Col class="ripple" on:click={saveWord}>
-        <SVGIcon element="navigation" name="event-confirm" size="16" />
-        <span>{$_('search.buttons.save')}</span>
-      </Col>
-    </Row>
-  </div>
+  {#if !editWord}
+    <div class="search-bar">
+      <Row noGap>
+        <Col class="ripple" on:click={() => openedExamples = true}>
+          <SVGIcon element="navigation" name="paper" size="16" />
+          <span>{$_('search.buttons.examples')}</span>
+        </Col>
+        <Col class="ripple" on:click={() => editWord = true}>
+          <SVGIcon element="navigation" name="pen-01" size="16" />
+          <span>{$_('search.buttons.edit')}</span>
+        </Col>
+        <Col class="ripple" on:click={saveWord}>
+          <SVGIcon element="navigation" name="event-confirm" size="16" />
+          <span>{$_('search.buttons.save')}</span>
+        </Col>
+      </Row>
+    </div>
+  {:else}
+    <div class="footer-container footer-double">
+      <div class="footer-content">
+        <Button class="page-button button-outline" on:click={() => editWord = false}>{$_('buttons.cancel')}</Button>
+        <Button class="page-button" on:click={() => editWord = false}>{$_('buttons.done')}</Button>
+      </div>
+    </div>
+  {/if}
+
   <WordDescriptionPopup {word} popupName="examples" bind:opened={openedExamples} />
 {/if}
     
@@ -76,6 +84,7 @@
   const dispatch = createEventDispatcher();
 
   let openedExamples = false;
+  let editWord = false;
 
 
   function clickButton(state) {
