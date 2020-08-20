@@ -114,7 +114,7 @@
   const f7params = {
     id: appId,
     name: appName,
-    theme: 'auto', // Automatic theme detection
+    theme: 'md', // Automatic theme detection
     input: {
       scrollIntoViewOnFocus: Device.cordova && !Device.electron,
       scrollIntoViewCentered: Device.cordova && !Device.electron,
