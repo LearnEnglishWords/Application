@@ -29,9 +29,9 @@
   <SenseList {word} />
 {:else}
   {#if $settingsData.enableQuiz && mode === "write" && learnType === LearningMode.TRAINING}
-    <SelectInput {word} wordList={[...$categoryDetailData.wordStorages[WordsType.ALL].allWordIds]} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
+    <SelectInput {word} wordList={[...$categoryDetailData.wordStorages[WordsType.ALL].allWordIds]} bind:isChecked={isChecked} on:check={(e) => updateWord(e)}/>
   {:else}
-    <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => dispatch('updateWord', {word: word, state: e.detail.isRight, mode: mode})}/>
+    <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => updateWord(e)}/>
   {/if}
 {/if}
     
@@ -73,4 +73,9 @@
       playTextSound(word.text, $settingsData.pronunciation);
     }
   }
+
+  function updateWord(e) {
+    dispatch('updateWord', { word: $trainingData.words[$trainingData.currentWordIndex], state: e.detail.isRight, mode: mode })
+  }
+
 </script>

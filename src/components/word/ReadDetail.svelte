@@ -79,11 +79,11 @@
 
 
   function clickButton(state) {
-    dispatch('updateWord', { word: word, state: state, mode: mode });
+    dispatch('updateWord', { word: $trainingData.words[$trainingData.currentWordIndex], state: state, mode: mode });
     dispatch('nextWord');
   }
   
   function saveWord() {
-    dispatch('saveWord', { word: word })
+    dispatch('saveWord', { word: $trainingData.words[$trainingData.currentWordIndex] })
   }
 </script>

@@ -44,7 +44,7 @@ svg {
       &.arrows {
         width: calc((100% - 4em) - (24px * 2));
         z-index: 16166646464;
-        position: fixed;
+        position: absolute;
         bottom: 1em;
         left: calc(2em + 24px);
       }
@@ -75,7 +75,6 @@ svg {
         float: right;
       }
     }
-
   }
 }
 
@@ -1850,7 +1849,7 @@ input:focus::placeholder {
 }
 
 .footer-triple {
-  position: fixed;
+  position: absolute;
   bottom: 1em;
   left: 1em;
   right: 1em;
