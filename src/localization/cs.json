@@ -1,5 +1,8 @@
 {
   "app_name": "LearnEnglishWords", 
+  "buttons": {
+      "continue": "Pokračovat"
+  },
   "dialog": {
       "yes": "Ano",
       "no": "Ne",
@@ -91,7 +94,6 @@
   "category_list": {
       "new": "Pojmenujte novou kategorii:",
       "buttons": {
-          "continue": "Pokračovat",
           "edit": "Upravit",
           "add": "Přidat kategorii",
           "save": "Uložit",
@@ -286,7 +288,6 @@
           }
       },
       "success": "Úspěšnost:",
-      "continue": "Pokračovat",
       "title": "Výsledky",
       "read": "Čtení",
       "write": "Psaní",
