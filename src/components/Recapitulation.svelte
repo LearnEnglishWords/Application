@@ -92,14 +92,13 @@
           <Button on:click={() => { setAdvancedMode(true); goBack() }} class="page-button button-next">{$_('recapitulation.filter.advanced_mode.enable')}</Button>
       </div>
     </div>
-  {:else}
-    <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
-    <div class="footer-container footer-singular">
-      <div class="footer-content">
-        <Button on:click={goBack} class="page-button button-next">{$_('recapitulation.continue')}</Button>
-      </div>
-    </div>
   {/if}
+{/if}
+
+{#if info.trainingType !== 'filter' || info.unknown > 4}
+  <ContinueButton on:click={goBack}>
+    <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
+  </ContinueButton>
 {/if}
 
 
@@ -110,8 +109,9 @@
     Row, Col, 
     Button
   } from 'framework7-svelte';
-  import Header from '../components/Header.svelte';
-  import SVGIcon from '../components/SVGIcon.svelte';
+  import Header from './Header.svelte';
+  import SVGIcon from './SVGIcon.svelte';
+  import ContinueButton from './ContinueButton.svelte';
   import DS from '../js/storages/data.js';
   import { trainingModes, LearningMode, openDialog } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
