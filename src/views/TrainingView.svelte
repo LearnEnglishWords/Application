@@ -157,10 +157,10 @@
     if ($trainingData.type === LearningMode.REPETITION) {
       let currentWord = $trainingData.words[$trainingData.currentWordIndex];
       return randomModes[currentWord.text] === "read";
-    } else if($trainingData.isFiltering) {
+    } else if($trainingData.isFiltering || $trainingData.isTraining) {
       return $settingsData.enableTrainingModeWall
     } else {
-      return !isTraining || $settingsData.enableTrainingModeWall;
+      return $trainingData.type === LearningMode.EXAM;
     }
   }
 
