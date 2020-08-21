@@ -59,28 +59,6 @@
 
       <ListItem>
         <div>
-          {$_('settings.auto_sound')}
-        </div>
-        {#if enableAutoPlaySound}
-          <Toggle on:toggleChange={saveAutoPlaySound} checked></Toggle>
-        {:else}
-          <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
-        {/if}
-      </ListItem>
-
-      <ListItem>
-        <div>
-          {$_('settings.swiper_transition')}
-        </div>
-        {#if swiperTransitionSpeed}
-          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(0)} checked color="blue"></Toggle>
-        {:else}
-          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(300)} color="blue"></Toggle>
-        {/if}
-      </ListItem>
-
-      <ListItem>
-        <div>
           {$_('settings.advanced_mode')}
         </div>
         {#if fastSelectingWords}
@@ -98,6 +76,28 @@
           <Toggle on:toggleChange={saveQuiz} checked></Toggle>
         {:else}
           <Toggle on:toggleChange={saveQuiz}></Toggle>
+        {/if}
+      </ListItem>
+
+      <ListItem>
+        <div>
+          {$_('settings.auto_sound')}
+        </div>
+        {#if enableAutoPlaySound}
+          <Toggle on:toggleChange={saveAutoPlaySound} checked></Toggle>
+        {:else}
+          <Toggle on:toggleChange={saveAutoPlaySound}></Toggle>
+        {/if}
+      </ListItem>
+
+      <ListItem>
+        <div>
+          {$_('settings.swiper_transition')}
+        </div>
+        {#if swiperTransitionSpeed}
+          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(0)} checked color="blue"></Toggle>
+        {:else}
+          <Toggle on:toggleChange={() => saveSwiperTransitionSpeed(300)} color="blue"></Toggle>
         {/if}
       </ListItem>
     </List>
@@ -122,10 +122,10 @@
   export let f7router;
 
   let wordsLimit = $settingsData.wordsLimit;
-  let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
-  let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
   let fastSelectingWords = $settingsData.fastSelectingWords;
   let enableQuiz = $settingsData.enableQuiz;
+  let enableAutoPlaySound = $settingsData.enableAutoPlaySound;
+  let swiperTransitionSpeed = $settingsData.swiperTransitionSpeed;
 
   const pronunciations = {
     "uk": $_('settings.pronunciation.uk'),
@@ -138,13 +138,8 @@
   }
 
 
-  function saveAutoPlaySound() {
-    $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
-    DS.saveSettings($settingsData);
-  }
-
-  function saveFastSelectingWords() {
-    $settingsData.fastSelectingWords = !$settingsData.fastSelectingWords;
+  function saveWordLimit() {
+    $settingsData.wordsLimit = wordsLimit;
     DS.saveSettings($settingsData);
   }
 
@@ -158,18 +153,23 @@
     DS.saveSettings($settingsData);
   }
 
-  function saveSwiperTransitionSpeed(speed) {
-    $settingsData.swiperTransitionSpeed = speed;
-    DS.saveSettings($settingsData);
-  }
-
-  function saveWordLimit() {
-    $settingsData.wordsLimit = wordsLimit;
+  function saveFastSelectingWords() {
+    $settingsData.fastSelectingWords = !$settingsData.fastSelectingWords;
     DS.saveSettings($settingsData);
   }
 
   function saveQuiz() {
     $settingsData.enableQuiz = !$settingsData.enableQuiz;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveAutoPlaySound() {
+    $settingsData.enableAutoPlaySound = !$settingsData.enableAutoPlaySound;
+    DS.saveSettings($settingsData);
+  }
+
+  function saveSwiperTransitionSpeed(speed) {
+    $settingsData.swiperTransitionSpeed = speed;
     DS.saveSettings($settingsData);
   }
 </script>
