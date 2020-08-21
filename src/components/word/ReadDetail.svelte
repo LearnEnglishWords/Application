@@ -77,13 +77,20 @@
 
   let openedExamples = false;
 
+  function getWord() {
+    if (learnType === LearningMode.SEARCH) {
+      return word;
+    } else {
+      return $trainingData.words[$trainingData.currentWordIndex];
+    }
+  }
 
   function clickButton(state) {
-    dispatch('updateWord', { word: $trainingData.words[$trainingData.currentWordIndex], state: state, mode: mode });
+    dispatch('updateWord', { word: getWord(), state: state, mode: mode });
     dispatch('nextWord');
   }
   
   function saveWord() {
-    dispatch('saveWord', { word: $trainingData.words[$trainingData.currentWordIndex] })
+    dispatch('saveWord', { word: getWord() });
   }
 </script>
