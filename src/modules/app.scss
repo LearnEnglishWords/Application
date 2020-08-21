@@ -2213,3 +2213,7 @@ input:focus:-moz-placeholder {
 .result-div.right .this-word {
   color: var(--app-success);
 }
+
+input[type="radio"].mode-input {
+  display: none;
+}
