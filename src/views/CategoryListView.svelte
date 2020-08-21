@@ -13,7 +13,7 @@
 
 <script>
   import { Page } from 'framework7-svelte';
-  import { collectionData, categoryData, categoryGroupData, categoryDetailData, allCollectionsData } from '../js/store.js';
+  import { collectionData, categoryData, categoryGroupData, categoryDetailData, allCollectionsData, trainingData } from '../js/store.js';
   import Header from '../components/Header.svelte';
   import CategoryList from '../components/category/List.svelte';
   import CategoryButtons from '../components/category/Buttons.svelte';
@@ -40,6 +40,7 @@
 
   function goToEditView() {
     if ($categoryData.selectedCategories.length === 1) {
+      trainingData.set(0);
       categoryDetailData.set($categoryData.selectedCategories[0]);
       f7router.navigate('/CategoryEdit');
     }

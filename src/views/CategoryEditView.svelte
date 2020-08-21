@@ -26,7 +26,7 @@
         <span>{$_('category_edit.actions.rename.button_text')}</span>
       </Col>
     </Row>
-    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => { changeDialog(ActiveCategoryDialog.ADD_WORD); document.getElementById(`add-word-input`).focus() }}>
+    <div class="ripple button-add {activeDialog !== null ? 'active' : 'inactive'}" on:click={() => { changeDialog(ActiveCategoryDialog.ADD_WORD) }}>
       <SVGIcon element="navigation" name="e-add" size="16" />
     </div>
     <Row noGap class="{activeDialog !== null ? 'opened' : ''}">
@@ -39,7 +39,7 @@
       </Col>
       <Col class="{activeDialog === ActiveCategoryDialog.ADD_WORD ? 'selected' : ''}">
         <span>{$_('category_edit.actions.add_word.text')}</span>
-        <input bind:value={findWordInput} on:keydown={(e) => e.key === "Enter" ? findWord() : null} id="add-word-input" type="text" autocomplete="on" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
+        <input bind:value={findWordInput} on:keydown={(e) => e.key === "Enter" ? findWord() : null} type="text" autocomplete="on" placeholder="{$_('category_edit.actions.add_word.placeholder')}"/>
         <div class="buttons">
           <Button class="cancel" on:click={closeDialog}>{$_('category_edit.actions.add_word.button.cancel')}</Button>
           <Button class="confirm" on:click={findWord}>{$_('category_edit.actions.add_word.button.confirm')}</Button>
