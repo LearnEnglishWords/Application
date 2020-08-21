@@ -122,7 +122,7 @@
     // Cordova Statusbar settings
     statusbar: {
       overlay: true,
-      iosOverlaysWebView: true,
+      iosOverlaysWebView: false,
       androidOverlaysWebView: false,
       iosTextColor: "white",
       androidTextColor: "white",
