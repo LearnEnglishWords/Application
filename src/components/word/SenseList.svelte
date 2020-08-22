@@ -15,12 +15,14 @@
         <div slot="media" class="item-media">
           <SVGIcon name="translation" size="24" />
         </div>
-        <input value="{sense.toLowerCase()}"/>
-        <SVGIcon name="delete-forever" size="16" />
+        <input bind:value={word.sense[id]}/>
+        <div on:click={() => deleteSense(id)}>
+          <SVGIcon name="delete-forever" size="16" />
+        </div>
       </ListItem>
     {/each}
     {#if word.sense.length < 4}
-      <Button class="">
+      <Button class="" on:click={addSense}>
         {$_('buttons.add_word_sense')}
       </Button>
     {/if}
@@ -34,4 +36,14 @@
 
   export let word;
   export let edit;
+
+  function deleteSense(id) {
+    word.sense.splice(id, 1);
+    word.sense = [...word.sense];
+  }
+
+  function addSense() {
+    word.sense.push("");
+    word.sense = [...word.sense];
+  }
 </script>

@@ -50,7 +50,7 @@
     <div class="footer-container footer-double">
       <div class="footer-content">
         <Button class="page-button button-outline" on:click={() => editWord = false}>{$_('buttons.cancel')}</Button>
-        <Button class="page-button" on:click={() => editWord = false}>{$_('buttons.done')}</Button>
+        <Button class="page-button" on:click={finishEditWord}>{$_('buttons.done')}</Button>
       </div>
     </div>
   {/if}
@@ -94,5 +94,11 @@
   
   function saveWord() {
     dispatch('saveWord', { word: word })
+  }
+
+  function finishEditWord() {
+    editWord = false;
+    word.sense = word.sense.filter((s) => { return s !== ""});
+    DS.saveWord(word.text, word);
   }
 </script>
