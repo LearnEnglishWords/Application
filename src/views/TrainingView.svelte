@@ -10,8 +10,8 @@
           {#each $trainingData.words as word, id}
             <div class="swiper-slide">
               <WordSlide {word} 
-                 showPronunciation={isTraining} 
-                 enableWallButton={isTraining || isFiltering} 
+                 showPronunciation={$trainingData.isTraining} 
+                 enableWallButton={$trainingData.isTraining || $trainingData.isFiltering} 
                  on:nextWord={nextWord}
                  on:updateWord={(e) => updateWord(e.detail)} 
                  mode={$trainingData.type === LearningMode.REPETITION ? randomModes[word.text] : $trainingData.mode}
@@ -27,13 +27,13 @@
       </div>  
 
       {#if $trainingData.mode === "read"}
-        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={isTraining || isFiltering ? $settingsData.enableTrainingModeWall : wallOpened }>
-          <div class="wrapper-mode" on:click={() => { wallOpened = false; wallSheet.instance().close(true) }}>
+        <Sheet class="wall" bind:this={wallSheet} backdrop={false} swipeToClose opened={$trainingData.isTraining || $trainingData.isFiltering ? $settingsData.enableTrainingModeWall : $trainingData.wallOpened }>
+          <div class="wrapper-mode" on:click={() => { $trainingData.wallOpened = false; wallSheet.instance().close(true) }}>
             <div class="icon"><SVGIcon name="drag-down" size="24"/></div>
             <span>{$_('training.wall_text')}</span>
           </div>
         </Sheet>
-        {#if isTraining}
+        {#if $trainingData.isTraining}
           <Toolbar style="display:none;" position={'bottom'}>
             <Link on:click={() => goToSlide(0)}>{$_('training.toolbar.start')}</Link>
             <Link on:click={() => goToSlide($trainingData.words.length)}>{$_('training.toolbar.end')}</Link>
@@ -84,8 +84,6 @@
 
   export let f7router;
 
-  let isTraining = $trainingData.isTraining;
-  let isFiltering = $trainingData.isFiltering;
   let swiperHeight = "80vh";
   let swiper;     
   let showRecapitulation = false;
@@ -98,16 +96,16 @@
     trainingType: $trainingData.type
   };
   let randomModes = {};
-  let wallOpened = canOpenWall();
   let wallSheet;
 
+  $trainingData.wallOpened = canOpenWall();
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
   if ($trainingData.type === LearningMode.REPETITION) {
     for (let word of $trainingData.words) {
       randomModes[word.text] = getRandomMode(word);
     }
-    wallOpened = canOpenWall();
+    $trainingData.wallOpened = canOpenWall();
   }
 
   if ($trainingData.shuffleWords) {
@@ -121,7 +119,7 @@
       direction: 'horizontal',
       speed: $settingsData.swiperTransitionSpeed,
       loop: false,
-      allowTouchMove: isTraining,
+      allowTouchMove: $trainingData.isTraining,
 
       // Navigation arrows
       navigation: {
@@ -157,16 +155,16 @@
     if ($trainingData.type === LearningMode.REPETITION) {
       let currentWord = $trainingData.words[$trainingData.currentWordIndex];
       return randomModes[currentWord.text] === "read";
-    } else if($trainingData.isFiltering) {
+    } else if($trainingData.isFiltering || $trainingData.isTraining) {
       return $settingsData.enableTrainingModeWall
     } else {
-      return !isTraining || $settingsData.enableTrainingModeWall;
+      return $trainingData.type === LearningMode.EXAM;
     }
   }
 
   function openWall() {
-    wallOpened = canOpenWall();
-    if (wallOpened && $trainingData.mode === "read") {
+    $trainingData.wallOpened = canOpenWall();
+    if ($trainingData.wallOpened && $trainingData.mode === "read") {
       wallSheet.instance().open(false);
     }
   }
@@ -189,7 +187,7 @@
   }
 
   function goToSlide(index) {
-    if (!isTraining) { f7.sheet.open(".wall", false); }
+    if (!$trainingData.isTraining) { f7.sheet.open(".wall", false); }
     $trainingData.currentWordIndex = index-2;
     if($trainingData.currentWordIndex < 0) { $trainingData.currentWordIndex = 1; }  
     swiper.slideTo(index);

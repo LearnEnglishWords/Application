@@ -86,14 +86,21 @@
   let openedExamples = false;
   let editWord = false;
 
+  function getWord() {
+    if (learnType === LearningMode.SEARCH) {
+      return word;
+    } else {
+      return $trainingData.words[$trainingData.currentWordIndex];
+    }
+  }
 
   function clickButton(state) {
-    dispatch('updateWord', { word: word, state: state, mode: mode });
+    dispatch('updateWord', { word: getWord(), state: state, mode: mode });
     dispatch('nextWord');
   }
   
   function saveWord() {
-    dispatch('saveWord', { word: word })
+    dispatch('saveWord', { word: getWord() });
   }
 
   function finishEditWord() {

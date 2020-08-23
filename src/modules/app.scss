@@ -44,7 +44,7 @@ svg {
       &.arrows {
         width: calc((100% - 4em) - (24px * 2));
         z-index: 16166646464;
-        position: fixed;
+        position: absolute;
         bottom: 1em;
         left: calc(2em + 24px);
       }
@@ -75,7 +75,6 @@ svg {
         float: right;
       }
     }
-
   }
 }
 
@@ -392,14 +391,14 @@ svg {
     .page-content {
       background: var(--app-secondary);
       @extend %-pattern;
-      @include position($position: absolute, $top: 0, $right: 0, $bottom: 80px, $left: 0);
+      @include position($position: absolute, $top: 0, $right: 0, $bottom: 0px, $left: 0);
       height: auto;
     }
     .page-title {
       color: var(--app-background) !important;
     }
     .footer-popup {
-      @include position(fixed, $right: 0, $bottom: 0, $left: 0);
+      @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
       background: var(--app-secondary);
       @extend %-pattern;
     }
@@ -409,14 +408,14 @@ svg {
     .page-content {
       background: var(--app-secondary);
       @extend %-pattern;
-      @include position($position: absolute, $top: 0, $right: 0, $bottom: 80px, $left: 0);
+      @include position($position: absolute, $top: 0, $right: 0, $bottom: 0px, $left: 0);
       height: auto;
     }
     .page-title {
       color: var(--app-background) !important;
     }
     .footer-popup {
-      @include position(fixed, $right: 0, $bottom: 0, $left: 0);
+      @include position($position: absolute, $right: 0, $bottom: 0, $left: 0);
       background: var(--app-secondary);
       @extend %-pattern;
     }
@@ -1850,7 +1849,7 @@ input:focus::placeholder {
 }
 
 .footer-triple {
-  position: fixed;
+  position: absolute;
   bottom: 1em;
   left: 1em;
   right: 1em;
@@ -2237,4 +2236,8 @@ input:focus:-moz-placeholder {
     margin-left: 16px;
     --app-icon: var(--app-error); 
   }
+}
+
+input[type="radio"].mode-input {
+  display: none;
 }
