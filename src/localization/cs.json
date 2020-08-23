@@ -1,8 +1,5 @@
 {
   "app_name": "LearnEnglishWords", 
-  "buttons": {
-      "continue": "Pokračovat"
-  },
   "dialog": {
       "yes": "Ano",
       "no": "Ne",
@@ -31,9 +28,10 @@
       }
   },
   "buttons": {
-    "cancel": "Zrušit",
-    "done": "Hotovo",
-    "add_word_sense": "Přidat význam"
+      "continue": "Pokračovat",
+      "cancel": "Zrušit",
+      "done": "Hotovo",
+      "add_word_sense": "Přidat význam"
   },
   "collection": {
       "title": "Zvolte kolekci slovíček:",
