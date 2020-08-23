@@ -2214,6 +2214,30 @@ input:focus:-moz-placeholder {
   color: var(--app-success);
 }
 
+.edit-input {
+  height: 32px;
+  line-height: 32px;
+  border-radius: 7px;
+  border: 1px solid var(--app-icon);
+  color: var(--app-title);
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #fff;
+  padding: 0 7.5px;
+  transition: all 350ms ease-in-out;
+  width: 100%;
+  &:focus {
+    border: 1px solid var(--app-secondary);
+  }
+}
+
+.delete-icon {
+  svg {
+    margin-left: 16px;
+    --app-icon: var(--app-error); 
+  }
+}
+
 input[type="radio"].mode-input {
   display: none;
 }

@@ -5,7 +5,7 @@
   {#await search(query)}
     <span class="search-failed">{$_('search.in_progress')}</span>
   {:then word}
-    <WordReadDetail {word} learnType={LearningMode.SEARCH} on:saveWord={saveWord} />
+    <WordReadDetail {word} learnType={LearningMode.SEARCH} on:saveWord={saveWord} on:cancelEdit={reload}/>
   {:catch error}
     <span class="search-failed">{$_('search.not_found')}</span>
   {/await}
@@ -64,5 +64,9 @@
     } else {
       f7router.navigate('/CategoryList', { props: { saveWord: word } });
     }
+  }
+  
+  function reload() {
+    f7router.navigate('/Search', { props: { query: query, saveAnywhere: saveAnywhere }, ignoreCache: true, reloadCurrent: true });
   }
 </script>
