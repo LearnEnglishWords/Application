@@ -15,14 +15,14 @@
         <div slot="media" class="item-media">
           <SVGIcon name="translation" size="24" />
         </div>
-        <input bind:value={word.sense[id]}/>
-        <div on:click={() => deleteSense(id)}>
+        <input class="edit-input" bind:value={word.sense[id]}/>
+        <div class="delete-icon" on:click={() => deleteSense(id)}>
           <SVGIcon name="delete-forever" size="16" />
         </div>
       </ListItem>
     {/each}
     {#if word.sense.length < 4}
-      <Button class="" on:click={addSense}>
+      <Button class="word-button button-next" on:click={addSense}>
         {$_('buttons.add_word_sense')}
       </Button>
     {/if}

@@ -49,8 +49,8 @@
   {:else}
     <div class="footer-container footer-double">
       <div class="footer-content">
-        <Button class="page-button button-outline" on:click={cancelEditWord}>{$_('buttons.cancel')}</Button>
-        <Button class="page-button" on:click={finishEditWord}>{$_('buttons.done')}</Button>
+        <Button class="page-button button-examples button-outline" on:click={cancelEditWord}>{$_('buttons.cancel')}</Button>
+        <Button class="page-button button-examples" on:click={finishEditWord}>{$_('buttons.done')}</Button>
       </div>
     </div>
   {/if}
