@@ -50,9 +50,11 @@
              statistics={$modeStatisticsData} 
              active={currentLearningMode !== null && currentLearningMode !== LearningMode.REPETITION} 
          />
-        <div class="shuffle-toggle {currentLearningMode === LearningMode.TRAINING ? "" : "disabled"}">
-          <Toggle on:toggleChange={() => shuffleWordsEnabled = !shuffleWordsEnabled} checked={shuffleWordsEnabled}></Toggle>
-          {$_('category.shuffle_toggler')}
+        <div class="toggler {currentLearningMode === LearningMode.TRAINING ? "" : "disabled"}">
+          <Toggle bind:this={shuffleToggler} on:toggleChange={() => shuffleWordsEnabled = !shuffleWordsEnabled} checked={shuffleWordsEnabled}></Toggle>
+          <div class="shuffle-toggle" on:click={() => shuffleToggler.toggle()}>
+            {$_('category.shuffle_toggler')}
+          </div>
         </div>
         {#if currentLearningMode === LearningMode.EXAM || currentLearningMode === LearningMode.TRAINING}
           <div class="separator-modes {currentLearningMode !== null ? 'visible' : ''}"></div>
@@ -127,6 +129,7 @@
   let currentLearningMode = getDefaultLearningMode(LearningMode.TRAINING);
   let modeType = null;
   let shuffleWordsEnabled = false;
+  let shuffleToggler;
 
   //if (($statisticsData.known - $statisticsData.alreadyKnown) === 0 && $statisticsData.learning === 0) {
   //  currentLearningMode = LearningMode.FILTER;

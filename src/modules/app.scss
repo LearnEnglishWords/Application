@@ -2173,7 +2173,8 @@ input:focus:-moz-placeholder {
   transition: all 350ms ease-in-out;
   height: 24px;
   opacity: 1;
-  margin-bottom: 1.5em;
+  display: inline-block;
+  margin: 0 0 2em 0.75em;
   label {
     margin-right: 1em;
   }
@@ -2240,4 +2241,14 @@ input:focus:-moz-placeholder {
 
 input[type="radio"].mode-input {
   display: none;
+}
+
+.toggler {
+  transition: all 350ms ease-in-out;
+  height: 56px;
+  opacity: 1;
+  &.disabled {
+    opacity: 0!important;
+    height: 0;
+  }
 }
