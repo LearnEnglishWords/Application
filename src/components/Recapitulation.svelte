@@ -82,7 +82,7 @@
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
 {:else if info.trainingType === 'filter'}
-  {#if info.unknown <= 4}
+  {#if info.unknown <= 5 && info.known >= 20}
     <p class="recapitulation-text"> 
       {$_('recapitulation.filter.advanced_mode.question')}
     </p>
@@ -92,13 +92,15 @@
           <Button on:click={() => { setAdvancedMode(true); goBack() }} class="page-button button-next">{$_('recapitulation.filter.advanced_mode.enable')}</Button>
       </div>
     </div>
+  {:else}
+    <ContinueButton on:click={goBack}>
+      <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
+    </ContinueButton>
   {/if}
 {/if}
 
-{#if info.trainingType !== 'filter' || info.unknown > 4}
-  <ContinueButton on:click={goBack}>
-    <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
-  </ContinueButton>
+{#if info.trainingType !== 'filter'}
+  <ContinueButton on:click={goBack} />
 {/if}
 
 
