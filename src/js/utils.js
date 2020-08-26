@@ -9,7 +9,7 @@ export const defaultSettingsData = {
   "translator": "google",
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
-  "enableTrainingModeWall": false,
+  "enableTrainingModeWall": true,
   "enableQuiz": false,
   "fastSelectingWords": false
 };            
