@@ -1,7 +1,7 @@
 <div class="recapitulation">
   <div class="title" data-mode={info.trainingType}>
-    <span>{$_('recapitulation.title')}:</span>
-    {#if info.trainingType !== 'filter'}
+    <span>{$_('recapitulation.title')}{#if info.trainingType !== LearningMode.FILTER && info.trainingType !== LearningMode.REPETITION}:{/if}</span>
+    {#if info.trainingType !== LearningMode.FILTER && info.trainingType !== LearningMode.REPETITION}
       <span>{$_(`recapitulation.${$settingsData.enableQuiz && info.trainingType === LearningMode.TRAINING && info.trainingMode === 'write' ? 'quiz' : info.trainingMode}`)}</span>
     {/if}
   </div>
