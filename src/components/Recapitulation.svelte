@@ -82,7 +82,7 @@
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text')} <span>{info.unknown}</span> {$_('recapitulation.repetition.info_text_end')} </p>
   <p class="recapitulation-text"> {$_('recapitulation.repetition.info_text_description')} </p>
 {:else if info.trainingType === 'filter'}
-  {#if info.unknown <= 5 && info.known >= 20}
+  {#if info.unknown <= 7 && info.known >= 20}
     <p class="recapitulation-text"> 
       {$_('recapitulation.filter.advanced_mode.question')}
     </p>
