@@ -2252,3 +2252,17 @@ input[type="radio"].mode-input {
     height: 0;
   }
 }
+
+.examples-title {
+  color: var(--app-text);
+  padding-left: 1.25em;
+}
+
+.examples-list {
+  margin: calc(41.5px + 0.5em) 0 0 0 !important;
+  li.list-item {
+    &:last-child {
+      margin-bottom: 0.5em !important;
+    }
+  }
+}
