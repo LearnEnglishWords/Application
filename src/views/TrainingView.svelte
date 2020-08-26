@@ -1,6 +1,6 @@
 <Page name="Training">
   <!-- Navbar -->
-  <Header {f7router} showMenu={false} title="{$_('recapitulation.' + $trainingData.type + '.title')}{$trainingData.type !== LearningMode.FILTER ? ": " + $_('category.training_mode.' + $trainingData.mode) : ""}"/>
+  <Header {f7router} showMenu={false} title={getTitle()} />
 
   <!-- View -->
   {#if !showRecapitulation}
@@ -208,6 +208,17 @@
     } else {
       swiper.slideNext();
     }
+  }
+
+  function getTitle() {
+    let title = $_('recapitulation.' + $trainingData.type + '.title')
+    if ($trainingData.type === LearningMode.FILTER || $trainingData.type === LearningMode.REPETITION) {
+      return title
+    } else if ($trainingData.mode === "write" && $settingsData.enableQuiz && $trainingData.isTraining) {
+      return title + ": " + $_('category.training_mode.quiz')
+    } else {
+      return title + ": " + $_('category.training_mode.' + $trainingData.mode)
+    } 
   }
 </script>
 
