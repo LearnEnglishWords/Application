@@ -5,6 +5,9 @@
         <Button class="button-select" on:click={() => selectWord(wordText)}> {wordText.toLowerCase()} </Button>
       {/each}
     {:else}
+      <div class="volume-block" on:click={() => playTextSound(word.text, $settingsData.pronunciation)}>
+        <SVGIcon name="volume" size="24"/>
+      </div>
       <div class="result-div {result ? 'right' : 'wrong'}">
         <span class="result">{$_(`training.results.${result ? 'right' : 'wrong'}`)}</span>
         <div>{$_('training.results.result_word')}
@@ -19,8 +22,8 @@
 <script>
   import { Button } from 'framework7-svelte';
   import SVGIcon from '../SVGIcon.svelte';
-  import { trainingData } from '../../js/store.js';
-  import { shuffle } from '../../js/utils.js';
+  import { trainingData, settingsData } from '../../js/store.js';
+  import { shuffle, playTextSound } from '../../js/utils.js';
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
@@ -46,5 +49,8 @@
     result = wordText.toLowerCase() === word.text.toLowerCase();
     isChecked = true;
     dispatch('check', { isRight: result });         
+    if ($settingsData.enableAutoPlaySound) {
+      playTextSound(word.text, $settingsData.pronunciation);
+    }
   }
 </script>
