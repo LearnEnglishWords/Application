@@ -10,7 +10,7 @@ export const defaultSettingsData = {
   "enableAutoPlaySound": true,
   "swiperTransitionSpeed": 0,
   "enableTrainingModeWall": true,
-  "enableQuiz": false,
+  "enableQuiz": true,
   "fastSelectingWords": true
 };            
 
