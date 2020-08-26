@@ -206,7 +206,6 @@
       }
       showRecapitulation = true;
     } else {
-      openWall();
       swiper.slideNext();
     }
   }
