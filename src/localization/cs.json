@@ -97,6 +97,7 @@
   "category_list": {
       "new": "Pojmenujte novou kategorii:",
       "buttons": {
+          "continue": "Pokračovat",
           "edit": "Upravit",
           "add": "Přidat kategorii",
           "save": "Uložit",
