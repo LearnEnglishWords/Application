@@ -208,7 +208,6 @@
     } else {
       openWall();
       swiper.slideNext();
-      playAutoSound();
     }
   }
 </script>
