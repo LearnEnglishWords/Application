@@ -5,8 +5,10 @@
       <SVGIcon name="e-remove" size="24"/>
     </div>
   </div>
-  <List class="list-container list-categories">
+  <div class="page-title examples-title">
     {$_('training.examples.text')} 
+  </div>
+  <List class="list-container list-categories examples-list">
     {#each word.examples as example, id}
       <ListItem class="list-item">
         <div slot="media" class="item-media">
