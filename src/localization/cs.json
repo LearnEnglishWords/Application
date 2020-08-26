@@ -284,7 +284,7 @@
         },
         "filter": {
             "title": "Přidání nových slovíček",
-            "info_text_description": "Slovíčka která neumíte, můžete jít nyní procvičovat.",
+            "info_text_description": "Skvělé! Přidali jste nová slovíčka do procesu učení. Tato slovíčka můžete jít nyní procvičovat.",
             "advanced_mode": {
                 "question": "Většinu slovíček jste určili, že již umíte. Nechcete se přepnout do pokročilého módu, ve kterém budete moci daleko rychleji zhodnocovat, která slovíčka již umíte a která ještě neumíte?",
                 "enable": "Přepnout",
