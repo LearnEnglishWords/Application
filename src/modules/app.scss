@@ -2266,3 +2266,9 @@ input[type="radio"].mode-input {
     }
   }
 }
+
+.swiper-button-prev, .swiper-button-next {
+ &:focus {
+   outline: 0;
+ }
+}
