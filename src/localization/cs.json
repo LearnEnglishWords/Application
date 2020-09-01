@@ -215,7 +215,8 @@
             "check": "Zkontrolovat",
             "unknown": "Nevím",
             "show_sense": "Významy",
-            "continue": "Pokračovat"
+            "continue": "Pokračovat",
+            "exit": "Konec"
         },
         "placeholders": {
             "write": "Přeložte do angličtiny",
@@ -301,6 +302,8 @@
             "text": "Slov",
             "known": "Znám",
             "unknown": "Neznám",
+            "right": "Správně",
+            "wrong": "Špatně",
             "all": "Celkem"
         },
         "score": {

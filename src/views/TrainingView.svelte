@@ -46,15 +46,31 @@
     <Recapitulation info={recapitulationInfo} {f7router} />
   {/if}
   <!-- Footer -->
-  <div class="footer-container footer-singular arrows">
-    <div class="footer-content arrows">
-    {#if $trainingData.mode === "read"}
-      {#if $trainingData.isTraining}
-        <Button class="page-button button-examples" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
-      {/if}
+
+  {#if $trainingData.isTraining}
+    {#if $trainingData.words.length === $trainingData.currentWordIndex + 1}
+      <div class="footer-container footer-double arrows">
+        <div class="footer-content arrows">
+        {#if $trainingData.mode === "read"}
+          {#if $trainingData.isTraining}
+            <Button class="page-button button-examples button-outline" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
+            <Button class="page-button button-examples" on:click={nextWord}>{$_('training.buttons.exit')}</Button>
+          {/if}
+        {/if}
+        </div>
+      </div>
+    {:else if $trainingData.words.length > $trainingData.currentWordIndex}
+      <div class="footer-container footer-singular arrows">
+        <div class="footer-content arrows">
+        {#if $trainingData.mode === "read"}
+          {#if $trainingData.isTraining}
+            <Button class="page-button button-examples" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
+          {/if}
+        {/if}
+        </div>
+      </div>
     {/if}
-    </div>
-  </div>
+  {/if}
 </Page>
 
 <script>
@@ -203,6 +219,9 @@
     if ($trainingData.words.length === $trainingData.currentWordIndex + 1 || ($settingsData.wordsLimit <= $statisticsData.learning && $trainingData.type === LearningMode.FILTER)) {
       if ($trainingData.type === LearningMode.FILTER) {
         recapitulationInfo.count = $trainingData.currentWordIndex + 1;
+      }
+      if ($trainingData.isTraining && $trainingData.mode === 'read') {
+        $trainingData.currentWordIndex++;
       }
       showRecapitulation = true;
     } else {

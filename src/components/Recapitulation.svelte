@@ -35,9 +35,11 @@
             <SVGIcon name="wink-06" size="32"/>
           {/if}
           <span class="done-text">{$_('recapitulation.score.neutral')}</span>
-          {#if info.trainingType === LearningMode.TRAINING}
-            <span class="percent-text">{$_('recapitulation.success')} {successInPercent}%</span> 
-          {/if}
+          <span class="percent-text">
+            {#if info.trainingType === LearningMode.TRAINING && info.trainingMode !== 'read'}
+              {$_('recapitulation.success')} {successInPercent}%
+            {/if}
+          </span> 
         </span>
       </div>
     {/if}
@@ -128,6 +130,11 @@
   let recapitulation = 'below-average';
   
   let remainingModes = trainingModes.map((mode) => mode.value).filter((value) => value !== info.trainingMode);
+  
+  if (info.known === 0 && info.unknown === 0 && info.count > 0) {
+    info.known = '?';
+    info.unknown = '?';
+  }
 
   function goBack() {
     f7router.back(f7router.history[f7router.history.length-2], { force: true }); 
