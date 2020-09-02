@@ -99,6 +99,8 @@
       <p class="recapitulation-text"> {$_('recapitulation.filter.info_text_description')} </p>
     </ContinueButton>
   {/if}
+{:else if info.trainingType === 'training' && info.trainingMode === 'read'}
+  <p class="recapitulation-text"> {$_('recapitulation.training.info_text_description')} </p>
 {/if}
 
 {#if info.trainingType !== 'filter'}
