@@ -168,7 +168,7 @@ export default class Category {
     if (learningCount !== words.length) { return null }
 
     let getKnownWordsCount = (mode) => { 
-      return words.filter((word) => word.learning[mode] !== false).length 
+      return words.filter((word) => word.learning !== undefined && word.learning[mode] !== false).length 
     }
 
     return {
