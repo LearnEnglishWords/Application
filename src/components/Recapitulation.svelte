@@ -91,7 +91,7 @@
     <div class="footer-container footer-double">
       <div class="footer-content">
         <Button on:click={goBack} outline class="page-button button-next button-outline">{$_('recapitulation.filter.advanced_mode.disable')}</Button>
-          <Button on:click={() => { setAdvancedMode(true); goBack() }} class="page-button button-next">{$_('recapitulation.filter.advanced_mode.enable')}</Button>
+        <Button on:click={() => { setAdvancedMode(true); goBack() }} class="page-button button-next">{$_('recapitulation.filter.advanced_mode.enable')}</Button>
       </div>
     </div>
   {:else}
@@ -137,7 +137,8 @@
   }
 
   function goBack() {
-    f7router.back(f7router.history[f7router.history.length-2], { force: true }); 
+    //f7router.back(f7router.history[f7router.history.length-2], { force: true }); 
+    f7router.back(); 
   }
 
   function setAdvancedMode(enable) {
