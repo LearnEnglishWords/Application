@@ -216,7 +216,8 @@
             "unknown": "Nevím",
             "show_sense": "Významy",
             "continue": "Pokračovat",
-            "exit": "Konec"
+            "exit": "Konec",
+            "next": "Další"
         },
         "placeholders": {
             "write": "Přeložte do angličtiny",
