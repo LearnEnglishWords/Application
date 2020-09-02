@@ -90,6 +90,15 @@ export default class WordsStorage {
     return this._getWordIndex(word) !== null;
   }
 
+  getWord(wordId) {
+    let index = this.allWords.findIndex((w) => w.text === wordId);
+    if (index > -1) { 
+      return this.allWords[index]
+    } else {
+      return null
+    }
+  }
+
   reset() {
     this.loadedWordsCounter = 0;
         

@@ -73,7 +73,7 @@
   import ReadWord from './ReadWord.svelte';
   import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
   import { playTextSound, LearningMode } from '../../js/utils.js';
-  import { trainingData, statisticsData } from '../../js/store.js';
+  import { trainingData, statisticsData, allCollectionsData } from '../../js/store.js';
 
   export let word;
   export let mode;
@@ -103,10 +103,26 @@
     dispatch('saveWord', { word: getWord() });
   }
 
+  function updateWordInStorages(word) {
+    let updateCategoryWord = (category) => {
+      let loadedWord = category.wordStorages['learning'].getWord(word.text);
+
+      if (loadedWord !== null) {
+        loadedWord.sense = word.sense;
+      }
+    }
+
+    $allCollectionsData.forEach((collection) => {
+      updateCategoryWord(collection.categoryGroup.mainCategory);
+      collection.categoryGroup.categories.forEach(updateCategoryWord);
+    })
+  }
+
   function finishEditWord() {
     editWord = false;
     word.sense = word.sense.filter((s) => { return s !== ""});
     DS.saveWord(word.text, word);
+    updateWordInStorages(word);
   }                                                                        
 
   function cancelEditWord() {
