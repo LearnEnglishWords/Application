@@ -283,7 +283,7 @@
             "title": "Procvičování",
             "info_text": "Máte špatně celkem",
             "info_text_end": "slov.",
-            "info_text_description": "Úspěšně jste dokončili procvičování. Nyní se můžete vrátit zpět do menu a nechat se přezkoušet, nebo si procvičování zopakovat."
+            "info_text_description": "Úspěšně jste dokončili procvičování."
         },
         "filter": {
             "title": "Přidání nových slovíček",
