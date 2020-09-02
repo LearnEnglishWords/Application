@@ -54,7 +54,7 @@
         {#if $trainingData.mode === "read"}
           {#if $trainingData.isTraining}
             <Button class="page-button button-examples" sheetOpen=".description">{$_('training.buttons.examples')}</Button>
-            <Button class="page-button button-examples" on:click={() => f7router.back()}>{$_('training.buttons.exit')}</Button>
+            <Button class="page-button button-examples" on:click={nextWord}>{$_('training.buttons.exit')}</Button>
           {/if}
         {/if}
         </div>
