@@ -43,9 +43,9 @@
   function search(query) {
     return new Promise((success, error) => {
       if (query === "") { error() }
-      DS.getWord(query).then((w) => { 
+      DS.getWord(query.toLowerCase()).then((w) => { 
         if (w === null) {
-          searchOnline(query).then((w) => { w === null ? error() : playSound(w) && success(w) })
+          searchOnline(query.toLowerCase()).then((w) => { w === null ? error() : playSound(w) && success(w) })
         } else {
           success(w);
           playSound(w);
