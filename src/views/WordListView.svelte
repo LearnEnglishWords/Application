@@ -139,8 +139,9 @@
   }
 
   function loadWords(from, to) {
-    allWordIds.slice(from, to).forEach((wordId, index) => {
-      DS.getWord(wordId).then((word) => {
+    let wordIds = allWordIds.slice(from, to);
+    for (let index in wordIds) {
+      DS.getWord(wordIds[index]).then((word) => {
         wordState[word.text] = [WordsType.ALREADY_KNOWN, WordsType.KNOWN].includes($categoryDetailData.getWordState(word));
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
         allWords.push(word);
@@ -149,7 +150,7 @@
       if (index+1 === itemsPerLoad) {
         allowInfinite = true;
       }
-    });
+    };
   }
 
   function saveWords() {
