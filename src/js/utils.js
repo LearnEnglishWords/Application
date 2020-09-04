@@ -121,6 +121,12 @@ export function deduplicate(array) {
   return array.filter((item, index) => array.indexOf(item) === index)
 }
 
+export function round(num, decimalPlaces) {
+    var p = Math.pow(10, decimalPlaces);
+    var e = Number.EPSILON * num * p;
+    return Math.round((num * p) + e) / p;
+}
+
 export function openDialog(f7, text) {
   let dialog = f7.dialog.create({
     text: text, 

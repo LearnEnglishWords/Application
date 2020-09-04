@@ -119,7 +119,7 @@
   import SVGIcon from './SVGIcon.svelte';
   import ContinueButton from './ContinueButton.svelte';
   import DS from '../js/storages/data.js';
-  import { trainingModes, LearningMode, openDialog } from '../js/utils.js';
+  import { trainingModes, LearningMode, openDialog, round } from '../js/utils.js';
   import { settingsData } from '../js/store.js';
   import { _ } from 'svelte-i18n';
 
@@ -127,7 +127,7 @@
   export let open;
   export let f7router;
 
-  let successInPercent = 100/info.count*info.known;
+  let successInPercent = round(100/info.count*info.known, 2);
 
   let recapitulation = 'below-average';
   
