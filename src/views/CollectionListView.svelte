@@ -125,7 +125,8 @@
     DS.saveAppInfo(AppInfo.LAST_UPDATE, getCurrentDate());
   }
 
-  function downloadUpdatesProgress(lastUpdateDate, dialog, resolve) {
+  function downloadUpdates(lastUpdateDate, resolve) {
+    let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
     collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
       dialog.setProgress(100/numberWords*counter);
       if (numberWords === counter) {
@@ -140,14 +141,12 @@
     return new Promise((resolve) => {
       DS.getAppInfo(AppInfo.LAST_UPDATE).then((lastUpdateDate) => {
         if (getCurrentDate() !== lastUpdateDate) {
-          let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
           if (lastUpdateDate === null) {
             saveCurrentDate();
-            dialog.close();
             resolve();
           } else {
             if (navigator.connection.type === "wifi" || device.platform === "browser") {
-              downloadUpdatesProgress(lastUpdateDate, dialog, resolve);
+              downloadUpdates(lastUpdateDate, resolve);
             } else {
               resolve();
             }
