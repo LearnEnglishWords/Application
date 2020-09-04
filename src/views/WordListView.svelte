@@ -201,8 +201,14 @@
 
   function saveFilterAndReload(filter) {
     allWordIds = getAllWordIds(filter);
+    reload();
+  }
 
+  function reload() {
     allWords = [];
+    knownWords = [];
+    unknownWords = [];
+
     virtualList.deleteAllItems();
 
     loadWords(0, itemsPerLoad);

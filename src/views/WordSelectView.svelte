@@ -19,6 +19,11 @@
     <Toolbar position={'bottom'}>
       <Row>
         <Col>
+          {#if defaultSelected}
+            <Link on:click={() => setDefaultSelect(false)}>{$_('words_list.unselect_all')}</Link>
+          {:else}
+            <Link on:click={() => setDefaultSelect(true)}>{$_('words_list.select_all')}</Link>
+          {/if}
         </Col>
         <Col>
           {allWordsLength}/{allWordIds.length}
@@ -66,6 +71,7 @@
   let virtualList = null; 
   let allowInfinite = true;
   let itemsPerLoad = numberLoadedWordsPerLoad;
+  let defaultSelected = false;
 
 
   onMount(() => { 
@@ -128,16 +134,32 @@
     let wordIds = allWordIds.slice(from, to);
     for (let index in wordIds) {
       DS.getWord(wordIds[index]).then((word) => {
-        wordState[word.text] = false;
+        wordState[word.text] = defaultSelected;
         virtualList.appendItem({"word": word, "checked": wordState[word.text] ? "checked" : ""});
         allWords.push(word);
-        unknownWords.push(word);
+        defaultSelected ? knownWords.push(word) : unknownWords.push(word);
         allWordsLength++;
       });
-      if (index+1 === itemsPerLoad) {
+      if (Number(index)+1 === itemsPerLoad) {
         allowInfinite = true;
       }
     };
+  }
+
+  function setDefaultSelect(value) {
+    defaultSelected = value;
+    reload();
+  }
+
+  function reload() {
+    allWords = [];
+    knownWords = [];
+    unknownWords = [];
+
+    virtualList.deleteAllItems();
+
+    loadWords(0, itemsPerLoad);
+    allWordsLength = 0;
   }
 
   function saveWords() {

@@ -348,6 +348,8 @@
         "info_select": "Zde označte slovíčka, která již znáte:",
         "next_button": "Načíst další",
         "save_button": "Uložit",
+        "select_all": "Označit vše",
+        "unselect_all": "Odoznačit vše",
         "loading": "Probíhá načítání...",
         "zero_words": "Žádná slovíčka nejsou momentálně k dispozici.",
         "filter": {
