@@ -29,7 +29,7 @@
   <SenseList {word} />
 {:else}
   {#if $settingsData.enableQuiz && mode === "write" && learnType === LearningMode.TRAINING}
-    <SelectInput {word} wordList={[...$categoryDetailData.wordStorages[WordsType.ALL].allWordIds]} bind:isChecked={isChecked} on:check={(e) => updateWord(e)}/>
+    <SelectInput {word} wordList={getWordIds()} bind:isChecked={isChecked} on:check={(e) => updateWord(e)}/>
   {:else}
     <WriteInput {word} {mode} bind:isChecked={isChecked} on:check={(e) => updateWord(e)}/>
   {/if}
@@ -76,6 +76,15 @@
 
   function updateWord(e) {
     dispatch('updateWord', { word: $trainingData.words[$trainingData.currentWordIndex], state: e.detail.isRight, mode: mode })
+  }
+
+  function getWordIds() {
+    let wordIds = $categoryDetailData.wordStorages[WordsType.ALL].allWordIds;
+    if (wordIds.length > 10) {
+      return [...wordIds];
+    } else {
+      return [ "wild", "vehicle", "observe", "flight", "facility", "average", "emerge", "quick", "earn", "pound", "basis", "bright", "guest", "protection", "settle", "feed", "collect", "additional", "faith", "river" ]
+    }
   }
 
 </script>
