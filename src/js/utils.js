@@ -135,6 +135,18 @@ export function openDialog(f7, text) {
   dialog.open();
 }
 
+export function setupLearning(word, state) { 
+  if (word.learning === undefined) {
+    word.learning = {"read": state, "write": state, "listen": state};
+  }
+}
+
+export function setupRepetition(word, state) { 
+  if (word.repetition === undefined) {
+    word.repetition = {"read": state, "write": state, "listen": state};
+  }
+}
+
 export const WordsType = {
     ALL: 'all',
     ALL_KNOWN: 'all_known',

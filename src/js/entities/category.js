@@ -1,6 +1,6 @@
 import WordsStorage from '../storages/words.js';
 import DS from '../storages/data.js';
-import { WordsType, LearningMode, KnownStages, isKnown, isAlreadyKnown } from '../utils.js';
+import { WordsType, LearningMode, KnownStages, isKnown, isAlreadyKnown, setupLearning, setupRepetition } from '../utils.js';
 
 
 export default class Category {
@@ -53,7 +53,7 @@ export default class Category {
         if (!state) {
           word.knownStage = KnownStages.UNKNOWN;
           word.learning[trainingMode] = false;
-          word.repetition = {"read": false, "write": false, "listen": false};
+          setupRepetition(word, false);
           word.problem = true;
           this.wordStorages[WordsType.LEARNING].addWord(word);
           this.wordStorages[WordsType.KNOWN].removeWord(word);
@@ -70,18 +70,18 @@ export default class Category {
         if (state === null) {
           this.wordStorages[WordsType.LEARNING].addWord(word);
           word.knownStage = KnownStages.LITTLE_KNOWN;
-          word.learning = {"read": false, "write": false, "listen": false};
-          word.repetition = {"read": false, "write": false, "listen": false};
+          setupLearning(word, false);
+          setupRepetition(word, false);
         } else if (state) {
           this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
           word.knownStage = KnownStages.ALREADY_KNOWN;
-          word.learning = {"read": true, "write": true, "listen": true};
-          word.repetition = {"read": true, "write": true, "listen": true};
+          setupLearning(word, true);
+          setupRepetition(word, true);
         } else {
           this.wordStorages[WordsType.LEARNING].insertWord(word);
           word.knownStage = KnownStages.UNKNOWN;
-          word.learning = {"read": false, "write": false, "listen": false};
-          word.repetition = {"read": false, "write": false, "listen": false};
+          setupLearning(word, false);
+          setupRepetition(word, false);
         }
 
         word.problem = false;
@@ -97,8 +97,8 @@ export default class Category {
         if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
           this.wordStorages[WordsType.ALREADY_KNOWN].addWord(word);
           word.knownStage = KnownStages.ALREADY_KNOWN;
-          word.learning = {"read": true, "write": true, "listen": true};
-          word.repetition = {"read": true, "write": true, "listen": true};
+          setupLearning(word, true);
+          setupRepetition(word, true);
 
           this.wordStorages[WordsType.UNKNOWN].removeWord(word);
           this.wordStorages[WordsType.KNOWN].removeWord(word);
@@ -112,8 +112,8 @@ export default class Category {
         if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
           this.wordStorages[WordsType.UNKNOWN].insertWord(word);
           word.knownStage = KnownStages.UNKNOWN;
-          word.learning = {"read": false, "write": false, "listen": false};
-          word.repetition = {"read": false, "write": false, "listen": false};
+          setupLearning(word, false);
+          setupRepetition(word, false);
 
           this.wordStorages[WordsType.ALREADY_KNOWN].removeWord(word);
           this.wordStorages[WordsType.KNOWN].removeWord(word);
@@ -127,8 +127,8 @@ export default class Category {
         if (this.wordStorages[WordsType.ALL].existsWordId(word.text)) { 
           this.wordStorages[WordsType.LEARNING].insertWord(word);
           word.knownStage = KnownStages.UNKNOWN;
-          word.learning = {"read": false, "write": false, "listen": false};
-          word.repetition = {"read": false, "write": false, "listen": false};
+          setupLearning(word, false);
+          setupRepetition(word, false);
 
           this.wordStorages[WordsType.ALREADY_KNOWN].removeWord(word);
           this.wordStorages[WordsType.KNOWN].removeWord(word);

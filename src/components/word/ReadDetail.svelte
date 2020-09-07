@@ -72,7 +72,7 @@
   import SenseList from './SenseList.svelte';
   import ReadWord from './ReadWord.svelte';
   import WordDescriptionPopup from '../../popups/WordDescriptionPopup.svelte';
-  import { playTextSound, LearningMode } from '../../js/utils.js';
+  import { playTextSound, LearningMode, setupLearning, setupRepetition } from '../../js/utils.js';
   import { trainingData, statisticsData, allCollectionsData } from '../../js/store.js';
 
   export let word;
@@ -121,6 +121,8 @@
   function finishEditWord() {
     editWord = false;
     word.sense = word.sense.filter((s) => { return s !== ""});
+    setupLearning(word, false);
+    setupRepetition(word, false);
     DS.saveWord(word.text, word);
     updateWordInStorages(word);
   }                                                                        

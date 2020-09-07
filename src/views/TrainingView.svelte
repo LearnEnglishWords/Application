@@ -93,7 +93,7 @@
   import SVGIcon from '../components/SVGIcon.svelte';
   import Recapitulation from '../components/Recapitulation.svelte';
   import WordDescriptionPopup from '../popups/WordDescriptionPopup.svelte';
-  import { isKnown, getState, playTextSound, shuffle, WordsType, LearningMode } from '../js/utils.js'
+  import { isKnown, getState, playTextSound, shuffle, WordsType, LearningMode, setupLearning, setupRepetition } from '../js/utils.js'
   import DS from '../js/storages/data.js';
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
@@ -193,12 +193,14 @@
 
   function updateWord({word, state, mode}) {
     if (!$trainingData.isTraining) { 
+      setupLearning(word, false);
       $categoryGroupData.updateWord(word, state, $trainingData.type, mode);
       $categoryDetailData.updateWord(word, state, $trainingData.type, mode); 
       statisticsData.set($categoryDetailData.getStatistics());
       modeStatisticsData.set($categoryDetailData.getModeStatistics());
     }
 
+    setupRepetition(word, false);
     updateRecapitulation(state, isKnown(word));
   }
 
