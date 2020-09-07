@@ -147,7 +147,7 @@
         allWords.push(word);
         allWordsLength++;
       });
-      if (index+1 === itemsPerLoad) {
+      if (Number(index)+1 === itemsPerLoad) {
         allowInfinite = true;
       }
     };
