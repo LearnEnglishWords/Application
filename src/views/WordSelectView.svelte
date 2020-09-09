@@ -47,7 +47,6 @@
   import { onMount } from 'svelte';
   import DS from '../js/storages/data.js';
   import Header from '../components/Header.svelte';
-  import { numberLoadedWordsPerLoad } from '../js/config.js'
   import { playTextSound, WordsType, trainingModes } from '../js/utils.js'
   import { categoryGroupData, categoryDetailData, settingsData, statisticsData, modeStatisticsData } from '../js/store.js';
 
@@ -70,7 +69,8 @@
 
   let virtualList = null; 
   let allowInfinite = true;
-  let itemsPerLoad = numberLoadedWordsPerLoad;
+  let itemsStartLoad = 30;
+  let itemsPerLoad = 10;
   let defaultSelected = false;
 
 
@@ -119,7 +119,7 @@
       f7router.navigate('/Search', { props: { query: clickedWord.text, saveAnywhere: true } })
     });
 
-    loadWords(0, itemsPerLoad);
+    loadWords(0, itemsStartLoad);
   });
 
 
@@ -140,7 +140,7 @@
         defaultSelected ? knownWords.push(word) : unknownWords.push(word);
         allWordsLength++;
       });
-      if (Number(index)+1 === itemsPerLoad) {
+      if (Number(index)+1 === (to - from)) {
         allowInfinite = true;
       }
     };
@@ -158,7 +158,7 @@
 
     virtualList.deleteAllItems();
 
-    loadWords(0, itemsPerLoad);
+    loadWords(0, itemsStartLoad);
     allWordsLength = 0;
   }
 
