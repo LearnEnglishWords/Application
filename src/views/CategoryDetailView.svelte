@@ -157,7 +157,7 @@
       isTraining: currentLearningMode === LearningMode.TRAINING,
       isFiltering: currentLearningMode === LearningMode.FILTER,
       words: currentWordStorage.getWords(wordsCount),
-      shuffleWords: $trainingData.type === LearningMode.EXAM ? true : shuffleWordsEnabled,
+      shuffleWords: $trainingData.type === LearningMode.REPETITION || $trainingData.type === LearningMode.EXAM ? true : shuffleWordsEnabled,
       currentWordIndex: 0
     });
   }

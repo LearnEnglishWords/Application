@@ -117,6 +117,10 @@
   $trainingData.wallOpened = canOpenWall();
   $trainingData.words = $trainingData.words.filter((word) => word.state !== 'IMPORT');
 
+  if ($trainingData.shuffleWords) {
+    $trainingData.words = shuffle($trainingData.words);
+  }
+
   if ($trainingData.type === LearningMode.REPETITION) {
     for (let word of $trainingData.words) {
       randomModes[word.text] = getRandomMode(word);
@@ -124,11 +128,6 @@
     $trainingData.wallOpened = canOpenWall();
   }
 
-  if ($trainingData.shuffleWords) {
-    $trainingData.words = shuffle($trainingData.words);
-  }
-
-  
   onMount(() => {
     swiper = new Swiper ('.swiper-container', {
       // Optional parameters
