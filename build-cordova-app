@@ -2,13 +2,19 @@
 export JAVA_HOME=/home/linuxmint/GitHub/jdk1.8.0_172
 export ANDROID_HOME=/home/linuxmint/GitHub/Android
 export ANDROID_SDK_ROOT=/home/linuxmint/GitHub/Android
+export PROJECT_PATH=/home/linuxmint/Projects/LearnEnglishWordsV3
+export OUTPUT_LOG=/tmp/test/cordova-build-output.log
 
-if [[ ${1} != "install" ]]; then
-    echo 'Building:'
-    npm run build-dev-cordova-android | tee /tmp/cordova-build-output.log
+echo 'Building:'
+npm run build-dev-cordova-android | tee ${OUTPUT_LOG}
+
+if [[ -z $(grep ERROR ${OUTPUT_LOG}) ]]; then
+  if [[ ${1} == "android" ]]; then
+    echo 'Installing..'
+    ${ANDROID_HOME}/platform-tools/adb install $(cat ${OUTPUT_LOG} | tail -n1)
+  fi
+  if [[ ${1} == "browser" ]]; then
+      cd ${PROJECT_PATH}/cordova
+      phonegap serve
+  fi
 fi
-
-#if [[ $? == 0 ]]; then
-#    echo 'Installing..'
-#    ${ANDROID_HOME}/platform-tools/adb install $(cat /tmp/cordova-build-output.log | tail -n1)
-#fi
