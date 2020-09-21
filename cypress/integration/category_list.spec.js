@@ -54,7 +54,7 @@ describe('CategoryList', () => {
       .click()
 
     continueButtonClick()
-    checkStatistics(0, 0, 1308)
+    checkStatistics(0, 0, 1311)
 
     goBack()
 

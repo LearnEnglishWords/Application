@@ -78,7 +78,7 @@ describe('CollectionList', () => {
     checkCollection('Basic','Obsahuje všechna základní anglická slovíčka pro základní komunikaci a dorozumění.', 'Stáhnout')
       .click()
 
-    checkDownload("Basic", 40000)
+    checkDownload("Basic", 15000)
       .click()
 
     cy.get('.page')
@@ -94,7 +94,7 @@ describe('CollectionList', () => {
     checkCollection('Intermediate','Se znalostí 2500 az 3000 anglických slov dokážete porozumět až 80% veškeré anglické konverzace.', 'Stáhnout')
       .click()
 
-    checkDownload("Intermediate", 100000)
+    checkDownload("Intermediate", 20000)
       .click()
 
     cy.get('.page')
@@ -110,7 +110,7 @@ describe('CollectionList', () => {
     checkCollection('Category','Zde jsou slova rozřazená podle témat do různých kategorií.', 'Stáhnout')
       .click()
 
-    checkDownload("Category", 50000)
+    checkDownload("Category", 10000)
       .click()
 
     cy.get('.page').contains('Vyberte si kategorie')
