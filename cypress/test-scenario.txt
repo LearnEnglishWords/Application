@@ -1,0 +1,148 @@
+Testovaci scenare:
+
+
+Zakladni:
+    vypnuti aplikace
+    O aplikaci -> zavreni
+    Nastaveni -> otestovat kazde tlacitko v nastaveni a zkontrolovat i danou funkci v aplikaci
+
+CollectionList
+    - [x] 1000 nejcastejsich  -> Stazeni, pokracovani, presun do $CategoryDetail 
+    - [x] 3000 nejcastejsich  -> Overeni, ze uz je stazeno 1000 slov, Stazeni, pokracovani, presun do $CategoryDetail
+    - [x] Kategorie -> Stazeni, pokracovani, presun do $CategoryList
+    - [ ] Osobni -> pridani dalsi kategorie, presun do $CategoryList, presun do $CategoryEdit
+    - [x] vyhledavani -> $Search
+    - [x] tlacitko zpet vypne aplikaci
+
+CategoryList
+    - vyber vsech a prechod do $CategoryDetail
+    - vyber jedne a prechod do $CategoryDetail
+    - vyber vicero a prechod do $CategoryDetail
+    - tlacitko zpet
+
+CategoryEdit 
+    - pridani slovicka, 
+    - prehrani zvuku slovicka, 
+    - presun do $WordDetail,
+    - odstraneni slovicka, 
+    - prejmenovani kategorie, 
+    - odstraneni kategorie
+    - tlacitko zpet
+
+CategoryDetail
+    - Presun do $WordList
+    - Vyber uceni: 
+        - filter -> $Training_Filter
+        - testing -> moznost random rozhazeni, vyber modu   
+        - exam -> random rozhazeni, vyber modu 
+        - repetition -> random rozhazeni, random mody 
+    - tlacitko zpet
+
+
+Training_Filter
+    - 30 slov
+    - zastena
+    - tri tlacitka -> Ne (insert into learning), Trochu (append into learning), Ano (already known)
+    - presune se prvnich @WordLimit
+    - pokud znam <= 4 tak moznost prepnout na @advancedMode 
+    - pokud je @advancedMode == true, tak zobrazit $SelectWordList
+
+    
+Training_Testing_Read
+    - @WordLimit slov
+    - zastena
+    - dve tlacitka -> Previous (predchozi slovo), Next (dalsi slovo)
+    - moznost odejit pres tlacitko zpet
+    - zobrazeni prikladu $WordExamples
+    - detail slova $WordDetail
+
+Training_Testing_Quiz
+    - @WordLimit slov
+    - presun na dalsi slovo
+    - prehrani zvuku po odkryti
+    - Prechod do $Recapitulation
+    
+Training_Testing_Write
+    - @WordLimit slov
+    - tlacitko nevim
+    - zapis prekladu dobre
+    - zapis prekladu spatne
+    - presun na dalsi slovo
+    - prehrani zvuku po odkryti
+    - Prechod do $Recapitulation
+
+Training_Testing_Listen
+    - @WordLimit slov
+    - tlacitko nevim
+    - zapis slova dobre
+    - zapis slova spatne
+    - presun na dalsi slovo
+    - moznost zobrazeni detailu slova $WordDetail
+    - Prechod do $Recapitulation
+
+
+Training_Exam_Read
+    - @WordLimit slov
+    - zastena
+    - dve tlacitka -> Umim (vlozi slovo do known, pokud bylo v learning), Neumim (vlozi slovo do learning, pokud bylo v known)
+    - detail slova $WordDetail
+    - Prechod do $Recapitulation
+    
+Training_Exam_Write
+    - @WordLimit slov
+    - zapis prekladu dobre
+    - zapis prekladu spatne
+    - presun na dalsi slovo
+    - prehrani zvuku po odkryti
+    - Prechod do $Recapitulation
+
+Training_Exam_Listen
+    - @WordLimit slov
+    - zapis slova dobre
+    - zapis slova spatne
+    - presun na dalsi slovo
+    - moznost zobrazeni detailu slova $WordDetail
+    - Prechod do $Recapitulation
+
+Training_Repetitive
+    - Pokud nejake slovicko neumim, presune se do learning
+    - Pokud nejake slovicko umim po vsech modech, uz se nikdy zobrazovat nebude
+
+Training
+    - zobrazeni $Training_Repetitive, pokud slovicko ze vsech modu jiz umim 
+    - tlacitko zpet
+
+
+Search
+    - [x] prechod do $WordDetail
+    - [x] moznost vicero vyhledavani
+    - [x] tlacitko zpet
+
+
+WordDetail 
+    - priklady pouziti
+    - ulozeni
+    - editace
+        - smazani smyslu
+        - zmena smyslu
+
+WordList                                    
+    - nacteni triceti slov, pokud je slovicek vice, tak se dole zobrazi tlacitko pro nacteni dalsich triceti slov
+    - filtrovani
+    - nastaveni zda slovo jiz umim (presune se to already_known) nebo neumim (presune se do unknown)
+    - tlacitko zpet
+
+SelectWordList
+    - nacteni triceti slov, pokud je slovicek vice a uzivatel nedosahl @WordLimit, tak se dole zobrazi tlacitko pro nacteni dalsich triceti slov
+    - pokud uzivatel da ulozit, tak se presune do learning vsech prvnich neoznacenych @WordLimit
+    - tlacitko zpet
+
+WordExamples       
+    - prehrani zvuku
+    - prelozeni vety
+    - zavreni
+
+Recapitulation
+    - zobrazeni zda kolik slovicek umim a kolik neumim
+    - tlacitko pokracovat
+    
