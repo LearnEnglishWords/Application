@@ -2272,3 +2272,19 @@ input[type="radio"].mode-input {
    outline: 0;
  }
 }
+
+.examples-list {
+  .item-media {
+    padding: 16px 0;
+    div {
+      height: 41px;
+    }
+    svg {
+      padding: 7.5px;
+      background: var(--app-element);
+      border-radius: 50%;
+      border: 1px solid #bcd1e287;
+    }
+  }
+
+}
