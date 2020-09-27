@@ -128,11 +128,16 @@
   function downloadUpdates(lastUpdateDate, resolve) {
     let dialog = f7.dialog.progress($_('collection.update_progress'), 0);
     collectionStorage.downloadUpdates(lastUpdateDate, (numberWords, counter) => {
-      dialog.setProgress(100/numberWords*counter);
-      if (numberWords === counter) {
-        saveCurrentDate();
+      if (numberWords > 0) { 
+        dialog.setProgress(100/numberWords*counter);
+        if (numberWords === counter) {
+          saveCurrentDate();
+          dialog.close();
+          resolve();
+        }
+      } else {
         dialog.close();
-        resolve();
+        resolve(); 
       }
     });
   }
