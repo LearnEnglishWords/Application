@@ -2,7 +2,7 @@ import { isDevel } from './local-config.js'
 
 export const appName = "LearnEnglishWords";
 export const appId = "'com.learnenglishwords'";
-export const version = "3.5.3";
+export const version = "3.5.4";
 export const author = "Martin Jablečník";
 
 export const isProduction = !isDevel;
