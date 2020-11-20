@@ -10,7 +10,7 @@
 4) run: git clone https://github.com/LearnEnglishWords/Application.git
 5) cd Application
 6) run: npm install
-7) run: echo 'export const isDevel = true;' > src/js/config.js
+7) run: echo 'export const isDevel = true;' > src/js/local-config.js
 
 8) download and unpack java-jdk:  https://uloz.to/file/XkkyYjKl3HCI/java-jdk8-tgz
 9) download and unpack Android SDK:  https://mega.nz/#!kfg0zI4K!Po1Ng8a6p3nbfp7-Vk6z3nxwuQOj8pigqGzzzNDFtIs
