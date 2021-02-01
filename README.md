@@ -22,5 +22,8 @@
 13) now you can run coogle chrome: http://localhost:3000 there should be running this application.
 14) for run tests you need run: `npx cypress open`
 
-
+## Links:
+Web page: https://learn-english-words.net <br>
+Google Play Store: https://play.google.com/store/apps/details?id=eu.learn.english.words <br>
+Apple App Store: https://apps.apple.com/us/app/id1529433124
 
