@@ -19,7 +19,7 @@
 
 11) edit variables in script: `build-cordova-app` for right paths
 12) run `build-cordova-app browser` script 
-13) now you can run coogle chrome: http://localhost:3000 there should be running this application.
+13) now you can run google chrome: http://localhost:3000 there should be running this application.
 14) for run tests you need run: `npx cypress open`
 
 
