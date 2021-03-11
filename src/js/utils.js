@@ -1,5 +1,7 @@
 import md5 from 'md5';
 import axios from 'axios';
+import { get } from 'svelte/store';
+import { settingsData } from './store.js';
 import { backendUrl, backendApiUrl, isProduction } from './config.js';
 
 export const defaultSettingsData = {
@@ -11,6 +13,8 @@ export const defaultSettingsData = {
   "swiperTransitionSpeed": 0,
   "enableTrainingModeWall": true,
   "enableQuiz": true,
+  "enableAdvancedWords": false,
+  "backendApiUrl": backendApiUrl,
   "fastSelectingWords": true
 };            
 
@@ -85,14 +89,14 @@ export function playExampleSound(example, pronunciation) {
 
 export function setActivity(uuid) {
   if(isProduction && uuid !== null) {
-    axios.post(`${backendApiUrl}/activity/`, {
+    axios.post(`${get(settingsData).backendApiUrl}/activity/`, {
       uuid: uuid
     });
   }
 }
 
 export function log(uuid, message) {
-  axios.post(`${backendApiUrl}/log/`, {
+  axios.post(`${get(settingsData).backendApiUrl}/log/`, {
     uuid: uuid,
     message: message
   });
@@ -100,7 +104,7 @@ export function log(uuid, message) {
 
 export function translate(text, engine="google") {
   return new Promise((resolve) => {
-    axios.post(`${backendApiUrl}/translate`, `text=${text}&engine=${engine}`)
+    axios.post(`${get(settingsData).backendApiUrl}/translate`, `text=${text}&engine=${engine}`)
       .then(function (response) {
         resolve(response.data.result)
       }).catch(function (error) {

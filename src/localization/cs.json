@@ -1,5 +1,8 @@
 {
     "app_name": "LearnEnglishWords", 
+    "errors": {
+        "server_is_not_available": "Bohužel server není dostupný. Zkuste v nastavení změnit adresu vašeho serveru."
+    },                                             
     "dialog": {
         "yes": "Ano",
         "no": "Ne",
@@ -183,6 +186,10 @@
         "swiper_transition": "Animované přechody slov",
         "advanced_mode": "Výběr slovíček pro pokročilé",
         "quiz": "Do procvičování přidat kvíz",
+        "advanced_words": "Povolit slovíčka pro pokročilé",
+        "server_setup_button": "Nastavení adresy serveru",
+        "server_setup_text": "Zadejte adresu vašeho serveru:",
+        "server_setup_saved": "Adresa byla uložena.",
         "pronunciation": {
             "text": "Výslovnost",
             "us": "Americká",

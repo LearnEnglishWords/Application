@@ -101,6 +101,11 @@
         {/if}
       </ListItem>
     </List>
+
+    <div style="padding: 16px">
+      <Button on:click={setupServer} class="page-button button-next">{$_('settings.server_setup_button')}</Button>
+    </div>
+
     <Footer />
   </div>
 </Page>
@@ -171,5 +176,14 @@
   function saveSwiperTransitionSpeed(speed) {
     $settingsData.swiperTransitionSpeed = speed;
     DS.saveSettings($settingsData);
+  }
+
+  function setupServer() {
+    var serverAddress = prompt($_('settings.server_setup_text'), $settingsData.backendApiUrl);
+    if (serverAddress !== null) {
+      $settingsData.backendApiUrl = serverAddress;
+      DS.saveSettings($settingsData);
+      alert($_('settings.server_setup_saved'));
+    }
   }
 </script>

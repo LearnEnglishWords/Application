@@ -28,7 +28,7 @@
   import en from '../localization/en.json';
   import cs from '../localization/cs.json';
   import { defaultSettingsData, AppInfo, Collections, setActivity, trainingModes, WordsType } from '../js/utils.js';
-  import { appName, appId} from '../js/config.js';
+  import { appName, appId, backendApiUrl } from '../js/config.js';
   import { lastCollectionId, settingsData, deviceUUID, allKnownWordsData, allNotKnownWordsData } from '../js/store.js';
   import CollectionStorage from '../js/storages/collections.js';
 
@@ -77,6 +77,10 @@
             if (data.advancedUser !== undefined) {
               data.fastSelectingWords = data.advancedUser;
               data.advancedUser = undefined;
+              DS.saveSettings(data);
+            }
+            if (data.backendApiUrl === undefined) {
+              data.backendApiUrl = backendApiUrl;
               DS.saveSettings(data);
             }
             settingsData.set(data);

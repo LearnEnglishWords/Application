@@ -19,7 +19,6 @@
   import WordReadDetail from '../components/word/ReadDetail.svelte';
   import DS from '../js/storages/data.js';
   import { categoryDetailData, settingsData } from '../js/store.js';
-  import { backendApiUrl } from '../js/config.js'
   import { playTextSound, LearningMode } from '../js/utils.js'
   import { _ } from 'svelte-i18n';
   
@@ -28,7 +27,11 @@
   export let saveAnywhere = false;
 
   async function searchOnline(query) {
-    const res = await fetch(`${backendApiUrl}/word/find?text=${query.replace(' ', '-')}`);
+    const res = await fetch(`${$settingsData.backendApiUrl}/word/find?text=${query.replace(' ', '-')}`);
+    if (!res.ok) {
+      alert($_('errors.server_is_not_available'));
+      return null;
+    }
     let result = await res.json();
     return result.payload === undefined ? null : result.payload
   }

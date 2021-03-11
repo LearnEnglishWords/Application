@@ -1,15 +1,19 @@
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import { WordsType, Collections, AppInfo } from '../utils.js'
-import { isProduction, backendApiUrl } from '../config.js'
+import { isProduction } from '../config.js'
 import DS from './data.js';
+import { settingsData } from '../store.js';
 
 
 export default class CollectionStorage {
-  constructor() {}
 
   async downloadAllCategories(collectionId) {
-    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/categories`);
+    const res = await fetch(`${get(settingsData).backendApiUrl}/collection/${collectionId}/categories`);
+    if (!res.ok) {
+      alert(get(_)('errors.server_is_not_available'));
+      return [];
+    }
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -19,7 +23,11 @@ export default class CollectionStorage {
   }
 
   async downloadCategoryWords(categoryId) {
-    const res = await fetch(`${backendApiUrl}/category/${categoryId}/words?shuffle=${isProduction}&state=CORRECT`);
+    const res = await fetch(`${get(settingsData).backendApiUrl}/category/${categoryId}/words?shuffle=${isProduction}&state=CORRECT`);
+    if (!res.ok) {
+      alert(get(_)('errors.server_is_not_available'));
+      return [];
+    }
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -29,7 +37,11 @@ export default class CollectionStorage {
   }
 
   async downloadCollectionWords(collectionId) {
-    const res = await fetch(`${backendApiUrl}/collection/${collectionId}/words?shuffle=${isProduction}&state=CORRECT`);
+    const res = await fetch(`${get(settingsData).backendApiUrl}/collection/${collectionId}/words?shuffle=${isProduction}&state=CORRECT`);
+    if (!res.ok) {
+      alert(get(_)('errors.server_is_not_available'));
+      return [];
+    }
     var result = await res.json();
     if (result.payload === undefined) {
       return [];
@@ -39,7 +51,11 @@ export default class CollectionStorage {
   }
  
   async downloadUpdates(fromDate, progress) {
-    const res = await fetch(`${backendApiUrl}/word/updated?from=${fromDate}`);
+    const res = await fetch(`${get(settingsData).backendApiUrl}/word/updated?from=${fromDate}`);
+    if (!res.ok) {
+      alert(get(_)('errors.server_is_not_available'));
+      progress(0, 0);
+    }
     var result = await res.json();
     if (result.payload === undefined || result.payload.count === 0) {
       progress(0, 0);
@@ -158,4 +174,3 @@ export default class CollectionStorage {
     });
   }
 }
-
