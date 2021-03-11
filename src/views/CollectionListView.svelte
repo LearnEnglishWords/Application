@@ -196,7 +196,7 @@
 
   let basicCollection = new Collection(Collections.BASIC.id, Collections.BASIC.name, true);
   let standardCollection = new Collection(Collections.INTERMEDIATE.id, Collections.INTERMEDIATE.name, true, basicCollection);
-  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, false, standardCollection);
+  let advancedCollection = new Collection(Collections.ADVANCED.id, Collections.ADVANCED.name, true, standardCollection);
 
   let collectionItems = [
     basicCollection,
@@ -209,5 +209,7 @@
     new Collection(Collections.PERSONAL.id, Collections.PERSONAL.name, true),
   ];
   
-  setTimeout(() => { updateWords().then(preloadAllCollections) }, 2000);
+  // This is disabled because official server is not available right now
+  //setTimeout(() => { updateWords().then(preloadAllCollections) }, 2000);
+  setTimeout(() => { preloadAllCollections() }, 2000);
 </script>
